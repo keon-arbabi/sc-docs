@@ -1,0 +1,35 @@
+<div style="text-align: center; margin-bottom: 1.5rem;">
+  <img src="_static/images/runner_title_light.svg" alt="brisc" class="only-light" style="max-width: 50%;">
+  <img src="_static/images/runner_title_dark.svg" alt="brisc" class="only-dark" style="max-width: 50%;">
+</div>
+
+brisc is a high-performance library for analyzing single-cell data at scale. Built on [Polars](https://pola.rs/) and optimized C++, it provides a blazing fast, memory-efficient pipeline that interoperates seamlessly with the Scverse and Seurat ecosystems.
+
+## Key features
+
+-   **High Performance**: Critical algorithms—including Harmony integration, Leiden clustering, and LocalMAP embedding—are re-implemented in parallel C++ to process millions of cells in minutes.
+-   **Polars Integration**: Cell (`obs`) and gene (`var`) metadata are stored in Polars DataFrames, enabling instant filtering, joining, and querying.
+-   **Seamless Interoperability**: Natively read and write Seurat (`.rds`, `.h5Seurat`) and AnnData (`.h5ad`) files, bridging the Python and R ecosystems without intermediate conversion steps.
+-   **Parallel I/O**: Custom multi-threaded readers load massive HDF5 datasets significantly faster than standard implementations.
+-   **Complete Pipeline**: A unified toolkit spanning QC (including doublet detection), batch correction, clustering, and pseudobulk differential expression via limma-voom.
+-   **Memory Efficient**: Built strictly on sparse arrays to minimize memory usage, handling large-scale atlases on standard hardware.
+
+:::{toctree}
+:caption: Tutorials
+:hidden:
+:maxdepth: 2
+
+tutorials/index
+
+:::
+
+:::{toctree}
+:caption: API
+:hidden:
+:maxdepth: 4
+
+api/single_cell/index
+api/pseudobulk/index
+api/de/index
+
+:::

@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>single_cell.Pseudobulk.DE &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/pseudobulk/api/single_cell.Pseudobulk.DE';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Utility" href="../utility.html" />
+    <link rel="prev" title="single_cell.Pseudobulk.regress_out" href="single_cell.Pseudobulk.regress_out.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../../../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../constructor.html">Constructor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.__init__.html">single_cell.Pseudobulk.__init__</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.save.html">single_cell.Pseudobulk.save</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../properties.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.X.html">single_cell.Pseudobulk.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.obs.html">single_cell.Pseudobulk.obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.var.html">single_cell.Pseudobulk.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.obs_names.html">single_cell.Pseudobulk.obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.var_names.html">single_cell.Pseudobulk.var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.num_threads.html">single_cell.Pseudobulk.num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.shape.html">single_cell.Pseudobulk.shape</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_access.html">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.sample.html">single_cell.Pseudobulk.sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.gene.html">single_cell.Pseudobulk.gene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dictionary_interface.html">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.keys.html">single_cell.Pseudobulk.keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.values.html">single_cell.Pseudobulk.values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.items.html">single_cell.Pseudobulk.items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.iter_X.html">single_cell.Pseudobulk.iter_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.iter_obs.html">single_cell.Pseudobulk.iter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.iter_var.html">single_cell.Pseudobulk.iter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.__contains__.html">single_cell.Pseudobulk.__contains__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.__or__.html">single_cell.Pseudobulk.__or__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.__eq__.html">single_cell.Pseudobulk.__eq__</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manipulation.html">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.set_obs_names.html">single_cell.Pseudobulk.set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.set_var_names.html">single_cell.Pseudobulk.set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.set_num_threads.html">single_cell.Pseudobulk.set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.filter_obs.html">single_cell.Pseudobulk.filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.filter_var.html">single_cell.Pseudobulk.filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.select_obs.html">single_cell.Pseudobulk.select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.select_var.html">single_cell.Pseudobulk.select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.select_cell_types.html">single_cell.Pseudobulk.select_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.with_columns_obs.html">single_cell.Pseudobulk.with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.with_columns_var.html">single_cell.Pseudobulk.with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.drop_obs.html">single_cell.Pseudobulk.drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.drop_var.html">single_cell.Pseudobulk.drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.drop_cell_types.html">single_cell.Pseudobulk.drop_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.rename_obs.html">single_cell.Pseudobulk.rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.rename_var.html">single_cell.Pseudobulk.rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.rename_cell_types.html">single_cell.Pseudobulk.rename_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.cast_X.html">single_cell.Pseudobulk.cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.cast_obs.html">single_cell.Pseudobulk.cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.cast_var.html">single_cell.Pseudobulk.cast_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.join_obs.html">single_cell.Pseudobulk.join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.join_var.html">single_cell.Pseudobulk.join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.subsample_obs.html">single_cell.Pseudobulk.subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.subsample_var.html">single_cell.Pseudobulk.subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.split_by_cell_type.html">single_cell.Pseudobulk.split_by_cell_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.concat_obs.html">single_cell.Pseudobulk.concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.concat_var.html">single_cell.Pseudobulk.concat_var</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../transformation.html">Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.copy.html">single_cell.Pseudobulk.copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.to_df.html">single_cell.Pseudobulk.to_df</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.map_X.html">single_cell.Pseudobulk.map_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.map_obs.html">single_cell.Pseudobulk.map_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.map_var.html">single_cell.Pseudobulk.map_var</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../analysis.html">Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.qc.html">single_cell.Pseudobulk.qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.library_size.html">single_cell.Pseudobulk.library_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.CPM.html">single_cell.Pseudobulk.CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.log_CPM.html">single_cell.Pseudobulk.log_CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.regress_out.html">single_cell.Pseudobulk.regress_out</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">single_cell.Pseudobulk.DE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../utility.html">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.peek_obs.html">single_cell.Pseudobulk.peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.peek_var.html">single_cell.Pseudobulk.peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.pipe.html">single_cell.Pseudobulk.pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.pipe_X.html">single_cell.Pseudobulk.pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.pipe_obs.html">single_cell.Pseudobulk.pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.Pseudobulk.pipe_var.html">single_cell.Pseudobulk.pipe_var</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Pseudobulk</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../analysis.html" class="nav-link">Analysis</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">single_cell.Pseudobulk.DE</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="single-cell-pseudobulk-de">
+<h1>single_cell.Pseudobulk.DE<a class="headerlink" href="#single-cell-pseudobulk-de" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="single_cell.Pseudobulk.DE">
+<span class="sig-prename descclassname"><span class="pre">Pseudobulk.</span></span><span class="sig-name descname"><span class="pre">DE</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">contrasts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">categorical_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">cell_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">excluded_cell_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">library_size_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'library_size'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">robust</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">return_voom_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">allow_float</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#Pseudobulk.DE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.Pseudobulk.DE" title="Link to this definition">#</a></dt>
+<dd><p>Perform differential expression (DE) on a Pseudobulk dataset with
+limma-voom. The DE design is specified via an R formula string that
+references columns from <cite>obs</cite>.</p>
+<p>Must be run after <cite>library_size()</cite>. Requires raw counts, so must not be
+run after <cite>CPM()</cite> or <cite>log_CPM()</cite>.</p>
+<p><em>To avoid confounding due to library size or the number of cells
+included in the pseudobulk, we strongly recommend including
+`’+ log2(num_cells) + log2(library_size)’` to the `formula`, where
+`’library_size’` is a column of `obs` that will be added when running
+`library_size()` before this function.</em></p>
+<p>By default, DE is reported with respect to the first column of the
+design matrix after the intercept, which is usually just the first term
+in the formula. This can be changed via the <cite>coefficient</cite> and
+<cite>contrasts</cite> arguments.</p>
+<p>By default, voomByGroup is used instead of voom when reporting DE with
+respect to a categorical variable, e.g. when comparing disease cases to
+healthy controls. This can be changed via the <cite>group</cite> argument.</p>
+<p>The design matrix is constructed via the <cite>model.matrix()</cite> R function.
+String and Categorical columns of <cite>obs</cite> referenced in <cite>formula</cite> are
+converted to unordered factors, which by default are one-hot encoded
+into <cite>N - 1</cite> columns of the design matrix, where <cite>N</cite> is the number of
+unique values (<cite>contr.treatment</cite> in R). Conversely, Enum columns are
+converted to ordered factors, which by default are treated ordinally,
+as equally-spaced points, and converted into <cite>N - 1</cite> columns in the
+design matrix, where each column represents increasingly complex
+polynomial terms (linear, quadratic, cubic, etc.) calculated from these
+equally-spaced points (<cite>contr.poly</cite> in R).</p>
+<p>Often, however, integer and Enum columns of <cite>obs</cite> represent categorical
+variables and should be one-hot encoded. To do so, specify their names
+in <cite>categorical_columns</cite>. The encodings of unordered and ordered
+factors can also be changed globally; for example, to use Helmert
+contrasts for ordered factors:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
+from ryp import r
+r(‘options(contrasts=c(unordered=”contr.treatment”, ‘</p>
+<blockquote>
+<div><p>‘                    ordered=”contr.helmert”))’)</p>
+</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+<p>To view the current value of the <cite>contrasts</cite> option, use:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`r</span>
+<span class="pre">from</span> <span class="pre">ryp</span> <span class="pre">import</span> <span class="pre">r</span>
+<span class="pre">r('getOption(&quot;contrasts&quot;)')</span>
+<span class="pre">`</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p class="param-header"><strong>formula</strong> : <em>str</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em></p><p class="param-desc">a string representation of an R formula specifying the DE
+design in terms of columns of <cite>obs</cite>, e.g.
+<cite>‘~ disease_status + age + sex’</cite>. Will be converted into
+an R formula object with R’s <cite>as.formula()</cite> function and
+then expanded into a design matrix with R’s
+<cite>model.matrix()</cite> function. Must begin with a tilde (<cite>~</cite>).
+May also be a dictionary mapping cell-type names to
+formulas; each cell type in this Pseudobulk dataset must
+be present.</p></li>
+<li><p class="param-header"><strong>coefficient</strong> : <em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>] </em><em>| </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>]</em><em>]</em></p><p class="param-desc">the name or 0-based index of a coefficient in the
+design matrix to report DE with respect to, or a
+sequence of names or indices to report DE with respect
+to multiple coefficients. Or, a dictionary mapping
+cell-type names to any of the above; each cell type in
+this Pseudobulk dataset must be present. Negative
+indices work in the usual Python way. Defaults to
+<cite>coefficient=1</cite>, the first variable in <cite>formula</cite>
+(<cite>coefficient=0</cite> would refer to the intercept).
+Mutually exclusive with <cite>contrasts</cite>.</p></li>
+<li><p class="param-header"><strong>contrasts</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional dictionary mapping contrast names to string
+representations of R formulas specifying contrasts
+between names of columns in the design matrix (e.g.
+<cite>{‘DrugA_vs_Control’: ‘DrugA - Control’}</cite>); the contrast
+names (keys of the dictionary) will appear in the
+<cite>‘Coefficient’</cite> column of the output DE object. Or, a
+dictionary mapping cell-type names to these
+dictionaries; each cell type in this Pseudobulk dataset
+must be present. If specified, DE will be performed with
+respect to each contrast by running limma’s
+<cite>makeContrasts()</cite> and <cite>contrasts.fit()</cite> functions after
+<cite>lmFit()</cite>. Mutually exclusive with <cite>coefficient</cite>.
+Notably, contrasts can be specified that involve column
+names that would not be valid R variable names, and
+backticks are optional:
+<cite>{‘CD8 vs CD4’: ‘CD8+ T-cells - CD4+ T-cells’}</cite> is valid
+even though the two column names <cite>‘CD8+ T-cells’</cite> and
+<cite>‘CD4+ T-cells’</cite> are not escaped with backticks.</p></li>
+<li><p class="param-header"><strong>group</strong> : <em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>~typing.Callable</em><em>[</em><em>[</em><em>~single_cell.Pseudobulk</em><em>, </em><em>str</em><em>]</em><em>, </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>~typing.Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>None</em><em>]</em></p><p class="param-desc">if <cite>group=False</cite>, force the use of voom instead of
+voomByGroup. If <cite>group=None</cite>, group on the unique
+combinations of values of the categorical columns of <cite>obs</cite>
+referenced in <cite>coefficient</cite>, or the columns of <cite>obs</cite>
+referenced in <cite>contrasts</cite>. Here, categorical columns are
+those that are String, Categorical, Boolean, or that are
+integer or Enum and specified in <cite>categorical_columns</cite>. If
+<cite>group</cite> is a column (the name of a String, Categorical,
+Enum, Boolean, or integer column of <cite>obs</cite>, a polars
+expression, a polars Series, a 1D NumPy array, or a function
+that takes in this Pseudobulk dataset and a cell type and
+returns a polars Series or 1D NumPy array), force the use of
+voomByGroup and group on the unique values of that column.
+<cite>group</cite> can also be a dictionary mapping cell-type names to
+<cite>False</cite>, <cite>None</cite>, or a column for each cell type. When using
+voomByGroup, the same groups are also used as the <cite>group</cite>
+argument to <cite>calcNormFactors()</cite> when normalizing by library
+size. All groups must have at least two samples.</p></li>
+<li><p class="param-header"><strong>categorical_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">one or more names of integer or Enum columns
+of <cite>obs</cite> to treat as categorical (i.e. convert
+to unordered factors) rather than continuous
+or ordinal, or a dictionary mapping cell-type
+names to names of integer or Enum columns</p></li>
+<li><p class="param-header"><strong>cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to test for DE; if <cite>None</cite>, test
+all cell types. If specified and using dictionaries for
+<cite>formula</cite>, <cite>coefficient</cite>, <cite>contrasts</cite>, or <cite>group</cite>, the
+keys of these dictionaries must match the cell types
+specified here. Mutually exclusive with
+<cite>excluded_cell_types</cite>.</p></li>
+<li><p class="param-header"><strong>excluded_cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude when testing
+for DE. If specified and using dictionaries
+for <cite>formula</cite>, <cite>coefficient</cite>, <cite>contrasts</cite>, or
+<cite>group</cite>, the keys of these dictionaries must
+also exclude these cell types. Mutually
+exclusive with <cite>cell_types</cite>.</p></li>
+<li><p class="param-header"><strong>library_size_column</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Series</em><em> | </em><em>ndarray</em><em> | </em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../index.html#single_cell.Pseudobulk" title="single_cell.Pseudobulk"><em>Pseudobulk</em></a><em>, </em><em>str</em><em>]</em><em>, </em><em>Series</em><em> | </em><em>ndarray</em><em>]</em></p><p class="param-desc">a floating-point column of <cite>obs</cite> containing
+each sample’s library size. Can be a column
+name, a polars expression, a polars Series, a
+1D NumPy array, or a function that takes in
+this Pseudobulk dataset and a cell type and
+returns a polars Series or 1D NumPy array. Or,
+a dictionary mapping cell-type names to any of
+the above; each cell type in this Pseudobulk
+dataset must be present.</p></li>
+<li><p class="param-header"><strong>strict</strong> : <em>bool</em></p><p class="param-desc">whether to raise an error if the design matrix does not
+have more rows than columns and/or is rank-deficient for
+any cell type. If <cite>strict=False</cite>, cell types where this is
+the case will be skipped, and an error will only be raised
+if every cell type is skipped.</p></li>
+<li><p class="param-header"><strong>robust</strong> : <em>bool</em></p><p class="param-desc">whether to specify <cite>robust=True</cite> in limma’s <cite>eBayes()</cite>
+function. You may wish to specify this if your dataset
+contains outliers.</p></li>
+<li><p class="param-header"><strong>return_voom_info</strong> : <em>bool</em></p><p class="param-desc">whether to include the voom weights and voom plot
+data in the returned DE object; set to <cite>False</cite>
+for reduced runtime if you do not need to use the
+voom weights or generate voom plots</p></li>
+<li><p class="param-header"><strong>allow_float</strong> : <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
+floating-point (suggesting the user may not be using
+the raw counts, e.g. due to accidentally having run
+<cite>log_CPM()</cite> already); if <cite>True</cite>, disable this sanity
+check</p></li>
+<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print out details of the DE estimation</p></li>
+<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use for DE estimation. Set
+<cite>num_threads=-1</cite> to use all available cores, as
+determined by <cite>os.cpu_count()</cite>, or leave unset to use
+<cite>self.num_threads</cite> cores. Parallelization takes place
+across cell types, so specifying more cores than the
+number of cell types may not improve performance. Does
+not affect the returned Pseudobulk dataset’s
+<cite>num_threads</cite>; this will always be the same as the
+original dataset’s <cite>num_threads</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A DE object with a <cite>table</cite> attribute containing a polars DataFrame
+of the DE results, with columns:</p>
+<ul class="simple">
+<li><p>cell_type: the cell type in which DE was tested</p></li>
+<li><dl class="simple">
+<dt>coefficient: the coefficient (or contrast) for which DE was</dt><dd><p>tested</p>
+</dd>
+</dl>
+</li>
+<li><p>gene: the gene for which DE was tested</p></li>
+<li><p>logFC: the log2 fold change of the gene, i.e. its effect size</p></li>
+<li><p>SE: the standard error of the effect size</p></li>
+<li><p>LCI: the lower 95% confidence interval of the effect size</p></li>
+<li><p>UCI: the upper 95% confidence interval of the effect size</p></li>
+<li><dl class="simple">
+<dt>AveExpr: the gene’s average expression in this cell type, in log</dt><dd><p>CPM</p>
+</dd>
+</dl>
+</li>
+<li><p>p: the DE p-value</p></li>
+<li><p>Bonferroni: the Bonferroni-corrected DE p-value</p></li>
+<li><p>FDR: the FDR q-value for the DE</p></li>
+</ul>
+<p>If <cite>return_voom_info=True</cite>, the DE object also includes a
+<cite>voom_weights</cite> attribute containing a {cell_type: DataFrame}
+dictionary of voom weights, and a <cite>voom_plot_data</cite> attribute
+containing a {cell_type: DataFrame} dictionary of info necessary to
+construct a voom plot with <cite>DE.plot_voom()</cite>.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../de/index.html#single_cell.DE" title="single_cell.DE"><em>DE</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="single_cell.Pseudobulk.regress_out.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">single_cell.Pseudobulk.regress_out</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../utility.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Utility</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single_cell.Pseudobulk.DE"><code class="docutils literal notranslate"><span class="pre">Pseudobulk.DE()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

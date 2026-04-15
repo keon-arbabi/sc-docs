@@ -1,0 +1,559 @@
+/* To have blue background of width of the block (instead of width of content) */
+dl.class>dt:first-of-type {
+    display: block !important;
+}
+
+/* Scanpy-style parameter lists: no bullets, name:type header + indented desc */
+dl.field-list dd > ul.simple {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+dl.field-list dd > ul.simple > li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 0.8em;
+}
+p.param-header {
+    margin-bottom: 0.1em;
+}
+/* param name: orange */
+p.param-header strong {
+    color: var(--code-orange);
+}
+/* param type: teal, non-italic */
+p.param-header em {
+    color: var(--code-cyan);
+    font-style: normal;
+}
+/* backtick references in param descriptions: purple */
+p.param-desc cite,
+p.param-desc code.docutils,
+p.param-desc code.literal {
+    color: var(--code-purple) !important;
+}
+/* typedef links in param headers: underline on hover */
+p.param-header a:hover em {
+    text-decoration: underline;
+}
+p.param-desc {
+    margin-left: 2em;
+    margin-top: 0;
+}
+
+/* Display long method names over multiple lines in navbar. */
+.bd-toc-item {
+    overflow-wrap: break-word;
+}
+
+/* Body font is left at the theme default; only the monospace stack is
+   overridden so code blocks/signatures match the VS Code default fonts. */
+:root {
+    --pst-font-family-monospace: Menlo, Monaco, Consolas, 'Droid Sans Mono', 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Monokai Pro Ristretto Filter palette — light & dark variants */
+html[data-theme="light"] {
+    --pst-color-on-background: #faf4f2;
+    --pst-color-background: #fefaf9;
+    --pst-color-surface: #faf4f2;
+    --pst-color-on-surface: #29242a;
+    --pst-color-text-base: #29242a;
+    --pst-gradient-sidebar-left: #ede7e5;
+    --pst-gradient-sidebar-right: #ede7e5;
+    --pst-color-border: #d7cfcd;
+    --pst-color-primary: #e16032;
+    --pst-color-secondary: #c9542a;
+    --pst-color-link: var(--pst-color-primary);
+    --pst-color-link-hover: var(--pst-color-secondary);
+
+    --code-red:    #e14775;
+    --code-orange: #e16032;
+    --code-yellow: #cc7a0a;
+    --code-green:  #269d69;
+    --code-purple: #7058be;
+    --code-cyan:   #1c8ca8;
+    --code-comment:#a59c9b;
+    --code-text:   #5b5353;
+}
+
+html[data-theme="dark"] {
+    --pst-color-on-background: #2c2525;
+    --pst-color-background: #403838;
+    --pst-color-surface: #2c2525;
+    --pst-color-on-surface: #fff1f3;
+    --pst-color-text-base: #fff1f3;
+    --pst-gradient-sidebar-left: #211c1c;
+    --pst-gradient-sidebar-right: #211c1c;
+    --pst-color-sidebar-nav: #211c1c;
+    --pst-color-border: #5a4f4f;
+    --pst-color-primary: #f38d70;
+    --pst-color-secondary: #f7a48d;
+    --pst-color-link: var(--pst-color-primary);
+    --pst-color-link-hover: var(--pst-color-secondary);
+
+    --code-red:    #f06883;
+    --code-orange: #f38d70;
+    --code-yellow: #f9cc6c;
+    --code-green:  #adda78;
+    --code-purple: #9ca9eb;
+    --code-cyan:   #85dacc;
+    --code-comment:#72696a;
+    --code-text:   #fff1f3;
+}
+
+/* The sidebar's own background is transparent — the gradient panel below
+   paints both the sidebar area and the extension to the viewport edge so
+   they're guaranteed to match. */
+div.bd-sidebar-primary {
+    background-image: none;
+    background-color: transparent;
+}
+
+/* Paint a single gradient panel that covers (a) the empty strip between
+   the viewport's left edge and .bd-container__inner, and (b) the 25%-wide
+   sidebar area at the start of .bd-container__inner. The sidebar above is
+   transparent so it inherits this background, which means the colour at
+   any point of the sidebar is identical to the extension to its left. */
+.bd-container__inner {
+    position: relative;
+}
+.bd-container__inner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100vw;
+    width: calc(100vw + 25%);
+    background-image: linear-gradient(
+        90deg,
+        var(--pst-gradient-sidebar-left) 0%,
+        var(--pst-gradient-sidebar-left) 100vw,
+        var(--pst-gradient-sidebar-right) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+/* On pages where the primary sidebar is hidden (landing page etc., marked
+   with .hide-on-wide), drop the panel so it doesn't bleed into the content. */
+.bd-container__inner:has(.bd-sidebar-primary.hide-on-wide)::before {
+    display: none;
+}
+/* Keep sidebar contents above the gradient panel */
+div.bd-sidebar-primary {
+    position: sticky;
+    z-index: 1;
+}
+
+/* Note admonition highlight — orange */
+html[data-theme="light"] .admonition.note {
+    border-color: #e16032;
+}
+html[data-theme="light"] .admonition.note > .admonition-title {
+    background-color: rgba(225, 96, 50, 0.15);
+}
+html[data-theme="light"] .admonition.note > .admonition-title::after {
+    color: #e16032 !important;
+}
+html[data-theme="dark"] .admonition.note {
+    border-color: #f38d70;
+}
+html[data-theme="dark"] .admonition.note > .admonition-title {
+    background-color: rgba(243, 141, 112, 0.15);
+}
+html[data-theme="dark"] .admonition.note > .admonition-title::after {
+    color: #f38d70 !important;
+}
+
+/* Tip admonition highlight — orange */
+html[data-theme="light"] .admonition.tip {
+    border-color: #e16032;
+}
+html[data-theme="light"] .admonition.tip > .admonition-title {
+    background-color: rgba(225, 96, 50, 0.15);
+}
+html[data-theme="light"] .admonition.tip > .admonition-title::after {
+    color: #e16032 !important;
+}
+html[data-theme="dark"] .admonition.tip {
+    border-color: #f38d70;
+}
+html[data-theme="dark"] .admonition.tip > .admonition-title {
+    background-color: rgba(243, 141, 112, 0.15);
+}
+html[data-theme="dark"] .admonition.tip > .admonition-title::after {
+    color: #f38d70 !important;
+}
+
+/* API links in code blocks — subtle underline on hover */
+a.api-link:hover span {
+    text-decoration: underline;
+}
+
+div.sd-card {
+    background-image: linear-gradient(0deg, var(--pst-gradient-sidebar-left) 0%, var(--pst-gradient-sidebar-right) 100%);
+}
+
+/* match docs footer colour to the header */
+footer.bd-footer {
+    background-color: var(--pst-color-on-background);
+}
+
+
+
+/* Search bar background — match the navbar */
+html[data-theme="light"] .search-button-field {
+    background-color: #fefaf9;
+}
+html[data-theme="dark"] .search-button-field {
+    background-color: #403838;
+}
+
+/* fix visited link colour */
+a:visited {
+    color: var(--pst-color-link);
+}
+
+/* give code examples the same faint drop-shadow as admonitions */
+pre {
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow), 0 0 .0625rem var(--pst-color-shadow) !important;
+}
+
+/* smaller navbar logo */
+.navbar-brand img {
+    height: 28px;
+    width: auto;
+}
+
+
+/* center-justify the API nav items to the page:
+   use CSS grid with three columns — start | center | end —
+   where start and end are equal-width and center is auto-sized */
+.bd-header__inner.bd-page-width {
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+/* logo in the first column, left-aligned */
+.bd-header__inner .navbar-header-items__start {
+    grid-column: 1;
+    justify-self: start;
+}
+/* nav links in the center column */
+.bd-header__inner .navbar-header-items__center {
+    margin: 0 !important;
+}
+/* the col-lg-9 wrapper becomes a contents container so its children
+   (.navbar-header-items__center and __end) promote into the grid */
+.bd-header__inner .navbar-header-items {
+    display: contents;
+}
+/* search/theme switcher in the third column, right-aligned */
+.bd-header__inner .navbar-header-items__end {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+}
+
+/* =====================================================================
+   Code highlighting — Monokai Pro Ristretto Filter
+   Hardcoded here as the final CSS file to guarantee override.
+   ===================================================================== */
+
+/* Code block background */
+html[data-theme="light"] div.highlight,
+html[data-theme="light"] div.highlight pre { background: #fefaf9 !important; color: #5b5353 !important; }
+html[data-theme="dark"] div.highlight,
+html[data-theme="dark"] div.highlight pre  { background: #403838 !important; color: #fff1f3 !important; }
+
+/* Light: comments */
+html[data-theme="light"] .highlight .c  { color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .ch { color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .cm { color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .cp { color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .cpf{ color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .c1 { color: #a59c9b !important; font-style: italic !important; }
+html[data-theme="light"] .highlight .cs { color: #a59c9b !important; font-style: italic !important; }
+/* Light: keywords */
+html[data-theme="light"] .highlight .k  { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kd { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kn { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kp { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kr { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kt { color: #e14775 !important; }
+html[data-theme="light"] .highlight .kc { color: #7058be !important; }
+/* Light: names */
+html[data-theme="light"] .highlight .n  { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .nn { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .nv { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .nx { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .py { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .nl { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .nf { color: #269d69 !important; }
+html[data-theme="light"] .highlight .fm { color: #269d69 !important; }
+html[data-theme="light"] .highlight .nc { color: #269d69 !important; }
+html[data-theme="light"] .highlight .nb { color: #1c8ca8 !important; }
+html[data-theme="light"] .highlight .nd { color: #1c8ca8 !important; }
+html[data-theme="light"] .highlight .ne { color: #1c8ca8 !important; }
+html[data-theme="light"] .highlight .nt { color: #1c8ca8 !important; }
+html[data-theme="light"] .highlight .na { color: #e16032 !important; }
+html[data-theme="light"] .highlight .bp { color: #e16032 !important; }
+/* Light: strings */
+html[data-theme="light"] .highlight .s  { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .s1 { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .s2 { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sa { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sb { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sc { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .dl { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sd { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .se { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sh { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .si { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sx { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .sr { color: #cc7a0a !important; }
+html[data-theme="light"] .highlight .ss { color: #cc7a0a !important; }
+/* Light: numbers & literals */
+html[data-theme="light"] .highlight .m  { color: #7058be !important; }
+html[data-theme="light"] .highlight .mb { color: #7058be !important; }
+html[data-theme="light"] .highlight .mf { color: #7058be !important; }
+html[data-theme="light"] .highlight .mh { color: #7058be !important; }
+html[data-theme="light"] .highlight .mi { color: #7058be !important; }
+html[data-theme="light"] .highlight .mo { color: #7058be !important; }
+html[data-theme="light"] .highlight .il { color: #7058be !important; }
+/* Light: operators & punctuation */
+html[data-theme="light"] .highlight .o  { color: #e14775 !important; }
+html[data-theme="light"] .highlight .ow { color: #e14775 !important; }
+html[data-theme="light"] .highlight .p  { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .pm { color: #5b5353 !important; }
+html[data-theme="light"] .highlight .err{ color: #e14775 !important; background: none !important; }
+html[data-theme="light"] .highlight .w  { color: #5b5353 !important; }
+
+/* Dark: comments */
+html[data-theme="dark"] .highlight .c  { color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .ch { color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .cm { color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .cp { color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .cpf{ color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .c1 { color: #72696a !important; font-style: italic !important; }
+html[data-theme="dark"] .highlight .cs { color: #72696a !important; font-style: italic !important; }
+/* Dark: keywords */
+html[data-theme="dark"] .highlight .k  { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kd { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kn { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kp { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kr { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kt { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .kc { color: #9ca9eb !important; }
+/* Dark: names */
+html[data-theme="dark"] .highlight .n  { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .nn { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .nv { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .nx { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .py { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .nl { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .nf { color: #adda78 !important; }
+html[data-theme="dark"] .highlight .fm { color: #adda78 !important; }
+html[data-theme="dark"] .highlight .nc { color: #adda78 !important; }
+html[data-theme="dark"] .highlight .nb { color: #85dacc !important; }
+html[data-theme="dark"] .highlight .nd { color: #85dacc !important; }
+html[data-theme="dark"] .highlight .ne { color: #85dacc !important; }
+html[data-theme="dark"] .highlight .nt { color: #85dacc !important; }
+html[data-theme="dark"] .highlight .na { color: #f38d70 !important; }
+html[data-theme="dark"] .highlight .bp { color: #f38d70 !important; }
+/* Dark: strings */
+html[data-theme="dark"] .highlight .s  { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .s1 { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .s2 { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sa { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sb { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sc { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .dl { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sd { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .se { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sh { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .si { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sx { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .sr { color: #f9cc6c !important; }
+html[data-theme="dark"] .highlight .ss { color: #f9cc6c !important; }
+/* Dark: numbers & literals */
+html[data-theme="dark"] .highlight .m  { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .mb { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .mf { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .mh { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .mi { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .mo { color: #9ca9eb !important; }
+html[data-theme="dark"] .highlight .il { color: #9ca9eb !important; }
+/* Dark: operators & punctuation */
+html[data-theme="dark"] .highlight .o  { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .ow { color: #f06883 !important; }
+html[data-theme="dark"] .highlight .p  { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .pm { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .err{ color: #f06883 !important; background: none !important; }
+html[data-theme="dark"] .highlight .w  { color: #fff1f3 !important; }
+
+/* Inline code — strip the theme's chip background so it sits on the page bg */
+html[data-theme] code.literal,
+html[data-theme] code.docutils {
+    background-color: transparent;
+    border: none;
+    color: var(--code-orange);
+    font-family: var(--pst-font-family-monospace);
+}
+
+/* =====================================================================
+   Autodoc function/class signatures
+   The HTML uses .sig with nested .sig-name, .sig-param, .n, .p, .o,
+   .s, .k, .default_value etc. These mostly mirror pygments classes,
+   but we need a few extra rules: parameter name vs type, and the
+   `class` keyword on class signatures.
+   ===================================================================== */
+
+html[data-theme] dt.sig {
+    font-family: var(--pst-font-family-monospace);
+    color: var(--code-text);
+    background: transparent;
+}
+
+/* `class single_cell.SingleCell(` — split the parts */
+html[data-theme] dt.sig .property,
+html[data-theme] dt.sig .property .k,
+html[data-theme] dt.sig .property .pre   { color: var(--code-red); }   /* `class` */
+html[data-theme] dt.sig .sig-prename,
+html[data-theme] dt.sig .sig-prename .pre { color: var(--code-comment); } /* `single_cell.` */
+html[data-theme] dt.sig .sig-name,
+html[data-theme] dt.sig .sig-name .pre   { color: var(--code-green); } /* `SingleCell` / `__init__` */
+html[data-theme] dt.sig .sig-paren       { color: var(--code-text); }
+
+/* Parameter name = first .n inside an em.sig-param */
+html[data-theme] em.sig-param > .n:first-child,
+html[data-theme] em.sig-param > .n:first-child .pre {
+    color: var(--code-orange);
+    font-style: normal;
+}
+
+/* Type expression = subsequent .n (with all its nested .pre) */
+html[data-theme] em.sig-param > .n:not(:first-child),
+html[data-theme] em.sig-param > .n:not(:first-child) .pre {
+    color: var(--code-cyan);
+    font-style: italic;
+}
+
+/* Punctuation, operators, strings, constants, defaults inside sig */
+html[data-theme] dt.sig .p,
+html[data-theme] dt.sig .p .pre              { color: var(--code-text); font-style: normal; }
+html[data-theme] dt.sig .o,
+html[data-theme] dt.sig .o .pre              { color: var(--code-red); font-style: normal; }
+html[data-theme] dt.sig .s,
+html[data-theme] dt.sig .s .pre              { color: var(--code-yellow); font-style: normal; }
+html[data-theme] dt.sig em.sig-param > .k,
+html[data-theme] dt.sig em.sig-param > .k .pre,
+html[data-theme] em.sig-param .k,
+html[data-theme] em.sig-param .k .pre        { color: var(--code-purple); font-style: normal; }
+html[data-theme] dt.sig .default_value,
+html[data-theme] dt.sig .default_value .pre  { color: var(--code-purple); font-style: normal; }
+html[data-theme] dt.sig .w                   { color: inherit; }
+
+/* Positional-only `/` and keyword-only `*` separators */
+html[data-theme] .positional-only-separator,
+html[data-theme] .positional-only-separator .pre,
+html[data-theme] .keyword-only-separator,
+html[data-theme] .keyword-only-separator .pre  { color: var(--code-red); }
+
+/* Make sure the heavy default `dt.sig` background from pydata is removed
+   so the gradient/page bg shows through, matching the editor look */
+dl.py > dt.sig.sig-object.py {
+    background-color: var(--pst-color-background) !important;
+    border-left: none;
+}
+
+/* Method overview tables (autosummary) — light: remove border, zebra;
+   dark: flat bg with #faf4f2 border */
+html[data-theme="light"] table.autosummary {
+    border: none;
+}
+html[data-theme="light"] table.autosummary td,
+html[data-theme="light"] table.autosummary th {
+    border: none;
+}
+html[data-theme="light"] table.autosummary tr.row-odd > td,
+html[data-theme="light"] table.autosummary tbody tr:nth-child(odd) > td {
+    background-color: var(--pst-color-on-background);
+}
+html[data-theme="light"] table.autosummary tr.row-even > td,
+html[data-theme="light"] table.autosummary tbody tr:nth-child(even) > td {
+    background-color: var(--pst-color-background);
+}
+html[data-theme="dark"] table.autosummary {
+    border: 1px solid #faf4f2;
+}
+html[data-theme="dark"] table.autosummary td,
+html[data-theme="dark"] table.autosummary th {
+    border-color: #faf4f2;
+}
+html[data-theme="dark"] table.autosummary tr > td {
+    background-color: #403838;
+}
+
+/* Content tables (e.g. tutorial summary) — match autosummary look */
+html[data-theme="light"] .bd-content .table {
+    border: none;
+}
+html[data-theme="light"] .bd-content .table td,
+html[data-theme="light"] .bd-content .table th {
+    border: none;
+}
+html[data-theme="light"] .bd-content .table tbody tr:nth-child(odd) > td {
+    background-color: var(--pst-color-on-background);
+}
+html[data-theme="light"] .bd-content .table tbody tr:nth-child(even) > td {
+    background-color: var(--pst-color-background);
+}
+html[data-theme="dark"] .bd-content .table {
+    border: 1px solid #faf4f2;
+}
+html[data-theme="dark"] .bd-content .table td,
+html[data-theme="dark"] .bd-content .table th {
+    border-color: #faf4f2;
+}
+html[data-theme="dark"] .bd-content .table tr > td {
+    background-color: #403838;
+}
+
+/* Dark mode: fix blue-grey text to #faf4f2 */
+/* Top navbar buttons */
+html[data-theme="dark"] .bd-header .nav-link {
+    color: #faf4f2 !important;
+}
+/* Search bar text + kbd shortcuts */
+html[data-theme="dark"] .search-button-field,
+html[data-theme="dark"] .search-button__default-text,
+html[data-theme="dark"] .search-button__kbd-shortcut,
+html[data-theme="dark"] .kbd-shortcut__modifier,
+html[data-theme="dark"] .search-button-field kbd {
+    color: #faf4f2 !important;
+}
+/* Section navigation (left sidebar) */
+html[data-theme="dark"] .bd-sidebar-primary .sidebar-primary-items__start .nav-link,
+html[data-theme="dark"] .bd-sidebar-primary .sidebar-primary-items__start .caption-text,
+html[data-theme="dark"] .bd-sidebar-primary .nav .nav-link,
+html[data-theme="dark"] .bd-links .nav-link,
+html[data-theme="dark"] .bd-sidebar-primary .toctree-l1 > a,
+html[data-theme="dark"] .bd-sidebar-primary .toctree-l2 > a,
+html[data-theme="dark"] .bd-sidebar-primary .toctree-l3 > a,
+html[data-theme="dark"] .bd-sidebar-primary label.toctree-toggle {
+    color: #faf4f2 !important;
+}
+/* "On this page" right sidebar */
+html[data-theme="dark"] .bd-toc-nav .nav-link,
+html[data-theme="dark"] .bd-toc-nav .section-nav a,
+html[data-theme="dark"] .page-toc .nav-link,
+html[data-theme="dark"] #pst-page-navigation-heading-2 {
+    color: #faf4f2 !important;
+}
+/* Muted text override */
+html[data-theme="dark"] {
+    --pst-color-text-muted: #c5b8b6;
+}

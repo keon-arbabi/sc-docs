@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Loading and Quality Control &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/loading_and_qc';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic Workflow" href="basic_workflow.html" />
+    <link rel="prev" title="Tutorials" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Loading and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Loading and Quality Control</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="loading-and-quality-control">
+<h1>Loading and Quality Control<a class="headerlink" href="#loading-and-quality-control" title="Link to this heading">#</a></h1>
+<section id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
+<p>This tutorial uses a ~10 million cell PBMC cytokine stimulation dataset from <a class="reference external" href="https://www.parsebiosciences.com/datasets">Parse Biosciences</a>. Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates – one plate per donor – and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions. Fixed samples were processed in the Parse GigaLab and sequenced on Ultima Genomics at ~31,000 mean reads per cell. The dataset is already processed, but we will walk through quality-control filtering and doublet detection nonetheless.</p>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">single_cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span><span class="p">,</span> <span class="n">Timer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">subprocess</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">psutil</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>192 CPUs, 755 GB RAM
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nf">run</span><span class="p">(</span><span class="s1">&#39;wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/&#39;</span>
+    <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span>
+    <span class="na">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="inspecting-the-file">
+<h2>Inspecting the file<a class="headerlink" href="#inspecting-the-file" title="Link to this heading">#</a></h2>
+<p>Before loading, you can inspect the <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file’s structure with <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.ls.html#single_cell.SingleCell.ls" title="single_cell.SingleCell.ls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ls()</span></code></a> to see what’s inside. Useful if you want to load only selected metadata columns to reduce loading time and memory usage.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>X: 9,697,974 × 40,352 sparse array with 18,830,591,942 non-zero elements, data type &#39;float32&#39;, and first non-zero element = 1
+obs: _index, bc1_well, bc1_wind, bc2_well, bc2_wind, bc3_well, bc3_wind, cell_type, cytokine, donor, gene_count, log1p_n_genes_by_counts,
+     log1p_total_counts, log1p_total_counts_MT, mread_count, pct_counts_MT, sample, species, total_counts_MT, treatment, tscp_count
+var: _index, n_cells
+</pre></div>
+</div>
+</section>
+<section id="loading-data">
+<h2>Loading data<a class="headerlink" href="#loading-data" title="Link to this heading">#</a></h2>
+<p>SingleCell supports reading and writing files from each of the three major single-cell ecosystems:</p>
+<ul class="simple">
+<li><p>scverse/Scanpy AnnData (<code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>)</p></li>
+<li><p>Seurat (<code class="docutils literal notranslate"><span class="pre">.rds</span></code> and <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>)</p></li>
+<li><p>Bioconductor SingleCellExperiment (<code class="docutils literal notranslate"><span class="pre">.rds</span></code>)</p></li>
+</ul>
+<p>as well as raw 10x data files (<code class="docutils literal notranslate"><span class="pre">.h5</span></code> or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>/<code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>). See <a class="reference internal" href="interoperability.html"><span class="std std-doc">Interoperability</span></a> for details on format conversion, partial loading, and the ryp Python-R bridge.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Load dataset&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
+        <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Load dataset...
+Load dataset took 1m 625ms
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">num_threads</span></code> controls parallelism for this load and all subsequent operations on the dataset. The default (<code class="docutils literal notranslate"><span class="pre">-1</span></code>) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs.<code class="docutils literal notranslate"><span class="pre">num_threads</span></code> can also be set for individual steps.</p>
+<p>A quick look at what was loaded:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">peek_obs</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> column     value
+ _index     89_103_005__s1
+ sample     Donor10_4-1BBL
+ donor      Donor10
+ cell_type  CD8 Naive
+ treatment  cytokine
+ cytokine   4-1BBL
+shape: (6, 2)
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">peek_var</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> column   value
+ _index   TSPAN6
+ n_cells  15700
+shape: (2, 2)
+</pre></div>
+</div>
+</section>
+<section id="quality-control">
+<h2>Quality control<a class="headerlink" href="#quality-control" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> filters low-quality cells and removes predicted doublets in a single step. The default filters are:</p>
+<ul class="simple">
+<li><p><strong>&gt;5% mitochondrial reads</strong></p></li>
+<li><p><strong>&lt;100 genes detected</strong></p></li>
+<li><p><strong>Zero <em>MALAT1</em> expression</strong> – this nuclear lncRNA is ubiquitously expressed; absence <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2024.07.14.603469v2">indicates</a> empty droplets or cytoplasmic fragments.</p></li>
+<li><p><strong>Predicted doublets</strong> – scored via <a class="reference external" href="https://doi.org/10.1093/bioinformatics/btz698">cxds</a>; threshold auto-determined from simulated doublets.</p></li>
+</ul>
+<p>If your dataset has multiple sequencing batches, specify the batch column so doublet detection runs within each batch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Quality control&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span>
+        <span class="na">remove_doublets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span>
+        <span class="na">subset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Quality control...
+Starting with 9,697,974 cells.
+Filtering to cells with ≤5.0% mitochondrial counts...
+9,443,200 cells remain after filtering to cells with ≤5.0% mitochondrial counts.
+Filtering to cells with ≥100 genes detected (with non-zero count)...
+9,443,200 cells remain after filtering to cells with ≥100 genes detected.
+Filtering to cells with non-zero *MALAT1* expression...
+9,443,163 cells remain after filtering to cells with non-zero *MALAT1* expression.
+Removing predicted doublets...
+8,403,723 cells remain after removing predicted doublets.
+Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed QC...
+Quality control took 1m 9s
+</pre></div>
+</div>
+<p>Each threshold is configurable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">max_mito_fraction</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="na">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="na">nonzero_MATAL1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="na">remove_doublets</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">subset=True</span></code> (default) removes failing cells but roughly doubles peak memory by copying <code class="docutils literal notranslate"><span class="pre">X</span></code>. <code class="docutils literal notranslate"><span class="pre">subset=False</span></code> keeps all cells and adds a <code class="docutils literal notranslate"><span class="pre">passed_QC</span></code> column to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a> – downstream methods automatically ignore flagged cells via their <code class="docutils literal notranslate"><span class="pre">QC_column</span></code> argument.</p>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> sets <code class="docutils literal notranslate"><span class="pre">uns['QCed']</span> <span class="pre">=</span> <span class="pre">True</span></code>. Downstream methods check this flag and error if QC has not been run. For pre-cleaned data, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.skip_qc.html#single_cell.SingleCell.skip_qc" title="single_cell.SingleCell.skip_qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">skip_qc()</span></code></a> sets the flag without filtering:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">skip_qc</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="exploring-qc-metrics">
+<h3>Exploring QC metrics<a class="headerlink" href="#exploring-qc-metrics" title="Link to this heading">#</a></h3>
+<p>To explore data quality before filtering – for instance, to choose thresholds or make plots – <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc_metrics.html#single_cell.SingleCell.qc_metrics" title="single_cell.SingleCell.qc_metrics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc_metrics()</span></code></a> adds <code class="docutils literal notranslate"><span class="pre">num_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">num_genes</span></code>, and <code class="docutils literal notranslate"><span class="pre">mito_fraction</span></code> columns to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>. This is optional; <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> calculates its own filters internally.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc_metrics.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc_metrics</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">&#39;num_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;num_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;mito_fraction&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> statistic   num_counts   num_genes    mito_fraction
+ count       9.697974e6   9.697974e6   9.697974e6
+ null_count  0.0          0.0          0.0
+ mean        4372.856645  1941.703694  0.020779
+ std         3870.176441  934.460866   0.01191
+ min         436.0        399.0        0.0
+ 25%         2014.0       1274.0       0.012927
+ 50%         3320.0       1795.0       0.018277
+ 75%         5379.0       2417.0       0.025636
+ max         70055.0      7000.0       0.149981
+shape: (9, 4)
+</pre></div>
+</div>
+</section>
+<section id="standalone-doublet-detection">
+<h3>Standalone doublet detection<a class="headerlink" href="#standalone-doublet-detection" title="Link to this heading">#</a></h3>
+<p>For more control over doublet scoring without re-running QC, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.find_doublets.html#single_cell.SingleCell.find_doublets" title="single_cell.SingleCell.find_doublets"><code class="xref py py-meth docutils literal notranslate"><span class="pre">find_doublets()</span></code></a> can be called separately. It adds <code class="docutils literal notranslate"><span class="pre">doublet</span></code> and <code class="docutils literal notranslate"><span class="pre">doublet_score</span></code> columns to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.find_doublets.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">find_doublets</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="saving">
+<h2>Saving<a class="headerlink" href="#saving" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;qced.h5ad&#39;</span><span class="p">,</span> <span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Inspect</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.ls.html#single_cell.SingleCell.ls" title="single_cell.SingleCell.ls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.ls('file.h5ad')</span></code></a></p></td>
+<td><p>Preview file structure without loading</p></td>
+</tr>
+<tr class="row-odd"><td><p>Load</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad')</span></code></a></p></td>
+<td><p>Read data from any supported format</p></td>
+</tr>
+<tr class="row-even"><td><p>QC metrics</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc_metrics.html#single_cell.SingleCell.qc_metrics" title="single_cell.SingleCell.qc_metrics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.qc_metrics()</span></code></a></p></td>
+<td><p>Add <code class="docutils literal notranslate"><span class="pre">num_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">num_genes</span></code>, <code class="docutils literal notranslate"><span class="pre">mito_fraction</span></code> to <code class="docutils literal notranslate"><span class="pre">obs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Quality control</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.qc(remove_doublets=True)</span></code></a></p></td>
+<td><p>Filter low-quality cells and doublets</p></td>
+</tr>
+<tr class="row-even"><td><p>Skip QC</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.skip_qc.html#single_cell.SingleCell.skip_qc" title="single_cell.SingleCell.skip_qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.skip_qc()</span></code></a></p></td>
+<td><p>Mark pre-cleaned data as QCed</p></td>
+</tr>
+<tr class="row-odd"><td><p>Save</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.save.html#single_cell.SingleCell.save" title="single_cell.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('out.h5ad')</span></code></a></p></td>
+<td><p>Write to <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5</span></code>, or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tutorials</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="basic_workflow.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basic Workflow</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset">Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-the-file">Inspecting the file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-data">Loading data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-control">Quality control</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-qc-metrics">Exploring QC metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-doublet-detection">Standalone doublet detection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving">Saving</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

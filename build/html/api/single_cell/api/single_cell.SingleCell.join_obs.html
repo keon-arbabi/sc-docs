@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>single_cell.SingleCell.join_obs &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/single_cell.SingleCell.join_obs';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="single_cell.SingleCell.join_var" href="single_cell.SingleCell.join_var.html" />
+    <link rel="prev" title="single_cell.SingleCell.cast_var" href="single_cell.SingleCell.cast_var.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../../../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../constructor.html">Constructor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.__init__.html">single_cell.SingleCell.__init__</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.save.html">single_cell.SingleCell.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.ls.html">single_cell.SingleCell.ls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obs.html">single_cell.SingleCell.read_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_var.html">single_cell.SingleCell.read_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obsm.html">single_cell.SingleCell.read_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_varm.html">single_cell.SingleCell.read_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obsp.html">single_cell.SingleCell.read_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_varp.html">single_cell.SingleCell.read_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_uns.html">single_cell.SingleCell.read_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_scanpy.html">single_cell.SingleCell.to_scanpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.from_seurat.html">single_cell.SingleCell.from_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_seurat.html">single_cell.SingleCell.to_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.from_sce.html">single_cell.SingleCell.from_sce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_sce.html">single_cell.SingleCell.to_sce</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../properties.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.X.html">single_cell.SingleCell.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obs.html">single_cell.SingleCell.obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.var.html">single_cell.SingleCell.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obsm.html">single_cell.SingleCell.obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.varm.html">single_cell.SingleCell.varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obsp.html">single_cell.SingleCell.obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.varp.html">single_cell.SingleCell.varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.uns.html">single_cell.SingleCell.uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obs_names.html">single_cell.SingleCell.obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.var_names.html">single_cell.SingleCell.var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.num_threads.html">single_cell.SingleCell.num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.shape.html">single_cell.SingleCell.shape</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_access.html">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cell.html">single_cell.SingleCell.cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.gene.html">single_cell.SingleCell.gene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../manipulation.html">Manipulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_obs_names.html">single_cell.SingleCell.set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_var_names.html">single_cell.SingleCell.set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_num_threads.html">single_cell.SingleCell.set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.make_obs_names_unique.html">single_cell.SingleCell.make_obs_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.make_var_names_unique.html">single_cell.SingleCell.make_var_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.filter_obs.html">single_cell.SingleCell.filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.filter_var.html">single_cell.SingleCell.filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obs.html">single_cell.SingleCell.select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_var.html">single_cell.SingleCell.select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obsm.html">single_cell.SingleCell.select_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_varm.html">single_cell.SingleCell.select_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obsp.html">single_cell.SingleCell.select_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_varp.html">single_cell.SingleCell.select_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_uns.html">single_cell.SingleCell.select_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_columns_obs.html">single_cell.SingleCell.with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_columns_var.html">single_cell.SingleCell.with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_obsm.html">single_cell.SingleCell.with_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_varm.html">single_cell.SingleCell.with_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_obsp.html">single_cell.SingleCell.with_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_varp.html">single_cell.SingleCell.with_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_uns.html">single_cell.SingleCell.with_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_X.html">single_cell.SingleCell.drop_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obs.html">single_cell.SingleCell.drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_var.html">single_cell.SingleCell.drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obsm.html">single_cell.SingleCell.drop_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_varm.html">single_cell.SingleCell.drop_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obsp.html">single_cell.SingleCell.drop_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_varp.html">single_cell.SingleCell.drop_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_uns.html">single_cell.SingleCell.drop_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obs.html">single_cell.SingleCell.rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_var.html">single_cell.SingleCell.rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obsm.html">single_cell.SingleCell.rename_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_varm.html">single_cell.SingleCell.rename_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obsp.html">single_cell.SingleCell.rename_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_varp.html">single_cell.SingleCell.rename_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_uns.html">single_cell.SingleCell.rename_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_X.html">single_cell.SingleCell.cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_obs.html">single_cell.SingleCell.cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_var.html">single_cell.SingleCell.cast_var</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">single_cell.SingleCell.join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.join_var.html">single_cell.SingleCell.join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.subsample_obs.html">single_cell.SingleCell.subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.subsample_var.html">single_cell.SingleCell.subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.tocsr.html">single_cell.SingleCell.tocsr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.tocsc.html">single_cell.SingleCell.tocsc</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structural.html">Structural</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.copy.html">single_cell.SingleCell.copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.concat_obs.html">single_cell.SingleCell.concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.concat_var.html">single_cell.SingleCell.concat_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.split_by_obs.html">single_cell.SingleCell.split_by_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.split_by_var.html">single_cell.SingleCell.split_by_var</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../analysis.html">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.qc_metrics.html">single_cell.SingleCell.qc_metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.qc.html">single_cell.SingleCell.qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.find_doublets.html">single_cell.SingleCell.find_doublets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.get_sample_covariates.html">single_cell.SingleCell.get_sample_covariates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pseudobulk.html">single_cell.SingleCell.pseudobulk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.hvg.html">single_cell.SingleCell.hvg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.normalize.html">single_cell.SingleCell.normalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pca.html">single_cell.SingleCell.pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.neighbors.html">single_cell.SingleCell.neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.shared_neighbors.html">single_cell.SingleCell.shared_neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.harmonize.html">single_cell.SingleCell.harmonize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cluster.html">single_cell.SingleCell.cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.label_transfer_from.html">single_cell.SingleCell.label_transfer_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.umap.html">single_cell.SingleCell.umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pacmap.html">single_cell.SingleCell.pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.localmap.html">single_cell.SingleCell.localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.find_markers.html">single_cell.SingleCell.find_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_heatmap.html">single_cell.SingleCell.plot_heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_markers.html">single_cell.SingleCell.plot_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_umap.html">single_cell.SingleCell.plot_umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_pacmap.html">single_cell.SingleCell.plot_pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_localmap.html">single_cell.SingleCell.plot_localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_embedding.html">single_cell.SingleCell.plot_embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../utility.html">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.skip_qc.html">single_cell.SingleCell.skip_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.peek_obs.html">single_cell.SingleCell.peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.peek_var.html">single_cell.SingleCell.peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe.html">single_cell.SingleCell.pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_X.html">single_cell.SingleCell.pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obs.html">single_cell.SingleCell.pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_var.html">single_cell.SingleCell.pipe_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsm.html">single_cell.SingleCell.pipe_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsm_key.html">single_cell.SingleCell.pipe_obsm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varm.html">single_cell.SingleCell.pipe_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varm_key.html">single_cell.SingleCell.pipe_varm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsp.html">single_cell.SingleCell.pipe_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsp_key.html">single_cell.SingleCell.pipe_obsp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varp.html">single_cell.SingleCell.pipe_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varp_key.html">single_cell.SingleCell.pipe_varp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_uns.html">single_cell.SingleCell.pipe_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_uns_key.html">single_cell.SingleCell.pipe_uns_key</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../typedefs.html">Type aliases</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">SingleCell</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../manipulation.html" class="nav-link">Manipulation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">single_cell.SingleCell.join_obs</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="single-cell-singlecell-join-obs">
+<h1>single_cell.SingleCell.join_obs<a class="headerlink" href="#single-cell-singlecell-join-obs" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="single_cell.SingleCell.join_obs">
+<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">join_obs</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">left_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">right_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_right'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">validate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m:m'</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">nulls_equal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">coalesce</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.join_obs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.join_obs" title="Link to this definition">#</a></dt>
+<dd><p>Left-join <cite>obs</cite> with another DataFrame, using the same logic as
+<a class="reference external" href="https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join.html">polars.DataFrame.join()</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p class="param-header"><strong>other</strong> : <em>DataFrame</em></p><p class="param-desc">a polars DataFrame to join <cite>obs</cite> with</p></li>
+<li><p class="param-header"><strong>on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in both DataFrames</p></li>
+<li><p class="param-header"><strong>left_on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>obs</cite></p></li>
+<li><p class="param-header"><strong>right_on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>other</cite></p></li>
+<li><p class="param-header"><strong>suffix</strong> : <em>str</em></p><p class="param-desc">a suffix to append to columns with a duplicate name</p></li>
+<li><p class="param-header"><strong>validate</strong> : <em>Literal</em><em>[</em><em>'m:m'</em><em>, </em><em>'m:1'</em><em>, </em><em>'1:m'</em><em>, </em><em>'1:1'</em><em>]</em></p><p class="param-desc"><p>checks whether the join is of the specified type. Can be:</p>
+<ul>
+<li><p>’m:m’ (many-to-many): the default, no checks performed.</p></li>
+<li><p>’1:1’ (one-to-one): check that none of the values in
+the join column(s) appear more than once in <cite>obs</cite> or
+more than once in <cite>other</cite>.</p></li>
+<li><p>’1:m’ (one-to-many): check that none of the values in
+the join column(s) appear more than once in <cite>obs</cite>.</p></li>
+<li><p>’m:1’ (many-to-one): check that none of the values in
+the join column(s) appear more than once in <cite>other</cite>.</p></li>
+</ul>
+</p></li>
+<li><p class="param-header"><strong>nulls_equal</strong> : <em>bool</em></p><p class="param-desc">whether to include <cite>null</cite> as a valid value to join on.
+By default, <cite>null</cite> values will never produce matches.</p></li>
+<li><p class="param-header"><strong>coalesce</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, coalesce each of the pairs of join columns
+(the columns in <cite>on</cite> or <cite>left_on</cite>/<cite>right_on</cite>) from <cite>obs</cite>
+and <cite>other</cite> into a single column, filling missing values
+from one with the corresponding values from the other.
+If <cite>False</cite>, include both as separate columns, adding
+<cite>suffix</cite> to the join columns from <cite>other</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new SingleCell dataset with the columns from <cite>other</cite> joined to
+obs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#single_cell.SingleCell" title="single_cell.SingleCell"><em>SingleCell</em></a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a column of <cite>on</cite>, <cite>left_on</cite> or <cite>right_on</cite> is Enum in <cite>obs</cite> and
+Categorical in <cite>other</cite> (or vice versa), or Enum in both but with
+different categories in each, that pair of columns will be
+automatically cast to a common Enum data type (with the union of
+the categories) before joining.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="single_cell.SingleCell.cast_var.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">single_cell.SingleCell.cast_var</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="single_cell.SingleCell.join_var.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">single_cell.SingleCell.join_var</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single_cell.SingleCell.join_obs"><code class="docutils literal notranslate"><span class="pre">SingleCell.join_obs()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

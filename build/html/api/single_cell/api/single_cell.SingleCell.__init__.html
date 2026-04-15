@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>single_cell.SingleCell.__init__ &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/single_cell.SingleCell.__init__';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="I/O" href="../io.html" />
+    <link rel="prev" title="Constructor" href="../constructor.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../../../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../constructor.html">Constructor</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">single_cell.SingleCell.__init__</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../io.html">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.save.html">single_cell.SingleCell.save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.ls.html">single_cell.SingleCell.ls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obs.html">single_cell.SingleCell.read_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_var.html">single_cell.SingleCell.read_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obsm.html">single_cell.SingleCell.read_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_varm.html">single_cell.SingleCell.read_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_obsp.html">single_cell.SingleCell.read_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_varp.html">single_cell.SingleCell.read_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.read_uns.html">single_cell.SingleCell.read_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_scanpy.html">single_cell.SingleCell.to_scanpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.from_seurat.html">single_cell.SingleCell.from_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_seurat.html">single_cell.SingleCell.to_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.from_sce.html">single_cell.SingleCell.from_sce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.to_sce.html">single_cell.SingleCell.to_sce</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../properties.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.X.html">single_cell.SingleCell.X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obs.html">single_cell.SingleCell.obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.var.html">single_cell.SingleCell.var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obsm.html">single_cell.SingleCell.obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.varm.html">single_cell.SingleCell.varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obsp.html">single_cell.SingleCell.obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.varp.html">single_cell.SingleCell.varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.uns.html">single_cell.SingleCell.uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.obs_names.html">single_cell.SingleCell.obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.var_names.html">single_cell.SingleCell.var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.num_threads.html">single_cell.SingleCell.num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.shape.html">single_cell.SingleCell.shape</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_access.html">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cell.html">single_cell.SingleCell.cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.gene.html">single_cell.SingleCell.gene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manipulation.html">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_obs_names.html">single_cell.SingleCell.set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_var_names.html">single_cell.SingleCell.set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.set_num_threads.html">single_cell.SingleCell.set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.make_obs_names_unique.html">single_cell.SingleCell.make_obs_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.make_var_names_unique.html">single_cell.SingleCell.make_var_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.filter_obs.html">single_cell.SingleCell.filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.filter_var.html">single_cell.SingleCell.filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obs.html">single_cell.SingleCell.select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_var.html">single_cell.SingleCell.select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obsm.html">single_cell.SingleCell.select_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_varm.html">single_cell.SingleCell.select_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_obsp.html">single_cell.SingleCell.select_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_varp.html">single_cell.SingleCell.select_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.select_uns.html">single_cell.SingleCell.select_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_columns_obs.html">single_cell.SingleCell.with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_columns_var.html">single_cell.SingleCell.with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_obsm.html">single_cell.SingleCell.with_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_varm.html">single_cell.SingleCell.with_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_obsp.html">single_cell.SingleCell.with_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_varp.html">single_cell.SingleCell.with_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.with_uns.html">single_cell.SingleCell.with_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_X.html">single_cell.SingleCell.drop_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obs.html">single_cell.SingleCell.drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_var.html">single_cell.SingleCell.drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obsm.html">single_cell.SingleCell.drop_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_varm.html">single_cell.SingleCell.drop_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_obsp.html">single_cell.SingleCell.drop_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_varp.html">single_cell.SingleCell.drop_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.drop_uns.html">single_cell.SingleCell.drop_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obs.html">single_cell.SingleCell.rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_var.html">single_cell.SingleCell.rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obsm.html">single_cell.SingleCell.rename_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_varm.html">single_cell.SingleCell.rename_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_obsp.html">single_cell.SingleCell.rename_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_varp.html">single_cell.SingleCell.rename_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.rename_uns.html">single_cell.SingleCell.rename_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_X.html">single_cell.SingleCell.cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_obs.html">single_cell.SingleCell.cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cast_var.html">single_cell.SingleCell.cast_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.join_obs.html">single_cell.SingleCell.join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.join_var.html">single_cell.SingleCell.join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.subsample_obs.html">single_cell.SingleCell.subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.subsample_var.html">single_cell.SingleCell.subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.tocsr.html">single_cell.SingleCell.tocsr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.tocsc.html">single_cell.SingleCell.tocsc</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../structural.html">Structural</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.copy.html">single_cell.SingleCell.copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.concat_obs.html">single_cell.SingleCell.concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.concat_var.html">single_cell.SingleCell.concat_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.split_by_obs.html">single_cell.SingleCell.split_by_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.split_by_var.html">single_cell.SingleCell.split_by_var</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../analysis.html">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.qc_metrics.html">single_cell.SingleCell.qc_metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.qc.html">single_cell.SingleCell.qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.find_doublets.html">single_cell.SingleCell.find_doublets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.get_sample_covariates.html">single_cell.SingleCell.get_sample_covariates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pseudobulk.html">single_cell.SingleCell.pseudobulk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.hvg.html">single_cell.SingleCell.hvg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.normalize.html">single_cell.SingleCell.normalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pca.html">single_cell.SingleCell.pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.neighbors.html">single_cell.SingleCell.neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.shared_neighbors.html">single_cell.SingleCell.shared_neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.harmonize.html">single_cell.SingleCell.harmonize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.cluster.html">single_cell.SingleCell.cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.label_transfer_from.html">single_cell.SingleCell.label_transfer_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.umap.html">single_cell.SingleCell.umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pacmap.html">single_cell.SingleCell.pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.localmap.html">single_cell.SingleCell.localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.find_markers.html">single_cell.SingleCell.find_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_heatmap.html">single_cell.SingleCell.plot_heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_markers.html">single_cell.SingleCell.plot_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_umap.html">single_cell.SingleCell.plot_umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_pacmap.html">single_cell.SingleCell.plot_pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_localmap.html">single_cell.SingleCell.plot_localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.plot_embedding.html">single_cell.SingleCell.plot_embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../utility.html">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.skip_qc.html">single_cell.SingleCell.skip_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.peek_obs.html">single_cell.SingleCell.peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.peek_var.html">single_cell.SingleCell.peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe.html">single_cell.SingleCell.pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_X.html">single_cell.SingleCell.pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obs.html">single_cell.SingleCell.pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_var.html">single_cell.SingleCell.pipe_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsm.html">single_cell.SingleCell.pipe_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsm_key.html">single_cell.SingleCell.pipe_obsm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varm.html">single_cell.SingleCell.pipe_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varm_key.html">single_cell.SingleCell.pipe_varm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsp.html">single_cell.SingleCell.pipe_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_obsp_key.html">single_cell.SingleCell.pipe_obsp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varp.html">single_cell.SingleCell.pipe_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_varp_key.html">single_cell.SingleCell.pipe_varp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_uns.html">single_cell.SingleCell.pipe_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="single_cell.SingleCell.pipe_uns_key.html">single_cell.SingleCell.pipe_uns_key</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../typedefs.html">Type aliases</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">SingleCell</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../constructor.html" class="nav-link">Constructor</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">single_cell.SingleCell.__init__</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="single-cell-singlecell-init">
+<h1>single_cell.SingleCell.__init__<a class="headerlink" href="#single-cell-singlecell-init" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="single_cell.SingleCell.__init__">
+<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">obsm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">varm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">obsp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">varp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">uns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">X_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">assay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">obs_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">var_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Load a SingleCell dataset from a file, or create one from an in-memory
+AnnData object or count matrix + metadata.</p>
+<p>SingleCell supports reading and writing files from each of the three
+major single-cell ecosystems:</p>
+<ul class="simple">
+<li><p>scverse/Scanpy AnnData (<cite>.h5ad</cite>)</p></li>
+<li><p>Seurat (<cite>.rds</cite> and <cite>.h5Seurat</cite>)</p></li>
+<li><p>Bioconductor SingleCellExperiment (<cite>.rds</cite>)</p></li>
+</ul>
+<p>as well as raw 10x data files (<cite>.h5</cite> or <cite>.mtx</cite>/<cite>.mtx.gz</cite>).</p>
+<p>By default, when an AnnData object, <cite>.h5ad</cite> file, <cite>.h5Seurat</cite> file, or
+<cite>.rds</cite> file contains both raw and normalized counts, only the raw
+counts will be loaded. To load normalized counts instead, use the <cite>X</cite>
+argument (for AnnData objects) or <cite>X_key</cite> argument (for files).</p>
+<p>Reading and writing <cite>.rds</cite> files requires the ryp Python-R bridge.
+To create a SingleCell dataset from an in-memory Seurat or
+SingleCellExperiment object in the ryp R workspace, use
+<cite>SingleCell.from_seurat()</cite> or <cite>SingleCell.from_sce()</cite>.</p>
+<p>Reading and writing loom files is not supported because SingleCell only
+supports sparse count matrices, and loom only supports dense matrices.
+Using loom files for SingleCell data is not recommended due to this
+wastefulness. If you must, load them with
+<cite>SingleCell(scanpy.read_loom(loom_filename))</cite>; <cite>read_loom()</cite> implicitly
+converts the counts to a sparse matrix by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p class="param-header"><strong>source</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>'AnnData'</em><em> | </em><em>None</em></p><p class="param-desc">a filename or AnnData object, or <cite>None</cite> if specifying <cite>X</cite>,
+<cite>obs</cite>, and <cite>var</cite> instead. Supported file formats are
+scverse/Scanpy AnnData (<cite>.h5ad</cite>), Seurat (<cite>.rds</cite> and
+<cite>.h5Seurat</cite>), Bioconductor SingleCellExperiment (<cite>.rds</cite>),
+and raw 10x data files (<cite>.h5</cite> or <cite>.mtx</cite>/<cite>.mtx.gz</cite>). If
+<cite>source</cite> is a 10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename,
+<cite>barcodes.tsv</cite>/<cite>barcodes.tsv.gz</cite> and
+<cite>features.tsv</cite>/<cite>features.tsv.gz</cite> are assumed to be in the
+same directory (with the ungzipped versions used
+preferentially), unless custom paths to these files are
+specified via the <cite>obs</cite> and/or <cite>var</cite> arguments.</p></li>
+<li><p class="param-header"><strong>X</strong> : <em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em> | </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">If <cite>source</cite> is <cite>None</cite>, the data as a sparse array or matrix
+(with rows = cells, columns = genes).
+If <cite>source</cite> is an AnnData object, an optional sparse array or
+matrix to use as <cite>X</cite>. By default, <cite>X</cite> will be loaded from
+<cite>source.layers[‘UMIs’]</cite> or <cite>source.raw.X</cite> if present and
+<cite>source.X</cite> otherwise.
+If <cite>X</cite> is <cite>None</cite> when <cite>source</cite> is <cite>None</cite>, or <cite>False</cite> when
+<cite>source</cite> is a filename, do not store any data in <cite>X</cite> and set it
+to <cite>None</cite>. This helps save memory, but the resulting dataset
+cannot be saved, converted to another format, or used to run
+analyses that require <cite>X</cite>.</p></li>
+<li><p class="param-header"><strong>obs</strong> : <em>pl.DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">a polars DataFrame of metadata for each cell (row of <cite>X</cite>), or
+<cite>None</cite> if specifying <cite>source</cite> instead. Or, if <cite>source</cite> is a
+10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename, an optional filename for
+cell-level metadata, which is otherwise assumed to be at
+<cite>barcodes.tsv</cite> (or <cite>barcodes.tsv.gz</cite>) in the same directory as
+the <cite>.mtx</cite>/<cite>.mtx.gz</cite> file.</p></li>
+<li><p class="param-header"><strong>var</strong> : <em>pl.DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">a polars DataFrame of metadata for each gene (column of <cite>X</cite>),
+or <cite>None</cite> if specifying <cite>source</cite> instead. Or, if <cite>source</cite> is a
+10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename, an optional filename for
+gene-level metadata, which is otherwise assumed to be at
+<cite>features.tsv</cite> (or <cite>features.tsv.gz</cite>) in the same directory as
+the <cite>.mtx</cite>/<cite>.mtx.gz</cite> file.</p></li>
+<li><p class="param-header"><strong>obsm</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>[</em><em>2</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to NumPy arrays
+and polars DataFrames of metadata for each cell, or <cite>False</cite>
+to skip loading <cite>obsm</cite> when reading <cite>.h5ad</cite> and <cite>.h5Seurat</cite>
+files</p></li>
+<li><p class="param-header"><strong>varm</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>[</em><em>2</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to NumPy arrays
+and polars DataFrames of metadata for each gene, or <cite>False</cite>
+to skip loading <cite>varm</cite> when reading <cite>.h5ad</cite> files</p></li>
+<li><p class="param-header"><strong>obsp</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to sparse arrays
+or matrices containing pairwise cell-cell information like
+nearest-neighbors graphs, or <cite>False</cite> to skip loading <cite>obsp</cite>
+when reading <cite>.h5ad</cite> and <cite>.h5Seurat</cite> files</p></li>
+<li><p class="param-header"><strong>varp</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to sparse arrays
+or matrices containing pairwise gene-gene information, or
+<cite>False</cite> to skip loading <cite>varp</cite> when reading <cite>.h5ad</cite> files</p></li>
+<li><p class="param-header"><strong>uns</strong> : <em>UnsDict</em><em> | </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to unstructured
+metadata - scalars (strings, numbers or Booleans), NumPy
+arrays, or nested dictionaries thereof - or <cite>False</cite> to skip
+loading <cite>uns</cite> when reading <cite>.h5ad</cite> or <cite>.h5Seurat</cite> files</p></li>
+<li><p class="param-header"><strong>X_key</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc"><p>if <cite>source</cite> is an AnnData <cite>.h5ad</cite>, Seurat <cite>.rds</cite> or
+<cite>.h5Seurat</cite> filename, or SingleCellExperiment <cite>.rds</cite>
+filename, the location within <cite>source</cite> to use as <cite>X</cite>:</p>
+<ul>
+<li><p>If <cite>source</cite> is an <cite>.h5ad</cite> filename, the name of the key in
+the <cite>.h5ad</cite> file to use as <cite>X</cite>. If <cite>None</cite>, defaults to
+<cite>‘layers/UMIs’</cite> (i.e. <cite>self.layers[‘UMIs’]</cite> in Scanpy) or
+<cite>‘raw/X’</cite> (i.e. <cite>self.raw.X</cite> in Scanpy) if present,
+otherwise <cite>‘X’</cite>.
+Tip: <cite>SingleCell.ls(h5ad_file)</cite> shows the structure of an
+<cite>.h5ad</cite> file without loading it, allowing you to figure
+out which key to use as <cite>X</cite>.</p></li>
+<li><p>If <cite>source</cite> is a Seurat <cite>.rds</cite> or <cite>.h5Seurat</cite> filename,
+the layer within the active assay (or the assay specified
+by the <cite>assay</cite> argument, if not <cite>None</cite>) to use as <cite>X</cite>. Set
+to <cite>‘data’</cite> to load the normalized counts, or
+<cite>‘scale.data’</cite> to load the normalized and scaled counts,
+if available. If <cite>None</cite>, defaults to <cite>‘counts’</cite>.</p></li>
+<li><p>If <cite>source</cite> is a SingleCellExperiment <cite>.rds</cite> filename, the
+element within <cite>&#64;assays&#64;data</cite> to use as <cite>X</cite>. Set to
+<cite>‘logcounts’</cite> to load the normalized counts, if available.
+If <cite>None</cite>, defaults to <cite>‘counts’</cite>.</p></li>
+</ul>
+</p></li>
+<li><p class="param-header"><strong>assay</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">if <cite>source</cite> is a Seurat <cite>.rds</cite> or <cite>.h5Seurat</cite>/<cite>.h5seurat</cite>
+filename, the name of the assay within the Seurat object to
+load data from. Defaults to the Seurat object’s
+<cite>active.assay</cite> attribute (usually <cite>‘RNA’</cite>).</p></li>
+<li><p class="param-header"><strong>obs_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">if <cite>source</cite> is an <cite>.h5ad</cite> or <cite>.h5Seurat</cite> filename, the
+columns of <cite>obs</cite> to load. If not specified, load all
+columns. Specifying only a subset of columns can speed
+up reading. Not supported for <cite>.h5</cite> files, since they
+only have a single <cite>obs</cite> column (<cite>‘barcodes’</cite>), nor
+for Seurat and SingleCellExperiment <cite>.rds</cite> files,
+since <cite>.rds</cite> files do not support partial loading.</p></li>
+<li><p class="param-header"><strong>var_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">if <cite>source</cite> is an <cite>.h5ad</cite>, <cite>.h5</cite>, or <cite>.h5Seurat</cite>
+filename, the columns of <cite>var</cite> to load. If not
+specified, load all columns. Specifying only a subset
+of columns can speed up reading. Not supported for
+Seurat and SingleCellExperiment <cite>.rds</cite> files, since
+the <cite>.rds</cite> file format does not support partial
+loading.</p></li>
+<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>np.integer</em></p><p class="param-desc">the number of threads to use when reading <cite>.h5ad</cite> and
+<cite>.h5</cite> files, and the default number of threads to use
+for all subsequent operations on this SingleCell
+dataset. Also sets the number of threads for this
+SingleCell dataset’s count matrix, if present. By
+default (<cite>num_threads=-1</cite>), use all available cores,
+as determined by <cite>os.cpu_count()</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Load an <cite>.h5ad</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load an <cite>.h5ad</cite> file where raw counts are stored in a non-default
+location, <cite>adata.raw.counts</cite> (use <cite>SingleCell.ls(‘data.h5ad’)</cite> to
+inspect its structure before loading):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;raw/counts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load only selected metadata columns from an <cite>.h5ad</cite> file
+to reduce loading time and memory usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                <span class="na">var_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gene_symbol&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Skip loading the count matrix to minimize memory usage (note:
+dataset cannot be saved, converted, or used for analyses that
+require <cite>X</cite>):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;large_data.h5ad&#39;</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load a Seurat <cite>.h5Seurat</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.h5Seurat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load a Seurat <cite>.rds</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.rds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load a Bioconductor SingleCellExperiment <cite>.rds</cite> file and use
+log-normalized counts:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;sce_obj.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;logcounts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load raw 10x Genomics data from an <cite>.h5</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;matrix.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load raw 10x Genomics data from an <cite>.mtx.gz</cite> file, with barcodes
+and features stored in the same directory as <cite>barcodes.tsv.gz</cite> and
+<cite>features.tsv.gz</cite> in the usual way:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;matrix.mtx.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Manually create a SingleCell dataset from an in-memory sparse
+matrix and metadata:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">csr_array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">csr_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obs</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;cell_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cell1&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">var</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;gene_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;g3&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="na">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">var</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Both ordered and unordered categorical columns of <cite>obs</cite> and <cite>var</cite>
+will be loaded as polars Enums rather than polars Categoricals.
+This is because polars Categoricals use a shared numerical encoding
+across columns, so their codes are not <cite>[0, 1, 2, …]</cite> like pandas
+categoricals and polars Enums are. Using Categoricals leads to a
+large overhead (~25%) when loading <cite>obs</cite> from an <cite>.h5ad</cite> file, for
+example.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SingleCell does not support dense matrices, which are highly
+memory-inefficient for single-cell data. Passing a NumPy array as
+the <cite>X</cite> argument will give an error; if for some reason your data
+has been improperly stored as a dense matrix, convert it to a
+sparse array first with <cite>csr_array(numpy_array)</cite>). However, when
+loading from disk or converting from other formats, dense matrices
+will be automatically converted to sparse matrices, to avoid giving
+an error when loading or converting.</p>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../constructor.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Constructor</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../io.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">I/O</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single_cell.SingleCell.__init__"><code class="docutils literal notranslate"><span class="pre">SingleCell.__init__()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

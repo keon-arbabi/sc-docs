@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Basic Workflow &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/basic_workflow';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interoperability" href="interoperability.html" />
+    <link rel="prev" title="Loading and Quality Control" href="loading_and_qc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="loading_and_qc.html">Loading and Quality Control</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Basic Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Basic Workflow</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="basic-workflow">
+<h1>Basic Workflow<a class="headerlink" href="#basic-workflow" title="Link to this heading">#</a></h1>
+<p>This tutorial walks through a standard single-cell analysis pipeline: feature selection, normalization, dimensionality reduction, clustering, and marker gene identification. It starts with steps from the <a class="reference internal" href="loading_and_qc.html"><span class="std std-doc">Loading and Quality Control</span></a> tutorial using the same Parse Biosciences ~10 million cell PBMC dataset.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">single_cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span><span class="p">,</span> <span class="n">Timer</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">psutil</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>192 CPUs, 755 GB RAM
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Load&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
+        <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Load...
+Load took 1m 9s
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;QC&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">remove_doublets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span>
+               <span class="na">subset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>QC...
+QC took 1s 570ms
+</pre></div>
+</div>
+</section>
+<section id="feature-selection">
+<h2>Feature selection<a class="headerlink" href="#feature-selection" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.hvg.html#single_cell.SingleCell.hvg" title="single_cell.SingleCell.hvg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">hvg()</span></code></a> selects highly variable genes using Seurat’s variance-stabilization approach. It operates on raw counts and must be run before <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.normalize.html#single_cell.SingleCell.normalize" title="single_cell.SingleCell.normalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">normalize()</span></code></a>. By default, it selects the top 2,000 genes.</p>
+<p>When your data has multiple batches, pass <code class="docutils literal notranslate"><span class="pre">batch_column</span></code> to identify HVGs that are variable across batches rather than just within one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;HVG&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>HVG...
+HVG took 2s 280ms
+</pre></div>
+</div>
+<p>This adds a <code class="docutils literal notranslate"><span class="pre">highly_variable</span></code> Boolean column and a <code class="docutils literal notranslate"><span class="pre">highly_variable_rank</span></code> integer column to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.var.html#single_cell.SingleCell.var" title="single_cell.SingleCell.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a>. Downstream methods like <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pca()</span></code></a> automatically use only the highly variable genes.</p>
+</section>
+<section id="normalization">
+<h2>Normalization<a class="headerlink" href="#normalization" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.normalize.html#single_cell.SingleCell.normalize" title="single_cell.SingleCell.normalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">normalize()</span></code></a> log-transforms the counts. The default method, PFlog1pPF (<a class="reference external" href="https://biorxiv.org/content/10.1101/2022.05.06.490859v1.full">Booeshaghi et al. 2022</a>), applies proportional fitting before and after log1p to correct for composition bias. With <code class="docutils literal notranslate"><span class="pre">method='logCP10k'</span></code>, it matches Seurat’s <code class="docutils literal notranslate"><span class="pre">NormalizeData()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Normalize&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Normalize...
+Normalize took 27s 760ms
+</pre></div>
+</div>
+</section>
+<section id="pca">
+<h2>PCA<a class="headerlink" href="#pca" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pca()</span></code></a> computes principal components from the normalized, highly variable genes. The default is 50 PCs, and can be adjusted with <code class="docutils literal notranslate"><span class="pre">num_PCs</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;PCA&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pca</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PCA...
+PCA took 20s 630ms
+</pre></div>
+</div>
+<p>PCs are stored in <code class="docutils literal notranslate"><span class="pre">obsm['pca']</span></code> as a NumPy array of shape <code class="docutils literal notranslate"><span class="pre">(n_cells,</span> <span class="pre">50)</span></code>.</p>
+</section>
+<section id="nearest-neighbors">
+<h2>Nearest neighbors<a class="headerlink" href="#nearest-neighbors" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors" title="single_cell.SingleCell.neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">neighbors()</span></code></a> computes the 20 nearest neighbors of each cell in PC space, using a fast approximate search based on FAISS’s <code class="docutils literal notranslate"><span class="pre">IndexIVFFlat</span></code> strategy. <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.shared_neighbors.html#single_cell.SingleCell.shared_neighbors" title="single_cell.SingleCell.shared_neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">shared_neighbors()</span></code></a> then builds a shared nearest neighbor (SNN) graph — two cells are connected in proportion to how many neighbors they share. This is the same approach used by Seurat.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Neighbors&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">neighbors</span><span class="p">()</span><span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Neighbors...
+Neighbors took 58s 570ms
+</pre></div>
+</div>
+<p>The nearest-neighbor indices, distances, and SNN graph are stored in <code class="docutils literal notranslate"><span class="pre">obsm['neighbors']</span></code>, <code class="docutils literal notranslate"><span class="pre">obsm['distances']</span></code>, and <code class="docutils literal notranslate"><span class="pre">obsm['shared_neighbors']</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you subset your data after computing neighbors (e.g. via <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.filter_obs.html#single_cell.SingleCell.filter_obs" title="single_cell.SingleCell.filter_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">filter_obs()</span></code></a>), the neighbor graph becomes invalid and must be recomputed. brisc enforces this and will raise an error if you try to use stale neighbors.</p>
+</div>
+</section>
+<section id="batch-integration">
+<h2>Batch integration<a class="headerlink" href="#batch-integration" title="Link to this heading">#</a></h2>
+<p>If your dataset contains batch effects, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.harmonize.html#single_cell.SingleCell.harmonize" title="single_cell.SingleCell.harmonize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">harmonize()</span></code></a> corrects the PCs using <a class="reference external" href="https://github.com/immunogenomics/harmony">Harmony</a>. Run it after <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pca()</span></code></a> and before <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors" title="single_cell.SingleCell.neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">neighbors()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.harmonize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">harmonize</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
+<span class="c1"># downstream steps will use obsm[&#39;harmony&#39;] instead of obsm[&#39;pca&#39;]</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">(</span><span class="na">PC_key</span><span class="o">=</span><span class="s1">&#39;harmony&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>brisc’s Harmony implementation is parallelized via a nested block strategy and uses a k-means variant called <a class="reference external" href="https://arxiv.org/abs/1203.6402">k-means||</a> for initialization.</p>
+</section>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.cluster.html#single_cell.SingleCell.cluster" title="single_cell.SingleCell.cluster"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cluster()</span></code></a> runs Leiden clustering on the SNN graph. The <code class="docutils literal notranslate"><span class="pre">resolution</span></code> parameter controls granularity — higher values produce more clusters. You can pass multiple resolutions to evaluate them in parallel:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Cluster&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.cluster.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cluster</span></a><span class="p">(</span><span class="na">resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Cluster...
+Cluster took 5m 21s
+</pre></div>
+</div>
+<p>Each resolution adds a column to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>: <code class="docutils literal notranslate"><span class="pre">cluster_0</span></code> through <code class="docutils literal notranslate"><span class="pre">cluster_4</span></code> (or a custom name via <code class="docutils literal notranslate"><span class="pre">cluster_column</span></code>). The implementation is based on <a class="reference external" href="https://arxiv.org/abs/2312.13936">GVE-Leiden</a>.</p>
+</section>
+<section id="embedding">
+<h2>Embedding<a class="headerlink" href="#embedding" title="Link to this heading">#</a></h2>
+<p>brisc offers three embedding methods for visualization, all of which operate on the PCs and neighbor graph:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pacmap.html#single_cell.SingleCell.pacmap" title="single_cell.SingleCell.pacmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pacmap()</span></code></a> — <a class="reference external" href="https://arxiv.org/abs/2012.04456">PaCMAP</a>, captures global structure well. Default choice.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.localmap.html#single_cell.SingleCell.localmap" title="single_cell.SingleCell.localmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">localmap()</span></code></a> — <a class="reference external" href="https://arxiv.org/abs/2412.15426">LocalMAP</a>, balances local and global structure.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.umap.html#single_cell.SingleCell.umap" title="single_cell.SingleCell.umap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">umap()</span></code></a> — the standard UMAP algorithm.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;PaCMAP&#39;</span><span class="p">):</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pacmap</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PaCMAP...
+PaCMAP took 1m 8s
+</pre></div>
+</div>
+<p>Embeddings are stored as 2-column NumPy arrays in <code class="docutils literal notranslate"><span class="pre">obsm</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">obsm['pacmap']</span></code>). Visualize with <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.plot_embedding.html#single_cell.SingleCell.plot_embedding" title="single_cell.SingleCell.plot_embedding"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_embedding()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.plot_embedding.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_embedding</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="na">embedding_key</span><span class="o">=</span><span class="s1">&#39;pacmap&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="marker-genes">
+<h2>Marker genes<a class="headerlink" href="#marker-genes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.find_markers.html#single_cell.SingleCell.find_markers" title="single_cell.SingleCell.find_markers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">find_markers()</span></code></a> identifies genes that distinguish each cell type from the rest, using an adaptation of <a class="reference external" href="https://ncbi.nlm.nih.gov/pmc/articles/PMC8571500">Fischer and Gillis 2021</a>. It works on binarized expression (detected vs. not detected), so it gives the same result before or after normalization.</p>
+<p>Genes must have a detection rate of at least 25% in the target cell type and at least a 2-fold enrichment relative to every other cell type. Pareto-optimal genes — those not dominated by any other gene on both metrics — are flagged.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Markers&#39;</span><span class="p">):</span>
+    <span class="n">markers</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.find_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">find_markers</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Markers...
+Markers took 3s 630ms
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">markers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (5, 5)
+ cell_type   gene     detection_rate  min_fold_change  pareto
+ str         str      f64             f64              bool
+ CD4 T       IL7R     0.72            3.1              true
+ CD4 T       LTB      0.68            2.8              true
+ ...
+</pre></div>
+</div>
+</section>
+<section id="pipeline-summary">
+<h2>Pipeline summary<a class="headerlink" href="#pipeline-summary" title="Link to this heading">#</a></h2>
+<p>The full pipeline chains together in ~10 minutes on 10 million cells:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="p">(</span>
+    <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">remove_doublets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span>
+        <span class="na">subset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">pca</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">neighbors</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.cluster.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cluster</span></a><span class="p">(</span><span class="na">resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">pacmap</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">markers</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.find_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">find_markers</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Feature selection</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.hvg.html#single_cell.SingleCell.hvg" title="single_cell.SingleCell.hvg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.hvg()</span></code></a></p></td>
+<td><p>2s</p></td>
+<td><p>Select top 2,000 highly variable genes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Normalization</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.normalize.html#single_cell.SingleCell.normalize" title="single_cell.SingleCell.normalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.normalize()</span></code></a></p></td>
+<td><p>28s</p></td>
+<td><p>PFlog1pPF log-normalization</p></td>
+</tr>
+<tr class="row-even"><td><p>PCA</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pca()</span></code></a></p></td>
+<td><p>21s</p></td>
+<td><p>50 principal components</p></td>
+</tr>
+<tr class="row-odd"><td><p>Neighbors</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors" title="single_cell.SingleCell.neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.neighbors()</span></code></a></p></td>
+<td><p>59s</p></td>
+<td><p>20 nearest neighbors + SNN graph</p></td>
+</tr>
+<tr class="row-even"><td><p>Clustering</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.cluster.html#single_cell.SingleCell.cluster" title="single_cell.SingleCell.cluster"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.cluster()</span></code></a></p></td>
+<td><p>5m 21s</p></td>
+<td><p>Leiden clustering at multiple resolutions</p></td>
+</tr>
+<tr class="row-odd"><td><p>Embedding</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pacmap.html#single_cell.SingleCell.pacmap" title="single_cell.SingleCell.pacmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pacmap()</span></code></a></p></td>
+<td><p>1m 8s</p></td>
+<td><p>2D PaCMAP embedding</p></td>
+</tr>
+<tr class="row-even"><td><p>Markers</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.find_markers.html#single_cell.SingleCell.find_markers" title="single_cell.SingleCell.find_markers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.find_markers()</span></code></a></p></td>
+<td><p>4s</p></td>
+<td><p>Marker genes per cell type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="loading_and_qc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Loading and Quality Control</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="interoperability.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interoperability</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization">Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca">PCA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-neighbors">Nearest neighbors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-integration">Batch integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding">Embedding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marker-genes">Marker genes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-summary">Pipeline summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

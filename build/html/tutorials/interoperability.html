@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Interoperability &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/interoperability';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SingleCell" href="../api/single_cell/index.html" />
+    <link rel="prev" title="Basic Workflow" href="basic_workflow.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="loading_and_qc.html">Loading and Quality Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interoperability</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Interoperability</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="interoperability">
+<h1>Interoperability<a class="headerlink" href="#interoperability" title="Link to this heading">#</a></h1>
+<p>SingleCell reads and writes all three major single-cell ecosystems natively, with no intermediate conversion steps:</p>
+<ul class="simple">
+<li><p><strong>scverse/Scanpy</strong> – AnnData <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files and in-memory AnnData objects</p></li>
+<li><p><strong>Seurat</strong> – <code class="docutils literal notranslate"><span class="pre">.rds</span></code> and <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code> files, plus in-memory Seurat objects via the ryp Python-R bridge</p></li>
+<li><p><strong>Bioconductor</strong> – SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files and in-memory SCE objects via ryp</p></li>
+</ul>
+<p>as well as raw 10x Genomics data (<code class="docutils literal notranslate"><span class="pre">.h5</span></code> or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>/<code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>).</p>
+<section id="loading-from-file">
+<h2>Loading from file<a class="headerlink" href="#loading-from-file" title="Link to this heading">#</a></h2>
+<p>The constructor auto-detects format from the file extension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">single_cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+
+<span class="c1"># scverse / Scanpy</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seurat (requires ryp)</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.rds&#39;</span><span class="p">)</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.h5Seurat&#39;</span><span class="p">)</span>
+
+<span class="c1"># Bioconductor SingleCellExperiment (requires ryp)</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;sce_obj.rds&#39;</span><span class="p">)</span>
+
+<span class="c1"># 10x Genomics</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;raw_feature_bc_matrix.h5&#39;</span><span class="p">)</span>
+<span class="c1"># expects barcodes.tsv.gz and features.tsv.gz in the same directory</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;matrix.mtx.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="choosing-the-count-matrix">
+<h3>Choosing the count matrix<a class="headerlink" href="#choosing-the-count-matrix" title="Link to this heading">#</a></h3>
+<p>When a file contains both raw and normalized counts, SingleCell loads raw counts by default. Use <code class="docutils literal notranslate"><span class="pre">X_key</span></code> to choose a different layer:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># .h5ad: use SingleCell.ls() to find the right key</span>
+<span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+
+<span class="c1"># load from a specific .h5ad slot</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;raw/X&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seurat: load normalized counts from the &#39;data&#39; layer</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seurat: load from a non-default assay</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.h5Seurat&#39;</span><span class="p">,</span> <span class="na">assay</span><span class="o">=</span><span class="s1">&#39;SCT&#39;</span><span class="p">)</span>
+
+<span class="c1"># SingleCellExperiment: load log-normalized counts</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;sce_obj.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;logcounts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="partial-loading">
+<h3>Partial loading<a class="headerlink" href="#partial-loading" title="Link to this heading">#</a></h3>
+<p>For large <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> and <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code> files, you can load only the metadata columns you need:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span>
+                <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">],</span>
+                <span class="na">var_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gene_symbol&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>You can skip loading the count matrix entirely (useful for metadata-only exploration or working with dimensionally reduced objects). Note that datasets loaded without <code class="docutils literal notranslate"><span class="pre">X</span></code> cannot be saved, converted, or used for analyses that require counts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="reading-individual-slots">
+<h3>Reading individual slots<a class="headerlink" href="#reading-individual-slots" title="Link to this heading">#</a></h3>
+<p>You can also read <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.var.html#single_cell.SingleCell.var" title="single_cell.SingleCell.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a>, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obsm.html#single_cell.SingleCell.obsm" title="single_cell.SingleCell.obsm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsm</span></code></a>, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.varm.html#single_cell.SingleCell.varm" title="single_cell.SingleCell.varm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">varm</span></code></a>, or <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.uns.html#single_cell.SingleCell.uns" title="single_cell.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code></a> from an <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file without loading the full dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">obs</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.read_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_obs</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">])</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.read_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_var</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+<span class="n">obsm</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.read_obsm.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_obsm</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X_pca&#39;</span><span class="p">])</span>
+<span class="n">uns</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.read_uns.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_uns</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="saving-to-file">
+<h2>Saving to file<a class="headerlink" href="#saving-to-file" title="Link to this heading">#</a></h2>
+<p>Format is inferred from the file extension:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># scverse / Scanpy</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.h5ad&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seurat v5</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.rds&#39;</span><span class="p">)</span>
+
+<span class="c1"># Seurat v3</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.rds&#39;</span><span class="p">,</span> <span class="na">v3</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Seurat .h5Seurat (always v3)</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.h5Seurat&#39;</span><span class="p">)</span>
+
+<span class="c1"># SingleCellExperiment</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output_sce.rds&#39;</span><span class="p">,</span> <span class="na">sce</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 10x Genomics</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;matrix.mtx.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When saving to <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, the <code class="docutils literal notranslate"><span class="pre">X_key</span></code> argument controls which layer <code class="docutils literal notranslate"><span class="pre">X</span></code> is stored in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># save as normalized counts in the &#39;data&#39; layer</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When saving to Seurat <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, the <code class="docutils literal notranslate"><span class="pre">X_</span></code> prefix is automatically stripped from <code class="docutils literal notranslate"><span class="pre">obsm</span></code> keys (e.g. <code class="docutils literal notranslate"><span class="pre">X_umap</span></code> becomes <code class="docutils literal notranslate"><span class="pre">umap</span></code>) to match Seurat’s conventions. Seurat also adds <code class="docutils literal notranslate"><span class="pre">orig.ident</span></code>, <code class="docutils literal notranslate"><span class="pre">nCount_RNA</span></code>, and <code class="docutils literal notranslate"><span class="pre">nFeature_RNA</span></code> by default, which can be slow; to suppress the latter two:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ryp</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
+<span class="nf">r</span><span class="p">(</span><span class="s1">&#39;options(Seurat.object.assay.calcn = FALSE)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="in-memory-conversion">
+<h2>In-memory conversion<a class="headerlink" href="#in-memory-conversion" title="Link to this heading">#</a></h2>
+<section id="from-anndata">
+<h3>From AnnData<a class="headerlink" href="#from-anndata" title="Link to this heading">#</a></h3>
+<p>Pass an AnnData object directly to the constructor. By default, raw counts are loaded from <code class="docutils literal notranslate"><span class="pre">adata.layers['UMIs']</span></code> or <code class="docutils literal notranslate"><span class="pre">adata.raw.X</span></code> if present, falling back to <code class="docutils literal notranslate"><span class="pre">adata.X</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
+
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="nf">read_h5ad</span><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+<span class="n">sc_data</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+
+<span class="c1"># explicitly choose which matrix to use</span>
+<span class="n">sc_data</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;raw_counts&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="to-anndata">
+<h3>To AnnData<a class="headerlink" href="#to-anndata" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc_data</span><span class="o">.</span><span class="n">to_scanpy</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The count matrix is shared, not copied. Modifying <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> will also modify the original SingleCell dataset. To avoid this, use <code class="docutils literal notranslate"><span class="pre">sc_data.copy().to_scanpy()</span></code>.</p>
+<p>There is no <code class="docutils literal notranslate"><span class="pre">from_scanpy()</span></code> method – <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></a> serves that purpose.</p>
+</div>
+</section>
+</section>
+<section id="the-ryp-python-r-bridge">
+<h2>The ryp Python-R bridge<a class="headerlink" href="#the-ryp-python-r-bridge" title="Link to this heading">#</a></h2>
+<p>Seurat and SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files are handled transparently via <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a>, a Python-R bridge. Loading and saving <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files works like any other format. For in-memory conversion between SingleCell and R objects, use <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.from_seurat.html#single_cell.SingleCell.from_seurat" title="single_cell.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_seurat()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html#single_cell.SingleCell.to_seurat" title="single_cell.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.from_sce.html#single_cell.SingleCell.from_sce" title="single_cell.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_sce()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.to_sce.html#single_cell.SingleCell.to_sce" title="single_cell.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>R’s sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.</p>
+</div>
+<section id="seurat">
+<h3>Seurat<a class="headerlink" href="#seurat" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ryp</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
+
+<span class="c1"># load a Seurat object in R</span>
+<span class="nf">r</span><span class="p">(</span><span class="s1">&#39;seurat_obj &lt;- readRDS(&quot;seurat_obj.rds&quot;)&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert to SingleCell</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.from_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">from_seurat</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert from a specific assay/layer</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.from_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">from_seurat</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj&#39;</span><span class="p">,</span> <span class="na">assay</span><span class="o">=</span><span class="s1">&#39;SCT&#39;</span><span class="p">,</span> <span class="na">layer</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert back to Seurat (v5) in R&#39;s workspace</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_seurat</span></a><span class="p">(</span><span class="s1">&#39;seurat_out&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert to Seurat v3</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_seurat</span></a><span class="p">(</span><span class="s1">&#39;seurat_out&#39;</span><span class="p">,</span> <span class="na">v3</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># or just save directly — no need for to_seurat + saveRDS</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.rds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="singlecellexperiment">
+<h3>SingleCellExperiment<a class="headerlink" href="#singlecellexperiment" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ryp</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
+
+<span class="c1"># load a SingleCellExperiment in R</span>
+<span class="nf">r</span><span class="p">(</span><span class="s1">&#39;sce &lt;- readRDS(&quot;sce_obj.rds&quot;)&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert to SingleCell</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.from_sce.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">from_sce</span></a><span class="p">(</span><span class="s1">&#39;sce&#39;</span><span class="p">)</span>
+
+<span class="c1"># use log-normalized counts instead</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.from_sce.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">from_sce</span></a><span class="p">(</span><span class="s1">&#39;sce&#39;</span><span class="p">,</span> <span class="na">assay</span><span class="o">=</span><span class="s1">&#39;logcounts&#39;</span><span class="p">)</span>
+
+<span class="c1"># convert back to SCE in R&#39;s workspace</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_sce.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_sce</span></a><span class="p">(</span><span class="s1">&#39;sce_out&#39;</span><span class="p">)</span>
+
+<span class="c1"># or just save directly</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output_sce.rds&#39;</span><span class="p">,</span> <span class="na">sce</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="example-combining-seurat-and-scanpy">
+<h2>Example: combining Seurat and Scanpy<a class="headerlink" href="#example-combining-seurat-and-scanpy" title="Link to this heading">#</a></h2>
+<p>A common reason to bridge ecosystems is to use tools that only exist in one. For instance, <a class="reference external" href="https://azimuth.hubmapconsortium.org/">Azimuth</a> provides automated cell type annotation via a Seurat reference atlas (R only), while <a class="reference external" href="https://scvi-tools.org/">scvi-tools</a> provides deep generative models for integration and differential expression (Python only). SingleCell lets you chain these without writing intermediate files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">single_cell</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ryp</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
+
+<span class="c1"># start in Python: load and QC</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">skip_qc</span><span class="p">()</span>
+
+<span class="c1"># pass to R: annotate cell types with Azimuth</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_seurat</span></a><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">)</span>
+<span class="nf">r</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">library(Azimuth)</span>
+<span class="s1">obj &lt;- RunAzimuth(obj, reference = &quot;pbmcref&quot;)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.from_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">from_seurat</span></a><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">)</span>
+<span class="c1"># sc.obs now contains Azimuth&#39;s predicted.celltype.l1, l2, etc.</span>
+
+<span class="c1"># back in Python: run scvi integration</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">to_scanpy</span><span class="p">()</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scvi</span>
+<span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="o">.</span><span class="nf">setup_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="nf">SCVI</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;X_scVI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_latent_representation</span><span class="p">()</span>
+
+<span class="c1"># return to SingleCell for downstream analysis</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="constructing-from-scratch">
+<h2>Constructing from scratch<a class="headerlink" href="#constructing-from-scratch" title="Link to this heading">#</a></h2>
+<p>You can also build a SingleCell dataset from individual components:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">csr_array</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">csr_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;cell_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cell1&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2&#39;</span><span class="p">]})</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;gene_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;g3&#39;</span><span class="p">]})</span>
+
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="na">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">var</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Load <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad')</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Load <code class="docutils literal notranslate"><span class="pre">.rds</span></code> / <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.rds')</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Load 10x <code class="docutils literal notranslate"><span class="pre">.h5</span></code> / <code class="docutils literal notranslate"><span class="pre">.mtx</span></code></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('matrix.h5')</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Load specific layer</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X_key='raw/X')</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Load subset of columns</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">obs_columns=[...])</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Load without counts</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X=False)</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Read <code class="docutils literal notranslate"><span class="pre">obs</span></code> only</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.read_obs.html#single_cell.SingleCell.read_obs" title="single_cell.SingleCell.read_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.read_obs('file.h5ad')</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Save to any format</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.save.html#single_cell.SingleCell.save" title="single_cell.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('out.h5ad')</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>From AnnData</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>To AnnData</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.to_scanpy.html#single_cell.SingleCell.to_scanpy" title="single_cell.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_scanpy()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>From Seurat (in-memory)</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.from_seurat.html#single_cell.SingleCell.from_seurat" title="single_cell.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_seurat('obj')</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>To Seurat (in-memory)</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html#single_cell.SingleCell.to_seurat" title="single_cell.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_seurat('obj')</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>From SCE (in-memory)</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.from_sce.html#single_cell.SingleCell.from_sce" title="single_cell.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_sce('obj')</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>To SCE (in-memory)</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.to_sce.html#single_cell.SingleCell.to_sce" title="single_cell.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_sce('obj')</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Construct manually</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__" title="single_cell.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(X=X,</span> <span class="pre">obs=obs,</span> <span class="pre">var=var)</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="basic_workflow.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Basic Workflow</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api/single_cell/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SingleCell</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-from-file">Loading from file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-count-matrix">Choosing the count matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-loading">Partial loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-individual-slots">Reading individual slots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-file">Saving to file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-memory-conversion">In-memory conversion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-anndata">From AnnData</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-anndata">To AnnData</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ryp-python-r-bridge">The ryp Python-R bridge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seurat">Seurat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#singlecellexperiment">SingleCellExperiment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-combining-seurat-and-scanpy">Example: combining Seurat and Scanpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-from-scratch">Constructing from scratch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
