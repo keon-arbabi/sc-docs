@@ -21,7 +21,7 @@ A multi-threaded reader loads massive HDf5 in seconds to minutes.
 
 -   **Memory Efficient**: brisc tracks QCed cells rather than subsetting to reduce peak memory useage,
 
--   **User Friendly**:
+-   **User Friendly**: Designed to be beginner-friendly. Detailed, specific error messsages. Type-checking. Sensible defaults. 
 
 
 :::{toctree}
