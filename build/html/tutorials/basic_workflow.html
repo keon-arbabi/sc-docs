@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/basic_workflow';</script>
+    <script src="../_static/js/benchmark.js?v=fd545241"></script>
+    <script src="../_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Interoperability" href="interoperability.html" />
@@ -363,8 +365,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">psutil</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
-      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="nf">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="nf">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>192 CPUs, 755 GB RAM
@@ -408,7 +410,7 @@ HVG took 2s 280ms
 <h2>Normalization<a class="headerlink" href="#normalization" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.normalize.html#single_cell.SingleCell.normalize" title="single_cell.SingleCell.normalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">normalize()</span></code></a> log-transforms the counts. The default method, PFlog1pPF (<a class="reference external" href="https://biorxiv.org/content/10.1101/2022.05.06.490859v1.full">Booeshaghi et al. 2022</a>), applies proportional fitting before and after log1p to correct for composition bias. With <code class="docutils literal notranslate"><span class="pre">method='logCP10k'</span></code>, it matches Seurat’s <code class="docutils literal notranslate"><span class="pre">NormalizeData()</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Normalize&#39;</span><span class="p">):</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Normalize...
@@ -420,7 +422,7 @@ Normalize took 27s 760ms
 <h2>PCA<a class="headerlink" href="#pca" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pca()</span></code></a> computes principal components from the normalized, highly variable genes. The default is 50 PCs, and can be adjusted with <code class="docutils literal notranslate"><span class="pre">num_PCs</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;PCA&#39;</span><span class="p">):</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pca</span><span class="p">()</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.pca.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pca</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PCA...
@@ -433,7 +435,7 @@ PCA took 20s 630ms
 <h2>Nearest neighbors<a class="headerlink" href="#nearest-neighbors" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors" title="single_cell.SingleCell.neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">neighbors()</span></code></a> computes the 20 nearest neighbors of each cell in PC space, using a fast approximate search based on FAISS’s <code class="docutils literal notranslate"><span class="pre">IndexIVFFlat</span></code> strategy. <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.shared_neighbors.html#single_cell.SingleCell.shared_neighbors" title="single_cell.SingleCell.shared_neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">shared_neighbors()</span></code></a> then builds a shared nearest neighbor (SNN) graph — two cells are connected in proportion to how many neighbors they share. This is the same approach used by Seurat.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;Neighbors&#39;</span><span class="p">):</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">neighbors</span><span class="p">()</span><span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">()</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.shared_neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">shared_neighbors</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Neighbors...
@@ -451,7 +453,7 @@ Neighbors took 58s 570ms
 <p>If your dataset contains batch effects, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.harmonize.html#single_cell.SingleCell.harmonize" title="single_cell.SingleCell.harmonize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">harmonize()</span></code></a> corrects the PCs using <a class="reference external" href="https://github.com/immunogenomics/harmony">Harmony</a>. Run it after <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca" title="single_cell.SingleCell.pca"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pca()</span></code></a> and before <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors" title="single_cell.SingleCell.neighbors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">neighbors()</span></code></a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.harmonize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">harmonize</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
 <span class="c1"># downstream steps will use obsm[&#39;harmony&#39;] instead of obsm[&#39;pca&#39;]</span>
-<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">(</span><span class="na">PC_key</span><span class="o">=</span><span class="s1">&#39;harmony&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">(</span><span class="na">PC_key</span><span class="o">=</span><span class="s1">&#39;harmony&#39;</span><span class="p">)</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.shared_neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">shared_neighbors</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p>brisc’s Harmony implementation is parallelized via a nested block strategy and uses a k-means variant called <a class="reference external" href="https://arxiv.org/abs/1203.6402">k-means||</a> for initialization.</p>
@@ -478,7 +480,7 @@ Cluster took 5m 21s
 <li><p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.umap.html#single_cell.SingleCell.umap" title="single_cell.SingleCell.umap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">umap()</span></code></a> — the standard UMAP algorithm.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nf">Timer</span><span class="p">(</span><span class="s1">&#39;PaCMAP&#39;</span><span class="p">):</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">pacmap</span><span class="p">()</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.pacmap.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pacmap</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>PaCMAP...
@@ -502,7 +504,7 @@ PaCMAP took 1m 8s
 Markers took 3s 630ms
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">markers</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">markers</span><span class="o">.</span><span class="nf">head</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (5, 5)
@@ -522,12 +524,12 @@ Markers took 3s 630ms
     <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">remove_doublets</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span>
         <span class="na">subset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">pca</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">neighbors</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">shared_neighbors</span><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.pca.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pca</span></a><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.shared_neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">shared_neighbors</span></a><span class="p">()</span>
     <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.cluster.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cluster</span></a><span class="p">(</span><span class="na">resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
-    <span class="o">.</span><span class="n">pacmap</span><span class="p">()</span>
+    <span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.pacmap.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pacmap</span></a><span class="p">()</span>
 <span class="p">)</span>
 <span class="n">markers</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.find_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">find_markers</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
 </pre></div>

@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/single_cell.SingleCell.pca';</script>
+    <script src="../../../_static/js/benchmark.js?v=fd545241"></script>
+    <script src="../../../_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="single_cell.SingleCell.neighbors" href="single_cell.SingleCell.neighbors.html" />
@@ -502,26 +504,7 @@
 <h1>single_cell.SingleCell.pca<a class="headerlink" href="#single-cell-singlecell-pca" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="single_cell.SingleCell.pca">
-<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">pca</span></span><span class="sig-paren">(</span>
-
-<dl>
-<dd><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">others</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">QC_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passed_QC'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">hvg_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">PC_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pca'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">num_PCs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">subspace_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">match_parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
-</dl>
-
-<span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.pca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.pca" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">pca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">others</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QC_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passed_QC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PC_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pca'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_PCs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subspace_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">match_parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.pca"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.pca" title="Link to this definition">#</a></dt>
 <dd><p>Compute principal components (PCs) across cells.</p>
 <p>Requires normalized counts, so must be run after <cite>normalize()</cite>. By
 default, only the highly variable genes from <cite>hvg()</cite> are used to

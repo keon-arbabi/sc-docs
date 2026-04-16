@@ -48,9 +48,8 @@ autodoc_member_order = "bysource"
 # Move type hints from signature to parameter descriptions (Scanpy style)
 autodoc_typehints = "description"
 
-# Wrap signatures when they exceed this many characters, putting each
-# parameter on its own line (Sphinx >= 7.2)
-maximum_signature_line_length = 88
+# Don't force one-parameter-per-line wrapping; let CSS handle natural wrapping
+maximum_signature_line_length = 10000
 
 # Type alias display is handled by the _semantic_highlight post-processor
 autodoc_type_aliases = {}
@@ -74,6 +73,7 @@ html_theme = "pydata_sphinx_theme"
 
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
+html_js_files = ["js/benchmark.js", "js/theme-fix.js"]
 html_show_sourcelink = False
 
 html_theme_options = {
@@ -147,19 +147,20 @@ def _build_api_links():
 
 _api_links = _build_api_links()
 
-# Pattern: <span class="n">NAME</span><span class="p">(</span>  → function call
+# Pattern: <span class="n">NAME</span><span class="p">(...</span>  → function call
+# The paren span may be `(`, `()`, or `(...)` depending on Pygments.
 _call_re = re.compile(
     r'<span class="n">([^<]+)</span>'
-    r'(<span class="p">\(</span>)')
+    r'(<span class="p">\([^<]*</span>)')
 # Pattern: <span class="n">NAME</span><span class="o">=</span>  → keyword arg
 _kwarg_re = re.compile(
     r'<span class="n">([^<]+)</span>'
     r'(<span class="o">=</span>)')
-# Pattern: .<span class="n">NAME</span><span class="p">(</span>  → method call
+# Pattern: .<span class="n">NAME</span><span class="p">(...</span>  → method call
 _method_re = re.compile(
     r'(<span class="o">\.</span>)'
     r'<span class="n">([^<]+)</span>'
-    r'(<span class="p">\(</span>)')
+    r'(<span class="p">\([^<]*</span>)')
 
 def _make_linked_span(name, css_class, depth):
     """Wrap a span in an <a> tag if the name is a known API method."""

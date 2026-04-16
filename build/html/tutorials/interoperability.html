@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/interoperability';</script>
+    <script src="../_static/js/benchmark.js?v=fd545241"></script>
+    <script src="../_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="SingleCell" href="../api/single_cell/index.html" />
@@ -481,7 +483,7 @@
 </section>
 <section id="to-anndata">
 <h3>To AnnData<a class="headerlink" href="#to-anndata" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc_data</span><span class="o">.</span><span class="n">to_scanpy</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc_data</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_scanpy.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_scanpy</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -551,7 +553,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">ryp</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
 
 <span class="c1"># start in Python: load and QC</span>
-<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">skip_qc</span><span class="p">()</span>
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.skip_qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">skip_qc</span></a><span class="p">()</span>
 
 <span class="c1"># pass to R: annotate cell types with Azimuth</span>
 <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_seurat.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_seurat</span></a><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">)</span>
@@ -563,12 +565,12 @@
 <span class="c1"># sc.obs now contains Azimuth&#39;s predicted.celltype.l1, l2, etc.</span>
 
 <span class="c1"># back in Python: run scvi integration</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">to_scanpy</span><span class="p">()</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.to_scanpy.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_scanpy</span></a><span class="p">()</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">scvi</span>
 <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">SCVI</span><span class="o">.</span><span class="nf">setup_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">batch_key</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">scvi</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="nf">SCVI</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-<span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;X_scVI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_latent_representation</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="nf">train</span><span class="p">()</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;X_scVI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="nf">get_latent_representation</span><span class="p">()</span>
 
 <span class="c1"># return to SingleCell for downstream analysis</span>
 <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
@@ -581,9 +583,9 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">csr_array</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">csr_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<span class="n">obs</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;cell_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cell1&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2&#39;</span><span class="p">]})</span>
-<span class="n">var</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;gene_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;g3&#39;</span><span class="p">]})</span>
+<span class="n">X</span> <span class="o">=</span> <span class="nf">csr_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">DataFrame</span><span class="p">({</span><span class="s1">&#39;cell_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cell1&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2&#39;</span><span class="p">]})</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">DataFrame</span><span class="p">({</span><span class="s1">&#39;gene_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;g3&#39;</span><span class="p">]})</span>
 
 <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="na">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">var</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
 </pre></div>

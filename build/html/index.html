@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script src="_static/js/benchmark.js?v=fd545241"></script>
+    <script src="_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tutorials" href="tutorials/index.html" />
@@ -311,20 +313,79 @@
                 <article class="bd-article">
                   
   <div style="text-align: center; margin-bottom: 1.5rem;">
-  <img src="_static/images/runner_title_light.svg" alt="brisc" class="only-light" style="max-width: 50%;">
-  <img src="_static/images/runner_title_dark.svg" alt="brisc" class="only-dark" style="max-width: 50%;">
+  <img src="_static/images/runner_title_wide_light.svg" alt="brisc" class="only-light" style="max-width: 80%;">
+  <img src="_static/images/runner_title_wide_dark.svg" alt="brisc" class="only-dark" style="max-width: 80%;">
 </div>
-<p>brisc is a high-performance library for analyzing single-cell data at scale. Built on <a class="reference external" href="https://pola.rs/">Polars</a> and optimized C++, it provides a blazing fast, memory-efficient pipeline that interoperates seamlessly with the Scverse and Seurat ecosystems.</p>
+<p>brisc is a high-performance library for analyzing single-cell data at scale. It prioritizes running as fast as possible on multithreaded CPU systems, strict reproducibility and a clean, user-friendly interface. On datasets of 1 to 20 million cells, it cuts the runtime of common workflows by over 60x, from hours to minutes.</p>
 <section id="key-features">
 <h1>Key features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p><strong>High Performance</strong>: Critical algorithms—including Harmony integration, Leiden clustering, and LocalMAP embedding—are re-implemented in parallel C++ to process millions of cells in minutes.</p></li>
-<li><p><strong>Polars Integration</strong>: Cell (<code class="docutils literal notranslate"><span class="pre">obs</span></code>) and gene (<code class="docutils literal notranslate"><span class="pre">var</span></code>) metadata are stored in Polars DataFrames, enabling instant filtering, joining, and querying.</p></li>
-<li><p><strong>Seamless Interoperability</strong>: Natively read and write Seurat (<code class="docutils literal notranslate"><span class="pre">.rds</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>) and AnnData (<code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>) files, bridging the Python and R ecosystems without intermediate conversion steps.</p></li>
-<li><p><strong>Parallel I/O</strong>: Custom multi-threaded readers load massive HDF5 datasets significantly faster than standard implementations.</p></li>
-<li><p><strong>Complete Pipeline</strong>: A unified toolkit spanning QC (including doublet detection), batch correction, clustering, and pseudobulk differential expression via limma-voom.</p></li>
-<li><p><strong>Memory Efficient</strong>: Built strictly on sparse arrays to minimize memory usage, handling large-scale atlases on standard hardware.</p></li>
+<li><p><strong>Blazing fast</strong>: Achieved through ground-up optimization of core algorithms and effective parallelism.</p></li>
+<li><p><strong>Deterministic parallelism:</strong> Every step produces identical floating-point results, regardless of the number of threads used.</p></li>
+<li><p><strong>User friendly</strong>: Sensible defaults, strict type-checking, and specific error messages keep the interface approachable.</p></li>
+<li><p><strong>Seamless interoperability</strong>: Natively read and write <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>, and 10x files. Convert between SingleCell, AnnData, Seurat, and SingleCellExperiment objects in memory via the <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a> Python-R bridge.</p></li>
+<li><p><strong>Complete toolkit</strong>: Covers every major single-cell task — preprocessing, dimensionality reduction, harmony, label transfer, clustering, embedding, and pseudobulk differential expression.</p></li>
+<li><p><strong>Memory efficient</strong>: Tracks QC flagged cells instead of subsetting, avoiding a 2x peak in memory.</p></li>
 </ul>
+<div class="showcase-row">
+<div>
+<div class="showcase-label">Basic Workflow</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+
+<span class="n">sc</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.pca.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pca</span></a><span class="p">()</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">neighbors</span></a><span class="p">()</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.shared_neighbors.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">shared_neighbors</span></a><span class="p">()</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.cluster.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cluster</span></a><span class="p">(</span><span class="na">resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>\
+  <span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.pacmap.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pacmap</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div>
+<div class="showcase-label">Label Transfer</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+
+<span class="n">sc_ref</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data_ref.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>
+<span class="n">sc_query</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data_query.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>
+<span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
+<span class="n">sc_ref</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>
+<span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>
+<span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.pca.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pca</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
+<span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.harmonize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">harmonize</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
+<span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.label_transfer_from.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">label_transfer_from</span></a><span class="p">(</span>
+  <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+  <span class="na">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div>
+<div class="showcase-label">Pseudobulk DE</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span><span class="p">,</span> <span class="n">Pseudobulk</span><span class="p">,</span> <span class="n">DE</span>
+
+<span class="n">sc</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>
+<span class="n">pb</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.pseudobulk.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pseudobulk</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
+<span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="api/single_cell/api/single_cell.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;~ condition + sex + age_at_death&#39;</span>
+<span class="n">de</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="api/de/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">DE</span></a><span class="p">(</span>
+  <span class="n">formula</span><span class="p">,</span> <span class="na">group</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span>
+  <span class="na">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="showcase-chart">
+<div class="showcase-chart-header">
+<div class="showcase-chart-title">Performance · 10M cells · Parse Biosciences PBMC</div>
+<div class="showcase-chart-subtitle">192 CPUs, 755 GB RAM</div>
+</div>
+<div id="benchmark-chart"></div>
+</div>
+<script>
+document.body.classList.add('landing-page');
+</script>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">

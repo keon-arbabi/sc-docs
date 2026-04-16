@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/single_cell.SingleCell.hvg';</script>
+    <script src="../../../_static/js/benchmark.js?v=fd545241"></script>
+    <script src="../../../_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="single_cell.SingleCell.normalize" href="single_cell.SingleCell.normalize.html" />
@@ -502,25 +504,7 @@
 <h1>single_cell.SingleCell.hvg<a class="headerlink" href="#single-cell-singlecell-hvg" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="single_cell.SingleCell.hvg">
-<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">hvg</span></span><span class="sig-paren">(</span>
-
-<dl>
-<dd><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">others</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">QC_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passed_QC'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">batch_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">num_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">min_cells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">flavor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat_v3'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">hvg_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">rank_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable_rank'</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>,</dd>
-<dd><em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>,</dd>
-</dl>
-
-<span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.hvg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.hvg" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">hvg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">others</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">QC_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'passed_QC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flavor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat_v3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hvg_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'highly_variable_rank'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/single_cell.html#SingleCell.hvg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.SingleCell.hvg" title="Link to this definition">#</a></dt>
 <dd><p>Select highly variable genes using the same approach as Seurat.</p>
 <p>Operates on raw counts, so must be run before <cite>normalize()</cite> (but after
 <cite>qc()</cite>). When run with multiple datasets, only considers genes present

@@ -6,11 +6,11 @@
 #85dacc
 #9ca9eb
 #f06883
-# Sidebar
-#211c1c
-# Nav bar
-#2c2525
 # Background
+#211c1c
+# Sidebar
+#2c2525
+# Nav bar
 #403838
 
 # Light
@@ -21,9 +21,10 @@
 #1c8ca8
 #7058be
 #e14775
+# Background
+#fefaf9
 # Sidebar
 #ede7e5
 # Nav bar
 #faf4f2
-# Background
-#fefaf9
+

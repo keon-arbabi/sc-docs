@@ -64,6 +64,7 @@ html[data-theme="light"] {
     --pst-gradient-sidebar-right: #ede7e5;
     --pst-color-border: #d7cfcd;
     --pst-color-primary: #e16032;
+    --pst-color-accent: #e16032;
     --pst-color-secondary: #c9542a;
     --pst-color-link: var(--pst-color-primary);
     --pst-color-link-hover: var(--pst-color-secondary);
@@ -79,16 +80,17 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-    --pst-color-on-background: #2c2525;
-    --pst-color-background: #403838;
+    --pst-color-on-background: #403838;
+    --pst-color-background: #211c1c;
     --pst-color-surface: #2c2525;
-    --pst-color-on-surface: #fff1f3;
-    --pst-color-text-base: #fff1f3;
-    --pst-gradient-sidebar-left: #211c1c;
-    --pst-gradient-sidebar-right: #211c1c;
-    --pst-color-sidebar-nav: #211c1c;
+    --pst-color-on-surface: #fefaf9;
+    --pst-color-text-base: #fefaf9;
+    --pst-gradient-sidebar-left: #2c2525;
+    --pst-gradient-sidebar-right: #2c2525;
+    --pst-color-sidebar-nav: #2c2525;
     --pst-color-border: #5a4f4f;
     --pst-color-primary: #f38d70;
+    --pst-color-accent: #f38d70;
     --pst-color-secondary: #f7a48d;
     --pst-color-link: var(--pst-color-primary);
     --pst-color-link-hover: var(--pst-color-secondary);
@@ -100,50 +102,53 @@ html[data-theme="dark"] {
     --code-purple: #9ca9eb;
     --code-cyan:   #85dacc;
     --code-comment:#72696a;
-    --code-text:   #fff1f3;
+    --code-text:   #fefaf9;
 }
 
-/* The sidebar's own background is transparent — the gradient panel below
-   paints both the sidebar area and the extension to the viewport edge so
-   they're guaranteed to match. */
-div.bd-sidebar-primary {
-    background-image: none;
-    background-color: transparent;
+/* The sidebar's own background is transparent on desktop only — the gradient
+   panel below paints both the sidebar area and the extension to the viewport
+   edge so they're guaranteed to match. On mobile, the sidebar becomes a modal
+   and needs its own opaque background. */
+@media (min-width: 960px) {
+    div.bd-sidebar-primary {
+        background-image: none;
+        background-color: transparent;
+    }
 }
 
-/* Paint a single gradient panel that covers (a) the empty strip between
-   the viewport's left edge and .bd-container__inner, and (b) the 25%-wide
-   sidebar area at the start of .bd-container__inner. The sidebar above is
-   transparent so it inherits this background, which means the colour at
-   any point of the sidebar is identical to the extension to its left. */
-.bd-container__inner {
-    position: relative;
-}
-.bd-container__inner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -100vw;
-    width: calc(100vw + 25%);
-    background-image: linear-gradient(
-        90deg,
-        var(--pst-gradient-sidebar-left) 0%,
-        var(--pst-gradient-sidebar-left) 100vw,
-        var(--pst-gradient-sidebar-right) 100%
-    );
-    pointer-events: none;
-    z-index: 0;
-}
-/* On pages where the primary sidebar is hidden (landing page etc., marked
-   with .hide-on-wide), drop the panel so it doesn't bleed into the content. */
-.bd-container__inner:has(.bd-sidebar-primary.hide-on-wide)::before {
-    display: none;
-}
-/* Keep sidebar contents above the gradient panel */
-div.bd-sidebar-primary {
-    position: sticky;
-    z-index: 1;
+/* Paint a single gradient panel that covers the sidebar area -- desktop only.
+   On narrow screens pydata converts the sidebar into a drawer/modal, so skip
+   the panel and let pydata's defaults take over. */
+@media (min-width: 960px) {
+    .bd-container__inner {
+        position: relative;
+    }
+    .bd-container__inner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -100vw;
+        width: calc(100vw + 25%);
+        background-image: linear-gradient(
+            90deg,
+            var(--pst-gradient-sidebar-left) 0%,
+            var(--pst-gradient-sidebar-left) 100vw,
+            var(--pst-gradient-sidebar-right) 100%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
+    /* On pages where the primary sidebar is hidden (landing page etc.,
+       marked with .hide-on-wide), drop the panel. */
+    .bd-container__inner:has(.bd-sidebar-primary.hide-on-wide)::before {
+        display: none;
+    }
+    /* Keep sidebar contents above the gradient panel */
+    div.bd-sidebar-primary {
+        position: sticky;
+        z-index: 1;
+    }
 }
 
 /* Note admonition highlight — orange */
@@ -191,6 +196,225 @@ a.api-link:hover span {
     text-decoration: underline;
 }
 
+/* =====================================================================
+   Landing page: hide footer, showcase layout
+   ===================================================================== */
+
+/* Hide the "auto" (system settings) theme mode — forces direct light/dark toggle */
+i.theme-switch[data-mode="auto"] {
+    display: none !important;
+}
+
+/* Hide footer + footer content on every page */
+footer.bd-footer,
+footer.bd-footer-content,
+.bd-footer-content,
+.footer-items {
+    display: none !important;
+}
+
+/* Landing-only: hide sidebars on DESKTOP only. On mobile, pydata's JS moves
+   the primary sidebar's contents into a <dialog> modal when the hamburger is
+   tapped -- and transfers the class list too, which means a `display: none`
+   on .bd-sidebar-primary would also hide the modal and break the menu. */
+@media (min-width: 960px) {
+    html:has(.showcase-row) .bd-sidebar-primary,
+    html:has(.showcase-row) .bd-sidebar-secondary {
+        display: none !important;
+    }
+}
+html:has(.showcase-row) .prev-next-area,
+html:has(.showcase-row) footer.prev-next-footer,
+html:has(.showcase-row) .prev-next-footer {
+    display: none !important;
+}
+/* Widen pydata's 60em article cap just enough to fit 3 code blocks,
+   but keep healthy margins on wide screens. */
+html:has(.showcase-row) .bd-main .bd-content .bd-article-container,
+html:has(.showcase-row) .bd-article-container {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+/* Constrain prose to a readable line length (anywhere in the landing article),
+   and align headings to the same left edge as lists. */
+html:has(.showcase-row) .bd-article p,
+html:has(.showcase-row) .bd-article > section > section,
+html:has(.showcase-row) .bd-article ul,
+html:has(.showcase-row) .bd-article h1,
+html:has(.showcase-row) .bd-article h2 {
+    max-width: 780px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+html:has(.showcase-row) .bd-article ul {
+    padding-left: 1.5em;
+}
+/* Headline banner -- narrower than prose for visual punch.
+   Target by the inline text-align:center style so we hit it regardless of DOM nesting. */
+html:has(.showcase-row) .bd-article div[style*="text-align: center"],
+html:has(.showcase-row) .bd-article div[style*="text-align:center"] {
+    max-width: 780px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+html:has(.showcase-row) .bd-article div[style*="text-align: center"] img,
+html:has(.showcase-row) .bd-article div[style*="text-align:center"] img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+}
+/* Center the showcase rows and chart */
+html:has(.showcase-row) .showcase-row,
+html:has(.showcase-row) .showcase-chart {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Space between key features and the code showcase */
+html:has(.showcase-row) .showcase-row {
+    margin-top: 3rem;
+}
+/* Kill the gradient sidebar panel on landing since there's no sidebar */
+html:has(.showcase-row) .bd-container__inner::before {
+    display: none !important;
+}
+/* Hide the "back to top" button globally */
+#pst-back-to-top,
+button.btn.btn-primary.btn-sm.pst-back-to-top {
+    display: none !important;
+}
+
+/* ---- Shared section label (title) -- uppercase, muted ---- */
+.showcase-label {
+    font-family: var(--pst-font-family-base);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pst-color-text-muted);
+    margin-bottom: 0.4rem;
+}
+/* ---- Shared caption (subtitle) -- small, muted, not uppercase ---- */
+.showcase-caption {
+    font-family: var(--pst-font-family-base);
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--pst-color-text-muted);
+    margin-bottom: 0.8rem;
+}
+
+/* Three code boxes in one row */
+.showcase-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 900px) {
+    .showcase-row { grid-template-columns: 1fr; }
+}
+
+/* Code exemplars: larger font now that landing is wider */
+.showcase-row pre {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    margin: 0;
+    overflow-x: auto;
+}
+.showcase-row .highlight {
+    border-radius: 0.4rem;
+}
+
+/* Chart panel -- styled exactly like a code block (pre) */
+.showcase-chart {
+    padding: 1.5rem 2rem;
+    border-radius: 0.4rem;
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
+                0 0 .0625rem var(--pst-color-shadow);
+    max-width: 800px;
+    margin: 2rem auto 0;
+}
+html[data-theme="light"] .showcase-chart { background-color: #fefaf9; }
+html[data-theme="dark"]  .showcase-chart { background-color: #2c2525; }
+.showcase-chart-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+.showcase-chart-title {
+    font-family: var(--pst-font-family-base);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--pst-color-text-base);
+    margin-bottom: 0.2rem;
+}
+.showcase-chart-subtitle {
+    font-family: var(--pst-font-family-base);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--pst-color-text-muted);
+}
+
+/* Benchmark chart */
+.bench-group {
+    margin-bottom: 1rem;
+}
+.bench-group:last-child {
+    margin-bottom: 0;
+}
+.bench-title {
+    font-family: var(--pst-font-family-base);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pst-color-text-muted);
+    margin-bottom: 0.4rem;
+}
+.bench-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    height: 1.6rem;
+}
+.bench-label {
+    width: 7.5rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 0.5rem;
+}
+.bench-track {
+    flex: 1;
+    position: relative;
+    height: 1.2rem;
+    min-width: 0;
+}
+.bench-bar {
+    height: 100%;
+    border-radius: 0.2rem;
+    transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-width: 2px;
+}
+.bench-val {
+    flex-shrink: 0;
+    width: 3rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    padding-left: 0.4rem;
+}
+html[data-theme="light"] .bench-val { color: #5b5353; }
+html[data-theme="dark"]  .bench-val { color: #fefaf9; }
+html[data-theme="light"] .bar-brisc  { background: #e16032; }
+html[data-theme="light"] .bar-scanpy { background: #269d69; }
+html[data-theme="light"] .bar-seurat { background: #1c8ca8; }
+html[data-theme="dark"]  .bar-brisc  { background: #f38d70; }
+html[data-theme="dark"]  .bar-scanpy { background: #adda78; }
+html[data-theme="dark"]  .bar-seurat { background: #85dacc; }
+
 div.sd-card {
     background-image: linear-gradient(0deg, var(--pst-gradient-sidebar-left) 0%, var(--pst-gradient-sidebar-right) 100%);
 }
@@ -226,35 +450,61 @@ pre {
     width: auto;
 }
 
+/* Mobile: ensure nav header buttons (hamburger, logo, search, theme) are
+   clickable and not hidden behind any custom layer */
+@media (max-width: 959.98px) {
+    .bd-header,
+    .bd-header__inner,
+    .bd-header .navbar-header-items__start,
+    .bd-header .navbar-header-items__end {
+        position: relative;
+        z-index: 1050;
+    }
+    .bd-header button.primary-toggle,
+    .bd-header .navbar-brand,
+    .bd-header .search-button__button,
+    .bd-header .theme-switch-button {
+        pointer-events: auto !important;
+    }
+    /* Push the hamburger drawer's contents below the device status bar */
+    #pst-primary-sidebar-modal,
+    #pst-secondary-sidebar-modal {
+        padding-top: env(safe-area-inset-top, 0) !important;
+    }
+    #pst-primary-sidebar-modal[open],
+    #pst-secondary-sidebar-modal[open] {
+        padding-top: calc(env(safe-area-inset-top, 0) + 3.5rem) !important;
+    }
+}
+
 
 /* center-justify the API nav items to the page:
    use CSS grid with three columns — start | center | end —
    where start and end are equal-width and center is auto-sized */
-.bd-header__inner.bd-page-width {
-    display: grid !important;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-}
-/* logo in the first column, left-aligned */
-.bd-header__inner .navbar-header-items__start {
-    grid-column: 1;
-    justify-self: start;
-}
-/* nav links in the center column */
-.bd-header__inner .navbar-header-items__center {
-    margin: 0 !important;
-}
-/* the col-lg-9 wrapper becomes a contents container so its children
-   (.navbar-header-items__center and __end) promote into the grid */
-.bd-header__inner .navbar-header-items {
-    display: contents;
-}
-/* search/theme switcher in the third column, right-aligned */
-.bd-header__inner .navbar-header-items__end {
-    grid-column: 3;
-    justify-self: end;
-    display: flex;
-    align-items: center;
+/* Desktop-only: three-column grid navbar (logo | nav links | search/theme).
+   On narrow screens, pydata's default flex layout + hamburger handles it. */
+@media (min-width: 960px) {
+    .bd-header__inner.bd-page-width {
+        display: grid !important;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+    }
+    .bd-header__inner .navbar-header-items__start {
+        grid-column: 1;
+        justify-self: start;
+    }
+    .bd-header__inner .navbar-header-items__center {
+        margin: 0 !important;
+    }
+    .bd-header__inner .navbar-header-items {
+        display: contents;
+    }
+    .bd-header__inner .navbar-header-items__end {
+        grid-column: 3;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+    }
 }
 
 /* =====================================================================
@@ -266,7 +516,7 @@ pre {
 html[data-theme="light"] div.highlight,
 html[data-theme="light"] div.highlight pre { background: #fefaf9 !important; color: #5b5353 !important; }
 html[data-theme="dark"] div.highlight,
-html[data-theme="dark"] div.highlight pre  { background: #403838 !important; color: #fff1f3 !important; }
+html[data-theme="dark"] div.highlight pre  { background: #2c2525 !important; color: #fefaf9 !important; }
 
 /* Light: comments */
 html[data-theme="light"] .highlight .c  { color: #a59c9b !important; font-style: italic !important; }
@@ -348,12 +598,12 @@ html[data-theme="dark"] .highlight .kr { color: #f06883 !important; }
 html[data-theme="dark"] .highlight .kt { color: #f06883 !important; }
 html[data-theme="dark"] .highlight .kc { color: #9ca9eb !important; }
 /* Dark: names */
-html[data-theme="dark"] .highlight .n  { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .nn { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .nv { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .nx { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .py { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .nl { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .n  { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .nn { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .nv { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .nx { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .py { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .nl { color: #fefaf9 !important; }
 html[data-theme="dark"] .highlight .nf { color: #adda78 !important; }
 html[data-theme="dark"] .highlight .fm { color: #adda78 !important; }
 html[data-theme="dark"] .highlight .nc { color: #adda78 !important; }
@@ -389,10 +639,10 @@ html[data-theme="dark"] .highlight .il { color: #9ca9eb !important; }
 /* Dark: operators & punctuation */
 html[data-theme="dark"] .highlight .o  { color: #f06883 !important; }
 html[data-theme="dark"] .highlight .ow { color: #f06883 !important; }
-html[data-theme="dark"] .highlight .p  { color: #fff1f3 !important; }
-html[data-theme="dark"] .highlight .pm { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .p  { color: #fefaf9 !important; }
+html[data-theme="dark"] .highlight .pm { color: #fefaf9 !important; }
 html[data-theme="dark"] .highlight .err{ color: #f06883 !important; background: none !important; }
-html[data-theme="dark"] .highlight .w  { color: #fff1f3 !important; }
+html[data-theme="dark"] .highlight .w  { color: #fefaf9 !important; }
 
 /* Inline code — strip the theme's chip background so it sits on the page bg */
 html[data-theme] code.literal,
@@ -493,11 +743,14 @@ html[data-theme="dark"] table.autosummary td,
 html[data-theme="dark"] table.autosummary th {
     border-color: #faf4f2;
 }
-html[data-theme="dark"] table.autosummary tr > td {
-    background-color: #403838;
+html[data-theme="dark"] table.autosummary tr > td,
+html[data-theme="dark"] table.autosummary thead th {
+    background-color: #2c2525;
 }
 
-/* Content tables (e.g. tutorial summary) — match autosummary look */
+/* Content tables (e.g. tutorial summary) — match autosummary look.
+   Header cells (th) get the same background as the first body row so
+   there's no contrast band at the top. */
 html[data-theme="light"] .bd-content .table {
     border: none;
 }
@@ -505,6 +758,7 @@ html[data-theme="light"] .bd-content .table td,
 html[data-theme="light"] .bd-content .table th {
     border: none;
 }
+html[data-theme="light"] .bd-content .table thead th,
 html[data-theme="light"] .bd-content .table tbody tr:nth-child(odd) > td {
     background-color: var(--pst-color-on-background);
 }
@@ -518,8 +772,9 @@ html[data-theme="dark"] .bd-content .table td,
 html[data-theme="dark"] .bd-content .table th {
     border-color: #faf4f2;
 }
-html[data-theme="dark"] .bd-content .table tr > td {
-    background-color: #403838;
+html[data-theme="dark"] .bd-content .table tr > td,
+html[data-theme="dark"] .bd-content .table thead th {
+    background-color: #2c2525;
 }
 
 /* Dark mode: fix blue-grey text to #faf4f2 */
@@ -556,4 +811,33 @@ html[data-theme="dark"] #pst-page-navigation-heading-2 {
 /* Muted text override */
 html[data-theme="dark"] {
     --pst-color-text-muted: #c5b8b6;
+}
+
+/* ===== Light mode: force key UI text to pure black ===== */
+/* Top navbar buttons (Tutorials, SingleCell, Pseudobulk, DE) */
+html[data-theme="light"] .bd-header .nav-link {
+    color: #000 !important;
+}
+/* Search bar text + Ctrl/K kbd shortcuts */
+html[data-theme="light"] .search-button-field,
+html[data-theme="light"] .search-button__default-text,
+html[data-theme="light"] .search-button__kbd-shortcut,
+html[data-theme="light"] .kbd-shortcut__modifier,
+html[data-theme="light"] .search-button-field kbd {
+    color: #000 !important;
+}
+/* Light/dark theme switcher icon */
+html[data-theme="light"] .theme-switch-button,
+html[data-theme="light"] .theme-switch-button i {
+    color: #000 !important;
+}
+/* Code-block titles & plot group titles */
+html[data-theme="light"] .showcase-label,
+html[data-theme="light"] .bench-title {
+    color: #000 !important;
+}
+/* Plot title + subtitle */
+html[data-theme="light"] .showcase-chart-title,
+html[data-theme="light"] .showcase-chart-subtitle {
+    color: #000 !important;
 }

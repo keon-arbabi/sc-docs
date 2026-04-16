@@ -32,7 +32,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=6a94d1fb" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=384d50c7" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -46,6 +46,8 @@
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=ccdb6887"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/loading_and_qc';</script>
+    <script src="../_static/js/benchmark.js?v=fd545241"></script>
+    <script src="../_static/js/theme-fix.js?v=d495fd10"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Basic Workflow" href="basic_workflow.html" />
@@ -366,8 +368,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">subprocess</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">psutil</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
-      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="nf">cpu_count</span><span class="p">()</span><span class="si">}</span><span class="s1"> CPUs, &#39;</span>
+      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">psutil</span><span class="o">.</span><span class="nf">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">total</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">30</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> GB RAM&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>192 CPUs, 755 GB RAM
@@ -413,7 +415,7 @@ Load dataset took 1m 625ms
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">num_threads</span></code> controls parallelism for this load and all subsequent operations on the dataset. The default (<code class="docutils literal notranslate"><span class="pre">-1</span></code>) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs.<code class="docutils literal notranslate"><span class="pre">num_threads</span></code> can also be set for individual steps.</p>
 <p>A quick look at what was loaded:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">peek_obs</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.peek_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">peek_obs</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span> column     value
@@ -426,7 +428,7 @@ Load dataset took 1m 625ms
 shape: (6, 2)
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">peek_var</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.peek_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">peek_var</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span> column   value
@@ -473,14 +475,14 @@ Quality control took 1m 9s
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">subset=True</span></code> (default) removes failing cells but roughly doubles peak memory by copying <code class="docutils literal notranslate"><span class="pre">X</span></code>. <code class="docutils literal notranslate"><span class="pre">subset=False</span></code> keeps all cells and adds a <code class="docutils literal notranslate"><span class="pre">passed_QC</span></code> column to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a> – downstream methods automatically ignore flagged cells via their <code class="docutils literal notranslate"><span class="pre">QC_column</span></code> argument.</p>
 <p><a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> sets <code class="docutils literal notranslate"><span class="pre">uns['QCed']</span> <span class="pre">=</span> <span class="pre">True</span></code>. Downstream methods check this flag and error if QC has not been run. For pre-cleaned data, <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.skip_qc.html#single_cell.SingleCell.skip_qc" title="single_cell.SingleCell.skip_qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">skip_qc()</span></code></a> sets the flag without filtering:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><span class="n">skip_qc</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.skip_qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">skip_qc</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <section id="exploring-qc-metrics">
 <h3>Exploring QC metrics<a class="headerlink" href="#exploring-qc-metrics" title="Link to this heading">#</a></h3>
 <p>To explore data quality before filtering – for instance, to choose thresholds or make plots – <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc_metrics.html#single_cell.SingleCell.qc_metrics" title="single_cell.SingleCell.qc_metrics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc_metrics()</span></code></a> adds <code class="docutils literal notranslate"><span class="pre">num_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">num_genes</span></code>, and <code class="docutils literal notranslate"><span class="pre">mito_fraction</span></code> columns to <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs" title="single_cell.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>. This is optional; <a class="reference internal" href="../api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc" title="single_cell.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> calculates its own filters internally.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/single_cell.SingleCell.qc_metrics.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc_metrics</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">&#39;num_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;num_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;mito_fraction&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">&#39;num_counts&#39;</span><span class="p">,</span> <span class="s1">&#39;num_genes&#39;</span><span class="p">,</span> <span class="s1">&#39;mito_fraction&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">describe</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span> statistic   num_counts   num_genes    mito_fraction
