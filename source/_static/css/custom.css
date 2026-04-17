@@ -213,69 +213,355 @@ footer.bd-footer-content,
     display: none !important;
 }
 
-/* Landing-only: hide sidebars on DESKTOP only. On mobile, pydata's JS moves
-   the primary sidebar's contents into a <dialog> modal when the hamburger is
-   tapped -- and transfers the class list too, which means a `display: none`
-   on .bd-sidebar-primary would also hide the modal and break the menu. */
+/* =====================================================================
+   Landing page (detected via .showcase-chart which is always present)
+   Unified max-width for hero, features, chart, and code carousel.
+   ===================================================================== */
+:root {
+    --landing-width: 960px;
+}
+
+/* Hide sidebars on DESKTOP only. On mobile, pydata's JS moves the primary
+   sidebar into a <dialog> modal when the hamburger is tapped -- and
+   transfers the class list too, so a `display: none` here would break the
+   menu. Restrict to desktop. */
 @media (min-width: 960px) {
-    html:has(.showcase-row) .bd-sidebar-primary,
-    html:has(.showcase-row) .bd-sidebar-secondary {
+    html:has(.showcase-chart) .bd-sidebar-primary,
+    html:has(.showcase-chart) .bd-sidebar-secondary {
         display: none !important;
     }
 }
-html:has(.showcase-row) .prev-next-area,
-html:has(.showcase-row) footer.prev-next-footer,
-html:has(.showcase-row) .prev-next-footer {
+html:has(.showcase-chart) .prev-next-area,
+html:has(.showcase-chart) footer.prev-next-footer,
+html:has(.showcase-chart) .prev-next-footer {
     display: none !important;
 }
-/* Widen pydata's 60em article cap just enough to fit 3 code blocks,
-   but keep healthy margins on wide screens. */
-html:has(.showcase-row) .bd-main .bd-content .bd-article-container,
-html:has(.showcase-row) .bd-article-container {
-    max-width: 1200px !important;
+/* Expand pydata's 60em article cap just enough for the 3-card carousel.
+   The hero, features, and chart stay at --landing-width via the rule
+   below; only the carousel uses the extra horizontal room. */
+html:has(.showcase-chart) .bd-main .bd-content .bd-article-container,
+html:has(.showcase-chart) .bd-article-container {
+    max-width: 1120px !important;
     width: 100% !important;
     margin: 0 auto !important;
 }
-/* Constrain prose to a readable line length (anywhere in the landing article),
-   and align headings to the same left edge as lists. */
-html:has(.showcase-row) .bd-article p,
-html:has(.showcase-row) .bd-article > section > section,
-html:has(.showcase-row) .bd-article ul,
-html:has(.showcase-row) .bd-article h1,
-html:has(.showcase-row) .bd-article h2 {
-    max-width: 780px !important;
+/* Align hero prose, h2 headings, banner, features grid, and chart at the
+   same landing width. The carousel gets its own wider cap (below) since
+   it needs room for 3 whole, equal-size cards. */
+html:has(.showcase-chart) .bd-article p,
+html:has(.showcase-chart) .bd-article > section > section,
+html:has(.showcase-chart) .bd-article ul,
+html:has(.showcase-chart) .bd-article h1,
+html:has(.showcase-chart) .bd-article h2,
+html:has(.showcase-chart) .features-grid,
+html:has(.showcase-chart) .showcase-chart {
+    max-width: var(--landing-width) !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
-html:has(.showcase-row) .bd-article ul {
+html:has(.showcase-chart) .bd-article ul {
     padding-left: 1.5em;
 }
-/* Headline banner -- narrower than prose for visual punch.
-   Target by the inline text-align:center style so we hit it regardless of DOM nesting. */
-html:has(.showcase-row) .bd-article div[style*="text-align: center"],
-html:has(.showcase-row) .bd-article div[style*="text-align:center"] {
-    max-width: 780px !important;
+/* Headline banner -- match landing width. */
+html:has(.showcase-chart) .bd-article div[style*="text-align: center"],
+html:has(.showcase-chart) .bd-article div[style*="text-align:center"] {
+    max-width: var(--landing-width) !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
-html:has(.showcase-row) .bd-article div[style*="text-align: center"] img,
-html:has(.showcase-row) .bd-article div[style*="text-align:center"] img {
-    max-width: 100% !important;
-    width: 100% !important;
+html:has(.showcase-chart) .bd-article div[style*="text-align: center"] img,
+html:has(.showcase-chart) .bd-article div[style*="text-align:center"] img {
+    max-width: 80% !important;
     height: auto !important;
 }
-/* Center the showcase rows and chart */
-html:has(.showcase-row) .showcase-row,
-html:has(.showcase-row) .showcase-chart {
-    margin-left: auto;
-    margin-right: auto;
+/* Spacing between landing sections */
+html:has(.showcase-chart) .showcase-chart {
+    margin-top: 2.5rem !important;
 }
-/* Space between key features and the code showcase */
-html:has(.showcase-row) .showcase-row {
-    margin-top: 3rem;
+html:has(.showcase-chart) .code-carousel {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
 }
+
+/* -------- Key features: 3x2 card grid -------- */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem auto 0;
+}
+@media (max-width: 900px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .features-grid { grid-template-columns: 1fr; }
+}
+
+.feature-card {
+    padding: 1.25rem 1.25rem 1.1rem;
+    border-radius: 0.4rem;
+    background-color: #fefaf9;
+    border: 1px solid var(--pst-color-border);
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
+                0 0 .0625rem var(--pst-color-shadow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.feature-card:hover {
+    transform: translateY(-2px);
+}
+html[data-theme="dark"] .feature-card {
+    background-color: #2c2525;
+    border-color: #5a4f4f;
+}
+
+.feature-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--pst-color-accent);
+    margin-bottom: 0.6rem;
+}
+.feature-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.feature-title {
+    font-family: var(--pst-font-family-base);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem 0;
+    color: var(--pst-color-text-base);
+}
+html:has(.showcase-chart) .bd-article .feature-title,
+html:has(.showcase-chart) .bd-article .feature-desc {
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.feature-desc {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    margin: 0;
+}
+.feature-desc code {
+    font-size: 0.8rem;
+    color: var(--code-orange) !important;
+}
+.feature-desc a {
+    color: var(--pst-color-link);
+}
+html[data-theme="light"] .feature-desc { color: #5b5353; }
+html[data-theme="dark"]  .feature-desc { color: #d7cfcd; }
+
+/* -------- 3-card code carousel --------
+   All 3 cards are visible simultaneously at equal size. The center card is
+   at full opacity; the flanking prev/next cards are at reduced opacity.
+   Arrow buttons (flanking the stage) rotate which card is centered.
+*/
+.code-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 1080px;
+}
+html:has(.showcase-chart) .code-carousel {
+    max-width: 1080px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.carousel-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: stretch;
+    flex: 1;
+    min-width: 0;
+    /* Extra room on the bottom so the active card's translateY(+22)
+       stagger + shadow aren't sheared off. */
+    padding: 0.8rem 0 2.6rem;
+    overflow: hidden;
+}
+.carousel-card {
+    grid-area: 1 / 1;
+    /* All three cards share identical dimensions -- no scaling. The active
+       card sits forward (z-index 3 + translated down) and partially
+       obscures the two flanking cards sitting behind it. */
+    width: 100%;
+    max-width: 440px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #fefaf9;
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.4rem;
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
+                0 0 .0625rem var(--pst-color-shadow);
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(.4,0,.2,1),
+                opacity 0.45s ease,
+                filter 0.3s ease;
+    will-change: transform, opacity, filter;
+}
+html[data-theme="dark"] .carousel-card {
+    background-color: #2c2525;
+    border-color: #5a4f4f;
+}
+.carousel-card.is-active {
+    /* Staggered forward: the active card drops down noticeably so it sits
+       in front of the two flanking cards. */
+    transform: translateX(0) translateY(22px);
+    opacity: 1;
+    z-index: 3;
+    filter: none;
+}
+/* translateX(52%) keeps a consistent ~18px gap between the inner edges
+   of the prev and next cards (where they'd otherwise touch behind the
+   active card), while leaving the outer edges inside the page margin. */
+.carousel-card.is-prev {
+    transform: translateX(-52%) translateY(0);
+    opacity: 1;
+    z-index: 1;
+    cursor: pointer;
+    filter: brightness(0.99);
+}
+.carousel-card.is-next {
+    transform: translateX(52%) translateY(0);
+    opacity: 1;
+    z-index: 1;
+    cursor: pointer;
+    filter: brightness(0.99);
+}
+html[data-theme="dark"] .carousel-card.is-prev,
+html[data-theme="dark"] .carousel-card.is-next {
+    filter: brightness(0.9);
+}
+.carousel-card:not(.is-active):hover {
+    filter: brightness(1);
+}
+/* Narrower viewports: shrink cards so the flanking pair never bleeds
+   past the page margin. */
+@media (max-width: 1100px) {
+    .carousel-card { max-width: 400px; }
+}
+@media (max-width: 1024px) {
+    .carousel-card { max-width: 360px; }
+}
+
+/* Tab header integrated into the card (same font size + color as the
+   bar-group titles on the chart). The three mac-style traffic-light dots
+   live at the top-right of the tab via .card-dots. */
+.card-tab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: var(--pst-font-family-base);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.6rem 1.1rem 0.35rem;
+    border-bottom: 1px solid var(--pst-color-border);
+    background: transparent;
+}
+html[data-theme="dark"] .card-tab {
+    border-bottom-color: #5a4f4f;
+}
+.card-tab-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.card-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+.card-dot {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+.card-dot-red    { background-color: #ff5f57; }
+.card-dot-yellow { background-color: #febc2e; }
+.card-dot-green  { background-color: #28c840; }
+
+/* Collapse the flanking cards on narrow viewports where they'd overlap. */
+@media (max-width: 900px) {
+    .carousel-card {
+        max-width: 520px;
+        width: 100%;
+    }
+    .carousel-card.is-prev,
+    .carousel-card.is-next {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(0);
+    }
+}
+
+/* Strip the Pygments chrome so the card's own border is the only box. */
+.card-code .highlight,
+.card-code div.highlight {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+.card-code pre {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0.45rem 1.3rem 1.1rem !important;
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+    overflow-x: auto;
+}
+
+/* Arrow buttons */
+.carousel-arrow {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--pst-color-accent);
+    cursor: pointer;
+    padding: 0;
+    border-radius: 50%;
+    z-index: 4;
+    transition: color 0.15s ease, transform 0.12s ease,
+                background-color 0.15s ease;
+}
+.carousel-arrow:hover {
+    color: var(--pst-color-secondary);
+    transform: scale(1.08);
+}
+.carousel-arrow:active {
+    transform: scale(0.96);
+}
+.carousel-arrow svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
+}
+
 /* Kill the gradient sidebar panel on landing since there's no sidebar */
-html:has(.showcase-row) .bd-container__inner::before {
+html:has(.showcase-chart) .bd-container__inner::before {
     display: none !important;
 }
 /* Hide the "back to top" button globally */
@@ -284,64 +570,23 @@ button.btn.btn-primary.btn-sm.pst-back-to-top {
     display: none !important;
 }
 
-/* ---- Shared section label (title) -- uppercase, muted ---- */
-.showcase-label {
-    font-family: var(--pst-font-family-base);
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--pst-color-text-muted);
-    margin-bottom: 0.4rem;
-}
-/* ---- Shared caption (subtitle) -- small, muted, not uppercase ---- */
-.showcase-caption {
-    font-family: var(--pst-font-family-base);
-    font-size: 0.72rem;
-    font-weight: 400;
-    color: var(--pst-color-text-muted);
-    margin-bottom: 0.8rem;
-}
-
-/* Three code boxes in one row */
-.showcase-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-}
-@media (max-width: 900px) {
-    .showcase-row { grid-template-columns: 1fr; }
-}
-
-/* Code exemplars: larger font now that landing is wider */
-.showcase-row pre {
-    font-size: 0.8rem;
-    line-height: 1.5;
-    padding: 1rem;
-    border-radius: 0.4rem;
-    margin: 0;
-    overflow-x: auto;
-}
-.showcase-row .highlight {
-    border-radius: 0.4rem;
-}
-
-/* Chart panel -- styled exactly like a code block (pre) */
+/* Chart panel -- matches the carousel + feature cards (same bg, border, shadow) */
 .showcase-chart {
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 3rem 1.75rem;
     border-radius: 0.4rem;
+    border: 1px solid var(--pst-color-border);
     box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
                 0 0 .0625rem var(--pst-color-shadow);
-    max-width: 800px;
     margin: 2rem auto 0;
 }
 html[data-theme="light"] .showcase-chart { background-color: #fefaf9; }
-html[data-theme="dark"]  .showcase-chart { background-color: #2c2525; }
+html[data-theme="dark"]  .showcase-chart {
+    background-color: #2c2525;
+    border-color: #5a4f4f;
+}
 .showcase-chart-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.6rem;
 }
 .showcase-chart-title {
     font-family: var(--pst-font-family-base);
@@ -365,14 +610,32 @@ html[data-theme="dark"]  .showcase-chart { background-color: #2c2525; }
 .bench-group:last-child {
     margin-bottom: 0;
 }
+/* GPU variant sits on a separate hardware profile; use a subtle divider
+   + extra vertical margin on either side to signal the context switch. */
+.bench-group--gpu {
+    margin-top: 1.9rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--pst-color-border);
+}
+html[data-theme="dark"] .bench-group--gpu {
+    border-top-color: #5a4f4f;
+}
+/* Per-group hardware note (used by the GPU group). */
+.bench-note {
+    font-family: var(--pst-font-family-base);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--pst-color-text-base);
+    margin: -0.2rem 0 0.5rem;
+}
 .bench-title {
     font-family: var(--pst-font-family-base);
-    font-size: 0.78rem;
+    font-size: 1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--pst-color-text-muted);
-    margin-bottom: 0.4rem;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 0.2rem;
+    color: var(--pst-color-text-base);
 }
 .bench-row {
     display: flex;
@@ -392,6 +655,9 @@ html[data-theme="dark"]  .showcase-chart { background-color: #2c2525; }
     position: relative;
     height: 1.2rem;
     min-width: 0;
+    /* Reserve space past the bar for the time label. */
+    margin-right: 3rem;
+    overflow: visible;
 }
 .bench-bar {
     height: 100%;
@@ -399,21 +665,34 @@ html[data-theme="dark"]  .showcase-chart { background-color: #2c2525; }
     transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     min-width: 2px;
 }
+/* Time label: absolutely placed at the bar's tip, fades in after the
+   width animation stops. JS sets `left: <pct>%` on transitionend and
+   toggles .is-done to reveal it. */
 .bench-val {
-    flex-shrink: 0;
-    width: 3rem;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    padding-left: 0.4rem;
     font-size: 0.7rem;
     white-space: nowrap;
-    padding-left: 0.4rem;
+    opacity: 0;
+    transition: opacity 0.3s ease, left 0s;
+    pointer-events: none;
+}
+.bench-val.is-done {
+    opacity: 1;
 }
 html[data-theme="light"] .bench-val { color: #5b5353; }
 html[data-theme="dark"]  .bench-val { color: #fefaf9; }
 html[data-theme="light"] .bar-brisc  { background: #e16032; }
 html[data-theme="light"] .bar-scanpy { background: #269d69; }
 html[data-theme="light"] .bar-seurat { background: #1c8ca8; }
+html[data-theme="light"] .bar-rapids { background: #7058be; }
 html[data-theme="dark"]  .bar-brisc  { background: #f38d70; }
 html[data-theme="dark"]  .bar-scanpy { background: #adda78; }
 html[data-theme="dark"]  .bar-seurat { background: #85dacc; }
+html[data-theme="dark"]  .bar-rapids { background: #9ca9eb; }
 
 div.sd-card {
     background-image: linear-gradient(0deg, var(--pst-gradient-sidebar-left) 0%, var(--pst-gradient-sidebar-right) 100%);
@@ -831,13 +1110,38 @@ html[data-theme="light"] .theme-switch-button,
 html[data-theme="light"] .theme-switch-button i {
     color: #000 !important;
 }
-/* Code-block titles & plot group titles */
-html[data-theme="light"] .showcase-label,
-html[data-theme="light"] .bench-title {
+/* Bar-group titles + code card tab titles share the same treatment:
+   theme-aware text color (black in light mode, near-white in dark mode),
+   same font size, weight, and sentence-case. The GPU hardware note
+   uses the same text color so it reads as part of the title block. */
+html[data-theme="light"] .bench-title,
+html[data-theme="light"] .bench-note,
+html[data-theme="light"] .card-tab {
     color: #000 !important;
+}
+html[data-theme="dark"] .bench-title,
+html[data-theme="dark"] .bench-note,
+html[data-theme="dark"] .card-tab {
+    color: #fefaf9 !important;
 }
 /* Plot title + subtitle */
 html[data-theme="light"] .showcase-chart-title,
 html[data-theme="light"] .showcase-chart-subtitle {
     color: #000 !important;
+}
+
+/* Hero paragraph CTA ("Get started. >" link to tutorials) */
+.hero-cta {
+    color: var(--pst-color-accent) !important;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    margin-left: 0.15em;
+}
+.hero-cta strong {
+    font-weight: 700;
+}
+.hero-cta:hover {
+    color: var(--pst-color-secondary) !important;
+    text-decoration: underline;
 }

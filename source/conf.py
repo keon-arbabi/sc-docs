@@ -73,7 +73,12 @@ html_theme = "pydata_sphinx_theme"
 
 html_static_path = ["_static"]
 html_css_files = ["css/custom.css"]
-html_js_files = ["js/benchmark.js", "js/theme-fix.js"]
+html_js_files = [
+    "js/benchmark-data.js",
+    "js/benchmark.js",
+    "js/carousel.js",
+    "js/theme-fix.js",
+]
 html_show_sourcelink = False
 
 html_theme_options = {
@@ -242,7 +247,85 @@ def _semantic_highlight(app, exception=None):
         if text != original:
             html_file.write_text(text)
 
+# -- Generate benchmark-data.js from sc-benchmarking CSVs ------------------
+
+_BENCHMARK_DIR = Path("/home/karbabi/sc-benchmarking/output")
+# For brisc's basic workflow, keep only PaCMAP to match scanpy/seurat which
+# run a single embedding step.
+_BASIC_BRISC_EXCLUDE = {
+    "Embedding (LocalMAP)",
+    "Embedding (UMAP)",
+    "Embedding (UMAP hogwild)",
+}
+
+def _sum_timer_csv(path, exclude=None):
+    import csv
+    total = 0.0
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            op = row["operation"]
+            if exclude and op in exclude:
+                continue
+            try:
+                total += float(row["duration"])
+            except (ValueError, TypeError):
+                continue
+    return total
+
+def _generate_benchmark_data(app):
+    import json
+    cpu_workflows = [
+        ("Basic workflow", "basic"),
+        ("Label transfer", "transfer"),
+        ("Pseudobulk differential expression", "de"),
+    ]
+    cpu_libs = [
+        ("brisc",  "{prefix}_brisc_Parse_-1_timer.csv", True),
+        ("scanpy", "{prefix}_scanpy_Parse_timer.csv",   False),
+        ("seurat", "{prefix}_seurat_Parse_timer.csv",   False),
+    ]
+    groups = {}
+    for label, prefix in cpu_workflows:
+        bars = {}
+        for lib_name, fmt, is_brisc in cpu_libs:
+            csv_path = _BENCHMARK_DIR / fmt.format(prefix=prefix)
+            if not csv_path.exists():
+                continue
+            exclude = _BASIC_BRISC_EXCLUDE if (is_brisc and prefix == "basic") else None
+            bars[lib_name] = round(_sum_timer_csv(csv_path, exclude=exclude), 2)
+        groups[label] = {"hardware": "cpu", "bars": bars}
+
+    # GPU variant of the basic workflow: brisc vs rapids-single-cell on the
+    # same 10M-cell Parse PBMC dataset but on 96 CPUs + 4x H100 GPUs.
+    gpu_files = [
+        ("brisc",  "basic_brisc_Parse_-1_gpu_timer.csv"),
+        ("rapids", "basic_rapids_Parse_gpu_timer.csv"),
+    ]
+    gpu_bars = {}
+    for lib_name, fname in gpu_files:
+        csv_path = _BENCHMARK_DIR / fname
+        if csv_path.exists():
+            gpu_bars[lib_name] = round(_sum_timer_csv(csv_path), 2)
+    if gpu_bars:
+        groups["Basic workflow \u00b7 CPU vs GPU"] = {
+            "hardware": "gpu",
+            "note": "96 CPUs, 4\u00d7 H100 GPU, 752 GB RAM",
+            "bars": gpu_bars,
+        }
+
+    payload = {
+        "subtitle": "192 CPUs, 755 GB RAM",
+        "groups": groups,
+    }
+    out_path = Path(app.srcdir) / "_static" / "js" / "benchmark-data.js"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        "window.BENCHMARK_DATA = " + json.dumps(payload, indent=2, ensure_ascii=False) + ";\n"
+    )
+
 def setup(app):
     app.connect("autodoc-process-docstring", _md_to_rst_links)
+    app.connect("builder-inited", _generate_benchmark_data)
     app.connect("build-finished", _overwrite_pygments_css, priority=900)
     app.connect("build-finished", _semantic_highlight, priority=901)
