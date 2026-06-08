@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>brisc.SingleCell.with_varm &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=4d1de856" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/brisc.SingleCell.with_varm';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../../_static/js/benchmark.js?v=f68481de"></script>
+    <script src="../../../_static/js/carousel.js?v=7dda1511"></script>
+    <script src="../../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../../_static/js/api-scrollspy.js?v=e93893b7"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="brisc.SingleCell.with_obsp" href="brisc.SingleCell.with_obsp.html" />
+    <link rel="prev" title="brisc.SingleCell.with_obsm" href="brisc.SingleCell.with_obsm.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  <meta name="robots" content="noindex, nofollow">
+
+  </head>
+  <body class="api-page" data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../../../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_var.html">read_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obsm.html">read_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_varm.html">read_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obsp.html">read_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_varp.html">read_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_uns.html">read_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.to_scanpy.html">to_scanpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.from_seurat.html">from_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.to_seurat.html">to_seurat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.from_sce.html">from_sce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.to_sce.html">to_sce</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#properties">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.X.html">X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.obs.html">obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.var.html">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.obsm.html">obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.varm.html">varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.obsp.html">obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.varp.html">varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.uns.html">uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.obs_names.html">obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.var_names.html">var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.num_threads.html">num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.shape.html">shape</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cell.html">cell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.gene.html">gene</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html#manipulation">Manipulation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.set_obs_names.html">set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.set_var_names.html">set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.set_num_threads.html">set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.make_obs_names_unique.html">make_obs_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.make_var_names_unique.html">make_var_names_unique</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.filter_obs.html">filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.filter_var.html">filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_obs.html">select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_var.html">select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_obsm.html">select_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_varm.html">select_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_obsp.html">select_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_varp.html">select_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.select_uns.html">select_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_columns_obs.html">with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_columns_var.html">with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_obsm.html">with_obsm</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">with_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_obsp.html">with_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_varp.html">with_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.with_uns.html">with_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_X.html">drop_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_obs.html">drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_var.html">drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_obsm.html">drop_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_varm.html">drop_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_obsp.html">drop_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_varp.html">drop_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.drop_uns.html">drop_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_obs.html">rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_var.html">rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_obsm.html">rename_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_varm.html">rename_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_obsp.html">rename_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_varp.html">rename_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.rename_uns.html">rename_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cast_X.html">cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cast_obs.html">cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cast_var.html">cast_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.join_obs.html">join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.join_var.html">join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.subsample_obs.html">subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.subsample_var.html">subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.tocsr.html">tocsr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.tocsc.html">tocsc</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#structural">Structural</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.copy.html">copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.concat_obs.html">concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.concat_var.html">concat_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.split_by_obs.html">split_by_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.split_by_var.html">split_by_var</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#analysis">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.qc_metrics.html">qc_metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.qc.html">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_doublets.html">find_doublets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.get_sample_covariates.html">get_sample_covariates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pseudobulk.html">pseudobulk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.hvg.html">hvg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.normalize.html">normalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.neighbors.html">neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.shared_neighbors.html">shared_neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.harmonize.html">harmonize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cluster.html">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.label_transfer_from.html">label_transfer_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.umap.html">umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pacmap.html">pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.localmap.html">localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_markers.html">find_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_heatmap.html">plot_heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_markers.html">plot_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_umap.html">plot_umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_pacmap.html">plot_pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_localmap.html">plot_localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_embedding.html">plot_embedding</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.skip_qc.html">skip_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_var.html">peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe.html">pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_X.html">pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obs.html">pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_var.html">pipe_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obsm.html">pipe_obsm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obsm_key.html">pipe_obsm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_varm.html">pipe_varm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_varm_key.html">pipe_varm_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obsp.html">pipe_obsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obsp_key.html">pipe_obsp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_varp.html">pipe_varp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_varp_key.html">pipe_varp_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_uns.html">pipe_uns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_uns_key.html">pipe_uns_key</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">SingleCell</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../manipulation.html" class="nav-link">Manipulation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">with_varm</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="brisc-singlecell-with-varm">
+<h1>with_varm<a class="headerlink" href="#brisc-singlecell-with-varm" title="Link to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="brisc.SingleCell.with_varm">
+<span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">with_varm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">varm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">more_varm</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/brisc/single_cell.html#SingleCell.with_varm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.SingleCell.with_varm" title="Link to this definition">#</a></dt>
+<dd><p>Adds one or more keys to <cite>varm</cite>, overwriting existing keys with the
+same names if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p class="param-header"><strong>varm</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>ndarray</em><em> | </em><em>DataFrame</em><em>]</em></p><p class="param-desc">a dictionary of keys to add to (or overwrite in) <cite>varm</cite></p></li>
+<li><p class="param-header"><strong>**more_varm</strong> : <em>ndarray</em></p><p class="param-desc">additional keys to add to (or overwrite in) <cite>varm</cite>,
+specified as keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new SingleCell dataset with the new key(s) added to or
+overwritten in <cite>varm</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="brisc.SingleCell.with_obsm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">with_obsm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="brisc.SingleCell.with_obsp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">with_obsp</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

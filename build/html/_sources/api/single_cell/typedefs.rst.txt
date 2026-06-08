@@ -1,9 +1,11 @@
+:orphan:
+
 .. _typedefs:
 
 Type aliases
 ============
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 SingleCellColumn
 ----------------
@@ -17,6 +19,15 @@ SingleCell dataset and returns a Series or array.
 Used by :meth:`SingleCell.qc`, :meth:`SingleCell.find_doublets`,
 :meth:`SingleCell.pseudobulk`, :meth:`SingleCell.hvg`,
 :meth:`SingleCell.normalize`, and others.
+
+Scalar
+------
+
+``str | int | float | Decimal | date | time | datetime | timedelta | bool | bytes | Expr | Series | Iterable[Scalar]``
+
+Any primitive literal or sequence thereof. Accepted wherever a single
+value (or a 1-D sequence of values) is expected -- filter thresholds,
+default fills, single-column inputs, etc.
 
 UnsDict
 -------

@@ -1,3 +1,7 @@
+---
+orphan: true
+---
+
 # API Reference
 
 brisc exposes three main classes:

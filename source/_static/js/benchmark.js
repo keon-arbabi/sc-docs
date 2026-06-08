@@ -22,13 +22,18 @@
     brisc:  { label: 'brisc',             cls: 'bar-brisc'  },
     scanpy: { label: 'Scanpy',            cls: 'bar-scanpy' },
     seurat: { label: 'Seurat + BPCells',  cls: 'bar-seurat' },
-    rapids: { label: 'rapids-single-cell', cls: 'bar-rapids' },
+    rapids: { label: 'rapids-singlecell', cls: 'bar-rapids' },
   };
 
   function fmt(s) {
     if (s >= 3600) return (s / 3600).toFixed(1) + 'h';
     if (s >= 60) return (s / 60).toFixed(1) + 'm';
     return s.toFixed(0) + 's';
+  }
+
+  // How many times slower than brisc, e.g. "93.8×" or "1057×".
+  function fmtMult(r) {
+    return (r >= 100 ? Math.round(r) : r.toFixed(1)) + '×';
   }
 
   function build() {
@@ -63,11 +68,14 @@
       const libs = Object.entries(group.bars)
         .filter(([k, t]) => typeof t === 'number' && LIB_STYLE[k])
         .map(([k, t]) => ({
+          key: k,
           name: LIB_STYLE[k].label,
           cls: LIB_STYLE[k].cls,
           time: t,
         }));
       const maxTime = Math.max(...libs.map(l => l.time));
+      // brisc is the baseline; other bars are labeled with how much slower.
+      const base = group.bars.brisc;
 
       libs.forEach(lib => {
         const row = document.createElement('div');
@@ -88,7 +96,9 @@
 
         const val = document.createElement('span');
         val.className = 'bench-val';
-        val.textContent = fmt(lib.time);
+        const mult = (lib.key !== 'brisc' && base)
+          ? ' (' + fmtMult(lib.time / base) + ')' : '';
+        val.textContent = fmt(lib.time) + mult;
         val.style.left = '0%';
 
         bar.addEventListener('transitionend', () => {

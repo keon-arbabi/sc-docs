@@ -5,23 +5,23 @@ DE
    :maxdepth: 2
    :hidden:
 
-   constructor
-   properties
    io
+   properties
    analysis
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 .. autoclass:: DE
    :no-members:
 
-Constructor
------------
+I/O
+---
 
 .. autosummary::
    :nosignatures:
 
    DE.__init__
+   DE.save
 
 Properties
 ----------
@@ -30,14 +30,6 @@ Properties
    :nosignatures:
 
    DE.groups
-
-I/O
----
-
-.. autosummary::
-   :nosignatures:
-
-   DE.save
 
 Analysis
 --------

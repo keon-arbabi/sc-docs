@@ -1,10 +1,11 @@
 I/O
 ===
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 .. autosummary::
    :toctree: api/
    :nosignatures:
 
+   Pseudobulk.__init__
    Pseudobulk.save

@@ -1,3 +1,5 @@
+# brisc
+
 <div style="text-align: center; margin-bottom: 1.5rem;">
   <img src="_static/images/runner_title_wide_light.svg" alt="brisc" class="only-light" style="max-width: 80%;">
   <img src="_static/images/runner_title_wide_dark.svg" alt="brisc" class="only-dark" style="max-width: 80%;">
@@ -34,7 +36,7 @@ brisc is a high-performance library for analyzing single-cell data at scale. It 
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg></div>
 <h3 class="feature-title">Memory-efficient</h3>
-<p class="feature-desc">~2× lower peak memory usage than Scanpy by tracking cells that pass QC instead of subsetting</p>
+<p class="feature-desc">~2× lower peak memory usage than Scanpy by tracking cells that pass QC instead of subsetting.</p>
 </div>
 
 <div class="feature-card">
@@ -53,32 +55,9 @@ brisc is a high-performance library for analyzing single-cell data at scale. It 
 <div id="benchmark-chart"></div>
 </div>
 
-<div class="code-carousel">
-<button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="16 4 6 12 16 20"></polygon></svg>
-</button>
-<div class="carousel-stage">
-<div class="carousel-card is-prev" data-idx="2" aria-hidden="true">
-<div class="card-tab"><span class="card-tab-title">Pseudobulk differential expression</span><span class="card-dots"><span class="card-dot card-dot-red"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-green"></span></span></div>
-<div class="card-code">
-
-```python
-from brisc import SingleCell
-
-pb = SingleCell('data.h5ad')\
-  .qc()\
-  .pseudobulk('sample', 'cell_type')
-de = pb\
-  .qc('condition')\
-  .DE('~ condition + sex + pmi',
-      group='condition',
-      categorical_columns=['condition', 'sex'])
-```
-
-</div>
-</div>
-<div class="carousel-card is-active" data-idx="0" aria-hidden="false">
-<div class="card-tab"><span class="card-tab-title">Basic workflow</span><span class="card-dots"><span class="card-dot card-dot-red"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-green"></span></span></div>
+<div class="code-grid">
+<div class="code-card code-card--left">
+<div class="card-tab"><span class="card-tab-title">Basic workflow</span><span class="card-dots"><span class="card-dot card-dot-green"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-red"></span></span></div>
 <div class="card-code">
 
 ```python
@@ -92,13 +71,13 @@ sc = SingleCell('data.h5ad')\
   .neighbors()\
   .shared_neighbors()\
   .cluster(resolution=[0.25, 0.5, 1, 1.5, 2])\
-  .pacmap('cluster_0.25')
+  .pacmap()
 ```
 
 </div>
 </div>
-<div class="carousel-card is-next" data-idx="1" aria-hidden="true">
-<div class="card-tab"><span class="card-tab-title">Label transfer</span><span class="card-dots"><span class="card-dot card-dot-red"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-green"></span></span></div>
+<div class="code-card code-card--right">
+<div class="card-tab"><span class="card-tab-title">Label transfer</span><span class="card-dots"><span class="card-dot card-dot-green"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-red"></span></span></div>
 <div class="card-code">
 
 ```python
@@ -118,10 +97,25 @@ sc_query = sc_query.label_transfer_from(
 
 </div>
 </div>
+<div class="code-card code-card--center">
+<div class="card-tab"><span class="card-tab-title">Pseudobulk differential expression</span><span class="card-dots"><span class="card-dot card-dot-green"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-red"></span></span></div>
+<div class="card-code">
+
+```python
+from brisc import SingleCell
+
+pb = SingleCell('data.h5ad')\
+  .qc()\
+  .pseudobulk('sample', 'cell_type')
+de = pb\
+  .qc('condition')\
+  .DE('~ condition + sex + pmi',
+      group='condition',
+      categorical_columns=['condition', 'sex'])
+```
+
 </div>
-<button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 4 18 12 8 20"></polygon></svg>
-</button>
+</div>
 </div>
 
 <script>

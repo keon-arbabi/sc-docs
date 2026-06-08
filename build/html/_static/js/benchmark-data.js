@@ -4,33 +4,33 @@ window.BENCHMARK_DATA = {
     "Basic workflow": {
       "hardware": "cpu",
       "bars": {
-        "brisc": 427.01,
-        "scanpy": 27517.63,
-        "seurat": 43300.98
+        "brisc": 196.19,
+        "scanpy": 18407.88,
+        "seurat": 44255.71
       }
     },
     "Label transfer": {
       "hardware": "cpu",
       "bars": {
-        "brisc": 143.63,
-        "scanpy": 4366.99,
-        "seurat": 53216.51
+        "brisc": 47.13,
+        "scanpy": 2192.61,
+        "seurat": 49830.04
       }
     },
     "Pseudobulk differential expression": {
       "hardware": "cpu",
       "bars": {
-        "brisc": 81.31,
-        "scanpy": 3827.64,
-        "seurat": 4328.49
+        "brisc": 28.86,
+        "scanpy": 2049.56,
+        "seurat": 4255.12
       }
     },
     "Basic workflow · CPU vs GPU": {
       "hardware": "gpu",
       "note": "96 CPUs, 4× H100 GPU, 752 GB RAM",
       "bars": {
-        "brisc": 491.67,
-        "rapids": 1426.6
+        "brisc": 276.74,
+        "rapids": 546.23
       }
     }
   }

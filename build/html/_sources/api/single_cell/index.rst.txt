@@ -5,7 +5,6 @@ SingleCell
    :maxdepth: 2
    :hidden:
 
-   constructor
    io
    properties
    data_access
@@ -13,20 +12,11 @@ SingleCell
    structural
    analysis
    utility
-   typedefs
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 .. autoclass:: SingleCell
    :no-members:
-
-Constructor
------------
-
-.. autosummary::
-   :nosignatures:
-
-   SingleCell.__init__
 
 I/O
 ---
@@ -34,6 +24,7 @@ I/O
 .. autosummary::
    :nosignatures:
 
+   SingleCell.__init__
    SingleCell.save
    SingleCell.ls
    SingleCell.read_obs
@@ -195,13 +186,3 @@ Utility
    SingleCell.pipe_uns
    SingleCell.pipe_uns_key
 
-Type aliases
-------------
-
-.. list-table::
-   :widths: 30 70
-
-   * - :ref:`SingleCellColumn <typedefs>`
-     - ``str | pl.Expr | pl.Series | np.ndarray | Callable``
-   * - :ref:`UnsDict <typedefs>`
-     - ``dict[str, str | int | float | bool | np.ndarray | UnsDict]``

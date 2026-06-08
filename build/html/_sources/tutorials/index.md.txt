@@ -3,8 +3,10 @@
 :::{toctree}
 :maxdepth: 2
 
-loading_and_qc
+installation
 basic_workflow
+integration_and_label_transfer
+differential_expression
 interoperability
 
 :::

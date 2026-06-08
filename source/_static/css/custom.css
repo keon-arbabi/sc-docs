@@ -18,28 +18,88 @@ dl.field-list dd > ul.simple > li {
 p.param-header {
     margin-bottom: 0.1em;
 }
-/* param name: orange */
+/* param name: orange, monospace */
 p.param-header strong {
     color: var(--code-orange);
+    font-family: var(--pst-font-family-monospace);
 }
-/* param type: teal, non-italic */
+/* param type: purple, monospace, non-italic */
 p.param-header em {
-    color: var(--code-cyan);
+    color: var(--code-purple);
+    font-family: var(--pst-font-family-monospace);
     font-style: normal;
 }
-/* backtick references in param descriptions: purple */
-p.param-desc cite,
-p.param-desc code.docutils,
-p.param-desc code.literal {
-    color: var(--code-purple) !important;
+p.param-header a[href*="typedefs.html"] em {
+    color: var(--code-purple);
 }
-/* typedef links in param headers: underline on hover */
-p.param-header a:hover em {
+/* Inline code: single backticks in docstrings render as `cite`, double
+   backticks / Markdown backticks as `code.literal`/`code.docutils`. Style
+   them all as a monospace chip with a subtle background, consistently
+   across the API docs and the tutorials. */
+.bd-article cite,
+.bd-article code.docutils,
+.bd-article code.literal {
+    font-family: var(--pst-font-family-monospace) !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.85em;
+    padding: 0.12em 0.36em;
+    border-radius: 0.25rem;
+    color: var(--code-cyan) !important;
+}
+html[data-theme="light"] .bd-article cite,
+html[data-theme="light"] .bd-article code.docutils,
+html[data-theme="light"] .bd-article code.literal {
+    background-color: #efe7e4;
+}
+html[data-theme="dark"] .bd-article cite,
+html[data-theme="dark"] .bd-article code.docutils,
+html[data-theme="dark"] .bd-article code.literal {
+    background-color: #403838;
+}
+/* Cross-referenced type aliases (linked to the typedefs page): purple. */
+.bd-article a[href*="typedefs.html"] em,
+.bd-article a[href*="typedefs.html"] .pre {
+    color: var(--code-purple) !important;
+    font-style: normal;
+}
+/* typedef links: underline on hover everywhere they appear */
+.bd-article a[href*="typedefs.html"]:hover em,
+.bd-article a[href*="typedefs.html"]:hover .pre {
     text-decoration: underline;
 }
-p.param-desc {
+/* Indent each parameter's description one level under its name. Targets all
+   non-header children of the <li> so it works whether the description is a
+   simple inline paragraph (p.param-desc) or contains block content — a
+   sub-list or extra paragraphs, which the browser reparents up to the <li>
+   because the post-processed p.param-desc cannot legally contain them. */
+dl.field-list dd > ul.simple > li > *:not(.param-header) {
     margin-left: 2em;
+}
+p.param-desc {
     margin-top: 0;
+}
+
+/* Autodoc method/function/class body. The theme indents the whole method
+   <dd> by 2rem; we restructure that so the description block (prose AND its
+   lists) sits one level in, while the Parameters / Returns / Notes / Examples
+   that follow reset to the signature's left edge. */
+html[data-theme] dl.py > dd {
+    margin-left: 0;
+}
+html[data-theme] dl.py > dd > * {
+    margin-left: 2rem;
+}
+html[data-theme] dl.py > dd > dl.field-list,
+html[data-theme] dl.py > dd > dl.field-list ~ *,
+html[data-theme] dl.py > dd > p.rubric,
+html[data-theme] dl.py > dd > p.rubric ~ * {
+    margin-left: 0;
+}
+/* Parameters: align the argument list with the "Parameters:" label (the theme
+   otherwise indents the field body, pushing every argument in one level). */
+html[data-theme] dl.py dl.field-list > dd {
+    margin-left: 0;
 }
 
 /* Display long method names over multiple lines in navbar. */
@@ -129,7 +189,9 @@ html[data-theme="dark"] {
         top: 0;
         bottom: 0;
         left: -100vw;
-        width: calc(100vw + 25%);
+        /* Match the narrowed primary-sidebar width (15rem) so the gradient
+           ends exactly at the sidebar's right edge. */
+        width: calc(100vw + 15rem);
         background-image: linear-gradient(
             90deg,
             var(--pst-gradient-sidebar-left) 0%,
@@ -191,6 +253,12 @@ html[data-theme="dark"] .admonition.tip > .admonition-title::after {
     color: #f38d70 !important;
 }
 
+/* sphinx-design dropdowns: recolor the default blue-grey accent to theme orange */
+details.sd-dropdown summary.sd-card-header,
+details.sd-dropdown summary.sd-card-header + div.sd-summary-content {
+    --pst-sd-dropdown-color: var(--pst-color-primary);
+}
+
 /* API links in code blocks — subtle underline on hover */
 a.api-link:hover span {
     text-decoration: underline;
@@ -202,6 +270,15 @@ a.api-link:hover span {
 
 /* Hide the "auto" (system settings) theme mode — forces direct light/dark toggle */
 i.theme-switch[data-mode="auto"] {
+    display: none !important;
+}
+/* Theme switcher is a plain light/dark toggle, not a dropdown: hide the
+   caret and the three-option menu (JS also removes the menu). */
+.theme-switch-button.dropdown-toggle::after,
+.theme-switch-button::after {
+    display: none !important;
+}
+.theme-switch-container .dropdown-menu {
     display: none !important;
 }
 
@@ -234,6 +311,12 @@ footer.bd-footer-content,
 html:has(.showcase-chart) .prev-next-area,
 html:has(.showcase-chart) footer.prev-next-footer,
 html:has(.showcase-chart) .prev-next-footer {
+    display: none !important;
+}
+/* The Tutorials index's "Previous" points back to the home/landing page;
+   drop it so the docs don't send readers back out to the marketing page.
+   "Next" keeps its float: right, so it stays put. */
+html:has(section#tutorials) .prev-next-area .left-prev {
     display: none !important;
 }
 /* Expand pydata's 60em article cap just enough for the 3-card carousel.
@@ -304,10 +387,6 @@ html:has(.showcase-chart) .code-carousel {
     border: 1px solid var(--pst-color-border);
     box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
                 0 0 .0625rem var(--pst-color-shadow);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.feature-card:hover {
-    transform: translateY(-2px);
 }
 html[data-theme="dark"] .feature-card {
     background-color: #2c2525;
@@ -355,17 +434,65 @@ html:has(.showcase-chart) .bd-article .feature-desc {
 html[data-theme="light"] .feature-desc { color: #5b5353; }
 html[data-theme="dark"]  .feature-desc { color: #d7cfcd; }
 
-/* -------- 3-card code carousel --------
-   All 3 cards are visible simultaneously at equal size. The center card is
-   at full opacity; the flanking prev/next cards are at reduced opacity.
-   Arrow buttons (flanking the stage) rotate which card is centered.
+/* -------- Landing-page code grid (2 on top, 1 centered below) --------
+   Row 1: Basic workflow + Label transfer, outer edges anchored to the
+          landing page's content margin (±landing-width/2).
+   Row 2: Pseudobulk differential expression, centered at the same width.
 */
-.code-carousel {
-    position: relative;
+.code-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.25rem;
+    row-gap: 1.25rem;
+    max-width: var(--landing-width);
+    margin: 2rem auto 0;
+}
+.code-card {
+    width: 100%;
+    max-width: calc((var(--landing-width) - 1.25rem) / 2);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    flex-direction: column;
+    background-color: #fefaf9;
+    border: 1px solid var(--pst-color-border);
+    border-radius: 0.4rem;
+    box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
+                0 0 .0625rem var(--pst-color-shadow);
+    overflow: hidden;
+}
+html[data-theme="dark"] .code-card {
+    background-color: #2c2525;
+    border-color: #5a4f4f;
+}
+.code-card--left   { justify-self: start; }
+.code-card--right  { justify-self: end;   }
+.code-card--center {
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+html:has(.showcase-chart) .code-grid {
+    max-width: var(--landing-width) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+@media (max-width: 720px) {
+    .code-grid {
+        grid-template-columns: 1fr;
+    }
+    .code-card {
+        max-width: 100%;
+        justify-self: stretch;
+    }
+    .code-card--center {
+        grid-column: auto;
+    }
+}
+
+/* -------- 3-card code carousel (legacy, unused on landing) -------- */
+.code-carousel {
+    /* Stage spans the full carousel width; arrows float absolutely on top
+       of the flanks so the side cards can spread out to the outer margins
+       without pushing the arrows off. */
+    position: relative;
     max-width: 1080px;
 }
 html:has(.showcase-chart) .code-carousel {
@@ -379,7 +506,7 @@ html:has(.showcase-chart) .code-carousel {
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: stretch;
-    flex: 1;
+    width: 100%;
     min-width: 0;
     /* Extra room on the bottom so the active card's translateY(+22)
        stagger + shadow aren't sheared off. */
@@ -419,18 +546,19 @@ html[data-theme="dark"] .carousel-card {
     z-index: 3;
     filter: none;
 }
-/* translateX(52%) keeps a consistent ~18px gap between the inner edges
-   of the prev and next cards (where they'd otherwise touch behind the
-   active card), while leaving the outer edges inside the page margin. */
+/* Flanks pushed out so the OUTER EDGE of each card lands exactly at
+   ±landing-width/2 -- same left/right bounds as the hero, features grid,
+   and chart above. translateX is computed in pixels (not a flat %) so the
+   anchor to the margin holds regardless of card width. */
 .carousel-card.is-prev {
-    transform: translateX(-52%) translateY(0);
+    transform: translateX(calc(50% - (var(--landing-width) / 2))) translateY(0);
     opacity: 1;
     z-index: 1;
     cursor: pointer;
     filter: brightness(0.99);
 }
 .carousel-card.is-next {
-    transform: translateX(52%) translateY(0);
+    transform: translateX(calc((var(--landing-width) / 2) - 50%)) translateY(0);
     opacity: 1;
     z-index: 1;
     cursor: pointer;
@@ -529,9 +657,11 @@ html[data-theme="dark"] .card-tab {
     overflow-x: auto;
 }
 
-/* Arrow buttons */
+/* Arrow buttons: absolutely positioned so the cards can extend to the
+   carousel's outer margins while the arrows float on top. */
 .carousel-arrow {
-    flex-shrink: 0;
+    position: absolute;
+    top: 50%;
     width: 2.25rem;
     height: 2.25rem;
     display: inline-flex;
@@ -543,16 +673,24 @@ html[data-theme="dark"] .card-tab {
     cursor: pointer;
     padding: 0;
     border-radius: 50%;
-    z-index: 4;
+    z-index: 10;
     transition: color 0.15s ease, transform 0.12s ease,
                 background-color 0.15s ease;
 }
+.carousel-arrow-left {
+    left: 0.25rem;
+    transform: translateY(-50%);
+}
+.carousel-arrow-right {
+    right: 0.25rem;
+    transform: translateY(-50%);
+}
 .carousel-arrow:hover {
     color: var(--pst-color-secondary);
-    transform: scale(1.08);
+    transform: translateY(-50%) scale(1.08);
 }
 .carousel-arrow:active {
-    transform: scale(0.96);
+    transform: translateY(-50%) scale(0.96);
 }
 .carousel-arrow svg {
     width: 1.2rem;
@@ -655,8 +793,9 @@ html[data-theme="dark"] .bench-group--gpu {
     position: relative;
     height: 1.2rem;
     min-width: 0;
-    /* Reserve space past the bar for the time label. */
-    margin-right: 3rem;
+    /* Reserve space past the bar for the time + multiplier label
+       (e.g. "13.8h (1057×)" on the longest bar). */
+    margin-right: 5.75rem;
     overflow: visible;
 }
 .bench-bar {
@@ -923,14 +1062,8 @@ html[data-theme="dark"] .highlight .pm { color: #fefaf9 !important; }
 html[data-theme="dark"] .highlight .err{ color: #f06883 !important; background: none !important; }
 html[data-theme="dark"] .highlight .w  { color: #fefaf9 !important; }
 
-/* Inline code — strip the theme's chip background so it sits on the page bg */
-html[data-theme] code.literal,
-html[data-theme] code.docutils {
-    background-color: transparent;
-    border: none;
-    color: var(--code-orange);
-    font-family: var(--pst-font-family-monospace);
-}
+/* (Inline-code chip styling lives near the top of this file, under the
+   ".bd-article cite, code.docutils, code.literal" rule.) */
 
 /* =====================================================================
    Autodoc function/class signatures
@@ -946,7 +1079,7 @@ html[data-theme] dt.sig {
     background: transparent;
 }
 
-/* `class single_cell.SingleCell(` — split the parts */
+/* `class brisc.SingleCell(` — split the parts */
 html[data-theme] dt.sig .property,
 html[data-theme] dt.sig .property .k,
 html[data-theme] dt.sig .property .pre   { color: var(--code-red); }   /* `class` */
@@ -996,6 +1129,94 @@ html[data-theme] .keyword-only-separator .pre  { color: var(--code-red); }
 dl.py > dt.sig.sig-object.py {
     background-color: var(--pst-color-background) !important;
     border-left: none;
+}
+
+/* Method names in autosummary overview tables -- bold theme green,
+   matching the green used for function calls in code blocks. */
+.bd-content table.autosummary a code,
+.bd-content table.autosummary a code .pre,
+.bd-content table.autosummary td a code,
+.bd-content table.autosummary td a code .pre {
+    color: var(--code-green) !important;
+    font-weight: 700 !important;
+}
+.bd-content table.autosummary a:hover code {
+    text-decoration: underline;
+}
+
+/* =====================================================================
+   The "On this page" secondary sidebar is removed site-wide
+   (secondary_sidebar_items=[] in conf.py). Hide every leftover affordance,
+   including the article-header toggle row.
+   ===================================================================== */
+.bd-sidebar-secondary,
+#pst-secondary-sidebar,
+#pst-secondary-sidebar-modal,
+.secondary-toggle,
+.bd-header-article .sidebar-toggle {
+    display: none !important;
+}
+
+/* Remove the breadcrumb trail (home > ... > page) on every page, and
+   collapse the header-article slot it used to occupy so the content moves
+   up into the freed space. */
+.bd-breadcrumbs,
+nav[aria-label="Breadcrumb"] {
+    display: none !important;
+}
+.bd-header-article .header-article-item {
+    min-height: 0 !important;
+}
+
+/* The article-header band (breadcrumbs + pydata's toggles) is unused now;
+   hide it entirely so nothing reserves space above the content. */
+.bd-header-article {
+    display: none !important;
+}
+
+/* Pull the title/content up into the space the breadcrumb vacated. */
+@media (min-width: 960px) {
+    html:not(:has(.showcase-chart)) .bd-article {
+        padding-top: 0.6rem;
+    }
+}
+
+/* Non-home pages: narrow the primary sidebar and pull it toward the left
+   edge so the main content gets more room. */
+@media (min-width: 960px) {
+    html:not(:has(.showcase-chart)) .bd-sidebar-primary {
+        width: 15rem;
+        flex: 0 0 15rem;
+        padding-left: 0.5rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* Scroll-spy: highlight the left-sidebar link matching the section
+   currently visible on API pages. */
+body.api-page .bd-sidebar-primary a.current-section,
+body.api-page .bd-sidebar-primary a.current-section .caption-text {
+    color: var(--pst-color-accent) !important;
+    font-weight: 700;
+}
+
+/* API pages: drop the "#" permalink ("Link to this definition"/heading)
+   anchors that appear after signatures and headings. */
+body.api-page a.headerlink {
+    display: none !important;
+}
+
+/* Source-link target (Sphinx viewcode): strip the default yellow
+   :target background highlight. */
+.viewcode-block,
+div.viewcode-block,
+.viewcode-block:target,
+div.viewcode-block:target,
+dt:target,
+span:target,
+p:target,
+.highlight :target {
+    background: transparent !important;
 }
 
 /* Method overview tables (autosummary) — light: remove border, zebra;
@@ -1144,4 +1365,99 @@ html[data-theme="light"] .showcase-chart-subtitle {
 .hero-cta:hover {
     color: var(--pst-color-secondary) !important;
     text-decoration: underline;
+}
+
+/* Consistent prose link style: bold, no underline, underline on hover.
+   Target <a> inside paragraphs/list-items so we don't accidentally
+   bold autosummary tables, sidebar entries, nav links, or headerlinks. */
+.bd-article p a:not(.headerlink):not(.api-link),
+.bd-article li > p a:not(.headerlink):not(.api-link),
+.feature-desc a {
+    font-weight: 700;
+    text-decoration: none;
+}
+.bd-article p a:not(.headerlink):not(.api-link):hover,
+.bd-article li > p a:not(.headerlink):not(.api-link):hover,
+.feature-desc a:hover {
+    text-decoration: underline;
+}
+
+/* Sidebar: nudge the expand/collapse chevrons slightly left of the
+   sidebar's right edge so they're not flush against the panel border. */
+.bd-sidebar-primary .toctree-toggle,
+.bd-sidebar-primary summary .toctree-toggle {
+    margin-right: 0.6rem;
+}
+.bd-sidebar-primary details > summary {
+    padding-right: 0.2rem;
+}
+
+/* Header navbar: theme-fix.js renders the nav links as rounded chips —
+   [Tutorials]  API:  [SingleCell] [Pseudobulk] [DE]. The "API:" label uses
+   the nav color; the three API classes are grouped under it. */
+html[data-theme="light"] { --api-nav-label: #000; }
+html[data-theme="dark"]  { --api-nav-label: #faf4f2; }
+
+/* The spacer must out-specify the theme's `ul.navbar-nav>li.nav-item
+   {margin-inline:2px}` (0,3,2), so target the group <li> by its full path. */
+.bd-header ul.navbar-nav > li.nav-item.api-nav-group {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    margin-left: 1.125rem;
+}
+.bd-header .bd-navbar-elements .api-nav-group .api-nav-fix {
+    color: var(--api-nav-label);
+    font-weight: 600;
+}
+/* Each nav class is a rounded chip outlined with the theme border (Tutorials
+   chipped in place; the API classes inside the group). */
+.bd-header .bd-navbar-elements .nav-link.api-nav-chip {
+    display: inline-block !important;
+    padding: 0.18rem 0.6rem !important;
+    border-radius: 0.6rem;
+    background: var(--pst-color-surface);
+    border: 1px solid var(--pst-color-border);
+    line-height: 1.35;
+    color: var(--pst-color-text-base);
+}
+/* Drop pydata's hover/current underline (the ::before bar) on chips. */
+.bd-header .bd-navbar-elements .nav-link.api-nav-chip::before {
+    display: none !important;
+}
+/* Hover and the active/current section both show only the orange outline;
+   .current is mirrored onto the link in JS so it persists on subpages. */
+.bd-header .bd-navbar-elements .nav-link.api-nav-chip:hover,
+.bd-header .bd-navbar-elements .nav-link.api-nav-chip.current,
+.bd-header .bd-navbar-elements .nav-link.api-nav-chip.active {
+    border-color: var(--pst-color-accent);
+    color: var(--pst-color-accent) !important;
+    background: var(--pst-color-surface);
+}
+
+/* Never show the navbar icon tooltips. They're Bootstrap tooltips rendered as
+   a detached <div class="tooltip"> with text only (no per-tooltip hook), so the
+   robust fix is to hide the layer. The only two — "Color mode" (gear) and
+   "Search" — are redundant: the gear is self-evident and the search field
+   already shows its "Search Ctrl+K" label inline. */
+.tooltip {
+    display: none !important;
+}
+
+/* The landing page uses the logo as its visual title, so visually hide the
+   H1 text. It stays in the DOM to supply the document title (browser tab and
+   prev/next navigation label) and the document outline. */
+html:has(.showcase-chart) .bd-article h1 {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }

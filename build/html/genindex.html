@@ -26,48 +26,61 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=a6a3df03" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=4d1de856" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=ccdb6887"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
-    <script src="_static/js/benchmark-data.js?v=cb8b0693"></script>
-    <script src="_static/js/benchmark.js?v=5c2fd67f"></script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="_static/js/benchmark.js?v=f68481de"></script>
     <script src="_static/js/carousel.js?v=7dda1511"></script>
-    <script src="_static/js/theme-fix.js?v=d495fd10"></script>
+    <script src="_static/js/theme-fix.js?v=da088429"></script>
+    <script src="_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-  </head>
   
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <meta name="robots" content="noindex, nofollow">
 
+  </head>
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -93,7 +106,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -185,11 +198,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -274,11 +294,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -343,21 +370,21 @@
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.__contains__.html#single_cell.Pseudobulk.__contains__">__contains__() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.__contains__.html#brisc.Pseudobulk.__contains__">__contains__() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.__eq__.html#single_cell.Pseudobulk.__eq__">__eq__() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.__eq__.html#brisc.Pseudobulk.__eq__">__eq__() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/de/api/single_cell.DE.__init__.html#single_cell.DE.__init__">__init__() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.__init__.html#brisc.DE.__init__">__init__() (brisc.DE method)</a>
 
       <ul>
-        <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.__init__.html#single_cell.Pseudobulk.__init__">(single_cell.Pseudobulk method)</a>
+        <li><a href="api/pseudobulk/api/brisc.Pseudobulk.__init__.html#brisc.Pseudobulk.__init__">(brisc.Pseudobulk method)</a>
 </li>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.__init__.html#single_cell.SingleCell.__init__">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.__or__.html#single_cell.Pseudobulk.__or__">__or__() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.__or__.html#brisc.Pseudobulk.__or__">__or__() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -365,49 +392,49 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.cast_obs.html#single_cell.Pseudobulk.cast_obs">cast_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.cast_obs.html#brisc.Pseudobulk.cast_obs">cast_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.cast_obs.html#single_cell.SingleCell.cast_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.cast_obs.html#brisc.SingleCell.cast_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.cast_var.html#single_cell.Pseudobulk.cast_var">cast_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.cast_var.html#brisc.Pseudobulk.cast_var">cast_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.cast_var.html#single_cell.SingleCell.cast_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.cast_var.html#brisc.SingleCell.cast_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.cast_X.html#single_cell.Pseudobulk.cast_X">cast_X() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.cast_X.html#brisc.Pseudobulk.cast_X">cast_X() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.cast_X.html#single_cell.SingleCell.cast_X">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.cast_X.html#brisc.SingleCell.cast_X">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.cell.html#single_cell.SingleCell.cell">cell() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.cell.html#brisc.SingleCell.cell">cell() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.cluster.html#single_cell.SingleCell.cluster">cluster() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.cluster.html#brisc.SingleCell.cluster">cluster() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.concat_obs.html#single_cell.Pseudobulk.concat_obs">concat_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.concat_obs.html#brisc.Pseudobulk.concat_obs">concat_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.concat_obs.html#single_cell.SingleCell.concat_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.concat_obs.html#brisc.SingleCell.concat_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.concat_var.html#single_cell.Pseudobulk.concat_var">concat_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.concat_var.html#brisc.Pseudobulk.concat_var">concat_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.concat_var.html#single_cell.SingleCell.concat_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.concat_var.html#brisc.SingleCell.concat_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.copy.html#single_cell.Pseudobulk.copy">copy() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.copy.html#brisc.Pseudobulk.copy">copy() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.copy.html#single_cell.SingleCell.copy">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.copy.html#brisc.SingleCell.copy">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.CPM.html#single_cell.Pseudobulk.CPM">CPM() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.CPM.html#brisc.Pseudobulk.CPM">CPM() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -415,37 +442,37 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/de/index.html#single_cell.DE">DE (class in single_cell)</a>
+      <li><a href="api/de/index.html#brisc.DE">DE (class in brisc)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.DE.html#single_cell.Pseudobulk.DE">DE() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE">DE() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.drop_cell_types.html#single_cell.Pseudobulk.drop_cell_types">drop_cell_types() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.drop_cell_types.html#brisc.Pseudobulk.drop_cell_types">drop_cell_types() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.drop_obs.html#single_cell.Pseudobulk.drop_obs">drop_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.drop_obs.html#brisc.Pseudobulk.drop_obs">drop_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.drop_obs.html#single_cell.SingleCell.drop_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.drop_obs.html#brisc.SingleCell.drop_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_obsm.html#single_cell.SingleCell.drop_obsm">drop_obsm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_obsm.html#brisc.SingleCell.drop_obsm">drop_obsm() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_obsp.html#single_cell.SingleCell.drop_obsp">drop_obsp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_obsp.html#brisc.SingleCell.drop_obsp">drop_obsp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_uns.html#single_cell.SingleCell.drop_uns">drop_uns() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_uns.html#brisc.SingleCell.drop_uns">drop_uns() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.drop_var.html#single_cell.Pseudobulk.drop_var">drop_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.drop_var.html#brisc.Pseudobulk.drop_var">drop_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.drop_var.html#single_cell.SingleCell.drop_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.drop_var.html#brisc.SingleCell.drop_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_varm.html#single_cell.SingleCell.drop_varm">drop_varm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_varm.html#brisc.SingleCell.drop_varm">drop_varm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_varp.html#single_cell.SingleCell.drop_varp">drop_varp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_varp.html#brisc.SingleCell.drop_varp">drop_varp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.drop_X.html#single_cell.SingleCell.drop_X">drop_X() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.drop_X.html#brisc.SingleCell.drop_X">drop_X() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -453,27 +480,27 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.filter_obs.html#single_cell.Pseudobulk.filter_obs">filter_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.filter_obs.html#brisc.Pseudobulk.filter_obs">filter_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.filter_obs.html#single_cell.SingleCell.filter_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.filter_obs.html#brisc.SingleCell.filter_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.filter_var.html#single_cell.Pseudobulk.filter_var">filter_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.filter_var.html#brisc.Pseudobulk.filter_var">filter_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.filter_var.html#single_cell.SingleCell.filter_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.filter_var.html#brisc.SingleCell.filter_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.find_doublets.html#single_cell.SingleCell.find_doublets">find_doublets() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.find_doublets.html#brisc.SingleCell.find_doublets">find_doublets() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.find_markers.html#single_cell.SingleCell.find_markers">find_markers() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.find_markers.html#brisc.SingleCell.find_markers">find_markers() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.from_sce.html#single_cell.SingleCell.from_sce">from_sce() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce">from_sce() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.from_seurat.html#single_cell.SingleCell.from_seurat">from_seurat() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat">from_seurat() (brisc.SingleCell static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -481,21 +508,21 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.gene.html#single_cell.Pseudobulk.gene">gene() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.gene.html#brisc.Pseudobulk.gene">gene() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.gene.html#single_cell.SingleCell.gene">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.gene.html#brisc.SingleCell.gene">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/de/api/single_cell.DE.get_hits.html#single_cell.DE.get_hits">get_hits() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.get_hits.html#brisc.DE.get_hits">get_hits() (brisc.DE method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/de/api/single_cell.DE.get_num_hits.html#single_cell.DE.get_num_hits">get_num_hits() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.get_num_hits.html#brisc.DE.get_num_hits">get_num_hits() (brisc.DE method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.get_sample_covariates.html#single_cell.SingleCell.get_sample_covariates">get_sample_covariates() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.get_sample_covariates.html#brisc.SingleCell.get_sample_covariates">get_sample_covariates() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/de/api/single_cell.DE.groups.html#single_cell.DE.groups">groups (single_cell.DE property)</a>
+      <li><a href="api/de/api/brisc.DE.groups.html#brisc.DE.groups">groups (brisc.DE property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -503,11 +530,11 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.harmonize.html#single_cell.SingleCell.harmonize">harmonize() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.harmonize.html#brisc.SingleCell.harmonize">harmonize() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.hvg.html#single_cell.SingleCell.hvg">hvg() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.hvg.html#brisc.SingleCell.hvg">hvg() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -515,15 +542,15 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.items.html#single_cell.Pseudobulk.items">items() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.items.html#brisc.Pseudobulk.items">items() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.iter_obs.html#single_cell.Pseudobulk.iter_obs">iter_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.iter_obs.html#brisc.Pseudobulk.iter_obs">iter_obs() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.iter_var.html#single_cell.Pseudobulk.iter_var">iter_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.iter_var.html#brisc.Pseudobulk.iter_var">iter_var() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.iter_X.html#single_cell.Pseudobulk.iter_X">iter_X() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.iter_X.html#brisc.Pseudobulk.iter_X">iter_X() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -531,18 +558,18 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.join_obs.html#single_cell.Pseudobulk.join_obs">join_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.join_obs.html#brisc.Pseudobulk.join_obs">join_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.join_obs.html#single_cell.SingleCell.join_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.join_obs.html#brisc.SingleCell.join_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.join_var.html#single_cell.Pseudobulk.join_var">join_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.join_var.html#brisc.Pseudobulk.join_var">join_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.join_var.html#single_cell.SingleCell.join_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.join_var.html#brisc.SingleCell.join_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -551,7 +578,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.keys.html#single_cell.Pseudobulk.keys">keys() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.keys.html#brisc.Pseudobulk.keys">keys() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -559,17 +586,17 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.label_transfer_from.html#single_cell.SingleCell.label_transfer_from">label_transfer_from() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.label_transfer_from.html#brisc.SingleCell.label_transfer_from">label_transfer_from() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.library_size.html#single_cell.Pseudobulk.library_size">library_size() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.library_size.html#brisc.Pseudobulk.library_size">library_size() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.localmap.html#single_cell.SingleCell.localmap">localmap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.localmap.html#brisc.SingleCell.localmap">localmap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.log_CPM.html#single_cell.Pseudobulk.log_CPM">log_CPM() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.log_CPM.html#brisc.Pseudobulk.log_CPM">log_CPM() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.ls.html#single_cell.SingleCell.ls">ls() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.ls.html#brisc.SingleCell.ls">ls() (brisc.SingleCell static method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -577,17 +604,17 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.make_obs_names_unique.html#single_cell.SingleCell.make_obs_names_unique">make_obs_names_unique() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.make_obs_names_unique.html#brisc.SingleCell.make_obs_names_unique">make_obs_names_unique() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.make_var_names_unique.html#single_cell.SingleCell.make_var_names_unique">make_var_names_unique() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.make_var_names_unique.html#brisc.SingleCell.make_var_names_unique">make_var_names_unique() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.map_obs.html#single_cell.Pseudobulk.map_obs">map_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.map_obs.html#brisc.Pseudobulk.map_obs">map_obs() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.map_var.html#single_cell.Pseudobulk.map_var">map_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.map_var.html#brisc.Pseudobulk.map_var">map_var() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.map_X.html#single_cell.Pseudobulk.map_X">map_X() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.map_X.html#brisc.Pseudobulk.map_X">map_X() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -595,16 +622,16 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.neighbors.html#single_cell.SingleCell.neighbors">neighbors() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.neighbors.html#brisc.SingleCell.neighbors">neighbors() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.normalize.html#single_cell.SingleCell.normalize">normalize() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.normalize.html#brisc.SingleCell.normalize">normalize() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.num_threads.html#single_cell.Pseudobulk.num_threads">num_threads (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.num_threads.html#brisc.Pseudobulk.num_threads">num_threads (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.num_threads.html#single_cell.SingleCell.num_threads">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.num_threads.html#brisc.SingleCell.num_threads">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -613,23 +640,23 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.obs.html#single_cell.Pseudobulk.obs">obs (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.obs.html#brisc.Pseudobulk.obs">obs (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.obs.html#single_cell.SingleCell.obs">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.obs.html#brisc.SingleCell.obs">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.obs_names.html#single_cell.Pseudobulk.obs_names">obs_names (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.obs_names.html#brisc.Pseudobulk.obs_names">obs_names (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.obs_names.html#single_cell.SingleCell.obs_names">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.obs_names.html#brisc.SingleCell.obs_names">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.obsm.html#single_cell.SingleCell.obsm">obsm (single_cell.SingleCell property)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.obsm.html#brisc.SingleCell.obsm">obsm (brisc.SingleCell property)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.obsp.html#single_cell.SingleCell.obsp">obsp (single_cell.SingleCell property)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.obsp.html#brisc.SingleCell.obsp">obsp (brisc.SingleCell property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -637,87 +664,87 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pacmap.html#single_cell.SingleCell.pacmap">pacmap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pacmap.html#brisc.SingleCell.pacmap">pacmap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pca.html#single_cell.SingleCell.pca">pca() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pca.html#brisc.SingleCell.pca">pca() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.peek_obs.html#single_cell.Pseudobulk.peek_obs">peek_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.peek_obs.html#brisc.Pseudobulk.peek_obs">peek_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.peek_obs.html#single_cell.SingleCell.peek_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.peek_obs.html#brisc.SingleCell.peek_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.peek_var.html#single_cell.Pseudobulk.peek_var">peek_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.peek_var.html#brisc.Pseudobulk.peek_var">peek_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.peek_var.html#single_cell.SingleCell.peek_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.peek_var.html#brisc.SingleCell.peek_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.pipe.html#single_cell.Pseudobulk.pipe">pipe() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.pipe.html#brisc.Pseudobulk.pipe">pipe() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.pipe.html#single_cell.SingleCell.pipe">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.pipe.html#brisc.SingleCell.pipe">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.pipe_obs.html#single_cell.Pseudobulk.pipe_obs">pipe_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.pipe_obs.html#brisc.Pseudobulk.pipe_obs">pipe_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_obs.html#single_cell.SingleCell.pipe_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.pipe_obs.html#brisc.SingleCell.pipe_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_obsm.html#single_cell.SingleCell.pipe_obsm">pipe_obsm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_obsm.html#brisc.SingleCell.pipe_obsm">pipe_obsm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_obsm_key.html#single_cell.SingleCell.pipe_obsm_key">pipe_obsm_key() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_obsm_key.html#brisc.SingleCell.pipe_obsm_key">pipe_obsm_key() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_obsp.html#single_cell.SingleCell.pipe_obsp">pipe_obsp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_obsp.html#brisc.SingleCell.pipe_obsp">pipe_obsp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_obsp_key.html#single_cell.SingleCell.pipe_obsp_key">pipe_obsp_key() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_obsp_key.html#brisc.SingleCell.pipe_obsp_key">pipe_obsp_key() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_uns.html#single_cell.SingleCell.pipe_uns">pipe_uns() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_uns.html#brisc.SingleCell.pipe_uns">pipe_uns() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_uns_key.html#single_cell.SingleCell.pipe_uns_key">pipe_uns_key() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_uns_key.html#brisc.SingleCell.pipe_uns_key">pipe_uns_key() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.pipe_var.html#single_cell.Pseudobulk.pipe_var">pipe_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.pipe_var.html#brisc.Pseudobulk.pipe_var">pipe_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_var.html#single_cell.SingleCell.pipe_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.pipe_var.html#brisc.SingleCell.pipe_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_varm.html#single_cell.SingleCell.pipe_varm">pipe_varm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_varm.html#brisc.SingleCell.pipe_varm">pipe_varm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_varm_key.html#single_cell.SingleCell.pipe_varm_key">pipe_varm_key() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_varm_key.html#brisc.SingleCell.pipe_varm_key">pipe_varm_key() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_varp.html#single_cell.SingleCell.pipe_varp">pipe_varp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_varp.html#brisc.SingleCell.pipe_varp">pipe_varp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_varp_key.html#single_cell.SingleCell.pipe_varp_key">pipe_varp_key() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pipe_varp_key.html#brisc.SingleCell.pipe_varp_key">pipe_varp_key() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.pipe_X.html#single_cell.Pseudobulk.pipe_X">pipe_X() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.pipe_X.html#brisc.Pseudobulk.pipe_X">pipe_X() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.pipe_X.html#single_cell.SingleCell.pipe_X">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.pipe_X.html#brisc.SingleCell.pipe_X">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_embedding.html#single_cell.SingleCell.plot_embedding">plot_embedding() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_embedding.html#brisc.SingleCell.plot_embedding">plot_embedding() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_heatmap.html#single_cell.SingleCell.plot_heatmap">plot_heatmap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_heatmap.html#brisc.SingleCell.plot_heatmap">plot_heatmap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_localmap.html#single_cell.SingleCell.plot_localmap">plot_localmap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_localmap.html#brisc.SingleCell.plot_localmap">plot_localmap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_markers.html#single_cell.SingleCell.plot_markers">plot_markers() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_markers.html#brisc.SingleCell.plot_markers">plot_markers() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_pacmap.html#single_cell.SingleCell.plot_pacmap">plot_pacmap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_pacmap.html#brisc.SingleCell.plot_pacmap">plot_pacmap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.plot_umap.html#single_cell.SingleCell.plot_umap">plot_umap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.plot_umap.html#brisc.SingleCell.plot_umap">plot_umap() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/de/api/single_cell.DE.plot_volcano.html#single_cell.DE.plot_volcano">plot_volcano() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano">plot_volcano() (brisc.DE method)</a>
 </li>
-      <li><a href="api/de/api/single_cell.DE.plot_voom.html#single_cell.DE.plot_voom">plot_voom() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.plot_voom.html#brisc.DE.plot_voom">plot_voom() (brisc.DE method)</a>
 </li>
-      <li><a href="api/pseudobulk/index.html#single_cell.Pseudobulk">Pseudobulk (class in single_cell)</a>
+      <li><a href="api/pseudobulk/index.html#brisc.Pseudobulk">Pseudobulk (class in brisc)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.pseudobulk.html#single_cell.SingleCell.pseudobulk">pseudobulk() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk">pseudobulk() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -725,15 +752,15 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.qc.html#single_cell.Pseudobulk.qc">qc() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc">qc() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.qc.html#single_cell.SingleCell.qc">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.qc_metrics.html#single_cell.SingleCell.qc_metrics">qc_metrics() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.qc_metrics.html#brisc.SingleCell.qc_metrics">qc_metrics() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -741,47 +768,47 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_obs.html#single_cell.SingleCell.read_obs">read_obs() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs">read_obs() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_obsm.html#single_cell.SingleCell.read_obsm">read_obsm() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm">read_obsm() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_obsp.html#single_cell.SingleCell.read_obsp">read_obsp() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp">read_obsp() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_uns.html#single_cell.SingleCell.read_uns">read_uns() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns">read_uns() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_var.html#single_cell.SingleCell.read_var">read_var() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var">read_var() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_varm.html#single_cell.SingleCell.read_varm">read_varm() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm">read_varm() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.read_varp.html#single_cell.SingleCell.read_varp">read_varp() (single_cell.SingleCell static method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp">read_varp() (brisc.SingleCell static method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.regress_out.html#single_cell.Pseudobulk.regress_out">regress_out() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.regress_out.html#brisc.Pseudobulk.regress_out">regress_out() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.rename_cell_types.html#single_cell.Pseudobulk.rename_cell_types">rename_cell_types() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.rename_cell_types.html#brisc.Pseudobulk.rename_cell_types">rename_cell_types() (brisc.Pseudobulk method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.rename_obs.html#single_cell.Pseudobulk.rename_obs">rename_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.rename_obs.html#brisc.Pseudobulk.rename_obs">rename_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.rename_obs.html#single_cell.SingleCell.rename_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.rename_obs.html#brisc.SingleCell.rename_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.rename_obsm.html#single_cell.SingleCell.rename_obsm">rename_obsm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.rename_obsm.html#brisc.SingleCell.rename_obsm">rename_obsm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.rename_obsp.html#single_cell.SingleCell.rename_obsp">rename_obsp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.rename_obsp.html#brisc.SingleCell.rename_obsp">rename_obsp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.rename_uns.html#single_cell.SingleCell.rename_uns">rename_uns() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.rename_uns.html#brisc.SingleCell.rename_uns">rename_uns() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.rename_var.html#single_cell.Pseudobulk.rename_var">rename_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.rename_var.html#brisc.Pseudobulk.rename_var">rename_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.rename_var.html#single_cell.SingleCell.rename_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.rename_var.html#brisc.SingleCell.rename_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.rename_varm.html#single_cell.SingleCell.rename_varm">rename_varm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.rename_varm.html#brisc.SingleCell.rename_varm">rename_varm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.rename_varp.html#single_cell.SingleCell.rename_varp">rename_varp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.rename_varp.html#brisc.SingleCell.rename_varp">rename_varp() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -789,88 +816,88 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.sample.html#single_cell.Pseudobulk.sample">sample() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.sample.html#brisc.Pseudobulk.sample">sample() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/de/api/single_cell.DE.save.html#single_cell.DE.save">save() (single_cell.DE method)</a>
+      <li><a href="api/de/api/brisc.DE.save.html#brisc.DE.save">save() (brisc.DE method)</a>
 
       <ul>
-        <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.save.html#single_cell.Pseudobulk.save">(single_cell.Pseudobulk method)</a>
+        <li><a href="api/pseudobulk/api/brisc.Pseudobulk.save.html#brisc.Pseudobulk.save">(brisc.Pseudobulk method)</a>
 </li>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.save.html#single_cell.SingleCell.save">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.save.html#brisc.SingleCell.save">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.select_cell_types.html#single_cell.Pseudobulk.select_cell_types">select_cell_types() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.select_cell_types.html#brisc.Pseudobulk.select_cell_types">select_cell_types() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.select_obs.html#single_cell.Pseudobulk.select_obs">select_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.select_obs.html#brisc.Pseudobulk.select_obs">select_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.select_obs.html#single_cell.SingleCell.select_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.select_obs.html#brisc.SingleCell.select_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.select_obsm.html#single_cell.SingleCell.select_obsm">select_obsm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.select_obsm.html#brisc.SingleCell.select_obsm">select_obsm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.select_obsp.html#single_cell.SingleCell.select_obsp">select_obsp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.select_obsp.html#brisc.SingleCell.select_obsp">select_obsp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.select_uns.html#single_cell.SingleCell.select_uns">select_uns() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.select_uns.html#brisc.SingleCell.select_uns">select_uns() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.select_var.html#single_cell.Pseudobulk.select_var">select_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.select_var.html#brisc.Pseudobulk.select_var">select_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.select_var.html#single_cell.SingleCell.select_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.select_var.html#brisc.SingleCell.select_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.select_varm.html#single_cell.SingleCell.select_varm">select_varm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.select_varm.html#brisc.SingleCell.select_varm">select_varm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.select_varp.html#single_cell.SingleCell.select_varp">select_varp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.select_varp.html#brisc.SingleCell.select_varp">select_varp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.set_num_threads.html#single_cell.Pseudobulk.set_num_threads">set_num_threads() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.set_num_threads.html#brisc.Pseudobulk.set_num_threads">set_num_threads() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.set_num_threads.html#single_cell.SingleCell.set_num_threads">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.set_num_threads.html#brisc.SingleCell.set_num_threads">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.set_obs_names.html#single_cell.Pseudobulk.set_obs_names">set_obs_names() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.set_obs_names.html#brisc.Pseudobulk.set_obs_names">set_obs_names() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.set_obs_names.html#single_cell.SingleCell.set_obs_names">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.set_obs_names.html#brisc.SingleCell.set_obs_names">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.set_var_names.html#single_cell.Pseudobulk.set_var_names">set_var_names() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.set_var_names.html#brisc.Pseudobulk.set_var_names">set_var_names() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.set_var_names.html#single_cell.SingleCell.set_var_names">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.set_var_names.html#brisc.SingleCell.set_var_names">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.shape.html#single_cell.Pseudobulk.shape">shape (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.shape.html#brisc.Pseudobulk.shape">shape (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.shape.html#single_cell.SingleCell.shape">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.shape.html#brisc.SingleCell.shape">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.shared_neighbors.html#single_cell.SingleCell.shared_neighbors">shared_neighbors() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.shared_neighbors.html#brisc.SingleCell.shared_neighbors">shared_neighbors() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/index.html#single_cell.SingleCell">SingleCell (class in single_cell)</a>
+      <li><a href="api/single_cell/index.html#brisc.SingleCell">SingleCell (class in brisc)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.skip_qc.html#single_cell.SingleCell.skip_qc">skip_qc() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.skip_qc.html#brisc.SingleCell.skip_qc">skip_qc() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.split_by_cell_type.html#single_cell.Pseudobulk.split_by_cell_type">split_by_cell_type() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.split_by_cell_type.html#brisc.Pseudobulk.split_by_cell_type">split_by_cell_type() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.split_by_obs.html#single_cell.SingleCell.split_by_obs">split_by_obs() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.split_by_obs.html#brisc.SingleCell.split_by_obs">split_by_obs() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.split_by_var.html#single_cell.SingleCell.split_by_var">split_by_var() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.split_by_var.html#brisc.SingleCell.split_by_var">split_by_var() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.subsample_obs.html#single_cell.Pseudobulk.subsample_obs">subsample_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.subsample_obs.html#brisc.Pseudobulk.subsample_obs">subsample_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.subsample_obs.html#single_cell.SingleCell.subsample_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.subsample_obs.html#brisc.SingleCell.subsample_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.subsample_var.html#single_cell.Pseudobulk.subsample_var">subsample_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.subsample_var.html#brisc.Pseudobulk.subsample_var">subsample_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.subsample_var.html#single_cell.SingleCell.subsample_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.subsample_var.html#brisc.SingleCell.subsample_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -879,19 +906,19 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.to_df.html#single_cell.Pseudobulk.to_df">to_df() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.to_df.html#brisc.Pseudobulk.to_df">to_df() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.to_scanpy.html#single_cell.SingleCell.to_scanpy">to_scanpy() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy">to_scanpy() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.to_sce.html#single_cell.SingleCell.to_sce">to_sce() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce">to_sce() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.to_seurat.html#single_cell.SingleCell.to_seurat">to_seurat() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat">to_seurat() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.tocsc.html#single_cell.SingleCell.tocsc">tocsc() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.tocsc.html#brisc.SingleCell.tocsc">tocsc() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.tocsr.html#single_cell.SingleCell.tocsr">tocsr() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.tocsr.html#brisc.SingleCell.tocsr">tocsr() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -899,11 +926,11 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.umap.html#single_cell.SingleCell.umap">umap() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.umap.html#brisc.SingleCell.umap">umap() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.uns.html#single_cell.SingleCell.uns">uns (single_cell.SingleCell property)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.uns.html#brisc.SingleCell.uns">uns (brisc.SingleCell property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -911,25 +938,25 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.values.html#single_cell.Pseudobulk.values">values() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.values.html#brisc.Pseudobulk.values">values() (brisc.Pseudobulk method)</a>
 </li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.var.html#single_cell.Pseudobulk.var">var (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.var.html#brisc.Pseudobulk.var">var (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.var.html#single_cell.SingleCell.var">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.var.html#brisc.SingleCell.var">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.var_names.html#single_cell.Pseudobulk.var_names">var_names (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.var_names.html#brisc.Pseudobulk.var_names">var_names (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.var_names.html#single_cell.SingleCell.var_names">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.var_names.html#brisc.SingleCell.var_names">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.varm.html#single_cell.SingleCell.varm">varm (single_cell.SingleCell property)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.varm.html#brisc.SingleCell.varm">varm (brisc.SingleCell property)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.varp.html#single_cell.SingleCell.varp">varp (single_cell.SingleCell property)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.varp.html#brisc.SingleCell.varp">varp (brisc.SingleCell property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -937,29 +964,29 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.with_columns_obs.html#single_cell.Pseudobulk.with_columns_obs">with_columns_obs() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.with_columns_obs.html#brisc.Pseudobulk.with_columns_obs">with_columns_obs() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.with_columns_obs.html#single_cell.SingleCell.with_columns_obs">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.with_columns_obs.html#brisc.SingleCell.with_columns_obs">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.with_columns_var.html#single_cell.Pseudobulk.with_columns_var">with_columns_var() (single_cell.Pseudobulk method)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.with_columns_var.html#brisc.Pseudobulk.with_columns_var">with_columns_var() (brisc.Pseudobulk method)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.with_columns_var.html#single_cell.SingleCell.with_columns_var">(single_cell.SingleCell method)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.with_columns_var.html#brisc.SingleCell.with_columns_var">(brisc.SingleCell method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.with_obsm.html#single_cell.SingleCell.with_obsm">with_obsm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.with_obsm.html#brisc.SingleCell.with_obsm">with_obsm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.with_obsp.html#single_cell.SingleCell.with_obsp">with_obsp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.with_obsp.html#brisc.SingleCell.with_obsp">with_obsp() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.with_uns.html#single_cell.SingleCell.with_uns">with_uns() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.with_uns.html#brisc.SingleCell.with_uns">with_uns() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.with_varm.html#single_cell.SingleCell.with_varm">with_varm() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.with_varm.html#brisc.SingleCell.with_varm">with_varm() (brisc.SingleCell method)</a>
 </li>
-      <li><a href="api/single_cell/api/single_cell.SingleCell.with_varp.html#single_cell.SingleCell.with_varp">with_varp() (single_cell.SingleCell method)</a>
+      <li><a href="api/single_cell/api/brisc.SingleCell.with_varp.html#brisc.SingleCell.with_varp">with_varp() (brisc.SingleCell method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -967,10 +994,10 @@
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pseudobulk/api/single_cell.Pseudobulk.X.html#single_cell.Pseudobulk.X">X (single_cell.Pseudobulk property)</a>
+      <li><a href="api/pseudobulk/api/brisc.Pseudobulk.X.html#brisc.Pseudobulk.X">X (brisc.Pseudobulk property)</a>
 
       <ul>
-        <li><a href="api/single_cell/api/single_cell.SingleCell.X.html#single_cell.SingleCell.X">(single_cell.SingleCell property)</a>
+        <li><a href="api/single_cell/api/brisc.SingleCell.X.html#brisc.SingleCell.X">(brisc.SingleCell property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1005,8 +1032,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1017,7 +1044,7 @@
 
   <p class="copyright">
     
-      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>
@@ -1040,7 +1067,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>

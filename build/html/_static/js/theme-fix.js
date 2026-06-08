@@ -29,12 +29,21 @@
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       applyMode(prefersDark ? 'dark' : 'light');
     }
-    // Replace click handler on every theme switch button
+    // Turn pydata's Bootstrap dropdown switcher into a plain toggle:
+    // strip the dropdown trigger so a click just flips light<->dark.
     document.querySelectorAll('.theme-switch-button').forEach(btn => {
+      btn.removeAttribute('data-bs-toggle');   // kill the Bootstrap dropdown
+      btn.classList.remove('dropdown-toggle'); // and its caret
       // Clone node to strip existing listeners, then wire ours
       const fresh = btn.cloneNode(true);
       btn.parentNode.replaceChild(fresh, btn);
       fresh.addEventListener('click', toggleTheme);
+    });
+    // Remove the three-option menu and the dropdown container behavior.
+    document.querySelectorAll('.theme-switch-container').forEach(c => {
+      c.classList.remove('dropdown');
+      const menu = c.querySelector('.dropdown-menu');
+      if (menu) menu.remove();
     });
   }
 
@@ -55,16 +64,73 @@
     });
   }
 
+  // Sync the heights of the landing-page code cards so all three match
+  // the tallest one (row 1 auto-aligns via grid, but row 2's card is in
+  // its own track and otherwise shorter).
+  function syncCodeCardHeights() {
+    const cards = document.querySelectorAll('.code-grid .code-card');
+    if (!cards.length) return;
+    cards.forEach(c => c.style.minHeight = '');
+    const max = [...cards].reduce((m, c) => Math.max(m, c.offsetHeight), 0);
+    if (max > 0) cards.forEach(c => c.style.minHeight = max + 'px');
+  }
+
+  // Style the header nav links as rounded chips:  [Tutorials]  API:
+  // [SingleCell] [Pseudobulk] [DE]. The three API classes are grouped under an
+  // "API:" label; Tutorials is chipped in place. pydata marks the current
+  // section's <li> with .current/.active (on the page and its subpages), but
+  // grouping moves the API <a>s out of their <li>, so mirror that state onto
+  // the link itself so the active outline (CSS) persists. Desktop header only;
+  // the mobile drawer keeps the flat list.
+  function chip(a, li) {
+    a.classList.add('api-nav-chip');
+    if (li.classList.contains('current')) a.classList.add('current');
+    if (li.classList.contains('active')) a.classList.add('active');
+  }
+  function groupApiNav() {
+    document.querySelectorAll('.bd-header .bd-navbar-elements.navbar-nav')
+      .forEach(ul => {
+        if (ul.querySelector('.api-nav-group')) return;
+        const lis = [...ul.children].filter(el => el.matches('li.nav-item'));
+        if (lis.length < 4) return;
+        const tutLink = lis[0].querySelector('a.nav-link');
+        if (tutLink) chip(tutLink, lis[0]);
+        const apiLis = lis.slice(1, 4);
+        const links = apiLis.map(li => li.querySelector('a.nav-link'));
+        if (links.some(a => !a)) return;
+        const group = document.createElement('li');
+        group.className = 'nav-item api-nav-group';
+        const label = document.createElement('span');
+        label.className = 'api-nav-fix';
+        label.textContent = 'API:';
+        group.appendChild(label);
+        links.forEach((a, i) => {
+          chip(a, apiLis[i]);
+          group.appendChild(a);
+        });
+        apiLis[apiLis.length - 1].after(group);
+        apiLis.forEach(li => li.remove());
+      });
+  }
+
   // Run after pydata-sphinx-theme's own listeners are attached
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
       attach();
       wireSidebarDismissal();
+      syncCodeCardHeights();
+      groupApiNav();
     }, 0));
   } else {
     setTimeout(() => {
       attach();
       wireSidebarDismissal();
+      syncCodeCardHeights();
+      groupApiNav();
     }, 0);
   }
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__codeCardResize);
+    window.__codeCardResize = setTimeout(syncCodeCardHeights, 120);
+  });
 })();

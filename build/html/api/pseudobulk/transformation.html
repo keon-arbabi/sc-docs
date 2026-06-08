@@ -27,50 +27,63 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=a6a3df03" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=4d1de856" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/pseudobulk/transformation';</script>
-    <script src="../../_static/js/benchmark-data.js?v=cb8b0693"></script>
-    <script src="../../_static/js/benchmark.js?v=5c2fd67f"></script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../_static/js/theme-fix.js?v=d495fd10"></script>
+    <script src="../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="single_cell.Pseudobulk.copy" href="api/single_cell.Pseudobulk.copy.html" />
-    <link rel="prev" title="single_cell.Pseudobulk.concat_var" href="api/single_cell.Pseudobulk.concat_var.html" />
+    <link rel="next" title="brisc.Pseudobulk.copy" href="api/brisc.Pseudobulk.copy.html" />
+    <link rel="prev" title="brisc.Pseudobulk.concat_var" href="api/brisc.Pseudobulk.concat_var.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-  </head>
   
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <meta name="robots" content="noindex, nofollow">
 
+  </head>
+  <body class="api-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -96,7 +109,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -188,11 +201,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -275,11 +295,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -287,98 +314,96 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="constructor.html">Constructor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__init__.html">single_cell.Pseudobulk.__init__</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__init__.html">__init__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.save.html">save</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="io.html">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.save.html">single_cell.Pseudobulk.save</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#properties">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.X.html">X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.obs.html">obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.var.html">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.obs_names.html">obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.var_names.html">var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.num_threads.html">num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.shape.html">shape</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="properties.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.X.html">single_cell.Pseudobulk.X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.obs.html">single_cell.Pseudobulk.obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.var.html">single_cell.Pseudobulk.var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.obs_names.html">single_cell.Pseudobulk.obs_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.var_names.html">single_cell.Pseudobulk.var_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.num_threads.html">single_cell.Pseudobulk.num_threads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.shape.html">single_cell.Pseudobulk.shape</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.sample.html">sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.gene.html">gene</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="data_access.html">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.sample.html">single_cell.Pseudobulk.sample</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.gene.html">single_cell.Pseudobulk.gene</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#dictionary-interface">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.keys.html">keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.values.html">values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.items.html">items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_X.html">iter_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_obs.html">iter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_var.html">iter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__contains__.html">__contains__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__or__.html">__or__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__eq__.html">__eq__</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="dictionary_interface.html">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.keys.html">single_cell.Pseudobulk.keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.values.html">single_cell.Pseudobulk.values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.items.html">single_cell.Pseudobulk.items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_X.html">single_cell.Pseudobulk.iter_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_obs.html">single_cell.Pseudobulk.iter_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_var.html">single_cell.Pseudobulk.iter_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__contains__.html">single_cell.Pseudobulk.__contains__</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__or__.html">single_cell.Pseudobulk.__or__</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__eq__.html">single_cell.Pseudobulk.__eq__</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="manipulation.html">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_obs_names.html">single_cell.Pseudobulk.set_obs_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_var_names.html">single_cell.Pseudobulk.set_var_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_num_threads.html">single_cell.Pseudobulk.set_num_threads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.filter_obs.html">single_cell.Pseudobulk.filter_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.filter_var.html">single_cell.Pseudobulk.filter_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_obs.html">single_cell.Pseudobulk.select_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_var.html">single_cell.Pseudobulk.select_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_cell_types.html">single_cell.Pseudobulk.select_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_obs.html">single_cell.Pseudobulk.with_columns_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_var.html">single_cell.Pseudobulk.with_columns_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_obs.html">single_cell.Pseudobulk.drop_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_var.html">single_cell.Pseudobulk.drop_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_cell_types.html">single_cell.Pseudobulk.drop_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_obs.html">single_cell.Pseudobulk.rename_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_var.html">single_cell.Pseudobulk.rename_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_cell_types.html">single_cell.Pseudobulk.rename_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_X.html">single_cell.Pseudobulk.cast_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_obs.html">single_cell.Pseudobulk.cast_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_var.html">single_cell.Pseudobulk.cast_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.join_obs.html">single_cell.Pseudobulk.join_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.join_var.html">single_cell.Pseudobulk.join_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_obs.html">single_cell.Pseudobulk.subsample_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_var.html">single_cell.Pseudobulk.subsample_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.split_by_cell_type.html">single_cell.Pseudobulk.split_by_cell_type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.concat_obs.html">single_cell.Pseudobulk.concat_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.concat_var.html">single_cell.Pseudobulk.concat_var</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#manipulation">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_obs_names.html">set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_var_names.html">set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_num_threads.html">set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.filter_obs.html">filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.filter_var.html">filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_obs.html">select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_var.html">select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_cell_types.html">select_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_obs.html">with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_var.html">with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_obs.html">drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_var.html">drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_cell_types.html">drop_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_obs.html">rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_var.html">rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_cell_types.html">rename_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_X.html">cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_obs.html">cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_var.html">cast_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.join_obs.html">join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.join_var.html">join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.subsample_obs.html">subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.subsample_var.html">subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.split_by_cell_type.html">split_by_cell_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.concat_obs.html">concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.concat_var.html">concat_var</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Transformation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.copy.html">single_cell.Pseudobulk.copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.to_df.html">single_cell.Pseudobulk.to_df</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_X.html">single_cell.Pseudobulk.map_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_obs.html">single_cell.Pseudobulk.map_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_var.html">single_cell.Pseudobulk.map_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.copy.html">copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.to_df.html">to_df</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_X.html">map_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_obs.html">map_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_var.html">map_var</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="analysis.html">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.qc.html">single_cell.Pseudobulk.qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.library_size.html">single_cell.Pseudobulk.library_size</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.CPM.html">single_cell.Pseudobulk.CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.log_CPM.html">single_cell.Pseudobulk.log_CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.regress_out.html">single_cell.Pseudobulk.regress_out</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.DE.html">single_cell.Pseudobulk.DE</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#analysis">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.qc.html">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.library_size.html">library_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.CPM.html">CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.log_CPM.html">log_CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.regress_out.html">regress_out</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.DE.html">DE</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="utility.html">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.peek_obs.html">single_cell.Pseudobulk.peek_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.peek_var.html">single_cell.Pseudobulk.peek_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe.html">single_cell.Pseudobulk.pipe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_X.html">single_cell.Pseudobulk.pipe_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_obs.html">single_cell.Pseudobulk.pipe_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_var.html">single_cell.Pseudobulk.pipe_var</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.peek_var.html">peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe.html">pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_X.html">pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_obs.html">pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_var.html">pipe_var</a></li>
 </ul>
 </details></li>
 </ul>
@@ -445,19 +470,19 @@
 <h1>Transformation<a class="headerlink" href="#transformation" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.copy.html#single_cell.Pseudobulk.copy" title="single_cell.Pseudobulk.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.copy</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.copy.html#brisc.Pseudobulk.copy" title="brisc.Pseudobulk.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.copy</span></code></a></p></td>
 <td><p>Make a copy of this Pseudobulk dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.to_df.html#single_cell.Pseudobulk.to_df" title="single_cell.Pseudobulk.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.to_df</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.to_df.html#brisc.Pseudobulk.to_df" title="brisc.Pseudobulk.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.to_df</span></code></a></p></td>
 <td><p>Convert this Pseudobulk object to a polars DataFrame, with one row per (sample, cell type) pair and one column per gene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_X.html#single_cell.Pseudobulk.map_X" title="single_cell.Pseudobulk.map_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_X</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_X.html#brisc.Pseudobulk.map_X" title="brisc.Pseudobulk.map_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_X</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>X</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_obs.html#single_cell.Pseudobulk.map_obs" title="single_cell.Pseudobulk.map_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_obs.html#brisc.Pseudobulk.map_obs" title="brisc.Pseudobulk.map_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_obs</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_var.html#single_cell.Pseudobulk.map_var" title="single_cell.Pseudobulk.map_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_var.html#brisc.Pseudobulk.map_var" title="brisc.Pseudobulk.map_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_var</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>var</cite>.</p></td>
 </tr>
 </tbody>
@@ -476,20 +501,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="api/single_cell.Pseudobulk.concat_var.html"
+       href="api/brisc.Pseudobulk.concat_var.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">single_cell.Pseudobulk.concat_var</p>
+        <p class="prev-next-title">concat_var</p>
       </div>
     </a>
     <a class="right-next"
-       href="api/single_cell.Pseudobulk.copy.html"
+       href="api/brisc.Pseudobulk.copy.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">single_cell.Pseudobulk.copy</p>
+        <p class="prev-next-title">copy</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -511,8 +536,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -523,7 +548,7 @@
 
   <p class="copyright">
     
-      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>
@@ -546,7 +571,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>

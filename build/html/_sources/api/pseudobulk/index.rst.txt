@@ -5,7 +5,6 @@ Pseudobulk
    :maxdepth: 2
    :hidden:
 
-   constructor
    io
    properties
    data_access
@@ -15,18 +14,10 @@ Pseudobulk
    analysis
    utility
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 .. autoclass:: Pseudobulk
    :no-members:
-
-Constructor
------------
-
-.. autosummary::
-   :nosignatures:
-
-   Pseudobulk.__init__
 
 I/O
 ---
@@ -34,6 +25,7 @@ I/O
 .. autosummary::
    :nosignatures:
 
+   Pseudobulk.__init__
    Pseudobulk.save
 
 Properties

@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Differential Expression &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=4d1de856" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/differential_expression';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../_static/js/benchmark.js?v=f68481de"></script>
+    <script src="../_static/js/carousel.js?v=7dda1511"></script>
+    <script src="../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interoperability" href="interoperability.html" />
+    <link rel="prev" title="Integration and Label Transfer" href="integration_and_label_transfer.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  <meta name="robots" content="noindex, nofollow">
+
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Differential Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Differential Expression</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="differential-expression">
+<h1>Differential Expression<a class="headerlink" href="#differential-expression" title="Link to this heading">#</a></h1>
+<p>This tutorial covers pseudobulk differential expression: summing each sample’s counts into one profile per cell type, then testing genes for expression differences between conditions. It uses the same Parse Biosciences ~10 million cell PBMC dataset as the other tutorials, comparing IFN-gamma–stimulated cells against PBS controls within each cell type with <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29">limma-voom</a>.</p>
+<section id="loading-and-quality-control">
+<h2>Loading and quality control<a class="headerlink" href="#loading-and-quality-control" title="Link to this heading">#</a></h2>
+<p>Load the data and run QC as in <a class="reference internal" href="basic_workflow.html"><span class="std std-doc">Basic Workflow</span></a>, keeping the <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> column that identifies each cell’s treatment. <code class="docutils literal notranslate"><span class="pre">allow_float=True</span></code> is needed because the raw counts are stored as float32.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
+    <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>\
+    <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pseudobulk-aggregation">
+<h2>Pseudobulk aggregation<a class="headerlink" href="#pseudobulk-aggregation" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pseudobulk()</span></code></a> sums the raw counts of all cells that share a sample and cell type. Differential expression then runs on these per-sample profiles rather than on individual cells.</p>
+<p>The result is a <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> dataset, which behaves like a dictionary keyed by cell type. Each cell type has three slots: <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.X.html#brisc.Pseudobulk.X" title="brisc.Pseudobulk.X"><code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code></a>, a samples × genes matrix of summed counts; <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.obs.html#brisc.Pseudobulk.obs" title="brisc.Pseudobulk.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, one metadata row per sample; and <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.var.html#brisc.Pseudobulk.var" title="brisc.Pseudobulk.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a>, the gene metadata. <code class="docutils literal notranslate"><span class="pre">obs</span></code> adds a <code class="docutils literal notranslate"><span class="pre">num_cells</span></code> count and keeps the cell metadata that is constant within each sample, such as <code class="docutils literal notranslate"><span class="pre">donor</span></code> and <code class="docutils literal notranslate"><span class="pre">cytokine</span></code>.</p>
+<p>We keep only the IFN-gamma and PBS samples. <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> is an Enum column, so it is cast to a string before <code class="docutils literal notranslate"><span class="pre">is_in</span></code> to match the plain string values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pseudobulk</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
+<span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">)</span><span class="o">.</span><span class="nf">is_in</span><span class="p">([</span><span class="s1">&#39;IFN-gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;PBS&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pb</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Pseudobulk dataset with 18 cell types, each with 22-24 samples (obs) and 40,352 genes (var)
+    Cell types: B Intermediate/Memory, B Naive, CD4 Memory, CD4 Naive, CD8 Memory, CD8 Naive, CD14
+                 Mono, CD16 Mono, HSPC, ILC, MAIT, NK, NK CD56bright, NKT, Plasmablast, Treg, cDC,
+                 pDC
+</pre></div>
+</div>
+<p>CD14 monocytes, for instance, have a 24 × 40,352 count matrix and one <code class="docutils literal notranslate"><span class="pre">obs</span></code> row per sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pb</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">]</span><span class="o">.</span><span class="nf">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (5, 4)
+┌──────────────────┬───────────┬────────┬───────────┐
+│ sample           ┆ num_cells ┆ donor  ┆ cytokine  │
+│ ---              ┆ ---       ┆ ---    ┆ ---       │
+│ enum             ┆ u32       ┆ enum   ┆ enum      │
+╞══════════════════╪═══════════╪════════╪═══════════╡
+│ Donor1_IFN-gamma ┆ 2526      ┆ Donor1 ┆ IFN-gamma │
+│ Donor1_PBS       ┆ 16690     ┆ Donor1 ┆ PBS       │
+│ Donor2_IFN-gamma ┆ 1285      ┆ Donor2 ┆ IFN-gamma │
+│ Donor2_PBS       ┆ 9159      ┆ Donor2 ┆ PBS       │
+│ Donor3_IFN-gamma ┆ 965       ┆ Donor3 ┆ IFN-gamma │
+└──────────────────┴───────────┴────────┴───────────┘
+</pre></div>
+</div>
+<p>IFN-gamma samples have far fewer cells than PBS samples; the <code class="docutils literal notranslate"><span class="pre">num_cells</span></code> covariate accounts for this in the model.</p>
+</section>
+<section id="sample-level-quality-control">
+<h2>Sample-level quality control<a class="headerlink" href="#sample-level-quality-control" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> filters out low-quality samples and genes. The default filters are:</p>
+<ul class="simple">
+<li><p><strong>&lt;10 cells per sample</strong></p></li>
+<li><p><strong>Outlier samples</strong> — far more zero-count genes than average (more than 3 standard deviations above the mean)</p></li>
+<li><p><strong>Genes detected in &lt;80% of samples</strong></p></li>
+</ul>
+<p>Passing <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> as the grouping column requires the gene filter to pass within each condition, not just across all samples pooled together.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[B Intermediate/Memory] Starting with 24 samples and 40,352 genes.
+[B Intermediate/Memory] Applying the custom filter...
+[B Intermediate/Memory] Filtering to samples with at least 10 B Intermediate/Memory cells...
+[B Intermediate/Memory] 24 samples remain after filtering to samples with at least 10 B Intermediate/Memory cells.
+[B Intermediate/Memory] Filtering to samples where the number of genes with 0 counts is &lt;3 standard deviations above the mean...
+[B Intermediate/Memory] 24 samples remain after filtering to samples where the number of genes with 0 counts is &lt;3 standard deviations above the mean.
+[B Intermediate/Memory] Filtering to genes with at least one count in 80.0% of samples in each group...
+[B Intermediate/Memory] 14,696 genes remain after filtering to genes with at least one count in 80.0% of samples in each group.
+
+...
+
+[Plasmablast] Starting with 22 samples and 40,352 genes.
+[Plasmablast] Applying the custom filter...
+[Plasmablast] Filtering to samples with at least 10 Plasmablast cells...
+[Plasmablast] 11 samples remain after filtering to samples with at least 10 Plasmablast cells.
+[Plasmablast] Skipping this cell type because it has only 1 sample where group_column = &#39;IFN-gamma&#39; after filtering, which is fewer than min_samples (2)
+
+...
+</pre></div>
+</div>
+<p>QC runs independently for each cell type, so the gene count it keeps varies, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.</p>
+</section>
+<section id="id1">
+<h2>Differential expression<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html#brisc.Pseudobulk.library_size" title="brisc.Pseudobulk.library_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">library_size()</span></code></a> computes a TMM-normalized library size per sample, and <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a> then fits a limma-voom model for each cell type.</p>
+<p>The formula <code class="docutils literal notranslate"><span class="pre">~</span> <span class="pre">0</span> <span class="pre">+</span> <span class="pre">cytokine</span> <span class="pre">+</span> <span class="pre">donor</span> <span class="pre">+</span> <span class="pre">log2(num_cells)</span> <span class="pre">+</span> <span class="pre">log2(library_size)</span></code> describes each gene’s expression: <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> is the effect of interest (the leading <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">+</span></code> drops the intercept so each condition gets its own coefficient), <code class="docutils literal notranslate"><span class="pre">donor</span></code> accounts for the paired donors, and <code class="docutils literal notranslate"><span class="pre">log2(num_cells)</span></code> and <code class="docutils literal notranslate"><span class="pre">log2(library_size)</span></code> — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. The <code class="docutils literal notranslate"><span class="pre">contrasts</span></code> argument asks for the IFN-gamma minus PBS difference.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">library_size</span></a><span class="p">()</span>
+<span class="n">de</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/de/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">DE</span></a><span class="p">(</span>
+    <span class="s1">&#39;~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)&#39;</span><span class="p">,</span>
+    <span class="na">contrasts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;IFN-gamma_vs_PBS&#39;</span><span class="p">:</span> <span class="s1">&#39;`cytokineIFN-gamma` - `cytokinePBS`&#39;</span><span class="p">},</span>
+    <span class="na">group</span><span class="o">=</span><span class="s1">&#39;cytokine&#39;</span><span class="p">,</span>
+    <span class="na">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">donor</span></code> and <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> load as Enum columns, which brisc treats as ordered factors. Listing them in <code class="docutils literal notranslate"><span class="pre">categorical_columns</span></code> switches them to standard treatment coding, which gives the coefficients the readable names (<code class="docutils literal notranslate"><span class="pre">cytokineIFN-gamma</span></code>, <code class="docutils literal notranslate"><span class="pre">cytokinePBS</span></code>) referenced in the contrast. <code class="docutils literal notranslate"><span class="pre">group='cytokine'</span></code> fits the mean–variance trend separately for each condition (voomByGroup), recommended when groups differ in overall expression.</p>
+<p>The result is a <a class="reference internal" href="../api/de/index.html#brisc.DE" title="brisc.DE"><code class="xref py py-class docutils literal notranslate"><span class="pre">DE</span></code></a> object whose <code class="docutils literal notranslate"><span class="pre">table</span></code> holds one row per gene per cell type, with the fold change, confidence interval, and corrected p-values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">de</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="nf">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (5, 11)
+┌───────────────────────┬──────────────────┬──────────┬───────────┬──────────┬───────────┬───────────┬──────────┬──────────┬────────────┬──────────┐
+│ cell_type             ┆ coefficient      ┆ gene     ┆ logFC     ┆ SE       ┆ LCI       ┆ UCI       ┆ AveExpr  ┆ p        ┆ Bonferroni ┆ FDR      │
+│ ---                   ┆ ---              ┆ ---      ┆ ---       ┆ ---      ┆ ---       ┆ ---       ┆ ---      ┆ ---      ┆ ---        ┆ ---      │
+│ str                   ┆ str              ┆ str      ┆ f64       ┆ f64      ┆ f64       ┆ f64       ┆ f64      ┆ f64      ┆ f64        ┆ f64      │
+╞═══════════════════════╪══════════════════╪══════════╪═══════════╪══════════╪═══════════╪═══════════╪══════════╪══════════╪════════════╪══════════╡
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ DPM1     ┆ 0.222663  ┆ 0.641413 ┆ -1.138223 ┆ 1.583548  ┆ 5.572128 ┆ 0.733054 ┆ 1.0        ┆ 0.960307 │
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ SCYL3    ┆ 0.058436  ┆ 0.85565  ┆ -1.756998 ┆ 1.87387   ┆ 5.475793 ┆ 0.946406 ┆ 1.0        ┆ 0.993482 │
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ C1orf112 ┆ 0.808702  ┆ 0.780593 ┆ -0.847482 ┆ 2.464886  ┆ 5.03358  ┆ 0.31576  ┆ 1.0        ┆ 0.879665 │
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ FGR      ┆ -3.817447 ┆ 1.210963 ┆ -6.386748 ┆ -1.248147 ┆ 3.942816 ┆ 0.006227 ┆ 1.0        ┆ 0.694034 │
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ FUCA2    ┆ -0.737734 ┆ 1.348779 ┆ -3.599441 ┆ 2.123972  ┆ 3.232465 ┆ 0.592028 ┆ 1.0        ┆ 0.946363 │
+└───────────────────────┴──────────────────┴──────────┴───────────┴──────────┴───────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For a single design term, <code class="docutils literal notranslate"><span class="pre">coefficient=</span></code> reports DE for that coefficient directly, instead of <code class="docutils literal notranslate"><span class="pre">contrasts</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">group=False</span></code> uses a single mean–variance trend (plain voom) rather than voomByGroup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robust=True</span></code> makes the empirical Bayes step robust to outlier samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">formula</span></code> can be a dict mapping cell types to different formulas when a covariate applies only to some.</p></li>
+</ul>
+</div>
+</section>
+<section id="exploring-the-results">
+<h2>Exploring the results<a class="headerlink" href="#exploring-the-results" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/de/api/brisc.DE.get_num_hits.html#brisc.DE.get_num_hits" title="brisc.DE.get_num_hits"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_num_hits()</span></code></a> counts the significant genes (FDR &lt; 0.05) in each cell type; cell types with no hits are omitted.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.get_num_hits.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">get_num_hits</span></a><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (5, 2)
+┌───────────────────────┬──────────┐
+│ cell_type             ┆ num_hits │
+│ ---                   ┆ ---      │
+│ str                   ┆ u32      │
+╞═══════════════════════╪══════════╡
+│ B Intermediate/Memory ┆ 1        │
+│ B Naive               ┆ 419      │
+│ CD14 Mono             ┆ 921      │
+│ CD16 Mono             ┆ 1242     │
+│ pDC                   ┆ 8        │
+└───────────────────────┴──────────┘
+</pre></div>
+</div>
+<p>The monocytes and B cells respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this threshold.</p>
+<p><a class="reference internal" href="../api/de/api/brisc.DE.get_hits.html#brisc.DE.get_hits" title="brisc.DE.get_hits"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_hits()</span></code></a> returns the hits themselves; <code class="docutils literal notranslate"><span class="pre">num_top_hits</span></code> keeps the strongest few per cell type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.get_hits.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">get_hits</span></a><span class="p">(</span><span class="na">num_top_hits</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (21, 11)
+┌───────────────────────┬──────────────────┬──────────┬───────────┬──────────┬───────────┬───────────┬──────────┬──────────┬────────────┬──────────┐
+│ cell_type             ┆ coefficient      ┆ gene     ┆ logFC     ┆ SE       ┆ LCI       ┆ UCI       ┆ AveExpr  ┆ p        ┆ Bonferroni ┆ FDR      │
+│ ---                   ┆ ---              ┆ ---      ┆ ---       ┆ ---      ┆ ---       ┆ ---       ┆ ---      ┆ ---      ┆ ---        ┆ ---      │
+│ str                   ┆ str              ┆ str      ┆ f64       ┆ f64      ┆ f64       ┆ f64       ┆ f64      ┆ f64      ┆ f64        ┆ f64      │
+╞═══════════════════════╪══════════════════╪══════════╪═══════════╪══════════╪═══════════╪═══════════╪══════════╪══════════╪════════════╪══════════╡
+│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ TENM4    ┆ -6.541455 ┆ 0.932481 ┆ -8.5199   ┆ -4.563009 ┆ 5.045181 ┆ 0.000003 ┆ 0.045421   ┆ 0.045421 │
+│ B Naive               ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 7.407232  ┆ 1.310548 ┆ 4.623667  ┆ 10.190797 ┆ 7.001164 ┆ 0.000039 ┆ 0.59715    ┆ 0.00686  │
+│ B Naive               ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 5.912959  ┆ 1.276394 ┆ 3.201936  ┆ 8.623982  ┆ 6.22115  ┆ 0.000293 ┆ 1.0        ┆ 0.021485 │
+│ B Naive               ┆ IFN-gamma_vs_PBS ┆ CFLAR    ┆ 3.227135  ┆ 0.690015 ┆ 1.761564  ┆ 4.692705  ┆ 8.286078 ┆ 0.000268 ┆ 1.0        ┆ 0.020962 │
+│ B Naive               ┆ IFN-gamma_vs_PBS ┆ NFIX     ┆ 4.034178  ┆ 0.959142 ┆ 1.996989  ┆ 6.071367  ┆ 3.726182 ┆ 0.000702 ┆ 1.0        ┆ 0.034705 │
+│ B Naive               ┆ IFN-gamma_vs_PBS ┆ REV3L    ┆ -2.426383 ┆ 0.598103 ┆ -3.696736 ┆ -1.15603  ┆ 7.312945 ┆ 0.000956 ┆ 1.0        ┆ 0.040087 │
+│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CFH      ┆ 8.41647   ┆ 1.744176 ┆ 4.629897  ┆ 12.203043 ┆ 3.082947 ┆ 0.000378 ┆ 1.0        ┆ 0.028114 │
+│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 5.340517  ┆ 0.984571 ┆ 3.203031  ┆ 7.478003  ┆ 9.694517 ┆ 0.000137 ┆ 1.0        ┆ 0.024299 │
+│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ HS3ST1   ┆ -6.472272 ┆ 1.52021  ┆ -9.772619 ┆ -3.171925 ┆ 2.661385 ┆ 0.001035 ┆ 1.0        ┆ 0.037717 │
+│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 3.927577  ┆ 0.694199 ┆ 2.420484  ┆ 5.434671  ┆ 6.461136 ┆ 0.000094 ┆ 1.0        ┆ 0.022213 │
+│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CD38     ┆ 9.55195   ┆ 1.940199 ┆ 5.339815  ┆ 13.764086 ┆ 8.810696 ┆ 0.000319 ┆ 1.0        ┆ 0.027588 │
+│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ C1orf112 ┆ -1.851876 ┆ 0.496937 ┆ -2.910966 ┆ -0.792787 ┆ 4.496459 ┆ 0.002022 ┆ 1.0        ┆ 0.032473 │
+│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ GCLC     ┆ 2.931873  ┆ 0.673918 ┆ 1.495595  ┆ 4.368152  ┆ 7.405133 ┆ 0.000569 ┆ 1.0        ┆ 0.017878 │
+│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 2.727377  ┆ 0.451244 ┆ 1.765669  ┆ 3.689084  ┆ 9.924472 ┆ 0.000022 ┆ 0.313044   ┆ 0.005159 │
+│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ TMEM176A ┆ 1.858929  ┆ 0.472315 ┆ 0.852313  ┆ 2.865544  ┆ 4.429607 ┆ 0.001319 ┆ 1.0        ┆ 0.026377 │
+│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 1.477641  ┆ 0.385716 ┆ 0.655589  ┆ 2.299694  ┆ 6.820638 ┆ 0.001633 ┆ 1.0        ┆ 0.029325 │
+│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CALCRL   ┆ 2.570484  ┆ 0.371683 ┆ 1.757332  ┆ 3.383635  ┆ 7.461197 ┆ 0.000019 ┆ 0.189731   ┆ 0.035574 │
+│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CD83     ┆ 2.328595  ┆ 0.340925 ┆ 1.582735  ┆ 3.074455  ┆ 7.666968 ┆ 0.000022 ┆ 0.213442   ┆ 0.035574 │
+│ pDC                   ┆ IFN-gamma_vs_PBS ┆ IFIT2    ┆ 2.561409  ┆ 0.373712 ┆ 1.743818  ┆ 3.379001  ┆ 6.730806 ┆ 0.000021 ┆ 0.206565   ┆ 0.035574 │
+│ pDC                   ┆ IFN-gamma_vs_PBS ┆ GBP5     ┆ 4.729849  ┆ 0.597065 ┆ 3.423617  ┆ 6.036082  ┆ 6.351485 ┆ 0.000005 ┆ 0.050837   ┆ 0.016946 │
+│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CXCL10   ┆ 5.11896   ┆ 0.775682 ┆ 3.421958  ┆ 6.815962  ┆ 6.030659 ┆ 0.00003  ┆ 0.294685   ┆ 0.037911 │
+└───────────────────────┴──────────────────┴──────────┴───────────┴──────────┴───────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
+</pre></div>
+</div>
+<p>Classic interferon-response genes recur across cell types — <code class="docutils literal notranslate"><span class="pre">LAP3</span></code>, <code class="docutils literal notranslate"><span class="pre">GBP5</span></code>, <code class="docutils literal notranslate"><span class="pre">IFIT2</span></code>, and <code class="docutils literal notranslate"><span class="pre">CXCL10</span></code> are all canonical IFN-gamma targets.</p>
+<p><a class="reference internal" href="../api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano" title="brisc.DE.plot_volcano"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_volcano()</span></code></a> plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.plot_volcano.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_volcano</span></a><span class="p">(</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">,</span> <span class="s1">&#39;volcano.png&#39;</span><span class="p">,</span> <span class="na">significance_column</span><span class="o">=</span><span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
+                <span class="na">ylabel</span><span class="o">=</span><span class="s1">&#39;$-log_</span><span class="si">{10}</span><span class="s1">(FDR)$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/volcano.png"><img alt="Volcano plot of IFN-gamma vs PBS in CD14 monocytes" class="align-center" src="../_images/volcano.png" style="width: 70%;" />
+</a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/de/api/brisc.DE.plot_voom.html#brisc.DE.plot_voom" title="brisc.DE.plot_voom"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_voom()</span></code></a> draws the mean–variance trend that voom fits, with one curve per group.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">significance_column='Bonferroni'</span></code> or a lower <code class="docutils literal notranslate"><span class="pre">threshold</span></code> in <code class="docutils literal notranslate"><span class="pre">get_hits</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_volcano</span></code> gives a stricter cut.</p></li>
+</ul>
+</div>
+</section>
+<section id="pipeline-summary">
+<h2>Pipeline summary<a class="headerlink" href="#pipeline-summary" title="Link to this heading">#</a></h2>
+<p>The full differential expression pipeline:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+
+<span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
+    <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>\
+    <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pb</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pseudobulk</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">)</span><span class="o">.</span><span class="nf">is_in</span><span class="p">([</span><span class="s1">&#39;IFN-gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;PBS&#39;</span><span class="p">]))</span>\
+    <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span>\
+    <span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">library_size</span></a><span class="p">()</span>
+
+<span class="n">de</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/de/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">DE</span></a><span class="p">(</span>
+    <span class="s1">&#39;~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)&#39;</span><span class="p">,</span>
+    <span class="na">contrasts</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;IFN-gamma_vs_PBS&#39;</span><span class="p">:</span> <span class="s1">&#39;`cytokineIFN-gamma` - `cytokinePBS`&#39;</span><span class="p">},</span>
+    <span class="na">group</span><span class="o">=</span><span class="s1">&#39;cytokine&#39;</span><span class="p">,</span>
+    <span class="na">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>
+
+<span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.plot_volcano.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_volcano</span></a><span class="p">(</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">,</span> <span class="s1">&#39;volcano.png&#39;</span><span class="p">,</span> <span class="na">significance_column</span><span class="o">=</span><span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
+                <span class="na">ylabel</span><span class="o">=</span><span class="s1">&#39;$-log_</span><span class="si">{10}</span><span class="s1">(FDR)$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Quality control</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.qc(allow_float=True)</span></code></a></p></td>
+<td><p>Filter low-quality cells (float32 counts)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pseudobulk</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pseudobulk('sample',</span> <span class="pre">'cell_type')</span></code></a></p></td>
+<td><p>Sum raw counts per sample × cell type</p></td>
+</tr>
+<tr class="row-even"><td><p>Filter conditions</p></td>
+<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.filter_obs.html#brisc.Pseudobulk.filter_obs" title="brisc.Pseudobulk.filter_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.filter_obs(...)</span></code></a></p></td>
+<td><p>Keep IFN-gamma and PBS samples only</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sample QC</p></td>
+<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.qc('cytokine')</span></code></a></p></td>
+<td><p>Filter low-coverage samples and genes per group</p></td>
+</tr>
+<tr class="row-even"><td><p>Library size</p></td>
+<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html#brisc.Pseudobulk.library_size" title="brisc.Pseudobulk.library_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.library_size()</span></code></a></p></td>
+<td><p>TMM-normalized library sizes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Differential expression</p></td>
+<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.DE()</span></code></a></p></td>
+<td><p>limma-voom with voomByGroup per cell type</p></td>
+</tr>
+<tr class="row-even"><td><p>Volcano plot</p></td>
+<td><p><a class="reference internal" href="../api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano" title="brisc.DE.plot_volcano"><code class="xref py py-meth docutils literal notranslate"><span class="pre">de.plot_volcano()</span></code></a></p></td>
+<td><p>Fold change vs −log₁₀(FDR) for one cell type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="integration_and_label_transfer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Integration and Label Transfer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="interoperability.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Interoperability</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

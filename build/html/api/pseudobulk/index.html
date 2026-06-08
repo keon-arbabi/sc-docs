@@ -27,50 +27,63 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=a6a3df03" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=4d1de856" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/pseudobulk/index';</script>
-    <script src="../../_static/js/benchmark-data.js?v=cb8b0693"></script>
-    <script src="../../_static/js/benchmark.js?v=5c2fd67f"></script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../_static/js/theme-fix.js?v=d495fd10"></script>
+    <script src="../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Constructor" href="constructor.html" />
-    <link rel="prev" title="Type aliases" href="../single_cell/typedefs.html" />
+    <link rel="next" title="I/O" href="io.html" />
+    <link rel="prev" title="brisc.SingleCell.pipe_uns_key" href="../single_cell/api/brisc.SingleCell.pipe_uns_key.html" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
-  </head>
   
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
   
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <meta name="robots" content="noindex, nofollow">
 
+  </head>
+  <body class="api-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -96,7 +109,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -188,11 +201,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -209,10 +229,6 @@
     </div>
   
 
-  
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
-      <span class="fa-solid fa-outdent"></span>
-    </button>
   
 </div>
 
@@ -279,11 +295,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -291,98 +314,96 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="constructor.html">Constructor</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__init__.html">single_cell.Pseudobulk.__init__</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__init__.html">__init__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.save.html">save</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="io.html">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.save.html">single_cell.Pseudobulk.save</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#properties">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.X.html">X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.obs.html">obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.var.html">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.obs_names.html">obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.var_names.html">var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.num_threads.html">num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.shape.html">shape</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="properties.html">Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.X.html">single_cell.Pseudobulk.X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.obs.html">single_cell.Pseudobulk.obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.var.html">single_cell.Pseudobulk.var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.obs_names.html">single_cell.Pseudobulk.obs_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.var_names.html">single_cell.Pseudobulk.var_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.num_threads.html">single_cell.Pseudobulk.num_threads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.shape.html">single_cell.Pseudobulk.shape</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.sample.html">sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.gene.html">gene</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="data_access.html">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.sample.html">single_cell.Pseudobulk.sample</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.gene.html">single_cell.Pseudobulk.gene</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#dictionary-interface">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.keys.html">keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.values.html">values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.items.html">items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_X.html">iter_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_obs.html">iter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.iter_var.html">iter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__contains__.html">__contains__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__or__.html">__or__</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__eq__.html">__eq__</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="dictionary_interface.html">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.keys.html">single_cell.Pseudobulk.keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.values.html">single_cell.Pseudobulk.values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.items.html">single_cell.Pseudobulk.items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_X.html">single_cell.Pseudobulk.iter_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_obs.html">single_cell.Pseudobulk.iter_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.iter_var.html">single_cell.Pseudobulk.iter_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__contains__.html">single_cell.Pseudobulk.__contains__</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__or__.html">single_cell.Pseudobulk.__or__</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.__eq__.html">single_cell.Pseudobulk.__eq__</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#manipulation">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_obs_names.html">set_obs_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_var_names.html">set_var_names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.set_num_threads.html">set_num_threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.filter_obs.html">filter_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.filter_var.html">filter_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_obs.html">select_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_var.html">select_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.select_cell_types.html">select_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_obs.html">with_columns_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_var.html">with_columns_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_obs.html">drop_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_var.html">drop_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.drop_cell_types.html">drop_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_obs.html">rename_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_var.html">rename_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.rename_cell_types.html">rename_cell_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_X.html">cast_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_obs.html">cast_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.cast_var.html">cast_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.join_obs.html">join_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.join_var.html">join_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.subsample_obs.html">subsample_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.subsample_var.html">subsample_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.split_by_cell_type.html">split_by_cell_type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.concat_obs.html">concat_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.concat_var.html">concat_var</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="manipulation.html">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_obs_names.html">single_cell.Pseudobulk.set_obs_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_var_names.html">single_cell.Pseudobulk.set_var_names</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.set_num_threads.html">single_cell.Pseudobulk.set_num_threads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.filter_obs.html">single_cell.Pseudobulk.filter_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.filter_var.html">single_cell.Pseudobulk.filter_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_obs.html">single_cell.Pseudobulk.select_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_var.html">single_cell.Pseudobulk.select_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.select_cell_types.html">single_cell.Pseudobulk.select_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_obs.html">single_cell.Pseudobulk.with_columns_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_var.html">single_cell.Pseudobulk.with_columns_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_obs.html">single_cell.Pseudobulk.drop_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_var.html">single_cell.Pseudobulk.drop_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.drop_cell_types.html">single_cell.Pseudobulk.drop_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_obs.html">single_cell.Pseudobulk.rename_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_var.html">single_cell.Pseudobulk.rename_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.rename_cell_types.html">single_cell.Pseudobulk.rename_cell_types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_X.html">single_cell.Pseudobulk.cast_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_obs.html">single_cell.Pseudobulk.cast_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.cast_var.html">single_cell.Pseudobulk.cast_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.join_obs.html">single_cell.Pseudobulk.join_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.join_var.html">single_cell.Pseudobulk.join_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_obs.html">single_cell.Pseudobulk.subsample_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_var.html">single_cell.Pseudobulk.subsample_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.split_by_cell_type.html">single_cell.Pseudobulk.split_by_cell_type</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.concat_obs.html">single_cell.Pseudobulk.concat_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.concat_var.html">single_cell.Pseudobulk.concat_var</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#transformation">Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.copy.html">copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.to_df.html">to_df</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_X.html">map_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_obs.html">map_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.map_var.html">map_var</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="transformation.html">Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.copy.html">single_cell.Pseudobulk.copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.to_df.html">single_cell.Pseudobulk.to_df</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_X.html">single_cell.Pseudobulk.map_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_obs.html">single_cell.Pseudobulk.map_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.map_var.html">single_cell.Pseudobulk.map_var</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#analysis">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.qc.html">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.library_size.html">library_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.CPM.html">CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.log_CPM.html">log_CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.regress_out.html">regress_out</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.DE.html">DE</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="analysis.html">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.qc.html">single_cell.Pseudobulk.qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.library_size.html">single_cell.Pseudobulk.library_size</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.CPM.html">single_cell.Pseudobulk.CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.log_CPM.html">single_cell.Pseudobulk.log_CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.regress_out.html">single_cell.Pseudobulk.regress_out</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.DE.html">single_cell.Pseudobulk.DE</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="utility.html">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.peek_obs.html">single_cell.Pseudobulk.peek_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.peek_var.html">single_cell.Pseudobulk.peek_var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe.html">single_cell.Pseudobulk.pipe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_X.html">single_cell.Pseudobulk.pipe_X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_obs.html">single_cell.Pseudobulk.pipe_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_var.html">single_cell.Pseudobulk.pipe_var</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.peek_var.html">peek_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe.html">pipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_X.html">pipe_X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_obs.html">pipe_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.pipe_var.html">pipe_var</a></li>
 </ul>
 </details></li>
 </ul>
@@ -447,8 +468,8 @@
 <div class="toctree-wrapper compound">
 </div>
 <dl class="py class">
-<dt class="sig sig-object py" id="single_cell.Pseudobulk">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">single_cell.</span></span><span class="sig-name descname"><span class="pre">Pseudobulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/single_cell.html#Pseudobulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#single_cell.Pseudobulk" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="brisc.Pseudobulk">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">brisc.</span></span><span class="sig-name descname"><span class="pre">Pseudobulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/brisc/pseudobulk.html#Pseudobulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.Pseudobulk" title="Link to this definition">#</a></dt>
 <dd><p>A pseudobulked single-cell dataset resulting from calling <cite>pseudobulk()</cite>
 on a SingleCell dataset.</p>
 <p>Has slots for:</p>
@@ -457,6 +478,12 @@ on a SingleCell dataset.</p>
 type</p></li>
 <li><p><cite>obs</cite>: a dict of polars DataFrames of sample metadata for each cell type</p></li>
 <li><p><cite>var</cite>: a dict of polars DataFrames of gene metadata for each cell type</p></li>
+<li><dl class="simple">
+<dt><cite>num_threads</cite>: the default number of threads to use for operations on the</dt><dd><p>dataset that support multithreading (which can be overridden by
+individual functions)</p>
+</dd>
+</dl>
+</li>
 </ul>
 <p>as well as <cite>obs_names</cite> and <cite>var_names</cite>, aliases for a dict of <cite>obs[:, 0]</cite>
 and <cite>var[:, 0]</cite> for each cell type.</p>
@@ -482,32 +509,24 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>X</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>[</em><em>2</em><em>, </em><em>np.dtype</em><em>[</em><em>np.integer</em><em> | </em><em>np.floating</em><em>]</em><em>]</em><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>obs</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>var</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em>)</p></li>
-<li><p><strong>num_threads</strong> (<em>int</em><em> | </em><em>np.integer</em><em> | </em><em>None</em>)</p></li>
+<li><p class="param-header"><strong>source</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p></li>
+<li><p class="param-header"><strong>X</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>[</em><em>np.dtype</em><em>[</em><em>np.integer</em><em> | </em><em>np.floating</em><em>]</em><em>]</em><em>] </em><em>| </em><em>None</em></p></li>
+<li><p class="param-header"><strong>obs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em></p></li>
+<li><p class="param-header"><strong>var</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em></p></li>
+<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>np.integer</em><em> | </em><em>None</em></p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<section id="constructor">
-<h2>Constructor<a class="headerlink" href="#constructor" title="Link to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.__init__.html#single_cell.Pseudobulk.__init__" title="single_cell.Pseudobulk.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__init__</span></code></a></p></td>
-<td><p>Load a saved Pseudobulk dataset, or create one from an in-memory count matrix + metadata for each cell type.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="i-o">
 <h2>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.save.html#single_cell.Pseudobulk.save" title="single_cell.Pseudobulk.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.__init__.html#brisc.Pseudobulk.__init__" title="brisc.Pseudobulk.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__init__</span></code></a></p></td>
+<td><p>Load a saved Pseudobulk dataset, or create one from an in-memory count matrix + metadata for each cell type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.save.html#brisc.Pseudobulk.save" title="brisc.Pseudobulk.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.save</span></code></a></p></td>
 <td><p>Saves a Pseudobulk dataset to <cite>directory</cite> (which must not exist unless <cite>overwrite=True</cite>, and will be created) with three files per cell type: the <cite>X</cite> at <cite>f'{cell_type}.X.npy'</cite>, the <cite>obs</cite> at <cite>f'{cell_type}.obs.parquet'</cite>, and the <cite>var</cite> at <cite>f'{cell_type}.var.parquet'</cite>.</p></td>
 </tr>
 </tbody>
@@ -518,25 +537,25 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.X.html#single_cell.Pseudobulk.X" title="single_cell.Pseudobulk.X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.X</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.X.html#brisc.Pseudobulk.X" title="brisc.Pseudobulk.X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.X</span></code></a></p></td>
 <td><p>A dictionary of count matrices for each cell type, as NumPy arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.obs.html#single_cell.Pseudobulk.obs" title="single_cell.Pseudobulk.obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.obs.html#brisc.Pseudobulk.obs" title="brisc.Pseudobulk.obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.obs</span></code></a></p></td>
 <td><p>A dictionary of Polars DataFrames of sample-level metadata for each cell type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.var.html#single_cell.Pseudobulk.var" title="single_cell.Pseudobulk.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.var.html#brisc.Pseudobulk.var" title="brisc.Pseudobulk.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.var</span></code></a></p></td>
 <td><p>A dictionary of Polars DataFrames of gene-level metadata for each cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.obs_names.html#single_cell.Pseudobulk.obs_names" title="single_cell.Pseudobulk.obs_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.obs_names</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.obs_names.html#brisc.Pseudobulk.obs_names" title="brisc.Pseudobulk.obs_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.obs_names</span></code></a></p></td>
 <td><p>A shortcut to access the first column of <cite>obs</cite> for each cell type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.var_names.html#single_cell.Pseudobulk.var_names" title="single_cell.Pseudobulk.var_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.var_names</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.var_names.html#brisc.Pseudobulk.var_names" title="brisc.Pseudobulk.var_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.var_names</span></code></a></p></td>
 <td><p>A shortcut to access the first column of <cite>var</cite> for each cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.num_threads.html#single_cell.Pseudobulk.num_threads" title="single_cell.Pseudobulk.num_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.num_threads</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.num_threads.html#brisc.Pseudobulk.num_threads" title="brisc.Pseudobulk.num_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.num_threads</span></code></a></p></td>
 <td><p>The default number of threads used for this Pseudobulk dataset's operations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.shape.html#single_cell.Pseudobulk.shape" title="single_cell.Pseudobulk.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.shape</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.shape.html#brisc.Pseudobulk.shape" title="brisc.Pseudobulk.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.shape</span></code></a></p></td>
 <td><p>a dictionary mapping each cell type to a length-2 tuple where the first element is the number of samples, and the second is the number of genes.</p></td>
 </tr>
 </tbody>
@@ -547,10 +566,10 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Data access<a class="headerlink" href="#data-access" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.sample.html#single_cell.Pseudobulk.sample" title="single_cell.Pseudobulk.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.sample</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.sample.html#brisc.Pseudobulk.sample" title="brisc.Pseudobulk.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.sample</span></code></a></p></td>
 <td><p>Get the row of <cite>X[cell_type]</cite> corresponding to a single sample, based on the sample's name in <cite>obs_names</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.gene.html#single_cell.Pseudobulk.gene" title="single_cell.Pseudobulk.gene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.gene</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.gene.html#brisc.Pseudobulk.gene" title="brisc.Pseudobulk.gene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.gene</span></code></a></p></td>
 <td><p>Get the column of <cite>X[cell_type]</cite> corresponding to a single gene, based on the gene's name in <cite>var_names</cite>.</p></td>
 </tr>
 </tbody>
@@ -561,31 +580,31 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Dictionary interface<a class="headerlink" href="#dictionary-interface" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.keys.html#single_cell.Pseudobulk.keys" title="single_cell.Pseudobulk.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.keys</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.keys.html#brisc.Pseudobulk.keys" title="brisc.Pseudobulk.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.keys</span></code></a></p></td>
 <td><p>Get a KeysView (like you would get from <cite>dict.keys()</cite>) of this Pseudobulk dataset's cell types.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.values.html#single_cell.Pseudobulk.values" title="single_cell.Pseudobulk.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.values</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.values.html#brisc.Pseudobulk.values" title="brisc.Pseudobulk.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.values</span></code></a></p></td>
 <td><p>Get a <cite>ValuesView</cite> (like you would get from <cite>dict.values()</cite>) of <cite>(X, obs, var)</cite> tuples for each cell type in this Pseudobulk dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.items.html#single_cell.Pseudobulk.items" title="single_cell.Pseudobulk.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.items</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.items.html#brisc.Pseudobulk.items" title="brisc.Pseudobulk.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.items</span></code></a></p></td>
 <td><p>Get an <cite>ItemsView</cite> (like you would get from <cite>dict.items()</cite>) of <cite>(cell_type, (X, obs, var))</cite> tuples for each cell type in this Pseudobulk dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.iter_X.html#single_cell.Pseudobulk.iter_X" title="single_cell.Pseudobulk.iter_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_X</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.iter_X.html#brisc.Pseudobulk.iter_X" title="brisc.Pseudobulk.iter_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_X</span></code></a></p></td>
 <td><p>Iterate over each cell type's <cite>X</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.iter_obs.html#single_cell.Pseudobulk.iter_obs" title="single_cell.Pseudobulk.iter_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.iter_obs.html#brisc.Pseudobulk.iter_obs" title="brisc.Pseudobulk.iter_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_obs</span></code></a></p></td>
 <td><p>Iterate over each cell type's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.iter_var.html#single_cell.Pseudobulk.iter_var" title="single_cell.Pseudobulk.iter_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.iter_var.html#brisc.Pseudobulk.iter_var" title="brisc.Pseudobulk.iter_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.iter_var</span></code></a></p></td>
 <td><p>Iterate over each cell type's <cite>var</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.__contains__.html#single_cell.Pseudobulk.__contains__" title="single_cell.Pseudobulk.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__contains__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.__contains__.html#brisc.Pseudobulk.__contains__" title="brisc.Pseudobulk.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__contains__</span></code></a></p></td>
 <td><p>Check if this Pseudobulk dataset contains the specified cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.__or__.html#single_cell.Pseudobulk.__or__" title="single_cell.Pseudobulk.__or__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__or__</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.__or__.html#brisc.Pseudobulk.__or__" title="brisc.Pseudobulk.__or__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__or__</span></code></a></p></td>
 <td><p>Combine the cell types of this Pseudobulk dataset with another.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.__eq__.html#single_cell.Pseudobulk.__eq__" title="single_cell.Pseudobulk.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__eq__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.__eq__.html#brisc.Pseudobulk.__eq__" title="brisc.Pseudobulk.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__eq__</span></code></a></p></td>
 <td><p>Test for equality with another Pseudobulk dataset.</p></td>
 </tr>
 </tbody>
@@ -596,82 +615,82 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Manipulation<a class="headerlink" href="#manipulation" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.set_obs_names.html#single_cell.Pseudobulk.set_obs_names" title="single_cell.Pseudobulk.set_obs_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_obs_names</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.set_obs_names.html#brisc.Pseudobulk.set_obs_names" title="brisc.Pseudobulk.set_obs_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_obs_names</span></code></a></p></td>
 <td><p>Sets a column as the new first column of <cite>obs</cite>, i.e. the <cite>obs_names</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.set_var_names.html#single_cell.Pseudobulk.set_var_names" title="single_cell.Pseudobulk.set_var_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_var_names</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.set_var_names.html#brisc.Pseudobulk.set_var_names" title="brisc.Pseudobulk.set_var_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_var_names</span></code></a></p></td>
 <td><p>Sets a column as the new first column of <cite>var</cite>, i.e. the <cite>var_names</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.set_num_threads.html#single_cell.Pseudobulk.set_num_threads" title="single_cell.Pseudobulk.set_num_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_num_threads</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.set_num_threads.html#brisc.Pseudobulk.set_num_threads" title="brisc.Pseudobulk.set_num_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.set_num_threads</span></code></a></p></td>
 <td><p>Return a new Pseudobulk dataset with a different default number of threads.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.filter_obs.html#single_cell.Pseudobulk.filter_obs" title="single_cell.Pseudobulk.filter_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.filter_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.filter_obs.html#brisc.Pseudobulk.filter_obs" title="brisc.Pseudobulk.filter_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.filter_obs</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.filter()</cite> from polars, but applied to both <cite>obs</cite> and <cite>X</cite> for each cell type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.filter_var.html#single_cell.Pseudobulk.filter_var" title="single_cell.Pseudobulk.filter_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.filter_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.filter_var.html#brisc.Pseudobulk.filter_var" title="brisc.Pseudobulk.filter_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.filter_var</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.filter()</cite> from polars, but applied to both <cite>var</cite> and <cite>X</cite> for each cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.select_obs.html#single_cell.Pseudobulk.select_obs" title="single_cell.Pseudobulk.select_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.select_obs.html#brisc.Pseudobulk.select_obs" title="brisc.Pseudobulk.select_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_obs</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.select()</cite> from polars, but applied to each cell type's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.select_var.html#single_cell.Pseudobulk.select_var" title="single_cell.Pseudobulk.select_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.select_var.html#brisc.Pseudobulk.select_var" title="brisc.Pseudobulk.select_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_var</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.select()</cite> from polars, but applied to each cell type's <cite>var</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.select_cell_types.html#single_cell.Pseudobulk.select_cell_types" title="single_cell.Pseudobulk.select_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_cell_types</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.select_cell_types.html#brisc.Pseudobulk.select_cell_types" title="brisc.Pseudobulk.select_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.select_cell_types</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset subset to the cell type(s) in <cite>cell_types</cite> and <cite>more_cell_types</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_obs.html#single_cell.Pseudobulk.with_columns_obs" title="single_cell.Pseudobulk.with_columns_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.with_columns_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_obs.html#brisc.Pseudobulk.with_columns_obs" title="brisc.Pseudobulk.with_columns_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.with_columns_obs</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.with_columns()</cite> from polars, but applied to each cell type's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.with_columns_var.html#single_cell.Pseudobulk.with_columns_var" title="single_cell.Pseudobulk.with_columns_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.with_columns_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.with_columns_var.html#brisc.Pseudobulk.with_columns_var" title="brisc.Pseudobulk.with_columns_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.with_columns_var</span></code></a></p></td>
 <td><p>Equivalent to <cite>df.with_columns()</cite> from polars, but applied to each cell type's <cite>var</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.drop_obs.html#single_cell.Pseudobulk.drop_obs" title="single_cell.Pseudobulk.drop_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.drop_obs.html#brisc.Pseudobulk.drop_obs" title="brisc.Pseudobulk.drop_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_obs</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with <cite>columns</cite> and <cite>more_columns</cite> removed from <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.drop_var.html#single_cell.Pseudobulk.drop_var" title="single_cell.Pseudobulk.drop_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.drop_var.html#brisc.Pseudobulk.drop_var" title="brisc.Pseudobulk.drop_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_var</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with <cite>columns</cite> and <cite>more_columns</cite> removed from <cite>var</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.drop_cell_types.html#single_cell.Pseudobulk.drop_cell_types" title="single_cell.Pseudobulk.drop_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_cell_types</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.drop_cell_types.html#brisc.Pseudobulk.drop_cell_types" title="brisc.Pseudobulk.drop_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.drop_cell_types</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with <cite>cell_types</cite> and <cite>more_cell_types</cite> removed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.rename_obs.html#single_cell.Pseudobulk.rename_obs" title="single_cell.Pseudobulk.rename_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.rename_obs.html#brisc.Pseudobulk.rename_obs" title="brisc.Pseudobulk.rename_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_obs</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with column(s) of <cite>obs</cite> renamed for each cell type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.rename_var.html#single_cell.Pseudobulk.rename_var" title="single_cell.Pseudobulk.rename_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.rename_var.html#brisc.Pseudobulk.rename_var" title="brisc.Pseudobulk.rename_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_var</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with column(s) of <cite>var</cite> renamed for each cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.rename_cell_types.html#single_cell.Pseudobulk.rename_cell_types" title="single_cell.Pseudobulk.rename_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_cell_types</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.rename_cell_types.html#brisc.Pseudobulk.rename_cell_types" title="brisc.Pseudobulk.rename_cell_types"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.rename_cell_types</span></code></a></p></td>
 <td><p>Create a new Pseudobulk dataset with cell type(s) renamed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.cast_X.html#single_cell.Pseudobulk.cast_X" title="single_cell.Pseudobulk.cast_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_X</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.cast_X.html#brisc.Pseudobulk.cast_X" title="brisc.Pseudobulk.cast_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_X</span></code></a></p></td>
 <td><p>Cast each cell type's <cite>X</cite> to the specified data type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.cast_obs.html#single_cell.Pseudobulk.cast_obs" title="single_cell.Pseudobulk.cast_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.cast_obs.html#brisc.Pseudobulk.cast_obs" title="brisc.Pseudobulk.cast_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_obs</span></code></a></p></td>
 <td><p>Cast column(s) of each cell type's <cite>obs</cite> to the specified data type(s).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.cast_var.html#single_cell.Pseudobulk.cast_var" title="single_cell.Pseudobulk.cast_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.cast_var.html#brisc.Pseudobulk.cast_var" title="brisc.Pseudobulk.cast_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.cast_var</span></code></a></p></td>
 <td><p>Cast column(s) of each cell type's <cite>var</cite> to the specified data type(s).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.join_obs.html#single_cell.Pseudobulk.join_obs" title="single_cell.Pseudobulk.join_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.join_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.join_obs.html#brisc.Pseudobulk.join_obs" title="brisc.Pseudobulk.join_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.join_obs</span></code></a></p></td>
 <td><p>Left-join each cell type's <cite>obs</cite> with another DataFrame, using the same logic as <a class="reference external" href="https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join.html">polars.DataFrame.join()</a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.join_var.html#single_cell.Pseudobulk.join_var" title="single_cell.Pseudobulk.join_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.join_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.join_var.html#brisc.Pseudobulk.join_var" title="brisc.Pseudobulk.join_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.join_var</span></code></a></p></td>
 <td><p>Left-join each cell type's <cite>obs</cite> with another DataFrame, using the same logic as <a class="reference external" href="https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join.html">polars.DataFrame.join()</a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_obs.html#single_cell.Pseudobulk.subsample_obs" title="single_cell.Pseudobulk.subsample_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.subsample_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.subsample_obs.html#brisc.Pseudobulk.subsample_obs" title="brisc.Pseudobulk.subsample_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.subsample_obs</span></code></a></p></td>
 <td><p>Subsample a specific number or fraction of samples.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.subsample_var.html#single_cell.Pseudobulk.subsample_var" title="single_cell.Pseudobulk.subsample_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.subsample_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.subsample_var.html#brisc.Pseudobulk.subsample_var" title="brisc.Pseudobulk.subsample_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.subsample_var</span></code></a></p></td>
 <td><p>Subsample a specific number or fraction of genes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.split_by_cell_type.html#single_cell.Pseudobulk.split_by_cell_type" title="single_cell.Pseudobulk.split_by_cell_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.split_by_cell_type</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.split_by_cell_type.html#brisc.Pseudobulk.split_by_cell_type" title="brisc.Pseudobulk.split_by_cell_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.split_by_cell_type</span></code></a></p></td>
 <td><p>Split this Pseudobulk dataset into a tuple of Pseudobulk datasets with one cell type each.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.concat_obs.html#single_cell.Pseudobulk.concat_obs" title="single_cell.Pseudobulk.concat_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.concat_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.concat_obs.html#brisc.Pseudobulk.concat_obs" title="brisc.Pseudobulk.concat_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.concat_obs</span></code></a></p></td>
 <td><p>Concatenate one or more other Pseudobulk datasets with this one, sample-wise.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.concat_var.html#single_cell.Pseudobulk.concat_var" title="single_cell.Pseudobulk.concat_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.concat_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.concat_var.html#brisc.Pseudobulk.concat_var" title="brisc.Pseudobulk.concat_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.concat_var</span></code></a></p></td>
 <td><p>Concatenate one or more other Pseudobulk datasets with this one, gene-wise.</p></td>
 </tr>
 </tbody>
@@ -682,19 +701,19 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Transformation<a class="headerlink" href="#transformation" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.copy.html#single_cell.Pseudobulk.copy" title="single_cell.Pseudobulk.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.copy</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.copy.html#brisc.Pseudobulk.copy" title="brisc.Pseudobulk.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.copy</span></code></a></p></td>
 <td><p>Make a copy of this Pseudobulk dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.to_df.html#single_cell.Pseudobulk.to_df" title="single_cell.Pseudobulk.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.to_df</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.to_df.html#brisc.Pseudobulk.to_df" title="brisc.Pseudobulk.to_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.to_df</span></code></a></p></td>
 <td><p>Convert this Pseudobulk object to a polars DataFrame, with one row per (sample, cell type) pair and one column per gene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_X.html#single_cell.Pseudobulk.map_X" title="single_cell.Pseudobulk.map_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_X</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_X.html#brisc.Pseudobulk.map_X" title="brisc.Pseudobulk.map_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_X</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>X</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_obs.html#single_cell.Pseudobulk.map_obs" title="single_cell.Pseudobulk.map_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_obs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_obs.html#brisc.Pseudobulk.map_obs" title="brisc.Pseudobulk.map_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_obs</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.map_var.html#single_cell.Pseudobulk.map_var" title="single_cell.Pseudobulk.map_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_var</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.map_var.html#brisc.Pseudobulk.map_var" title="brisc.Pseudobulk.map_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.map_var</span></code></a></p></td>
 <td><p>Apply a function to each cell type's <cite>var</cite>.</p></td>
 </tr>
 </tbody>
@@ -705,22 +724,22 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.qc.html#single_cell.Pseudobulk.qc" title="single_cell.Pseudobulk.qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.qc</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.qc</span></code></a></p></td>
 <td><p>Subsets each cell type to samples passing quality control (QC).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.library_size.html#single_cell.Pseudobulk.library_size" title="single_cell.Pseudobulk.library_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.library_size</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.library_size.html#brisc.Pseudobulk.library_size" title="brisc.Pseudobulk.library_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.library_size</span></code></a></p></td>
 <td><p>Calculate normalization factor-adjusted library sizes for each sample in each cell type, via the approach of edgeR's <cite>calcNormFactors()</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.CPM.html#single_cell.Pseudobulk.CPM" title="single_cell.Pseudobulk.CPM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.CPM</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.CPM.html#brisc.Pseudobulk.CPM" title="brisc.Pseudobulk.CPM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.CPM</span></code></a></p></td>
 <td><p>Calculate counts per million for each cell type.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.log_CPM.html#single_cell.Pseudobulk.log_CPM" title="single_cell.Pseudobulk.log_CPM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.log_CPM</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.log_CPM.html#brisc.Pseudobulk.log_CPM" title="brisc.Pseudobulk.log_CPM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.log_CPM</span></code></a></p></td>
 <td><p>Calculate log counts per million for each cell type.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.regress_out.html#single_cell.Pseudobulk.regress_out" title="single_cell.Pseudobulk.regress_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.regress_out</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.regress_out.html#brisc.Pseudobulk.regress_out" title="brisc.Pseudobulk.regress_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.regress_out</span></code></a></p></td>
 <td><p>Regress out covariates from <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.DE.html#single_cell.Pseudobulk.DE" title="single_cell.Pseudobulk.DE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.DE</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.DE</span></code></a></p></td>
 <td><p>Perform differential expression (DE) on a Pseudobulk dataset with limma-voom.</p></td>
 </tr>
 </tbody>
@@ -731,22 +750,22 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>Utility<a class="headerlink" href="#utility" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.peek_obs.html#single_cell.Pseudobulk.peek_obs" title="single_cell.Pseudobulk.peek_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.peek_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.peek_obs.html#brisc.Pseudobulk.peek_obs" title="brisc.Pseudobulk.peek_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.peek_obs</span></code></a></p></td>
 <td><p>Print a row of <cite>obs</cite> (the first row, by default) for a cell type (the first cell type, by default) with each column on its own line.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.peek_var.html#single_cell.Pseudobulk.peek_var" title="single_cell.Pseudobulk.peek_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.peek_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.peek_var.html#brisc.Pseudobulk.peek_var" title="brisc.Pseudobulk.peek_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.peek_var</span></code></a></p></td>
 <td><p>Print a row of <cite>var</cite> (the first row, by default) for a cell type (the first cell type, by default) with each column on its own line.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.pipe.html#single_cell.Pseudobulk.pipe" title="single_cell.Pseudobulk.pipe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.pipe.html#brisc.Pseudobulk.pipe" title="brisc.Pseudobulk.pipe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe</span></code></a></p></td>
 <td><p>Apply a function to a Pseudobulk dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_X.html#single_cell.Pseudobulk.pipe_X" title="single_cell.Pseudobulk.pipe_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_X</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.pipe_X.html#brisc.Pseudobulk.pipe_X" title="brisc.Pseudobulk.pipe_X"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_X</span></code></a></p></td>
 <td><p>Apply a function to a Pseudobulk dataset's <cite>X</cite>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_obs.html#single_cell.Pseudobulk.pipe_obs" title="single_cell.Pseudobulk.pipe_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.pipe_obs.html#brisc.Pseudobulk.pipe_obs" title="brisc.Pseudobulk.pipe_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_obs</span></code></a></p></td>
 <td><p>Apply a function to a Pseudobulk dataset's <cite>obs</cite>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/single_cell.Pseudobulk.pipe_var.html#single_cell.Pseudobulk.pipe_var" title="single_cell.Pseudobulk.pipe_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.pipe_var.html#brisc.Pseudobulk.pipe_var" title="brisc.Pseudobulk.pipe_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.pipe_var</span></code></a></p></td>
 <td><p>Apply a function to a Pseudobulk dataset's <cite>var</cite>.</p></td>
 </tr>
 </tbody>
@@ -766,20 +785,20 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../single_cell/typedefs.html"
+       href="../single_cell/api/brisc.SingleCell.pipe_uns_key.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Type aliases</p>
+        <p class="prev-next-title">pipe_uns_key</p>
       </div>
     </a>
     <a class="right-next"
-       href="constructor.html"
+       href="io.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Constructor</p>
+        <p class="prev-next-title">I/O</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -789,33 +808,6 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-<div
-    id="pst-page-navigation-heading-2"
-    class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> On this page
-  </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single_cell.Pseudobulk"><code class="docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructor">Constructor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#i-o">I/O</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties">Properties</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-access">Data access</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dictionary-interface">Dictionary interface</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manipulation">Manipulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation">Transformation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utility">Utility</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
@@ -828,8 +820,8 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -840,7 +832,7 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 
   <p class="copyright">
     
-      © Copyright 2025,<br>Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>
@@ -863,7 +855,7 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
 </p></div>
       
     </div>

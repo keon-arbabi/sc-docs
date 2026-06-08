@@ -13,7 +13,7 @@ as well as raw 10x Genomics data (`.h5` or `.mtx`/`.mtx.gz`).
 The constructor auto-detects format from the file extension:
 
 ```python
-from single_cell import SingleCell
+from brisc import SingleCell
 
 # scverse / Scanpy
 sc = SingleCell('data.h5ad')
@@ -70,12 +70,19 @@ sc = SingleCell('data.h5ad', X=False)
 
 ### Reading individual slots
 
-You can also read {attr}`~single_cell.SingleCell.obs`, {attr}`~single_cell.SingleCell.var`, {attr}`~single_cell.SingleCell.obsm`, {attr}`~single_cell.SingleCell.varm`, or {attr}`~single_cell.SingleCell.uns` from an `.h5ad` file without loading the full dataset:
+You can also read {attr}`~brisc.SingleCell.obs`, {attr}`~brisc.SingleCell.var`, {attr}`~brisc.SingleCell.obsm`, {attr}`~brisc.SingleCell.varm`, or {attr}`~brisc.SingleCell.uns` from an `.h5ad` file without loading the full dataset:
 
 ```python
+# polars DataFrame
 obs = SingleCell.read_obs('data.h5ad', columns=['cell_type', 'batch'])
+
+# polars DataFrame
 var = SingleCell.read_var('data.h5ad')
+
+# dict: {key: NumPy array | polars DataFrame}
 obsm = SingleCell.read_obsm('data.h5ad', keys=['X_pca'])
+
+# dict (nested: scalars, arrays, sub-dicts)
 uns = SingleCell.read_uns('data.h5ad')
 ```
 
@@ -144,12 +151,12 @@ adata = sc_data.to_scanpy()
 :::{note}
 The count matrix is shared, not copied. Modifying `adata.X` will also modify the original SingleCell dataset. To avoid this, use `sc_data.copy().to_scanpy()`.
 
-There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <single_cell.SingleCell.__init__>` serves that purpose.
+There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` serves that purpose.
 :::
 
 ## The ryp Python-R bridge
 
-Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~single_cell.SingleCell.from_seurat` / {meth}`~single_cell.SingleCell.to_seurat` and {meth}`~single_cell.SingleCell.from_sce` / {meth}`~single_cell.SingleCell.to_sce`.
+Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`.
 
 :::{note}
 R's sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.
@@ -205,7 +212,7 @@ sc.save('output_sce.rds', sce=True)
 A common reason to bridge ecosystems is to use tools that only exist in one. For instance, [Azimuth](https://azimuth.hubmapconsortium.org/) provides automated cell type annotation via a Seurat reference atlas (R only), while [scvi-tools](https://scvi-tools.org/) provides deep generative models for integration and differential expression (Python only). SingleCell lets you chain these without writing intermediate files:
 
 ```python
-from single_cell import SingleCell
+from brisc import SingleCell
 from ryp import r
 
 # start in Python: load and QC
@@ -251,18 +258,18 @@ sc = SingleCell(X=X, obs=obs, var=var)
 
 | Operation | Method |
 |---|---|
-| Load `.h5ad` | {meth}`SingleCell('file.h5ad') <single_cell.SingleCell.__init__>` |
-| Load `.rds` / `.h5Seurat` | {meth}`SingleCell('file.rds') <single_cell.SingleCell.__init__>` |
-| Load 10x `.h5` / `.mtx` | {meth}`SingleCell('matrix.h5') <single_cell.SingleCell.__init__>` |
-| Load specific layer | {meth}`SingleCell('file.h5ad', X_key='raw/X') <single_cell.SingleCell.__init__>` |
-| Load subset of columns | {meth}`SingleCell('file.h5ad', obs_columns=[...]) <single_cell.SingleCell.__init__>` |
-| Load without counts | {meth}`SingleCell('file.h5ad', X=False) <single_cell.SingleCell.__init__>` |
-| Read `obs` only | {meth}`SingleCell.read_obs('file.h5ad') <single_cell.SingleCell.read_obs>` |
-| Save to any format | {meth}`sc.save('out.h5ad') <single_cell.SingleCell.save>` |
-| From AnnData | {meth}`SingleCell(adata) <single_cell.SingleCell.__init__>` |
-| To AnnData | {meth}`sc.to_scanpy() <single_cell.SingleCell.to_scanpy>` |
-| From Seurat (in-memory) | {meth}`SingleCell.from_seurat('obj') <single_cell.SingleCell.from_seurat>` |
-| To Seurat (in-memory) | {meth}`sc.to_seurat('obj') <single_cell.SingleCell.to_seurat>` |
-| From SCE (in-memory) | {meth}`SingleCell.from_sce('obj') <single_cell.SingleCell.from_sce>` |
-| To SCE (in-memory) | {meth}`sc.to_sce('obj') <single_cell.SingleCell.to_sce>` |
-| Construct manually | {meth}`SingleCell(X=X, obs=obs, var=var) <single_cell.SingleCell.__init__>` |
+| Load `.h5ad` | {meth}`SingleCell('file.h5ad') <brisc.SingleCell.__init__>` |
+| Load `.rds` / `.h5Seurat` | {meth}`SingleCell('file.rds') <brisc.SingleCell.__init__>` |
+| Load 10x `.h5` / `.mtx` | {meth}`SingleCell('matrix.h5') <brisc.SingleCell.__init__>` |
+| Load specific layer | {meth}`SingleCell('file.h5ad', X_key='raw/X') <brisc.SingleCell.__init__>` |
+| Load subset of columns | {meth}`SingleCell('file.h5ad', obs_columns=[...]) <brisc.SingleCell.__init__>` |
+| Load without counts | {meth}`SingleCell('file.h5ad', X=False) <brisc.SingleCell.__init__>` |
+| Read `obs` only | {meth}`SingleCell.read_obs('file.h5ad') <brisc.SingleCell.read_obs>` |
+| Save to any format | {meth}`sc.save('out.h5ad') <brisc.SingleCell.save>` |
+| From AnnData | {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` |
+| To AnnData | {meth}`sc.to_scanpy() <brisc.SingleCell.to_scanpy>` |
+| From Seurat (in-memory) | {meth}`SingleCell.from_seurat('obj') <brisc.SingleCell.from_seurat>` |
+| To Seurat (in-memory) | {meth}`sc.to_seurat('obj') <brisc.SingleCell.to_seurat>` |
+| From SCE (in-memory) | {meth}`SingleCell.from_sce('obj') <brisc.SingleCell.from_sce>` |
+| To SCE (in-memory) | {meth}`sc.to_sce('obj') <brisc.SingleCell.to_sce>` |
+| Construct manually | {meth}`SingleCell(X=X, obs=obs, var=var) <brisc.SingleCell.__init__>` |

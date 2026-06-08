@@ -1,7 +1,7 @@
 Data access
 ===========
 
-.. currentmodule:: single_cell
+.. currentmodule:: brisc
 
 .. autosummary::
    :toctree: api/

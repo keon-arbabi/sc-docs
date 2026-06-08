@@ -1,0 +1,8 @@
+{% extends "!layout.html" %}
+{# Keep this preview out of search engines: a noindex meta tag on every page,
+   alongside the X-Robots-Tag header set in deploy/_headers. Both are honored
+   only because robots.txt allows crawling (a Disallow would hide them). #}
+{% block extrahead %}
+{{ super() }}
+  <meta name="robots" content="noindex, nofollow">
+{% endblock %}
