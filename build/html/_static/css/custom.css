@@ -107,10 +107,28 @@ html[data-theme] dl.py dl.field-list > dd {
     overflow-wrap: break-word;
 }
 
+/* Box-drawing-complete monospace fallback. Polars renders its tables with
+   box-drawing glyphs (│ ─ ┆ ═ ╞ ╪ ╡ …). Devices without Menlo/Monaco/Consolas
+   fall through to a system monospace that lacks the triple-dash/double-line
+   variants, so the browser substitutes just those glyphs from a proportional
+   font and the table columns drift out of alignment. Shipping a subset of
+   DejaVu Sans Mono (full box-drawing coverage, single advance width) and
+   slotting it ahead of the incomplete fallbacks guarantees the whole block
+   renders in one font. No unicode-range: restricting it to box-drawing only
+   would let the device font keep the digits and re-introduce the mismatch.
+   Desktops with Menlo/Consolas resolve first and never download it. */
+@font-face {
+    font-family: 'DejaVu Sans Mono';
+    src: url('../fonts/DejaVuSansMono-subset.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Body font is left at the theme default; only the monospace stack is
    overridden so code blocks/signatures match the VS Code default fonts. */
 :root {
-    --pst-font-family-monospace: Menlo, Monaco, Consolas, 'Droid Sans Mono', 'Liberation Mono', 'Courier New', monospace;
+    --pst-font-family-monospace: Menlo, Monaco, Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Liberation Mono', 'Courier New', monospace;
 }
 
 /* Monokai Pro Ristretto Filter palette — light & dark variants */
@@ -257,6 +275,11 @@ html[data-theme="dark"] .admonition.tip > .admonition-title::after {
 details.sd-dropdown summary.sd-card-header,
 details.sd-dropdown summary.sd-card-header + div.sd-summary-content {
     --pst-sd-dropdown-color: var(--pst-color-primary);
+}
+
+/* Add breathing room when a dropdown immediately follows a figure/image */
+a.image-reference + details.sd-dropdown {
+    margin-top: 1.5rem;
 }
 
 /* API links in code blocks — subtle underline on hover */
@@ -862,6 +885,22 @@ pre {
     box-shadow: 0 .2rem .5rem var(--pst-color-shadow), 0 0 .0625rem var(--pst-color-shadow) !important;
 }
 
+/* Mobile: keep wide code blocks and text outputs (e.g. polars tables, which
+   can run ~150 chars wide) scrolling inside their own box instead of pushing
+   past the viewport. The theme sets `pre{overflow:auto}`, but the wrapping
+   `div.highlight` is width-unbounded, so on a narrow screen a very wide block
+   stretches the article and ends up clipped on the left. Bounding the wrapper
+   and the <pre> to the available width makes each block a self-contained
+   horizontal scroller. */
+.bd-article div.highlight {
+    max-width: 100%;
+}
+.bd-article div.highlight pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 /* smaller navbar logo */
 .navbar-brand img {
     height: 28px;
@@ -1145,14 +1184,15 @@ dl.py > dt.sig.sig-object.py {
 }
 
 /* =====================================================================
-   The "On this page" secondary sidebar is removed site-wide
-   (secondary_sidebar_items=[] in conf.py). Hide every leftover affordance,
-   including the article-header toggle row.
+   "On this page" secondary sidebar: shown on tutorial content pages (a
+   `tutorial-page` body class is added by the build-finished hook in
+   conf.py, and secondary_sidebar_items enables page-toc for tutorials/*),
+   hidden everywhere else.
    ===================================================================== */
-.bd-sidebar-secondary,
-#pst-secondary-sidebar,
-#pst-secondary-sidebar-modal,
-.secondary-toggle,
+body:not(.tutorial-page) .bd-sidebar-secondary,
+body:not(.tutorial-page) #pst-secondary-sidebar,
+body:not(.tutorial-page) #pst-secondary-sidebar-modal,
+body:not(.tutorial-page) .secondary-toggle,
 .bd-header-article .sidebar-toggle {
     display: none !important;
 }

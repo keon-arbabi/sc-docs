@@ -85,9 +85,10 @@ html_show_sourcelink = False
 html_theme_options = {
     "navbar_end": ["theme-switcher"],
     "show_version_warning_banner": False,
-    # Drop the "On this page" secondary sidebar everywhere; a persistent
-    # primary-sidebar toggle (added via JS/CSS) takes its place.
-    "secondary_sidebar_items": [],
+    # "On this page" secondary sidebar: rendered as a page TOC, but the CSS
+    # (body:not(.tutorial-page)) shows it only on tutorial content pages and
+    # hides it elsewhere (API pages navigate via the left sidebar).
+    "secondary_sidebar_items": ["page-toc"],
     "logo": {
         "image_dark": "_static/images/runner_logo_dark.svg",
         "image_light": "_static/images/runner_logo_light.svg",
@@ -224,6 +225,63 @@ def _make_linked_span(name, css_class, depth):
                 f'<span class="{css_class}">{name}</span></a>')
     return f'<span class="{css_class}">{name}</span>'
 
+# Receiver-variable conventions and method return types, so qualified/chained
+# calls resolve to the right class (e.g. pb.qc -> Pseudobulk.qc, not
+# SingleCell.qc) when a method name is shared across classes.
+_VAR_CLASS = {
+    'sc': 'SingleCell', 'sc_ref': 'SingleCell', 'sc_query': 'SingleCell',
+    'sc_data': 'SingleCell', 'single_cell': 'SingleCell',
+    'pb': 'Pseudobulk', 'de': 'DE',
+}
+_CLASSES = {'SingleCell', 'Pseudobulk', 'DE'}
+_RETURNS = {
+    ('SingleCell', 'pseudobulk'): 'Pseudobulk',
+    ('Pseudobulk', 'DE'): 'DE',
+}
+# A call site: optional `RECV.` receiver, then NAME, then an opening paren.
+_link_re = re.compile(
+    r'(?:<span class="n">(?P<recv>[A-Za-z_]\w*)</span>)?'
+    r'(?P<dot><span class="o">\.</span>)?'
+    r'<span class="n">(?P<name>[A-Za-z_]\w*)</span>'
+    r'(?P<paren><span class="p">\([^<]*</span>)')
+
+def _linked(name, url, depth):
+    if url:
+        rel = '../' * depth + url
+        return (f'<a href="{rel}" class="api-link" '
+                f'style="text-decoration:none;color:inherit">'
+                f'<span class="nf">{name}</span></a>')
+    return f'<span class="nf">{name}</span>'
+
+def _link_calls(text, depth):
+    """Link calls to API docs, resolving the receiving class from the receiver
+    variable or the method chain so shared names (qc, filter_obs, DE) point at
+    the correct class page."""
+    links = _get_api_links()
+    state = {'cur': None}  # class the next chained `.method()` is called on
+
+    def repl(m):
+        recv, dot, name, paren = (m.group('recv'), m.group('dot'),
+                                  m.group('name'), m.group('paren'))
+        if dot:  # method call: [recv].name(
+            if recv is not None:
+                cls = _VAR_CLASS.get(recv) or (recv if recv in _CLASSES
+                                               else None)
+            else:
+                cls = state['cur']  # chained call off the previous result
+            url = (links.get((cls, name)) if cls else None) or links.get(name)
+            if cls and (cls, name) in _RETURNS:
+                state['cur'] = _RETURNS[(cls, name)]
+            elif cls and (cls, name) in links:
+                state['cur'] = cls
+            recv_span = f'<span class="n">{recv}</span>' if recv else ''
+            return recv_span + dot + _linked(name, url, depth) + paren
+        if name in _CLASSES:  # bare call: constructor anchors the chain
+            state['cur'] = name
+        return _linked(name, links.get(name), depth) + paren
+
+    return _link_re.sub(repl, text)
+
 _SIDEBAR_TITLE_MAP = [
     ("api/single_cell/", "SingleCell"),
     ("api/pseudobulk/",  "Pseudobulk"),
@@ -302,6 +360,10 @@ def _semantic_highlight(app, exception=None):
         # the class index page (rewritten above).
         if rel_str.startswith("api/"):
             text = text.replace('<body ', '<body class="api-page" ', 1)
+        # Tutorial content pages (not the index, which has no sections): mark
+        # the body so CSS shows the "On this page" secondary sidebar.
+        elif rel_str.startswith("tutorials/") and rel_str != "tutorials/index.html":
+            text = text.replace('<body ', '<body class="tutorial-page" ', 1)
 
         # -- Code-block semantic highlighting (only where pygments ran) --
         if '<span class="n">' not in text:
@@ -309,19 +371,9 @@ def _semantic_highlight(app, exception=None):
                 html_file.write_text(text)
             continue
 
-        # method calls: .name( → green + link
-        def _method_repl(m):
-            name = m.group(2)
-            span = _make_linked_span(name, 'nf', depth)
-            return m.group(1) + span + m.group(3)
-        text = _method_re.sub(_method_repl, text)
-
-        # function calls: name( → green + link
-        def _call_repl(m):
-            name = m.group(1)
-            span = _make_linked_span(name, 'nf', depth)
-            return span + m.group(2)
-        text = _call_re.sub(_call_repl, text)
+        # function/method calls → green + API links (receiver/chain-aware, so
+        # names shared across classes resolve to the right class page)
+        text = _link_calls(text, depth)
 
         # keyword args: name= → orange
         text = _kwarg_re.sub(

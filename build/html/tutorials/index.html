@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=4d1de856" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fd5058c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,6 +324,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
 </ul>
 </div>
 </nav></div>
@@ -383,58 +384,36 @@
                   
   <section id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Link to this heading">#</a></h1>
+<p>These tutorials all use the same Parse Biosciences ~10 million cell PBMC dataset. New to brisc? Start with <strong>Installation</strong>, then <strong>Basic Workflow</strong>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tutorial</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="installation.html"><span class="std std-doc">Installation</span></a></p></td>
+<td><p>Install brisc and its optional R dependencies.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="basic_workflow.html"><span class="std std-doc">Basic Workflow</span></a></p></td>
+<td><p>A standard analysis from raw counts to clusters and markers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="integration_and_label_transfer.html"><span class="std std-doc">Integration and Label Transfer</span></a></p></td>
+<td><p>Map an annotated reference onto a query and transfer its cell-type labels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="differential_expression.html"><span class="std std-doc">Differential Expression</span></a></p></td>
+<td><p>Pseudobulk differential expression between conditions with limma-voom.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="interoperability.html"><span class="std std-doc">Interoperability</span></a></p></td>
+<td><p>Move data between brisc, scanpy/AnnData, Seurat, and SingleCellExperiment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="data_manipulation.html"><span class="std std-doc">Data Manipulation</span></a></p></td>
+<td><p>A polars cheatsheet for inspecting, subsetting, and reshaping a dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#blas-and-threading">BLAS and threading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#r-packages">R packages</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#dataset">Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#setup">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#loading-data">Loading data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#quality-control">Quality control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#feature-selection">Feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#normalization">Normalization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#pca">PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#nearest-neighbors">Nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#clustering">Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#embedding">Embedding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#marker-genes">Marker genes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#saving">Saving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_workflow.html#pipeline-summary">Pipeline summary</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#loading-and-quality-control">Loading and quality control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#reference-and-query">Reference and query</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#integration">Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#label-transfer">Label transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#validation">Validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integration_and_label_transfer.html#pipeline-summary">Pipeline summary</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#loading-and-quality-control">Loading and quality control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#pseudobulk-aggregation">Pseudobulk aggregation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#sample-level-quality-control">Sample-level quality control</a></li>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#id1">Differential expression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#exploring-the-results">Exploring the results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="differential_expression.html#pipeline-summary">Pipeline summary</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#loading-from-file">Loading from file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#saving-to-file">Saving to file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#in-memory-conversion">In-memory conversion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#the-ryp-python-r-bridge">The ryp Python-R bridge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#example-combining-seurat-and-scanpy">Example: combining Seurat and Scanpy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#constructing-from-scratch">Constructing from scratch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interoperability.html#summary">Summary</a></li>
-</ul>
-</li>
-</ul>
 </div>
 </section>
 

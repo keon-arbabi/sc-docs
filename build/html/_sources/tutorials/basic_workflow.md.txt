@@ -6,17 +6,9 @@ This tutorial walks through a standard single-cell analysis from start to finish
 
 We use a ~10 million cell PBMC cytokine stimulation dataset from [Parse Biosciences](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/). Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates — one plate per donor — and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions. Although this dataset is already quality-filtered, we run QC here to demonstrate the workflow.
 
-## Setup
-
-{class}`~brisc.SingleCell` is brisc's main class. It represents a single-cell dataset — the count matrix along with metadata for each cell and gene — and provides the methods for working with it. These methods return a new dataset rather than changing it in place, so assign the result to keep it (`sc = sc.qc()`).
+Download the data:
 
 ```python
-from brisc import SingleCell
-import polars as pl
-```
-
-```python
-# Download the data
 from subprocess import run
 run('wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/'
     'Parse_10M_PBMC_cytokines.h5ad',
@@ -24,6 +16,13 @@ run('wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/'
 ```
 
 ## Loading data
+
+{class}`~brisc.SingleCell` is brisc's main class. It represents a single-cell dataset — the count matrix along with metadata for each cell and gene — and provides the methods for working with it.
+
+```python
+from brisc import SingleCell
+import polars as pl
+```
 
 SingleCell supports reading and writing files from each of the three major single-cell ecosystems:
 
@@ -47,7 +46,7 @@ var: _index, n_cells
 ```
 :::
 
-`num_threads` controls parallelism for this load and all subsequent operations on the dataset. The default (`-1`) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs. It can also be set per step, or changed on the dataset at any time through the `num_threads` property (`sc.num_threads = 8`).
+`num_threads` controls parallelism for this load and all subsequent operations on the dataset. The default (`-1`) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs. It can also be set per step, or changed on the dataset at any time through the `num_threads` property (e.g. `sc.num_threads = 8`).
 
 `obs_columns` is optional — it loads only the named metadata columns instead of all of them. Omit it to load every column; here we keep just the ones used later in the workflow.
 
@@ -85,11 +84,13 @@ shape: (2, 2)
 
 ## Quality control
 
-{meth}`~brisc.SingleCell.qc` filters low-quality cells. The default filters are:
+{meth}`~brisc.SingleCell.qc` filters out low-quality cells. By default, it keeps cells with:
 
-- **>5% mitochondrial reads**
-- **<100 genes detected**
-- **Zero *MALAT1* expression** — this nuclear lncRNA is ubiquitously expressed; [absence indicates empty droplets or cytoplasmic fragments.](https://www.biorxiv.org/content/10.1101/2024.07.14.603469v2)
+- **≤5% mitochondrial reads**
+- **≥100 genes detected**
+- **non-zero *MALAT1* expression** — this nuclear lncRNA is ubiquitously expressed, so [its absence indicates empty droplets or cytoplasmic fragments.](https://www.biorxiv.org/content/10.1101/2024.07.14.603469v2)
+
+Like the other steps in this workflow, `qc` returns a new dataset rather than changing it in place, so we assign the result back to `sc`.
 
 ```python
 sc = sc.qc(subset=False, allow_float=True)
@@ -165,8 +166,7 @@ print(sc.obs.select('num_counts', 'num_genes', 'mito_fraction').describe())
 Each threshold is configurable:
 
 ```python
-sc = sc.qc(
-    max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False, allow_float=True)
+sc = sc.qc(max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False,allow_float=True)
 ```
 :::
 
@@ -195,7 +195,7 @@ sc = sc.skip_qc()
 
 ## Feature selection
 
-{meth}`~brisc.SingleCell.hvg` selects highly variable genes using Seurat's variance-stabilization approach. It operates on raw counts and must be run before {meth}`~brisc.SingleCell.normalize`. By default, it selects the top 2,000 genes.
+{meth}`~brisc.SingleCell.hvg` selects highly variable genes using the same approach as Seurat's `FindVariableFeatures()`. It operates on raw counts and must be run before {meth}`~brisc.SingleCell.normalize`. By default, it selects the top 2,000 genes.
 
 When your data has multiple batches, pass `batch_column` to identify HVGs that are variable across batches:
 
@@ -257,13 +257,14 @@ sc = sc.pca(num_threads=1, match_parallel=True)
 If your data spans several batches (different samples, donors, or runs), integrate them by adding {meth}`~brisc.SingleCell.harmonize` after PCA — it removes the batch differences from the PCs into `obsm['harmony']`. The steps after PCA then read from it via `PC_key='harmony'` (they default to `'pca'`):
 
 ```python
-sc = sc.hvg(batch_column='donor')
-sc = sc.normalize()
-sc = sc.pca()
-sc = sc.harmonize(batch_column='donor')
-sc = sc.neighbors(PC_key='harmony').shared_neighbors()
-sc = sc.cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])
-sc = sc.pacmap(PC_key='harmony')
+sc = sc.hvg(batch_column='donor')\
+    .normalize()\
+    .pca()\
+    .harmonize(batch_column='donor')\
+    .neighbors(PC_key='harmony')\
+    .shared_neighbors()\
+    .cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])\
+    .pacmap(PC_key='harmony')
 ```
 
 To integrate *separate* datasets — for example, mapping an annotated reference onto a query — see [Integration and Label Transfer](integration_and_label_transfer.md).
@@ -273,9 +274,9 @@ To integrate *separate* datasets — for example, mapping an annotated reference
 
 brisc builds a neighbor graph in two steps:
 
-{meth}`~brisc.SingleCell.neighbors` finds each cell's `num_neighbors` (default 20) nearest neighbors using a fast approximate search, storing their indices in `obsm['neighbors']` and the distances in `obsm['distances']`.
+{meth}`~brisc.SingleCell.neighbors` finds each cell's `num_neighbors` (default 20) nearest neighbors using a fast approximate search, storing their indices in `obsm['neighbors']` and the squared Euclidean distances in `obsm['distances']`.
 
-{meth}`~brisc.SingleCell.shared_neighbors` then builds the shared nearest neighbor (SNN) graph, connecting two cells in proportion to how many neighbors they share, and stores it in `obsm['shared_neighbors']`.
+{meth}`~brisc.SingleCell.shared_neighbors` then builds the shared nearest neighbor (SNN) graph, connecting two cells in proportion to how many neighbors they share, and stores it in `obsp['shared_neighbors']`.
 
 ```python
 sc = sc.neighbors().shared_neighbors()
@@ -299,17 +300,9 @@ Each resolution adds a column to {attr}`~brisc.SingleCell.obs`: `cluster_0` thro
 
 brisc offers three embedding methods for visualization:
 
-- {meth}`~brisc.SingleCell.pacmap` — [PaCMAP](https://arxiv.org/abs/2012.04456), captures global structure well. Default choice.
-- {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), balances local and global structure.
+- {meth}`~brisc.SingleCell.pacmap` — [PaCMAP](https://arxiv.org/abs/2012.04456), a relative of UMAP that captures global structure better. Default choice.
+- {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), a relative of UMAP that captures global structure better.
 - {meth}`~brisc.SingleCell.umap` — the standard UMAP algorithm.
-
-:::{dropdown} Parallelizing UMAP
-UMAP's optimization runs single-threaded by default, which keeps the embedding reproducible. Pass `hogwild=True` to parallelize it with lock-free [Hogwild!](https://arxiv.org/abs/1106.5730) SGD — faster on large datasets, but no longer reproducible (runs vary slightly even at a fixed `seed`). It needs more than one thread, so set `num_threads` (`-1` for all cores):
-
-```python
-sc = sc.umap(hogwild=True, num_threads=-1)
-```
-:::
 
 ```python
 sc = sc.pacmap()
@@ -327,9 +320,17 @@ sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
 :align: center
 :::
 
+:::{dropdown} Parallelizing UMAP
+UMAP's optimization runs single-threaded by default, which keeps the embedding reproducible. Pass `hogwild=True` to parallelize it with lock-free [Hogwild!](https://arxiv.org/abs/1106.5730) SGD — faster on large datasets, but no longer reproducible (runs vary slightly even at a fixed `seed`). It needs more than one thread, so set `num_threads` (`-1` for all cores):
+
+```python
+sc = sc.umap(hogwild=True, num_threads=-1)
+```
+:::
+
 ## Marker genes
 
-{meth}`~brisc.SingleCell.find_markers` finds each cell type's marker genes: those detected in most of its cells but few others. Adapted from [Fischer and Gillis 2021](https://ncbi.nlm.nih.gov/pmc/articles/PMC8571500), it looks only at whether each gene is detected, not how strongly it is expressed, so raw and normalized counts give the same result.
+{meth}`~brisc.SingleCell.find_markers` finds each cell type's marker genes — those that distinguish it from all other cell types. Adapted from [Fischer and Gillis 2021](https://ncbi.nlm.nih.gov/pmc/articles/PMC8571500), it scores genes by their detection rate within the type and the fold change in detection rate against the others. It uses only whether each gene is detected, not how strongly, so raw and normalized counts give the same result.
 
 ```python
 markers = sc.find_markers('cell_type')
@@ -353,7 +354,7 @@ shape: (5, 4)
 └───────────────────────┴───────────┴────────────────┴─────────────┘
 ```
 
-Each row is a marker gene. `detection_rate` is the fraction of that cell type's cells in which the gene is detected; `fold_change` is how much more often it's detected in that type than elsewhere. By default, a gene is a marker if `detection_rate` ≥ 0.25 (`min_detection_rate`) and `fold_change` ≥ 2 (`min_fold_change`).
+Each row is a marker gene. `detection_rate` is the fraction of that cell type's cells in which the gene is detected; `fold_change` is how much more often it's detected in that type than elsewhere. A gene must first clear both thresholds — `detection_rate` ≥ 0.25 (`min_detection_rate`) and `fold_change` ≥ 2 (`min_fold_change`). Because the two trade off against each other, brisc then keeps only the genes on their Pareto front — those no other gene beats on both at once. Pass `pareto=False` to keep every gene that clears the thresholds instead.
 
 The table holds only marker genes; pass `all_genes=True` to include every gene, with a `marker` column flagging the selected ones.
 
@@ -372,7 +373,7 @@ sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
 
 ## Saving
 
-{meth}`~brisc.SingleCell.save` writes to multiple supported formats: `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, or `.mtx`. See [Interoperability](interoperability.md).
+{meth}`~brisc.SingleCell.save` writes to multiple supported formats: `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz`. See [Interoperability](interoperability.md).
 
 It won't overwrite an existing file unless you pass `overwrite=True`.
 
@@ -411,13 +412,14 @@ sc.save('processed.h5ad', overwrite=True)
 |---|---|---|
 | Load | {meth}`SingleCell('data.h5ad') <brisc.SingleCell.__init__>` | Read data from any supported format |
 | Quality control | {meth}`sc.qc() <brisc.SingleCell.qc>` | Filter low-quality cells |
-| Feature selection | {meth}`sc.hvg() <brisc.SingleCell.hvg>` | Select top 2,000 highly variable genes |
-| Normalization | {meth}`sc.normalize() <brisc.SingleCell.normalize>` | log1pPF log-normalization |
-| PCA | {meth}`sc.pca() <brisc.SingleCell.pca>` | 50 principal components |
-| Neighbors | {meth}`sc.neighbors() <brisc.SingleCell.neighbors>` | 20 nearest neighbors + SNN graph |
-| Clustering | {meth}`sc.cluster() <brisc.SingleCell.cluster>` | Leiden clustering at multiple resolutions |
-| Embedding | {meth}`sc.pacmap() <brisc.SingleCell.pacmap>` | 2D PaCMAP embedding |
-| Plot embedding | {meth}`sc.plot_embedding() <brisc.SingleCell.plot_embedding>` | Scatter plot of an embedding |
-| Markers | {meth}`sc.find_markers() <brisc.SingleCell.find_markers>` | Marker genes per cell type |
-| Plot markers | {meth}`sc.plot_markers() <brisc.SingleCell.plot_markers>` | Dot plot of marker genes |
-| Save | {meth}`sc.save('processed.h5ad') <brisc.SingleCell.save>` | Write to `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, or `.mtx` |
+| Feature selection | {meth}`sc.hvg() <brisc.SingleCell.hvg>` | Select the top 2,000 highly variable genes |
+| Normalization | {meth}`sc.normalize() <brisc.SingleCell.normalize>` | Normalize and log-transform with log1pPF |
+| PCA | {meth}`sc.pca() <brisc.SingleCell.pca>` | Compute 50 principal components |
+| Neighbors | {meth}`sc.neighbors() <brisc.SingleCell.neighbors>` | Find each cell's 20 nearest neighbors |
+| Shared neighbors | {meth}`sc.shared_neighbors() <brisc.SingleCell.shared_neighbors>` | Build the shared nearest neighbor graph |
+| Clustering | {meth}`sc.cluster() <brisc.SingleCell.cluster>` | Cluster with Leiden at multiple resolutions |
+| Embedding | {meth}`sc.pacmap() <brisc.SingleCell.pacmap>`, {meth}`sc.localmap() <brisc.SingleCell.localmap>`, or {meth}`sc.umap() <brisc.SingleCell.umap>` | Embed in 2D for visualization (PaCMAP, LocalMAP, or UMAP) |
+| Plot embedding | {meth}`sc.plot_embedding() <brisc.SingleCell.plot_embedding>` | Plot an embedding |
+| Markers | {meth}`sc.find_markers() <brisc.SingleCell.find_markers>` | Find marker genes for each cell type |
+| Plot markers | {meth}`sc.plot_markers() <brisc.SingleCell.plot_markers>` | Draw a dot plot of marker genes |
+| Save | {meth}`sc.save('processed.h5ad') <brisc.SingleCell.save>` | Write to `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz` |

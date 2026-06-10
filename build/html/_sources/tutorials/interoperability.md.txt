@@ -1,5 +1,7 @@
 # Interoperability
 
+## Loading from file
+
 SingleCell reads and writes all three major single-cell ecosystems natively, with no intermediate conversion steps:
 
 - **scverse/Scanpy** -- AnnData `.h5ad` files and in-memory AnnData objects
@@ -7,8 +9,6 @@ SingleCell reads and writes all three major single-cell ecosystems natively, wit
 - **Bioconductor** -- SingleCellExperiment `.rds` files and in-memory SCE objects via ryp
 
 as well as raw 10x Genomics data (`.h5` or `.mtx`/`.mtx.gz`).
-
-## Loading from file
 
 The constructor auto-detects format from the file extension:
 
@@ -142,6 +142,8 @@ sc_data = SingleCell(adata)
 sc_data = SingleCell(adata, X=adata.layers['raw_counts'])
 ```
 
+The constructor shares `adata`'s count matrix rather than copying it (the reverse of {meth}`~brisc.SingleCell.to_scanpy`), so edits to one alias the other — use `SingleCell(adata.copy())` for an independent dataset. A dense `adata.X` is the exception: it is copied to a sparse `csr_array`, with a warning.
+
 ### To AnnData
 
 ```python
@@ -156,7 +158,7 @@ There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <brisc.SingleCell
 
 ## The ryp Python-R bridge
 
-Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`.
+Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`. Unlike the AnnData path, these conversions copy the count matrix into and out of R's memory rather than sharing it, so expect roughly double the matrix's memory during a conversion.
 
 :::{note}
 R's sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.

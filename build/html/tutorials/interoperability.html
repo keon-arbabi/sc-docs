@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=4d1de856" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fd5058c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -56,7 +56,7 @@
     <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SingleCell" href="../api/single_cell/index.html" />
+    <link rel="next" title="Data Manipulation" href="data_manipulation.html" />
     <link rel="prev" title="Differential Expression" href="differential_expression.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -71,7 +71,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   </head>
-  <body data-default-mode="">
+  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -230,6 +230,10 @@
   
 
   
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
 </div>
 
     </header>
@@ -324,6 +328,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Interoperability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
 </ul>
 </div>
 </nav></div>
@@ -386,6 +391,8 @@
                   
   <section id="interoperability">
 <h1>Interoperability<a class="headerlink" href="#interoperability" title="Link to this heading">#</a></h1>
+<section id="loading-from-file">
+<h2>Loading from file<a class="headerlink" href="#loading-from-file" title="Link to this heading">#</a></h2>
 <p>SingleCell reads and writes all three major single-cell ecosystems natively, with no intermediate conversion steps:</p>
 <ul class="simple">
 <li><p><strong>scverse/Scanpy</strong> – AnnData <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files and in-memory AnnData objects</p></li>
@@ -393,8 +400,6 @@
 <li><p><strong>Bioconductor</strong> – SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files and in-memory SCE objects via ryp</p></li>
 </ul>
 <p>as well as raw 10x Genomics data (<code class="docutils literal notranslate"><span class="pre">.h5</span></code> or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>/<code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>).</p>
-<section id="loading-from-file">
-<h2>Loading from file<a class="headerlink" href="#loading-from-file" title="Link to this heading">#</a></h2>
 <p>The constructor auto-detects format from the file extension:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
 
@@ -515,6 +520,7 @@
 <span class="n">sc_data</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;raw_counts&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
+<p>The constructor shares <code class="docutils literal notranslate"><span class="pre">adata</span></code>’s count matrix rather than copying it (the reverse of <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_scanpy()</span></code></a>), so edits to one alias the other — use <code class="docutils literal notranslate"><span class="pre">SingleCell(adata.copy())</span></code> for an independent dataset. A dense <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> is the exception: it is copied to a sparse <code class="docutils literal notranslate"><span class="pre">csr_array</span></code>, with a warning.</p>
 </section>
 <section id="to-anndata">
 <h3>To AnnData<a class="headerlink" href="#to-anndata" title="Link to this heading">#</a></h3>
@@ -530,7 +536,7 @@
 </section>
 <section id="the-ryp-python-r-bridge">
 <h2>The ryp Python-R bridge<a class="headerlink" href="#the-ryp-python-r-bridge" title="Link to this heading">#</a></h2>
-<p>Seurat and SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files are handled transparently via <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a>, a Python-R bridge. Loading and saving <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files works like any other format. For in-memory conversion between SingleCell and R objects, use <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_seurat()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_sce()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a>.</p>
+<p>Seurat and SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files are handled transparently via <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a>, a Python-R bridge. Loading and saving <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files works like any other format. For in-memory conversion between SingleCell and R objects, use <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_seurat()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_sce()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a>. Unlike the AnnData path, these conversions copy the count matrix into and out of R’s memory rather than sharing it, so expect roughly double the matrix’s memory during a conversion.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>R’s sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.</p>
@@ -706,11 +712,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="../api/single_cell/index.html"
+       href="data_manipulation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">SingleCell</p>
+        <p class="prev-next-title">Data Manipulation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -720,6 +726,43 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-from-file">Loading from file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-count-matrix">Choosing the count matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-loading">Partial loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-individual-slots">Reading individual slots</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-to-file">Saving to file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-memory-conversion">In-memory conversion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-anndata">From AnnData</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#to-anndata">To AnnData</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ryp-python-r-bridge">The ryp Python-R bridge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seurat">Seurat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#singlecellexperiment">SingleCellExperiment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-combining-seurat-and-scanpy">Example: combining Seurat and Scanpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constructing-from-scratch">Constructing from scratch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

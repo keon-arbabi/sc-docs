@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Manipulation &#8212; brisc  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fd5058c3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=ccdb6887"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/data_manipulation';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../_static/js/benchmark.js?v=f68481de"></script>
+    <script src="../_static/js/carousel.js?v=7dda1511"></script>
+    <script src="../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SingleCell" href="../api/single_cell/index.html" />
+    <link rel="prev" title="Interoperability" href="interoperability.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  <meta name="robots" content="noindex, nofollow">
+
+  </head>
+  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/runner_logo_light.svg" class="logo__image only-light" alt="brisc documentation"/>
+    <img src="../_static/runner_logo_dark.svg" class="logo__image only-dark pst-js-only" alt="brisc documentation"/>
+  
+  
+    <p class="title logo__title">brisc documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/single_cell/index.html">
+    SingleCell
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/pseudobulk/index.html">
+    Pseudobulk
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/de/index.html">
+    DE
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Manipulation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Tutorials</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Data Manipulation</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-manipulation">
+<h1>Data Manipulation<a class="headerlink" href="#data-manipulation" title="Link to this heading">#</a></h1>
+<p>This tutorial is a cheatsheet for inspecting, subsetting, and reshaping a dataset — the polars equivalents of the metadata operations familiar from scanpy and Seurat. brisc keeps cell and gene metadata in <a class="reference external" href="https://pola.rs">polars</a> DataFrames rather than pandas, so the tables below map the concepts across. It uses the same Parse Biosciences ~10 million cell PBMC dataset as the other tutorials; snippets use the loaded dataset <code class="docutils literal notranslate"><span class="pre">sc</span></code> (see <a class="reference internal" href="basic_workflow.html"><span class="std std-doc">Basic Workflow</span></a>).</p>
+<section id="the-singlecell-object">
+<h2>The SingleCell object<a class="headerlink" href="#the-singlecell-object" title="Link to this heading">#</a></h2>
+<p>A <a class="reference internal" href="../api/single_cell/index.html#brisc.SingleCell" title="brisc.SingleCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleCell</span></code></a> object bundles a count matrix with its cell and gene metadata:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.X.html#brisc.SingleCell.X" title="brisc.SingleCell.X"><code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code></a> — the counts, a SciPy sparse array of shape <code class="docutils literal notranslate"><span class="pre">(cells,</span> <span class="pre">genes)</span></code>, in CSR format.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs.html#brisc.SingleCell.obs" title="brisc.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a> — one metadata row per <strong>cell</strong>, a polars DataFrame.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.var.html#brisc.SingleCell.var" title="brisc.SingleCell.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a> — one metadata row per <strong>gene</strong>, a polars DataFrame.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obsm.html#brisc.SingleCell.obsm" title="brisc.SingleCell.obsm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsm</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obsp.html#brisc.SingleCell.obsp" title="brisc.SingleCell.obsp"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsp</span></code></a> — per-cell matrices (embeddings like <code class="docutils literal notranslate"><span class="pre">obsm['pca']</span></code>) and cell–cell graphs (<code class="docutils literal notranslate"><span class="pre">obsp['shared_neighbors']</span></code>).</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.uns.html#brisc.SingleCell.uns" title="brisc.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code></a> — unstructured odds and ends (flags, parameters).</p></li>
+</ul>
+<p>Two important things to remember:</p>
+<ul class="simple">
+<li><p><strong>No row index.</strong> polars DataFrames have no index. Cells and genes are identified by the <strong>first column</strong> of <code class="docutils literal notranslate"><span class="pre">obs</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code>, surfaced as <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs_names.html#brisc.SingleCell.obs_names" title="brisc.SingleCell.obs_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs_names</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.var_names.html#brisc.SingleCell.var_names" title="brisc.SingleCell.var_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var_names</span></code></a>.</p></li>
+<li><p><strong>Immutable.</strong> Every method returns a <em>new</em> <code class="docutils literal notranslate"><span class="pre">SingleCell</span></code>; nothing changes in place. Assign the result to keep it — <code class="docutils literal notranslate"><span class="pre">sc</span> <span class="pre">=</span> <span class="pre">sc.filter_obs(...)</span></code>.</p></li>
+</ul>
+<p>If you are coming from AnnData or Seurat:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>AnnData</p></th>
+<th class="head"><p>Seurat</p></th>
+<th class="head"><p>brisc</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Counts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.X</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obj[[&quot;RNA&quot;]]$counts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.X</span></code> (CSR, cells × genes)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cell metadata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> (pandas)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obj&#64;meta.data</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs</span></code> (polars)</p></td>
+</tr>
+<tr class="row-even"><td><p>Gene metadata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.var</span></code> (pandas)</p></td>
+<td><p>feature metadata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.var</span></code> (polars)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cell names</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs_names</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">colnames(obj)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs_names</span></code> (first <code class="docutils literal notranslate"><span class="pre">obs</span></code> column)</p></td>
+</tr>
+<tr class="row-even"><td><p>Gene names</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.var_names</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rownames(obj)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.var_names</span></code> (first <code class="docutils literal notranslate"><span class="pre">var</span></code> column)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Embeddings</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obsm['X_pca']</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obj&#64;reductions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obsm['pca']</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Cell–cell graphs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obsp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obj&#64;graphs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obsp</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Unstructured</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.uns</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obj&#64;misc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.uns</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="working-with-obs-and-var">
+<h2>Working with obs and var<a class="headerlink" href="#working-with-obs-and-var" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">sc.obs</span></code> and <code class="docutils literal notranslate"><span class="pre">sc.var</span></code> are ordinary polars DataFrames. Read them directly for anything that does not change the dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the whole cell table</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span>
+<span class="c1"># one column → a polars Series</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span>
+<span class="c1"># count occurrences of each value, most frequent first</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="nf">value_counts</span><span class="p">(</span><span class="na">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># number of distinct donors</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">]</span><span class="o">.</span><span class="nf">n_unique</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To change the dataset and keep <code class="docutils literal notranslate"><span class="pre">X</span></code> aligned, use the matching <code class="docutils literal notranslate"><span class="pre">*_obs</span></code> / <code class="docutils literal notranslate"><span class="pre">*_var</span></code> methods. Each wraps the polars verb of the same name — <code class="docutils literal notranslate"><span class="pre">filter</span></code>, <code class="docutils literal notranslate"><span class="pre">select</span></code>, <code class="docutils literal notranslate"><span class="pre">with_columns</span></code>, <code class="docutils literal notranslate"><span class="pre">rename</span></code>, <code class="docutils literal notranslate"><span class="pre">drop</span></code>, <code class="docutils literal notranslate"><span class="pre">join</span></code> — applied to the table and the count matrix together, so <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.filter_obs.html#brisc.SingleCell.filter_obs" title="brisc.SingleCell.filter_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.filter_obs(...)</span></code></a> is <code class="docutils literal notranslate"><span class="pre">sc.obs.filter(...)</span></code> with <code class="docutils literal notranslate"><span class="pre">X</span></code> subset to match. Use <code class="docutils literal notranslate"><span class="pre">sc.obs</span></code> directly when you want a table back, a <code class="docutils literal notranslate"><span class="pre">*_obs</span></code> method when you want a dataset.</p>
+<p>Coming from pandas, the everyday translations are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>pandas / AnnData</p></th>
+<th class="head"><p>brisc / polars</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs['cell_type']</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs['cell_type']</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Count categories</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs['cell_type'].value_counts()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs['cell_type'].value_counts()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Filter cells</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata[adata.obs['cell_type']</span> <span class="pre">==</span> <span class="pre">'CD14</span> <span class="pre">Mono']</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.filter_obs(pl.col('cell_type')</span> <span class="pre">==</span> <span class="pre">'CD14</span> <span class="pre">Mono')</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Add a column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs['stim']</span> <span class="pre">=</span> <span class="pre">adata.obs['treatment']</span> <span class="pre">==</span> <span class="pre">'cytokine'</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc</span> <span class="pre">=</span> <span class="pre">sc.with_columns_obs(stim=pl.col('treatment')</span> <span class="pre">==</span> <span class="pre">'cytokine')</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Rename</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs.rename(columns={'treatment':</span> <span class="pre">'group'})</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc</span> <span class="pre">=</span> <span class="pre">sc.rename_obs({'treatment':</span> <span class="pre">'group'})</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Group + mean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata.obs.groupby('sample')['num_counts'].mean()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs.group_by('sample').agg(pl.col('num_counts').mean())</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Genes by name</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adata[:,</span> <span class="pre">['CD3D',</span> <span class="pre">'CD8A']]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc[:,</span> <span class="pre">['CD3D',</span> <span class="pre">'CD8A']]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Three things to unlearn from pandas:</p>
+<ul class="simple">
+<li><p><strong>Expressions, not masks.</strong> Conditions are built with <code class="docutils literal notranslate"><span class="pre">pl.col</span></code> — <code class="docutils literal notranslate"><span class="pre">pl.col('num_counts')</span> <span class="pre">&gt;</span> <span class="pre">1000</span></code> — and combined with <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">~</span></code>, each side parenthesized, not <code class="docutils literal notranslate"><span class="pre">and</span></code>/<code class="docutils literal notranslate"><span class="pre">or</span></code>.</p></li>
+<li><p><strong>Assign the result.</strong> polars and brisc are both immutable; <code class="docutils literal notranslate"><span class="pre">sc.with_columns_obs(...)</span></code> is a no-op unless you write <code class="docutils literal notranslate"><span class="pre">sc</span> <span class="pre">=</span> <span class="pre">sc.with_columns_obs(...)</span></code>.</p></li>
+<li><p><strong>No <code class="docutils literal notranslate"><span class="pre">.loc</span></code>/<code class="docutils literal notranslate"><span class="pre">.iloc</span></code>.</strong> There is no index to align on — pick columns by name, and rows by filtering or positional slicing (<code class="docutils literal notranslate"><span class="pre">sc.obs[5:10]</span></code>).</p></li>
+</ul>
+</section>
+<section id="inspecting">
+<h2>Inspecting<a class="headerlink" href="#inspecting" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># dimensions, X dtype, and every obs/var/obsm/... key</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="c1"># (n_cells, n_genes)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1"># n_cells</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="c1"># cell-metadata column names</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span>
+<span class="c1"># columns with their polars dtypes</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">schema</span>
+<span class="c1"># first cell, one column per line (no truncation)</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.peek_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">peek_obs</span></a><span class="p">()</span>
+<span class="c1"># first gene</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.peek_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">peek_var</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<p>Inspect a file’s contents — dimensions and available <code class="docutils literal notranslate"><span class="pre">obs</span></code>/<code class="docutils literal notranslate"><span class="pre">var</span></code> columns — without reading the matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or load only the metadata (no <code class="docutils literal notranslate"><span class="pre">X</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">obs</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.read_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_obs</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.read_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_var</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="accessing-the-pieces">
+<h2>Accessing the pieces<a class="headerlink" href="#accessing-the-pieces" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># cell and gene tables (polars DataFrames)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">var</span>
+<span class="c1"># one column → a polars Series</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span>
+<span class="c1"># cell barcodes and gene names (first columns of obs / var)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs_names</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">var_names</span>
+<span class="c1"># the counts: a sparse array, cells × genes (CSR)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">X</span>
+<span class="c1"># one gene across all cells → dense 1D array</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.gene.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">gene</span></a><span class="p">(</span><span class="s1">&#39;MALAT1&#39;</span><span class="p">)</span>
+<span class="c1"># one cell across all genes → dense 1D array</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.cell.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cell</span></a><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">obs_names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>After you run PCA, clustering, and embeddings (see <a class="reference internal" href="basic_workflow.html"><span class="std std-doc">Basic Workflow</span></a>), their outputs live in <code class="docutils literal notranslate"><span class="pre">obsm</span></code>, <code class="docutils literal notranslate"><span class="pre">obsp</span></code>, and <code class="docutils literal notranslate"><span class="pre">uns</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># available cell embeddings</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obsm</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.keys.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">keys</span></a><span class="p">()</span>
+<span class="c1"># PCA coordinates (NumPy array)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s1">&#39;pca&#39;</span><span class="p">]</span>
+<span class="c1"># the shared-nearest-neighbor graph (sparse)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obsp</span><span class="p">[</span><span class="s1">&#39;shared_neighbors&#39;</span><span class="p">]</span>
+<span class="c1"># flags set by the pipeline</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s1">&#39;QCed&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="subsetting-cells-and-genes">
+<h2>Subsetting cells and genes<a class="headerlink" href="#subsetting-cells-and-genes" title="Link to this heading">#</a></h2>
+<p>By metadata — <code class="docutils literal notranslate"><span class="pre">X</span></code> stays in sync:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># one condition</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;CD14 Mono&#39;</span><span class="p">)</span>
+<span class="c1"># shorthand for equality</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="na">cell_type</span><span class="o">=</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">)</span>
+<span class="c1"># membership in a set</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">is_in</span><span class="p">([</span><span class="s1">&#39;IFN-gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;PBS&#39;</span><span class="p">]))</span>
+<span class="c1"># several predicates combine with AND</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;PBS&#39;</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;CD14 Mono&#39;</span><span class="p">)</span>
+<span class="c1"># filter genes instead</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.filter_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_var</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;n_cells&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By position or name:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># first cell (all genes)</span>
+<span class="n">sc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># a cell by barcode</span>
+<span class="n">sc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">obs_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="c1"># one gene (all cells)</span>
+<span class="n">sc</span><span class="p">[:,</span> <span class="s1">&#39;MALAT1&#39;</span><span class="p">]</span>
+<span class="c1"># several genes</span>
+<span class="n">sc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;CD3D&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A1&#39;</span><span class="p">]]</span>
+<span class="c1"># first 1000 cells</span>
+<span class="n">sc</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="c1"># a Boolean mask also works</span>
+<span class="n">sc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CD14 Mono&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Split into a dictionary of datasets, or take a random sample:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># split into {&#39;PBS&#39;: SingleCell, &#39;cytokine&#39;: SingleCell}</span>
+<span class="n">by_treatment</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.split_by_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">split_by_obs</span></a><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">)</span>
+<span class="c1"># 10k random cells</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.subsample_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">subsample_obs</span></a><span class="p">(</span><span class="na">n</span><span class="o">=</span><span class="mi">10_000</span><span class="p">)</span>
+<span class="c1"># 10% of each cell type</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.subsample_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">subsample_obs</span></a><span class="p">(</span><span class="na">fraction</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="na">by_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="editing-metadata">
+<h2>Editing metadata<a class="headerlink" href="#editing-metadata" title="Link to this heading">#</a></h2>
+<p>Add or overwrite columns with <code class="docutils literal notranslate"><span class="pre">pl</span></code> expressions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># a Boolean column from a comparison</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.with_columns_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">with_columns_obs</span></a><span class="p">(</span><span class="na">stimulated</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">)</span>
+<span class="c1"># a categorical column from a multi-branch condition</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.with_columns_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">with_columns_obs</span></a><span class="p">(</span>
+    <span class="na">lineage</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">when</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s1">&#39;Mono|DC&#39;</span><span class="p">))</span>
+              <span class="o">.</span><span class="nf">then</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">lit</span><span class="p">(</span><span class="s1">&#39;myeloid&#39;</span><span class="p">))</span>
+              <span class="o">.</span><span class="nf">otherwise</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">lit</span><span class="p">(</span><span class="s1">&#39;lymphoid&#39;</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Rename, drop, keep, or retype columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># rename a column</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.rename_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">rename_obs</span></a><span class="p">({</span><span class="s1">&#39;treatment&#39;</span><span class="p">:</span> <span class="s1">&#39;group&#39;</span><span class="p">})</span>
+<span class="c1"># drop a column</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.drop_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">drop_obs</span></a><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span>
+<span class="c1"># keep only these columns (obs_names is kept automatically)</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.select_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">select_obs</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;sample&#39;</span><span class="p">)</span>
+<span class="c1"># change a column&#39;s dtype</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.cast_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cast_obs</span></a><span class="p">({</span><span class="s1">&#39;donor&#39;</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Left-join an external table onto <code class="docutils literal notranslate"><span class="pre">obs</span></code> — per-donor or per-sample annotations — with the same logic as polars’ <code class="docutils literal notranslate"><span class="pre">DataFrame.join</span></code>. The join keys must share a dtype, so cast the external column to match the one in <code class="docutils literal notranslate"><span class="pre">obs</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">donor_meta</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">DataFrame</span><span class="p">({</span><span class="s1">&#39;donor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Donor1&#39;</span><span class="p">,</span> <span class="s1">&#39;Donor2&#39;</span><span class="p">],</span> <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">29</span><span class="p">,</span> <span class="mi">34</span><span class="p">]})</span>
+<span class="c1"># obs[&#39;donor&#39;] is an Enum, so match its dtype before joining</span>
+<span class="n">donor_meta</span> <span class="o">=</span> <span class="n">donor_meta</span><span class="o">.</span><span class="nf">cast</span><span class="p">({</span><span class="s1">&#39;donor&#39;</span><span class="p">:</span> <span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">schema</span><span class="p">[</span><span class="s1">&#39;donor&#39;</span><span class="p">]})</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.join_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">join_obs</span></a><span class="p">(</span><span class="n">donor_meta</span><span class="p">,</span> <span class="na">on</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.join_var.html#brisc.SingleCell.join_var" title="brisc.SingleCell.join_var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">join_var()</span></code></a> does the same on the gene side, e.g. attaching biotype or pathway annotations.</p>
+<p>Cell and gene names are just the first columns of <code class="docutils literal notranslate"><span class="pre">obs</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code>. Set a different column as the names with <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.set_obs_names.html#brisc.SingleCell.set_obs_names" title="brisc.SingleCell.set_obs_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_obs_names()</span></code></a> (and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.set_var_names.html#brisc.SingleCell.set_var_names" title="brisc.SingleCell.set_var_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_var_names()</span></code></a> for genes), or make repeated names unique — appending <code class="docutils literal notranslate"><span class="pre">-1</span></code> to the second occurrence, <code class="docutils literal notranslate"><span class="pre">-2</span></code> to the third, and so on — with <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.make_obs_names_unique.html#brisc.SingleCell.make_obs_names_unique" title="brisc.SingleCell.make_obs_names_unique"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_obs_names_unique()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.make_var_names_unique.html#brisc.SingleCell.make_var_names_unique" title="brisc.SingleCell.make_var_names_unique"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_var_names_unique()</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># promote a column to be the cell names (String, Enum, Categorical, or integer)</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.set_obs_names.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">set_obs_names</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span>
+<span class="c1"># disambiguate duplicates: &#39;CD8&#39;, &#39;CD8&#39; → &#39;CD8&#39;, &#39;CD8-1&#39;</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.make_var_names_unique.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">make_var_names_unique</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="summarizing-and-grouping">
+<h2>Summarizing and grouping<a class="headerlink" href="#summarizing-and-grouping" title="Link to this heading">#</a></h2>
+<p>Summaries read straight off <code class="docutils literal notranslate"><span class="pre">sc.obs</span></code> (no dataset returned):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># cells per type</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="nf">value_counts</span><span class="p">(</span><span class="na">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># cells per sample</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">agg</span><span class="p">(</span><span class="na">n</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">len</span><span class="p">())</span>
+<span class="c1"># several stats per cell type at once</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">agg</span><span class="p">(</span>
+    <span class="na">n</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">len</span><span class="p">(),</span>
+    <span class="na">n_donors</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">n_unique</span><span class="p">())</span>
+<span class="c1"># columns that are constant within each sample</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.get_sample_covariates.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">get_sample_covariates</span></a><span class="p">(</span><span class="na">ID_column</span><span class="o">=</span><span class="s1">&#39;sample&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc_metrics.html#brisc.SingleCell.qc_metrics" title="brisc.SingleCell.qc_metrics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc_metrics()</span></code></a> adds <code class="docutils literal notranslate"><span class="pre">num_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">num_genes</span></code>, and <code class="docutils literal notranslate"><span class="pre">mito_fraction</span></code> to <code class="docutils literal notranslate"><span class="pre">obs</span></code>, which you can then summarize like any column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc_metrics.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc_metrics</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;num_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">median</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Cross-tabulate two categorical columns as a heatmap:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.plot_heatmap.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_heatmap</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;composition.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="the-count-matrix">
+<h2>The count matrix<a class="headerlink" href="#the-count-matrix" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the sparse counts — CSR (the default) is fast for per-cell access</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">X</span>
+<span class="c1"># the storage layout: &#39;csr&#39; or &#39;csc&#39;</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">format</span>
+<span class="c1"># convert to CSC for fast per-gene access...</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.tocsc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">tocsc</span></a><span class="p">()</span>
+<span class="c1"># ...and back to CSR, the better layout for cell-wise work like pseudobulking</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.tocsr.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">tocsr</span></a><span class="p">()</span>
+<span class="c1"># change the matrix dtype</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.cast_X.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">cast_X</span></a><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+<span class="c1"># one gene&#39;s counts across cells → dense vector</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.gene.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">gene</span></a><span class="p">(</span><span class="s1">&#39;CD3D&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Per-cell totals come from <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc_metrics.html#brisc.SingleCell.qc_metrics" title="brisc.SingleCell.qc_metrics"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc_metrics()</span></code></a> (<code class="docutils literal notranslate"><span class="pre">num_counts</span></code>), or straight from <code class="docutils literal notranslate"><span class="pre">X</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="c1"># total counts per cell</span>
+<span class="n">np</span><span class="o">.</span><span class="nf">asarray</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="nf">sum</span><span class="p">(</span><span class="na">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="nf">ravel</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Normalizing and log-transforming counts is part of the analysis workflow — see <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.normalize.html#brisc.SingleCell.normalize" title="brisc.SingleCell.normalize"><code class="xref py py-meth docutils literal notranslate"><span class="pre">normalize()</span></code></a> in <a class="reference internal" href="basic_workflow.html"><span class="std std-doc">Basic Workflow</span></a>.</p>
+<p>Most operations run multithreaded. Change a dataset’s default thread count with <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.set_num_threads.html#brisc.SingleCell.set_num_threads" title="brisc.SingleCell.set_num_threads"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_num_threads()</span></code></a> (<code class="docutils literal notranslate"><span class="pre">-1</span></code> uses all cores), or assign the <code class="docutils literal notranslate"><span class="pre">num_threads</span></code> property in place:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 8 threads for this dataset&#39;s subsequent operations</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.set_num_threads.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">set_num_threads</span></a><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="combining-datasets">
+<h2>Combining datasets<a class="headerlink" href="#combining-datasets" title="Link to this heading">#</a></h2>
+<p>Stack datasets cell-wise or gene-wise:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">concat_obs</span><span class="p">,</span> <span class="n">concat_var</span>
+
+<span class="c1"># stack cells (same genes)</span>
+<a href="../api/single_cell/api/brisc.SingleCell.concat_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">concat_obs</span></a><span class="p">([</span><span class="n">sc_a</span><span class="p">,</span> <span class="n">sc_b</span><span class="p">])</span>
+<span class="c1"># ...and label each cell&#39;s source dataset</span>
+<a href="../api/single_cell/api/brisc.SingleCell.concat_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">concat_obs</span></a><span class="p">([</span><span class="n">sc_a</span><span class="p">,</span> <span class="n">sc_b</span><span class="p">],</span> <span class="na">dataset_column</span><span class="o">=</span><span class="s1">&#39;batch&#39;</span><span class="p">)</span>
+<span class="c1"># intersect genes and columns first, for mismatched datasets</span>
+<a href="../api/single_cell/api/brisc.SingleCell.concat_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">concat_obs</span></a><span class="p">([</span><span class="n">sc_a</span><span class="p">,</span> <span class="n">sc_b</span><span class="p">],</span> <span class="na">flexible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># stack genes (same cells, e.g. RNA + protein)</span>
+<a href="../api/single_cell/api/brisc.SingleCell.concat_var.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">concat_var</span></a><span class="p">([</span><span class="n">sc_rna</span><span class="p">,</span> <span class="n">sc_adt</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.copy.html#brisc.SingleCell.copy" title="brisc.SingleCell.copy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy()</span></code></a> duplicates a dataset. <code class="docutils literal notranslate"><span class="pre">obs</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code> are always shared (polars DataFrames are immutable, so this is safe); by default <code class="docutils literal notranslate"><span class="pre">X</span></code> and the NumPy arrays in <code class="docutils literal notranslate"><span class="pre">obsm</span></code>/<code class="docutils literal notranslate"><span class="pre">obsp</span></code>/<code class="docutils literal notranslate"><span class="pre">uns</span></code> are shared too, so in-place edits to them would affect both copies. Pass <code class="docutils literal notranslate"><span class="pre">deep=True</span></code> to copy those arrays as well:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># shallow — shares X and the underlying arrays</span>
+<span class="n">sc2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.copy.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">copy</span></a><span class="p">()</span>
+<span class="c1"># fully independent copy</span>
+<span class="n">sc2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.copy.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">copy</span></a><span class="p">(</span><span class="na">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pseudobulk-objects">
+<h2>Pseudobulk objects<a class="headerlink" href="#pseudobulk-objects" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pseudobulk()</span></code></a> returns a <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> — one matrix plus <code class="docutils literal notranslate"><span class="pre">obs</span></code> and <code class="docutils literal notranslate"><span class="pre">var</span></code> per cell type. It behaves like a dictionary keyed by cell type and mirrors the same <code class="docutils literal notranslate"><span class="pre">*_obs</span></code> manipulation methods. Given a pseudobulk (see <a class="reference internal" href="differential_expression.html"><span class="std std-doc">Differential Expression</span></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># index by cell type → a single-cell-type Pseudobulk</span>
+<span class="n">pb</span><span class="p">[</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">]</span>
+<span class="c1"># that cell type&#39;s sample table (polars DataFrame)</span>
+<span class="n">pb</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">]</span>
+<span class="c1"># the cell types</span>
+<span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.keys.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">keys</span></a><span class="p">()</span>
+<span class="c1"># iterate over cell types</span>
+<span class="k">for</span> <span class="n">cell_type</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span> <span class="ow">in</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.items.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">items</span></a><span class="p">():</span>
+    <span class="o">...</span>
+<span class="c1"># a filter applied within every cell type</span>
+<span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;PBS&#39;</span><span class="p">)</span>
+<span class="c1"># one wide table: row per (sample, cell type), gene columns</span>
+<span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.to_df.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">to_df</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="de-results">
+<h2>DE results<a class="headerlink" href="#de-results" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a> returns a <a class="reference internal" href="../api/de/index.html#brisc.DE" title="brisc.DE"><code class="xref py py-class docutils literal notranslate"><span class="pre">DE</span></code></a> whose <code class="xref py py-attr docutils literal notranslate"><span class="pre">table</span></code> is a polars DataFrame — filter and sort it like any other:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># one row per gene per cell type</span>
+<span class="n">de</span><span class="o">.</span><span class="n">table</span>
+<span class="c1"># significant genes (FDR &lt; 0.05)</span>
+<span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.get_hits.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">get_hits</span></a><span class="p">(</span><span class="na">significance_column</span><span class="o">=</span><span class="s1">&#39;FDR&#39;</span><span class="p">,</span> <span class="na">threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="c1"># number of hits per cell type</span>
+<span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.get_num_hits.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">get_num_hits</span></a><span class="p">()</span>
+<span class="c1"># filter and sort the table like any polars DataFrame</span>
+<span class="n">de</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;CD14 Mono&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">sort</span><span class="p">(</span><span class="s1">&#39;FDR&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="escape-hatches">
+<h2>Escape hatches<a class="headerlink" href="#escape-hatches" title="Link to this heading">#</a></h2>
+<p>For anything not wrapped by a brisc method, use <code class="docutils literal notranslate"><span class="pre">pipe</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># run any polars op on obs, keeping X in sync</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe_obs</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="nf">sort</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">))</span>
+<span class="c1"># run any function on the whole dataset</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe</span></a><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Inspect a file without loading</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.ls(file)</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Load only metadata</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.read_obs(file)</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Dimensions</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.shape.html#brisc.SingleCell.shape" title="brisc.SingleCell.shape"><code class="xref py py-attr docutils literal notranslate"><span class="pre">sc.shape</span></code></a>, <code class="docutils literal notranslate"><span class="pre">len(sc)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>A metadata column</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs['cell_type']</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Count categories</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs['cell_type'].value_counts()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Filter cells</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.filter_obs.html#brisc.SingleCell.filter_obs" title="brisc.SingleCell.filter_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.filter_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Filter genes</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.filter_var.html#brisc.SingleCell.filter_var" title="brisc.SingleCell.filter_var"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.filter_var()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Subset by name or position</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc[cells,</span> <span class="pre">genes]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Split into groups</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.split_by_obs.html#brisc.SingleCell.split_by_obs" title="brisc.SingleCell.split_by_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.split_by_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Subsample</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.subsample_obs.html#brisc.SingleCell.subsample_obs" title="brisc.SingleCell.subsample_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.subsample_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Add or edit a column</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.with_columns_obs.html#brisc.SingleCell.with_columns_obs" title="brisc.SingleCell.with_columns_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.with_columns_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Rename / drop / keep columns</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.rename_obs.html#brisc.SingleCell.rename_obs" title="brisc.SingleCell.rename_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.rename_obs()</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.drop_obs.html#brisc.SingleCell.drop_obs" title="brisc.SingleCell.drop_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">drop_obs()</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.select_obs.html#brisc.SingleCell.select_obs" title="brisc.SingleCell.select_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">select_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Merge external metadata</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.join_obs.html#brisc.SingleCell.join_obs" title="brisc.SingleCell.join_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.join_obs()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>One gene’s counts</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.gene.html#brisc.SingleCell.gene" title="brisc.SingleCell.gene"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.gene()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Convert matrix format</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.tocsc.html#brisc.SingleCell.tocsc" title="brisc.SingleCell.tocsc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.tocsc()</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Group and summarize</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sc.obs.group_by(...).agg(...)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Combine datasets</p></td>
+<td><p><code class="xref py py-func docutils literal notranslate"><span class="pre">concat_obs()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Aggregate to pseudobulk</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pseudobulk()</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Arbitrary operation</p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pipe_obs.html#brisc.SingleCell.pipe_obs" title="brisc.SingleCell.pipe_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pipe_obs()</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="interoperability.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Interoperability</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../api/single_cell/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SingleCell</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-singlecell-object">The SingleCell object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-obs-and-var">Working with obs and var</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting">Inspecting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-the-pieces">Accessing the pieces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subsetting-cells-and-genes">Subsetting cells and genes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-metadata">Editing metadata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-and-grouping">Summarizing and grouping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-count-matrix">The count matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-datasets">Combining datasets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudobulk-objects">Pseudobulk objects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#de-results">DE results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#escape-hatches">Escape hatches</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
