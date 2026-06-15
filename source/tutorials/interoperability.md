@@ -27,7 +27,9 @@ sc = SingleCell('sce_obj.rds')
 
 # 10x Genomics
 sc = SingleCell('raw_feature_bc_matrix.h5')
-# expects barcodes.tsv.gz and features.tsv.gz in the same directory
+
+# .mtx or .mtx.gz, with barcodes.tsv(.gz) and features.tsv(.gz) in the same directory
+sc = SingleCell('matrix.mtx')
 sc = SingleCell('matrix.mtx.gz')
 ```
 
@@ -106,7 +108,8 @@ sc.save('output.h5Seurat')
 # SingleCellExperiment
 sc.save('output_sce.rds', sce=True)
 
-# 10x Genomics
+# 10x Genomics (or .mtx.gz for gzipped)
+sc.save('matrix.mtx')
 sc.save('matrix.mtx.gz')
 ```
 
@@ -156,9 +159,24 @@ The count matrix is shared, not copied. Modifying `adata.X` will also modify the
 There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` serves that purpose.
 :::
 
+### Constructing from scratch
+
+You can also build a SingleCell dataset from individual components:
+
+```python
+import polars as pl
+from scipy.sparse import csr_array
+
+X = csr_array([[1, 0, 3], [0, 2, 0]])
+obs = pl.DataFrame({'cell_id': ['cell1', 'cell2']})
+var = pl.DataFrame({'gene_id': ['g1', 'g2', 'g3']})
+
+sc = SingleCell(X=X, obs=obs, var=var)
+```
+
 ## The ryp Python-R bridge
 
-Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`. Unlike the AnnData path, these conversions copy the count matrix into and out of R's memory rather than sharing it, so expect roughly double the matrix's memory during a conversion.
+Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`. Unlike the AnnData path, these conversions usually copy the count matrix into or out of R's memory, so a conversion can use up to roughly double the matrix's memory. ({meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.to_sce` can avoid the copy when `X` is already `float64` with 32-bit indices.)
 
 :::{note}
 R's sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.
@@ -209,7 +227,7 @@ sc.to_sce('sce_out')
 sc.save('output_sce.rds', sce=True)
 ```
 
-## Example: combining Seurat and Scanpy
+### Example: combining Seurat and Scanpy
 
 A common reason to bridge ecosystems is to use tools that only exist in one. For instance, [Azimuth](https://azimuth.hubmapconsortium.org/) provides automated cell type annotation via a Seurat reference atlas (R only), while [scvi-tools](https://scvi-tools.org/) provides deep generative models for integration and differential expression (Python only). SingleCell lets you chain these without writing intermediate files:
 
@@ -239,21 +257,6 @@ adata.obsm['X_scVI'] = model.get_latent_representation()
 
 # return to SingleCell for downstream analysis
 sc = SingleCell(adata)
-```
-
-## Constructing from scratch
-
-You can also build a SingleCell dataset from individual components:
-
-```python
-import polars as pl
-from scipy.sparse import csr_array
-
-X = csr_array([[1, 0, 3], [0, 2, 0]])
-obs = pl.DataFrame({'cell_id': ['cell1', 'cell2']})
-var = pl.DataFrame({'gene_id': ['g1', 'g2', 'g3']})
-
-sc = SingleCell(X=X, obs=obs, var=var)
 ```
 
 ## Summary

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Integration and Label Transfer &#8212; brisc  documentation</title>
+    <title>Integration and Label Transfer &#8212; brisc documentation</title>
   
   
   
@@ -71,7 +71,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   </head>
-  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
+  <body class="tutorial-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -328,7 +328,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
 </ul>
 </div>
 </nav></div>
@@ -417,6 +417,7 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SingleCell dataset in CSR format with 603,928 cells (obs), 40,352 genes (var), and 1,164,409,519 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
+
 SingleCell dataset in CSR format with 8,839,235 cells (obs), 40,352 genes (var), and 17,313,941,540 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
@@ -478,33 +479,34 @@ Reached convergence after 2 iterations
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Next best labels</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Pass <code class="docutils literal notranslate"><span class="pre">next_best=True</span></code> to also record each cell’s runner-up label and its confidence, in <code class="docutils literal notranslate"><span class="pre">next_best_transferred</span></code> and <code class="docutils literal notranslate"><span class="pre">next_best_transferred_confidence</span></code>. This helps when a cell sits between two similar types:</p>
+<p class="sd-card-text">Pass <code class="docutils literal notranslate"><span class="pre">next_best=True</span></code> to also record each cell’s runner-up label and its confidence, in <code class="docutils literal notranslate"><span class="pre">next_best_cell_type_transferred</span></code> and <code class="docutils literal notranslate"><span class="pre">next_best_cell_type_transferred_confidence</span></code>. This helps when a cell sits between two similar types:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.label_transfer_from.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">label_transfer_from</span></a><span class="p">(</span>
-    <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="na">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">,</span> <span class="na">next_best</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="na">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">,</span>
+    <span class="na">next_best</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="n">sc_query</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span>
     <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type_transferred_confidence&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;next_best_transferred&#39;</span><span class="p">,</span> <span class="s1">&#39;next_best_transferred_confidence&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="s1">&#39;next_best_cell_type_transferred&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;next_best_cell_type_transferred_confidence&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>shape: (10, 5)
-┌────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐
-│ cell_type  ┆ cell_type_transfer ┆ cell_type_transfer ┆ next_best_transfer ┆ next_best_transfer │
-│ ---        ┆ red                ┆ red_confiden…      ┆ red                ┆ red_confiden…      │
-│ enum       ┆ ---                ┆ ---                ┆ ---                ┆ ---                │
-│            ┆ enum               ┆ f32                ┆ enum               ┆ f32                │
-╞════════════╪════════════════════╪════════════════════╪════════════════════╪════════════════════╡
-│ CD8 Naive  ┆ CD8 Naive          ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ B Naive    ┆ B Naive            ┆ 0.85               ┆ B Intermediate/Mem ┆ 0.15               │
-│            ┆                    ┆                    ┆ ory                ┆                    │
-│ CD14 Mono  ┆ CD14 Mono          ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ CD14 Mono  ┆ CD14 Mono          ┆ 0.9                ┆ CD16 Mono          ┆ 0.05               │
-│ CD4 Naive  ┆ CD4 Naive          ┆ 0.95               ┆ CD4 Memory         ┆ 0.05               │
-│ CD8 Naive  ┆ CD4 Memory         ┆ 0.45               ┆ CD8 Naive          ┆ 0.45               │
-│ NK         ┆ NK                 ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ CD4 Memory ┆ CD4 Memory         ┆ 0.95               ┆ MAIT               ┆ 0.05               │
-│ NK         ┆ NK                 ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ cDC        ┆ cDC                ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-└────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘
+┌────────────┬───────────────────────┬─────────────────────────────────┬─────────────────────────────────┬─────────────────────────────────┐
+│ cell_type  ┆ cell_type_transferred ┆ cell_type_transferred_confiden… ┆ next_best_cell_type_transferre… ┆ next_best_cell_type_transferre… │
+│ ---        ┆ ---                   ┆ ---                             ┆ ---                             ┆ ---                             │
+│ enum       ┆ enum                  ┆ f32                             ┆ enum                            ┆ f32                             │
+╞════════════╪═══════════════════════╪═════════════════════════════════╪═════════════════════════════════╪═════════════════════════════════╡
+│ CD8 Naive  ┆ CD8 Naive             ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ B Naive    ┆ B Naive               ┆ 0.85                            ┆ B Intermediate/Memory           ┆ 0.15                            │
+│ CD14 Mono  ┆ CD14 Mono             ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ CD14 Mono  ┆ CD14 Mono             ┆ 0.9                             ┆ CD16 Mono                       ┆ 0.05                            │
+│ CD4 Naive  ┆ CD4 Naive             ┆ 0.95                            ┆ CD4 Memory                      ┆ 0.05                            │
+│ CD8 Naive  ┆ CD4 Memory            ┆ 0.45                            ┆ CD8 Naive                       ┆ 0.45                            │
+│ NK         ┆ NK                    ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ CD4 Memory ┆ CD4 Memory            ┆ 0.95                            ┆ MAIT                            ┆ 0.05                            │
+│ NK         ┆ NK                    ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ cDC        ┆ cDC                   ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+└────────────┴───────────────────────┴─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 </pre></div>
 </div>
 <p class="sd-card-text">Here the 0.45 cell splits evenly between CD4 Memory and its runner-up, CD8 Naive — which is its true label.</p>
@@ -513,8 +515,7 @@ Reached convergence after 2 iterations
 <section id="validation">
 <h2>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h2>
 <p>Because the query carries ground-truth labels, we can measure how well the transfer recovered them.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">)</span> <span class="o">==</span> \
-    <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">)</span>
 <span class="n">overall</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="n">correct</span><span class="o">.</span><span class="nf">mean</span><span class="p">())</span><span class="o">.</span><span class="nf">item</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;overall accuracy: </span><span class="si">{</span><span class="n">overall</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -560,7 +561,7 @@ shape: (18, 4)
 <section id="pipeline-summary">
 <h2>Pipeline summary<a class="headerlink" href="#pipeline-summary" title="Link to this heading">#</a></h2>
 <p>The full reference-mapping pipeline:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.split_by_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">split_by_obs</span></a><span class="p">(</span><span class="s1">&#39;treatment&#39;</span><span class="p">)</span>
 <span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc</span><span class="p">[</span><span class="s1">&#39;PBS&#39;</span><span class="p">],</span> <span class="n">sc</span><span class="p">[</span><span class="s1">&#39;cytokine&#39;</span><span class="p">]</span>
 <span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">,</span> <span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>
@@ -581,7 +582,7 @@ shape: (18, 4)
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Load</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('data.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell()</span></code></a></p></td>
 <td><p>Read data from any supported format</p></td>
 </tr>
 <tr class="row-odd"><td><p>Quality control</p></td>
@@ -590,7 +591,7 @@ shape: (18, 4)
 </tr>
 <tr class="row-even"><td><p>Split</p></td>
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.split_by_obs.html#brisc.SingleCell.split_by_obs" title="brisc.SingleCell.split_by_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.split_by_obs('treatment')</span></code></a></p></td>
-<td><p>Split into the reference (PBS) and query (cytokine)</p></td>
+<td><p>Split into the reference and query</p></td>
 </tr>
 <tr class="row-odd"><td><p>Feature selection</p></td>
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.hvg.html#brisc.SingleCell.hvg" title="brisc.SingleCell.hvg"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc_ref.hvg(sc_query)</span></code></a></p></td>
@@ -699,7 +700,7 @@ shape: (18, 4)
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

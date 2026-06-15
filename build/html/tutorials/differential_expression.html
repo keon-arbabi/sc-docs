@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Differential Expression &#8212; brisc  documentation</title>
+    <title>Differential Expression &#8212; brisc documentation</title>
   
   
   
@@ -71,7 +71,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   </head>
-  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
+  <body class="tutorial-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -328,7 +328,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
 </ul>
 </div>
 </nav></div>
@@ -400,7 +400,7 @@
 
 <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
     <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span>
-    <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>\
+    <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>\
     <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -408,8 +408,8 @@
 <section id="pseudobulk-aggregation">
 <h2>Pseudobulk aggregation<a class="headerlink" href="#pseudobulk-aggregation" title="Link to this heading">#</a></h2>
 <p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pseudobulk()</span></code></a> sums the raw counts of all cells that share a sample and cell type. Differential expression (DE) then runs on these per-sample profiles rather than on individual cells.</p>
-<p>The result is a <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> dataset with three slots — <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.X.html#brisc.Pseudobulk.X" title="brisc.Pseudobulk.X"><code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code></a>, <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.obs.html#brisc.Pseudobulk.obs" title="brisc.Pseudobulk.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, and <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.var.html#brisc.Pseudobulk.var" title="brisc.Pseudobulk.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a> — and each slot is a dictionary keyed by cell type. For a given cell type, <code class="docutils literal notranslate"><span class="pre">X</span></code> is a samples × genes matrix of summed counts, <code class="docutils literal notranslate"><span class="pre">obs</span></code> is one metadata row per sample, and <code class="docutils literal notranslate"><span class="pre">var</span></code> is the gene metadata. <code class="docutils literal notranslate"><span class="pre">obs</span></code> adds a <code class="docutils literal notranslate"><span class="pre">num_cells</span></code> count and keeps the cell metadata that is constant within each sample, such as <code class="docutils literal notranslate"><span class="pre">donor</span></code> and <code class="docutils literal notranslate"><span class="pre">cytokine</span></code>.</p>
-<p>That layout supports two kinds of indexing. Indexing a slot by cell type, like <code class="docutils literal notranslate"><span class="pre">pb.obs['CD14</span> <span class="pre">Mono']</span></code>, returns that cell type’s DataFrame directly; indexing the dataset itself by cell type, like <code class="docutils literal notranslate"><span class="pre">pb['CD14</span> <span class="pre">Mono']</span></code>, returns a new <code class="docutils literal notranslate"><span class="pre">Pseudobulk</span></code> subset to just that cell type.</p>
+<p>The result is a <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> dataset with three slots — <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.X.html#brisc.Pseudobulk.X" title="brisc.Pseudobulk.X"><code class="xref py py-attr docutils literal notranslate"><span class="pre">X</span></code></a>, <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.obs.html#brisc.Pseudobulk.obs" title="brisc.Pseudobulk.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, and <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.var.html#brisc.Pseudobulk.var" title="brisc.Pseudobulk.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a> — and each slot is a dictionary keyed by cell type. For a given cell type, <code class="docutils literal notranslate"><span class="pre">X</span></code> is a samples × genes matrix of summed counts, <code class="docutils literal notranslate"><span class="pre">obs</span></code> is one metadata row per sample, and <code class="docutils literal notranslate"><span class="pre">var</span></code> is the gene metadata. <code class="docutils literal notranslate"><span class="pre">obs</span></code> adds a <code class="docutils literal notranslate"><span class="pre">num_cells</span></code> column and keeps the cell-level columns that are constant within each sample, such as <code class="docutils literal notranslate"><span class="pre">donor</span></code> and <code class="docutils literal notranslate"><span class="pre">cytokine</span></code>.</p>
+<p>This layout supports two kinds of indexing. Indexing a slot by cell type, like <code class="docutils literal notranslate"><span class="pre">pb.obs['CD14</span> <span class="pre">Mono']</span></code>, returns that cell type’s DataFrame directly; indexing the dataset itself by cell type, like <code class="docutils literal notranslate"><span class="pre">pb['CD14</span> <span class="pre">Mono']</span></code>, returns a new <code class="docutils literal notranslate"><span class="pre">Pseudobulk</span></code> subset to just that cell type.</p>
 <p>We keep only the IFN-gamma and PBS samples for DE testing.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pseudobulk</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
 <span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.filter_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">filter_obs</span></a><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">is_in</span><span class="p">([</span><span class="s1">&#39;IFN-gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;PBS&#39;</span><span class="p">]))</span>
@@ -439,12 +439,17 @@
 </pre></div>
 </div>
 <p>IFN-gamma samples have far fewer cells than PBS samples; the <code class="docutils literal notranslate"><span class="pre">log2(num_cells)</span></code> covariate accounts for this in the model.</p>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Saving the pseudobulk</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">A pseudobulk dataset is a compact summary, so saving it lets you re-run DE later without reloading the single-cell data. <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.save.html#brisc.Pseudobulk.save" title="brisc.Pseudobulk.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> writes each cell type’s <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">obs</span></code>, and <code class="docutils literal notranslate"><span class="pre">var</span></code> to a directory; reload it with <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.__init__.html#brisc.Pseudobulk.__init__" title="brisc.Pseudobulk.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Pseudobulk('dir')</span></code></a>. Pass <code class="docutils literal notranslate"><span class="pre">cell_types=</span></code> or <code class="docutils literal notranslate"><span class="pre">excluded_cell_types=</span></code> to save only some cell types.</p>
+</div>
+</details></section>
 <section id="sample-level-quality-control">
 <h2>Sample-level quality control<a class="headerlink" href="#sample-level-quality-control" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> filters out low-quality samples and genes. By default, it keeps:</p>
+<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> runs independently for each cell type, filtering out low-quality samples and genes. By default it keeps:</p>
 <ul class="simple">
-<li><p><strong>samples with ≥10 cells</strong></p></li>
+<li><p><strong>samples with ≥10 cells of that cell type</strong></p></li>
 <li><p><strong>non-outlier samples</strong> — those whose zero-count gene total is less than 3 standard deviations above the mean</p></li>
 <li><p><strong>genes detected in ≥80% of samples</strong></p></li>
 </ul>
@@ -472,7 +477,7 @@
 ...
 </pre></div>
 </div>
-<p>QC runs independently for each cell type, so the gene count it keeps varies, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.</p>
+<p>The number of genes kept therefore varies by cell type, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Customizing the filters</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
@@ -482,7 +487,7 @@
     <span class="na">min_nonzero_fraction</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="na">min_samples</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">min_cells</span></code> (10), <code class="docutils literal notranslate"><span class="pre">max_standard_deviations</span></code> (3), and <code class="docutils literal notranslate"><span class="pre">min_nonzero_fraction</span></code> (0.8) are the three filters above; pass <code class="docutils literal notranslate"><span class="pre">None</span></code> to switch any off, or <code class="docutils literal notranslate"><span class="pre">min_nonzero_fraction=0</span></code> to drop only all-zero genes. <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> (2) sets how many samples a cell type needs to survive — the cutoff that dropped Plasmablast.</p>
+<p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">min_cells</span></code>, <code class="docutils literal notranslate"><span class="pre">max_standard_deviations</span></code>, and <code class="docutils literal notranslate"><span class="pre">min_nonzero_fraction</span></code> (defaults 10, 3, and 0.8) are the three filters above; pass <code class="docutils literal notranslate"><span class="pre">None</span></code> to switch any off, or <code class="docutils literal notranslate"><span class="pre">min_nonzero_fraction=0</span></code> to drop only all-zero genes. <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> (default 2) sets how many samples a cell type needs to survive — the cutoff that dropped Plasmablast.</p>
 <p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">custom_filter</span></code> adds an extra per-sample Boolean filter, <code class="docutils literal notranslate"><span class="pre">cell_types</span></code> / <code class="docutils literal notranslate"><span class="pre">excluded_cell_types</span></code> limit QC to some cell types, and <code class="docutils literal notranslate"><span class="pre">verbose=False</span></code> silences the per-step log.</p>
 </div>
 </details></section>
@@ -528,7 +533,7 @@
 <p class="sd-card-text">The same IFN-gamma-vs-PBS comparison can be expressed without <code class="docutils literal notranslate"><span class="pre">contrasts</span></code>. Recode <code class="docutils literal notranslate"><span class="pre">cytokine</span></code> as a two-level factor with PBS as the reference (first) level; then <code class="docutils literal notranslate"><span class="pre">~</span> <span class="pre">cytokine</span></code> makes the <code class="docutils literal notranslate"><span class="pre">cytokineIFN-gamma</span></code> coefficient itself the IFN-gamma-vs-PBS effect, which you report directly with <code class="docutils literal notranslate"><span class="pre">coefficient=</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.with_columns_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">with_columns_obs</span></a><span class="p">(</span>
     <span class="na">cytokine</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cytokine&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">Enum</span><span class="p">([</span><span class="s1">&#39;PBS&#39;</span><span class="p">,</span> <span class="s1">&#39;IFN-gamma&#39;</span><span class="p">])))</span>
-<span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">library_size</span></a><span class="p">()</span>
+<span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">library_size</span></a><span class="p">(</span><span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">de</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">DE</span></a><span class="p">(</span>
     <span class="s1">&#39;~ cytokine + donor + log2(num_cells) + log2(library_size)&#39;</span><span class="p">,</span>
     <span class="na">coefficient</span><span class="o">=</span><span class="s1">&#39;cytokineIFN-gamma&#39;</span><span class="p">,</span>
@@ -607,7 +612,8 @@
 </div>
 <p>Classic interferon-response genes recur across cell types — <code class="docutils literal notranslate"><span class="pre">LAP3</span></code>, <code class="docutils literal notranslate"><span class="pre">GBP5</span></code>, <code class="docutils literal notranslate"><span class="pre">IFIT2</span></code>, and <code class="docutils literal notranslate"><span class="pre">CXCL10</span></code> are all canonical IFN-gamma targets.</p>
 <p><a class="reference internal" href="../api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano" title="brisc.DE.plot_volcano"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_volcano()</span></code></a> plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.plot_volcano.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_volcano</span></a><span class="p">(</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">,</span> <span class="s1">&#39;scratch/volcano.png&#39;</span><span class="p">,</span> <span class="na">significance_column</span><span class="o">=</span><span class="s1">&#39;FDR&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">de</span><span class="o">.</span><a href="../api/de/api/brisc.DE.plot_volcano.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_volcano</span></a><span class="p">(</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">,</span> <span class="s1">&#39;volcano.png&#39;</span><span class="p">,</span> <span class="na">significance_column</span><span class="o">=</span><span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
+                <span class="na">ylabel</span><span class="o">=</span><span class="s1">&#39;$-log_</span><span class="si">{10}</span><span class="s1">(FDR)$&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../_images/volcano.png"><img alt="Volcano plot of IFN-gamma vs PBS in CD14 monocytes" class="align-center" src="../_images/volcano.png" style="width: 70%;" />
@@ -618,6 +624,7 @@
 <ul class="simple">
 <li><p class="sd-card-text"><a class="reference internal" href="../api/de/api/brisc.DE.plot_voom.html#brisc.DE.plot_voom" title="brisc.DE.plot_voom"><code class="xref py py-meth docutils literal notranslate"><span class="pre">plot_voom()</span></code></a> draws the mean–variance trend that voom fits, with one curve per group (when using voomByGroup).</p></li>
 <li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">significance_column='Bonferroni'</span></code> or a lower <code class="docutils literal notranslate"><span class="pre">threshold</span></code> in <code class="docutils literal notranslate"><span class="pre">get_hits</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_volcano</span></code> gives a stricter cut.</p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="../api/de/api/brisc.DE.save.html#brisc.DE.save" title="brisc.DE.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> writes the results (and voom info) to a directory; reload them later with <a class="reference internal" href="../api/de/api/brisc.DE.__init__.html#brisc.DE.__init__" title="brisc.DE.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE('dir')</span></code></a>.</p></li>
 </ul>
 </div>
 </details></section>
@@ -656,7 +663,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Load</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('data.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell()</span></code></a></p></td>
 <td><p>Read data from any supported format</p></td>
 </tr>
 <tr class="row-odd"><td><p>Quality control</p></td>
@@ -664,26 +671,22 @@
 <td><p>Filter low-quality cells</p></td>
 </tr>
 <tr class="row-even"><td><p>Pseudobulk</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pseudobulk('sample',</span> <span class="pre">'cell_type')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.pseudobulk()</span></code></a></p></td>
 <td><p>Sum raw counts per sample × cell type</p></td>
 </tr>
-<tr class="row-odd"><td><p>Filter conditions</p></td>
-<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.filter_obs.html#brisc.Pseudobulk.filter_obs" title="brisc.Pseudobulk.filter_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.filter_obs()</span></code></a></p></td>
-<td><p>Keep the IFN-gamma and PBS samples</p></td>
-</tr>
-<tr class="row-even"><td><p>Sample QC</p></td>
-<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.qc('cytokine')</span></code></a></p></td>
+<tr class="row-odd"><td><p>Sample QC</p></td>
+<td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.qc.html#brisc.Pseudobulk.qc" title="brisc.Pseudobulk.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.qc()</span></code></a></p></td>
 <td><p>Filter low-quality samples and genes per group</p></td>
 </tr>
-<tr class="row-odd"><td><p>Library size</p></td>
+<tr class="row-even"><td><p>Library size</p></td>
 <td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.library_size.html#brisc.Pseudobulk.library_size" title="brisc.Pseudobulk.library_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.library_size()</span></code></a></p></td>
 <td><p>Compute TMM-normalized library sizes</p></td>
 </tr>
-<tr class="row-even"><td><p>Differential expression</p></td>
+<tr class="row-odd"><td><p>Differential expression</p></td>
 <td><p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pb.DE()</span></code></a></p></td>
 <td><p>Fit a limma-voom model per cell type</p></td>
 </tr>
-<tr class="row-odd"><td><p>Volcano plot</p></td>
+<tr class="row-even"><td><p>Volcano plot</p></td>
 <td><p><a class="reference internal" href="../api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano" title="brisc.DE.plot_volcano"><code class="xref py py-meth docutils literal notranslate"><span class="pre">de.plot_volcano()</span></code></a></p></td>
 <td><p>Plot fold change against significance for one cell type</p></td>
 </tr>
@@ -774,7 +777,7 @@
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

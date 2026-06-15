@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Installation &#8212; brisc  documentation</title>
+    <title>Installation &#8212; brisc documentation</title>
   
   
   
@@ -71,7 +71,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   </head>
-  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
+  <body class="tutorial-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -328,7 +328,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
 </ul>
 </div>
 </nav></div>
@@ -411,11 +411,8 @@ pip</label><div class="sd-tab-content docutils">
 <p>conda is recommended because it also sets up the fast MKL BLAS and the R packages brisc uses (both covered below); with pip you must handle those yourself.</p>
 <section id="blas-and-threading">
 <h2>BLAS and threading<a class="headerlink" href="#blas-and-threading" title="Link to this heading">#</a></h2>
-<p>A few key steps — nearest-neighbor search, harmonization, and label transfer — rely on BLAS. conda’s SciPy comes with <strong>MKL</strong> (fastest, no thread cap); pip’s comes with <strong>OpenBLAS</strong>, which brisc limits to 64 threads. On a pip install with more than 64 cores, switch to MKL:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;libblas=*=*mkl&quot;</span><span class="w"> </span>scipy
-</pre></div>
-</div>
-<p>To check which backend you have:</p>
+<p>A few key steps — nearest-neighbor search, harmonization, and label transfer — rely on BLAS. conda allows SciPy to be installed with <strong>MKL BLAS</strong>, which is highly optimized. (You can install this manually with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">&quot;libblas=*=*mkl&quot;</span> <span class="pre">scipy</span></code>, although installing brisc through conda takes care of this for you.)</p>
+<p>However, pip’s SciPy comes with <strong>OpenBLAS</strong>, which is less optimized and only supports up to 64 threads. To check which backend you have:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">brisc</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">threadpoolctl</span><span class="w"> </span><span class="kn">import</span> <span class="n">threadpool_info</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">({</span><span class="n">pool</span><span class="p">[</span><span class="s1">&#39;internal_api&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">pool</span> <span class="ow">in</span> <span class="nf">threadpool_info</span><span class="p">()}))</span>
@@ -425,11 +422,19 @@ pip</label><div class="sd-tab-content docutils">
 </section>
 <section id="r-packages">
 <h2>R packages<a class="headerlink" href="#r-packages" title="Link to this heading">#</a></h2>
-<p>brisc bridges to R through <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a> for differential expression and conversion of Seurat, SingleCellExperiment, and <code class="docutils literal notranslate"><span class="pre">.rds</span></code> objects. conda installs the needed R packages (and R itself) automatically; with pip, you must install them yourself:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>-c<span class="w"> </span>bioconda<span class="w"> </span>r-arrow<span class="w"> </span>bioconductor-limma<span class="w"> </span>r-seurat<span class="w"> </span>bioconductor-singlecellexperiment
+<p>brisc bridges to R through <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a> for differential expression (limma) and for converting Seurat and SingleCellExperiment objects. conda installs R and these packages automatically; with pip you set them up yourself. First install R — <a class="reference external" href="https://cran.r-project.org/">CRAN</a> has per-platform instructions — then add the R packages you need from an R session:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># required by ryp for all Python–R data transfer</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;arrow&quot;</span><span class="p">)</span>
+
+<span class="c1"># differential expression</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;BiocManager&quot;</span><span class="p">)</span>
+<span class="n">BiocManager</span><span class="o">::</span><span class="nf">install</span><span class="p">(</span><span class="s">&quot;limma&quot;</span><span class="p">)</span>
+
+<span class="c1"># convert Seurat / SingleCellExperiment objects</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;Seurat&quot;</span><span class="p">)</span>
+<span class="n">BiocManager</span><span class="o">::</span><span class="nf">install</span><span class="p">(</span><span class="s">&quot;SingleCellExperiment&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Only <code class="docutils literal notranslate"><span class="pre">r-arrow</span></code> is always required, so drop any of the others you won’t use.</p>
 </section>
 </section>
 
@@ -510,7 +515,7 @@ pip</label><div class="sd-tab-content docutils">
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

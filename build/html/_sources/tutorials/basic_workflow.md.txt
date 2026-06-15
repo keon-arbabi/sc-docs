@@ -4,7 +4,7 @@ This tutorial walks through a standard single-cell analysis from start to finish
 
 ## Dataset
 
-We use a ~10 million cell PBMC cytokine stimulation dataset from [Parse Biosciences](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/). Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates — one plate per donor — and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions. Although this dataset is already quality-filtered, we run QC here to demonstrate the workflow.
+We use a ~10 million cell PBMC cytokine stimulation dataset from [Parse Biosciences](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/). Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates — one plate per donor — and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions.
 
 Download the data:
 
@@ -24,37 +24,17 @@ from brisc import SingleCell
 import polars as pl
 ```
 
-SingleCell supports reading and writing files from each of the three major single-cell ecosystems:
-
-- scverse/Scanpy AnnData (`.h5ad`)
-- Seurat (`.rds` and `.h5Seurat`)
-- Bioconductor SingleCellExperiment (`.rds`)
-
-as well as raw 10x data files (`.h5` or `.mtx`/`.mtx.gz`). See [Interoperability](interoperability.md) for details on format conversion, partial loading, and the ryp Python-R bridge.
-
-:::{dropdown} Inspecting the file
-Inspect an `.h5ad` file's structure with {meth}`~brisc.SingleCell.ls` to see what's inside — its dimensions and the available `obs`/`var` columns — without loading the data.
-
-```python
-SingleCell.ls('Parse_10M_PBMC_cytokines.h5ad')
-```
-```none
-X: 9,697,974 × 40,352 sparse array with 18,830,591,942 non-zero elements, data type 'float32', and first non-zero element = 1
-obs: _index, bc1_well, bc1_wind, bc2_well, bc2_wind, bc3_well, bc3_wind, cell_type, cytokine, donor, gene_count, log1p_n_genes_by_counts,
-     log1p_total_counts, log1p_total_counts_MT, mread_count, pct_counts_MT, sample, species, total_counts_MT, treatment, tscp_count
-var: _index, n_cells
-```
-:::
-
-`num_threads` controls parallelism for this load and all subsequent operations on the dataset. The default (`-1`) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs. It can also be set per step, or changed on the dataset at any time through the `num_threads` property (e.g. `sc.num_threads = 8`).
-
-`obs_columns` is optional — it loads only the named metadata columns instead of all of them. Omit it to load every column; here we keep just the ones used later in the workflow.
+SingleCell reads and writes the major single-cell formats (`.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, `.mtx.gz`). See [Interoperability](interoperability.md).
 
 ```python
 sc = SingleCell(
     'Parse_10M_PBMC_cytokines.h5ad', num_threads=-1,
     obs_columns=['sample', 'donor', 'cell_type', 'treatment', 'cytokine'])
 ```
+
+`num_threads` controls parallelism for this load and every later operation on the dataset; `-1` (the default) uses all cores. Set it per step (e.g. `sc.pca(num_threads=8)`) or at any time via the property (`sc.num_threads = 8`).
+
+`obs_columns` loads only the named metadata columns; omit it to load all of them. Here we keep just the columns used later in the workflow.
 
 A quick look at what was loaded:
 
@@ -82,9 +62,23 @@ sc.peek_var()
 shape: (2, 2)
 ```
 
+:::{dropdown} Inspect a file without loading
+{meth}`~brisc.SingleCell.ls` reports an `.h5ad` file's dimensions and its `obs`/`var` columns without reading the data.
+
+```python
+SingleCell.ls('Parse_10M_PBMC_cytokines.h5ad')
+```
+```none
+X: 9,697,974 × 40,352 sparse array with 18,830,591,942 non-zero elements, data type 'float32', and first non-zero element = 1
+obs: _index, bc1_well, bc1_wind, bc2_well, bc2_wind, bc3_well, bc3_wind, cell_type, cytokine, donor, gene_count, log1p_n_genes_by_counts,
+     log1p_total_counts, log1p_total_counts_MT, mread_count, pct_counts_MT, sample, species, total_counts_MT, treatment, tscp_count
+var: _index, n_cells
+```
+:::
+
 ## Quality control
 
-{meth}`~brisc.SingleCell.qc` filters out low-quality cells. By default, it keeps cells with:
+This dataset is already quality-filtered, but we run {meth}`~brisc.SingleCell.qc` to demonstrate the step. By default it keeps cells with:
 
 - **≤5% mitochondrial reads**
 - **≥100 genes detected**
@@ -106,9 +100,9 @@ Filtering to cells with non-zero MALAT1 expression...
 Adding a Boolean column, obs['passed_QC'], indicating which cells passed QC...
 ```
 
-The pipeline assumes raw integer counts, so {meth}`~brisc.SingleCell.qc` errors on floating-point input — a guard against running on normalized data. This dataset's raw counts are stored as `float32`, so we pass `allow_float=True` to allow them; only do this when your values are genuinely raw counts stored as floats.
+{meth}`~brisc.SingleCell.qc` expects raw integer counts and errors on floating-point input, guarding against running on normalized data. This dataset's raw counts are stored as `float32`, so we pass `allow_float=True` — only safe when the values are genuinely raw counts.
 
-`subset=False` (the default) keeps all cells and adds a `passed_QC` column to {attr}`~brisc.SingleCell.obs` — downstream methods automatically ignore flagged cells via their `QC_column` argument. `subset=True` instead removes failing cells, but roughly doubles peak memory by copying `X`.
+`subset=False` (the default) keeps all cells and adds a `passed_QC` column to {attr}`~brisc.SingleCell.obs`; downstream methods skip flagged cells via their `QC_column` argument. `subset=True` removes failing cells instead, but roughly doubles peak memory by copying `X`.
 
 ```python
 print(sc.obs)
@@ -166,8 +160,10 @@ print(sc.obs.select('num_counts', 'num_genes', 'mito_fraction').describe())
 Each threshold is configurable:
 
 ```python
-sc = sc.qc(max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False,allow_float=True)
+sc = sc.qc(max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False, allow_float=True)
 ```
+
+`custom_filter` adds an extra per-cell filter on top of these: pass a Boolean polars expression (or column name) and only cells where it is `True` are kept.
 :::
 
 :::{dropdown} Removing doublets
@@ -189,6 +185,14 @@ sc = sc.find_doublets(batch_column='sample')
 
 ```python
 sc = sc.skip_qc()
+```
+:::
+
+:::{dropdown} Duplicate cell or gene names
+{meth}`~brisc.SingleCell.qc` raises an error if any name appears more than once in {attr}`~brisc.SingleCell.obs_names` or {attr}`~brisc.SingleCell.var_names`. Deduplicate first with {meth}`~brisc.SingleCell.make_obs_names_unique` or {meth}`~brisc.SingleCell.make_var_names_unique`, which append `-1`, `-2`, … to repeated names:
+
+```python
+sc = sc.make_var_names_unique()
 ```
 :::
 
@@ -301,7 +305,7 @@ Each resolution adds a column to {attr}`~brisc.SingleCell.obs`: `cluster_0` thro
 brisc offers three embedding methods for visualization:
 
 - {meth}`~brisc.SingleCell.pacmap` — [PaCMAP](https://arxiv.org/abs/2012.04456), a relative of UMAP that captures global structure better. Default choice.
-- {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), a relative of UMAP that captures global structure better.
+- {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), a newer relative of PaCMAP that further sharpens local cluster separation.
 - {meth}`~brisc.SingleCell.umap` — the standard UMAP algorithm.
 
 ```python
@@ -392,7 +396,7 @@ sc.filter_obs('passed_QC').save('processed.h5ad', overwrite=True)
 Because each method returns a new dataset, the full pipeline chains together:
 
 ```python
-sc = SingleCell('data.h5ad', num_threads=-1)\
+sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad', num_threads=-1)\
     .qc(allow_float=True)\
     .hvg(batch_column='donor')\
     .normalize()\
@@ -404,13 +408,14 @@ sc = SingleCell('data.h5ad', num_threads=-1)\
 
 sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
 markers = sc.find_markers('cell_type')
-sc.plot_markers(markers['gene'], 'cell_type', 'markers.png')
-sc.save('processed.h5ad', overwrite=True)
+top = markers.group_by('cell_type', maintain_order=True).head(3)
+sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
+sc.save('Parse_10M_PBMC_cytokines_processed.h5ad', overwrite=True)
 ```
 
 | Step | Method | What it does |
 |---|---|---|
-| Load | {meth}`SingleCell('data.h5ad') <brisc.SingleCell.__init__>` | Read data from any supported format |
+| Load | {meth}`SingleCell() <brisc.SingleCell.__init__>` | Read data from any supported format |
 | Quality control | {meth}`sc.qc() <brisc.SingleCell.qc>` | Filter low-quality cells |
 | Feature selection | {meth}`sc.hvg() <brisc.SingleCell.hvg>` | Select the top 2,000 highly variable genes |
 | Normalization | {meth}`sc.normalize() <brisc.SingleCell.normalize>` | Normalize and log-transform with log1pPF |
@@ -422,4 +427,4 @@ sc.save('processed.h5ad', overwrite=True)
 | Plot embedding | {meth}`sc.plot_embedding() <brisc.SingleCell.plot_embedding>` | Plot an embedding |
 | Markers | {meth}`sc.find_markers() <brisc.SingleCell.find_markers>` | Find marker genes for each cell type |
 | Plot markers | {meth}`sc.plot_markers() <brisc.SingleCell.plot_markers>` | Draw a dot plot of marker genes |
-| Save | {meth}`sc.save('processed.h5ad') <brisc.SingleCell.save>` | Write to `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz` |
+| Save | {meth}`sc.save() <brisc.SingleCell.save>` | Write to `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz` |

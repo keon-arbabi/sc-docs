@@ -19,13 +19,9 @@ conda is recommended because it also sets up the fast MKL BLAS and the R package
 
 ## BLAS and threading
 
-A few key steps — nearest-neighbor search, harmonization, and label transfer — rely on BLAS. conda's SciPy comes with **MKL** (fastest, no thread cap); pip's comes with **OpenBLAS**, which brisc limits to 64 threads. On a pip install with more than 64 cores, switch to MKL:
+A few key steps — nearest-neighbor search, harmonization, and label transfer — rely on BLAS. conda allows SciPy to be installed with **MKL BLAS**, which is highly optimized. (You can install this manually with `conda install "libblas=*=*mkl" scipy`, although installing brisc through conda takes care of this for you.)
 
-```bash
-conda install "libblas=*=*mkl" scipy
-```
-
-To check which backend you have:
+However, pip's SciPy comes with **OpenBLAS**, which is less optimized and only supports up to 64 threads. To check which backend you have:
 
 ```python
 import brisc
@@ -37,10 +33,17 @@ print(sorted({pool['internal_api'] for pool in threadpool_info()}))
 
 ## R packages
 
-brisc bridges to R through [ryp](https://github.com/Wainberg/ryp) for differential expression and conversion of Seurat, SingleCellExperiment, and `.rds` objects. conda installs the needed R packages (and R itself) automatically; with pip, you must install them yourself:
+brisc bridges to R through [ryp](https://github.com/Wainberg/ryp) for differential expression (limma) and for converting Seurat and SingleCellExperiment objects. conda installs R and these packages automatically; with pip you set them up yourself. First install R — [CRAN](https://cran.r-project.org/) has per-platform instructions — then add the R packages you need from an R session:
 
-```bash
-conda install -c conda-forge -c bioconda r-arrow bioconductor-limma r-seurat bioconductor-singlecellexperiment
+```r
+# required by ryp for all Python–R data transfer
+install.packages("arrow")
+
+# differential expression
+install.packages("BiocManager")
+BiocManager::install("limma")
+
+# convert Seurat / SingleCellExperiment objects
+install.packages("Seurat")
+BiocManager::install("SingleCellExperiment")
 ```
-
-Only `r-arrow` is always required, so drop any of the others you won't use.

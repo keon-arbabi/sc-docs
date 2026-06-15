@@ -30,6 +30,7 @@ print(sc_query)
 SingleCell dataset in CSR format with 603,928 cells (obs), 40,352 genes (var), and 1,164,409,519 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
+
 SingleCell dataset in CSR format with 8,839,235 cells (obs), 40,352 genes (var), and 17,313,941,540 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
@@ -97,35 +98,36 @@ shape: (10, 3)
 Most calls are confident; the low-confidence row (0.45) is a CD8 Naive cell labeled CD4 Memory, and the confidence score is what flags these uncertain transfers so you can filter on them.
 
 :::{dropdown} Next best labels
-Pass `next_best=True` to also record each cell's runner-up label and its confidence, in `next_best_transferred` and `next_best_transferred_confidence`. This helps when a cell sits between two similar types:
+Pass `next_best=True` to also record each cell's runner-up label and its confidence, in `next_best_cell_type_transferred` and `next_best_cell_type_transferred_confidence`. This helps when a cell sits between two similar types:
 
 ```python
 sc_query = sc_query.label_transfer_from(
-    sc_ref, 'cell_type', cell_type_column='cell_type_transferred', next_best=True)
+    sc_ref, 'cell_type', cell_type_column='cell_type_transferred',
+    next_best=True, overwrite=True)
+
 print(sc_query.obs.select(
     'cell_type', 'cell_type_transferred', 'cell_type_transferred_confidence',
-    'next_best_transferred', 'next_best_transferred_confidence').head(10))
+    'next_best_cell_type_transferred',
+    'next_best_cell_type_transferred_confidence').head(10))
 ```
 ```none
 shape: (10, 5)
-┌────────────┬────────────────────┬────────────────────┬────────────────────┬────────────────────┐
-│ cell_type  ┆ cell_type_transfer ┆ cell_type_transfer ┆ next_best_transfer ┆ next_best_transfer │
-│ ---        ┆ red                ┆ red_confiden…      ┆ red                ┆ red_confiden…      │
-│ enum       ┆ ---                ┆ ---                ┆ ---                ┆ ---                │
-│            ┆ enum               ┆ f32                ┆ enum               ┆ f32                │
-╞════════════╪════════════════════╪════════════════════╪════════════════════╪════════════════════╡
-│ CD8 Naive  ┆ CD8 Naive          ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ B Naive    ┆ B Naive            ┆ 0.85               ┆ B Intermediate/Mem ┆ 0.15               │
-│            ┆                    ┆                    ┆ ory                ┆                    │
-│ CD14 Mono  ┆ CD14 Mono          ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ CD14 Mono  ┆ CD14 Mono          ┆ 0.9                ┆ CD16 Mono          ┆ 0.05               │
-│ CD4 Naive  ┆ CD4 Naive          ┆ 0.95               ┆ CD4 Memory         ┆ 0.05               │
-│ CD8 Naive  ┆ CD4 Memory         ┆ 0.45               ┆ CD8 Naive          ┆ 0.45               │
-│ NK         ┆ NK                 ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ CD4 Memory ┆ CD4 Memory         ┆ 0.95               ┆ MAIT               ┆ 0.05               │
-│ NK         ┆ NK                 ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-│ cDC        ┆ cDC                ┆ 1.0                ┆ CD4 Memory         ┆ 0.0                │
-└────────────┴────────────────────┴────────────────────┴────────────────────┴────────────────────┘
+┌────────────┬───────────────────────┬─────────────────────────────────┬─────────────────────────────────┬─────────────────────────────────┐
+│ cell_type  ┆ cell_type_transferred ┆ cell_type_transferred_confiden… ┆ next_best_cell_type_transferre… ┆ next_best_cell_type_transferre… │
+│ ---        ┆ ---                   ┆ ---                             ┆ ---                             ┆ ---                             │
+│ enum       ┆ enum                  ┆ f32                             ┆ enum                            ┆ f32                             │
+╞════════════╪═══════════════════════╪═════════════════════════════════╪═════════════════════════════════╪═════════════════════════════════╡
+│ CD8 Naive  ┆ CD8 Naive             ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ B Naive    ┆ B Naive               ┆ 0.85                            ┆ B Intermediate/Memory           ┆ 0.15                            │
+│ CD14 Mono  ┆ CD14 Mono             ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ CD14 Mono  ┆ CD14 Mono             ┆ 0.9                             ┆ CD16 Mono                       ┆ 0.05                            │
+│ CD4 Naive  ┆ CD4 Naive             ┆ 0.95                            ┆ CD4 Memory                      ┆ 0.05                            │
+│ CD8 Naive  ┆ CD4 Memory            ┆ 0.45                            ┆ CD8 Naive                       ┆ 0.45                            │
+│ NK         ┆ NK                    ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ CD4 Memory ┆ CD4 Memory            ┆ 0.95                            ┆ MAIT                            ┆ 0.05                            │
+│ NK         ┆ NK                    ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+│ cDC        ┆ cDC                   ┆ 1.0                             ┆ CD4 Memory                      ┆ 0.0                             │
+└────────────┴───────────────────────┴─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 ```
 
 Here the 0.45 cell splits evenly between CD4 Memory and its runner-up, CD8 Naive — which is its true label.
@@ -136,8 +138,7 @@ Here the 0.45 cell splits evenly between CD4 Memory and its runner-up, CD8 Naive
 Because the query carries ground-truth labels, we can measure how well the transfer recovered them.
 
 ```python
-correct = pl.col('cell_type').cast(pl.String) == \
-    pl.col('cell_type_transferred').cast(pl.String)
+correct = pl.col('cell_type') == pl.col('cell_type_transferred')
 overall = sc_query.obs.select(correct.mean()).item()
 print(f'overall accuracy: {overall:.1%}')
 
@@ -185,7 +186,7 @@ Common, distinct types transfer almost perfectly (CD14 Mono 99%, NK 97%, B Naive
 The full reference-mapping pipeline:
 
 ```python
-sc = SingleCell('data.h5ad').qc(allow_float=True)
+sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad').qc(allow_float=True)
 sc = sc.split_by_obs('treatment')
 sc_ref, sc_query = sc['PBS'], sc['cytokine']
 sc_ref, sc_query = sc_ref.hvg(sc_query, batch_column='donor')
@@ -199,9 +200,9 @@ sc_query = sc_query.label_transfer_from(
 
 | Step | Method | What it does |
 |---|---|---|
-| Load | {meth}`SingleCell('data.h5ad') <brisc.SingleCell.__init__>` | Read data from any supported format |
+| Load | {meth}`SingleCell() <brisc.SingleCell.__init__>` | Read data from any supported format |
 | Quality control | {meth}`sc.qc() <brisc.SingleCell.qc>` | Filter low-quality cells |
-| Split | {meth}`sc.split_by_obs('treatment') <brisc.SingleCell.split_by_obs>` | Split into the reference (PBS) and query (cytokine) |
+| Split | {meth}`sc.split_by_obs('treatment') <brisc.SingleCell.split_by_obs>` | Split into the reference and query |
 | Feature selection | {meth}`sc_ref.hvg(sc_query) <brisc.SingleCell.hvg>` | Select one shared set of highly variable genes |
 | Normalization | {meth}`sc_ref.normalize() <brisc.SingleCell.normalize>` | Normalize and log-transform with log1pPF, per dataset |
 | PCA | {meth}`sc_ref.pca(sc_query) <brisc.SingleCell.pca>` | Compute one shared set of principal components |

@@ -12,7 +12,7 @@ import polars as pl
 
 sc = SingleCell(
     'Parse_10M_PBMC_cytokines.h5ad',
-    obs_columns=['sample', 'donor', 'cell_type', 'treatment', 'cytokine'])\
+    obs_columns=['sample', 'donor', 'cell_type', 'cytokine'])\
     .qc(allow_float=True)
 ```
 
@@ -20,9 +20,9 @@ sc = SingleCell(
 
 {meth}`~brisc.SingleCell.pseudobulk` sums the raw counts of all cells that share a sample and cell type. Differential expression (DE) then runs on these per-sample profiles rather than on individual cells.
 
-The result is a {class}`~brisc.Pseudobulk` dataset with three slots — {attr}`~brisc.Pseudobulk.X`, {attr}`~brisc.Pseudobulk.obs`, and {attr}`~brisc.Pseudobulk.var` — and each slot is a dictionary keyed by cell type. For a given cell type, `X` is a samples × genes matrix of summed counts, `obs` is one metadata row per sample, and `var` is the gene metadata. `obs` adds a `num_cells` count and keeps the cell metadata that is constant within each sample, such as `donor` and `cytokine`.
+The result is a {class}`~brisc.Pseudobulk` dataset with three slots — {attr}`~brisc.Pseudobulk.X`, {attr}`~brisc.Pseudobulk.obs`, and {attr}`~brisc.Pseudobulk.var` — and each slot is a dictionary keyed by cell type. For a given cell type, `X` is a samples × genes matrix of summed counts, `obs` is one metadata row per sample, and `var` is the gene metadata. `obs` adds a `num_cells` column and keeps the cell-level columns that are constant within each sample, such as `donor` and `cytokine`.
 
-That layout supports two kinds of indexing. Indexing a slot by cell type, like `pb.obs['CD14 Mono']`, returns that cell type's DataFrame directly; indexing the dataset itself by cell type, like `pb['CD14 Mono']`, returns a new `Pseudobulk` subset to just that cell type.
+This layout supports two kinds of indexing. Indexing a slot by cell type, like `pb.obs['CD14 Mono']`, returns that cell type's DataFrame directly; indexing the dataset itself by cell type, like `pb['CD14 Mono']`, returns a new `Pseudobulk` subset to just that cell type.
 
 We keep only the IFN-gamma and PBS samples for DE testing.
 
@@ -58,11 +58,15 @@ shape: (5, 4)
 
 IFN-gamma samples have far fewer cells than PBS samples; the `log2(num_cells)` covariate accounts for this in the model.
 
+:::{dropdown} Saving the pseudobulk
+A pseudobulk dataset is a compact summary, so saving it lets you re-run DE later without reloading the single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory; reload it with {meth}`Pseudobulk('dir') <brisc.Pseudobulk.__init__>`. Pass `cell_types=` or `excluded_cell_types=` to save only some cell types.
+:::
+
 ## Sample-level quality control
 
-{meth}`~brisc.Pseudobulk.qc` filters out low-quality samples and genes. By default, it keeps:
+{meth}`~brisc.Pseudobulk.qc` runs independently for each cell type, filtering out low-quality samples and genes. By default it keeps:
 
-- **samples with ≥10 cells**
+- **samples with ≥10 cells of that cell type**
 - **non-outlier samples** — those whose zero-count gene total is less than 3 standard deviations above the mean
 - **genes detected in ≥80% of samples**
 
@@ -92,7 +96,7 @@ pb = pb.qc('cytokine')
 ...
 ```
 
-QC runs independently for each cell type, so the gene count it keeps varies, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.
+The number of genes kept therefore varies by cell type, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.
 
 :::{dropdown} Customizing the filters
 Each threshold is configurable:
@@ -103,7 +107,7 @@ pb = pb.qc(
     min_nonzero_fraction=0.9, min_samples=3)
 ```
 
-`min_cells` (10), `max_standard_deviations` (3), and `min_nonzero_fraction` (0.8) are the three filters above; pass `None` to switch any off, or `min_nonzero_fraction=0` to drop only all-zero genes. `min_samples` (2) sets how many samples a cell type needs to survive — the cutoff that dropped Plasmablast.
+`min_cells`, `max_standard_deviations`, and `min_nonzero_fraction` (defaults 10, 3, and 0.8) are the three filters above; pass `None` to switch any off, or `min_nonzero_fraction=0` to drop only all-zero genes. `min_samples` (default 2) sets how many samples a cell type needs to survive — the cutoff that dropped Plasmablast.
 
 `custom_filter` adds an extra per-sample Boolean filter, `cell_types` / `excluded_cell_types` limit QC to some cell types, and `verbose=False` silences the per-step log.
 :::
@@ -155,7 +159,7 @@ The same IFN-gamma-vs-PBS comparison can be expressed without `contrasts`. Recod
 ```python
 pb = pb.with_columns_obs(
     cytokine=pl.col('cytokine').cast(pl.Enum(['PBS', 'IFN-gamma'])))
-pb = pb.library_size()
+pb = pb.library_size(overwrite=True)
 de = pb.DE(
     '~ cytokine + donor + log2(num_cells) + log2(library_size)',
     coefficient='cytokineIFN-gamma',
@@ -238,7 +242,8 @@ Classic interferon-response genes recur across cell types — `LAP3`, `GBP5`, `I
 {meth}`~brisc.DE.plot_volcano` plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:
 
 ```python
-de.plot_volcano('CD14 Mono', 'scratch/volcano.png', significance_column='FDR')
+de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
+                ylabel='$-log_{10}(FDR)$')
 ```
 
 :::{image} images/volcano.png
@@ -250,6 +255,7 @@ de.plot_volcano('CD14 Mono', 'scratch/volcano.png', significance_column='FDR')
 :::{dropdown} Other result options
 - {meth}`~brisc.DE.plot_voom` draws the mean–variance trend that voom fits, with one curve per group (when using voomByGroup).
 - `significance_column='Bonferroni'` or a lower `threshold` in `get_hits` and `plot_volcano` gives a stricter cut.
+- {meth}`~brisc.DE.save` writes the results (and voom info) to a directory; reload them later with {meth}`DE('dir') <brisc.DE.__init__>`.
 :::
 
 ## Pipeline summary
@@ -282,11 +288,10 @@ de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
 
 | Step | Method | What it does |
 |---|---|---|
-| Load | {meth}`SingleCell('data.h5ad') <brisc.SingleCell.__init__>` | Read data from any supported format |
+| Load | {meth}`SingleCell() <brisc.SingleCell.__init__>` | Read data from any supported format |
 | Quality control | {meth}`sc.qc() <brisc.SingleCell.qc>` | Filter low-quality cells |
-| Pseudobulk | {meth}`sc.pseudobulk('sample', 'cell_type') <brisc.SingleCell.pseudobulk>` | Sum raw counts per sample × cell type |
-| Filter conditions | {meth}`pb.filter_obs() <brisc.Pseudobulk.filter_obs>` | Keep the IFN-gamma and PBS samples |
-| Sample QC | {meth}`pb.qc('cytokine') <brisc.Pseudobulk.qc>` | Filter low-quality samples and genes per group |
+| Pseudobulk | {meth}`sc.pseudobulk() <brisc.SingleCell.pseudobulk>` | Sum raw counts per sample × cell type |
+| Sample QC | {meth}`pb.qc() <brisc.Pseudobulk.qc>` | Filter low-quality samples and genes per group |
 | Library size | {meth}`pb.library_size() <brisc.Pseudobulk.library_size>` | Compute TMM-normalized library sizes |
 | Differential expression | {meth}`pb.DE() <brisc.Pseudobulk.DE>` | Fit a limma-voom model per cell type |
 | Volcano plot | {meth}`de.plot_volcano() <brisc.DE.plot_volcano>` | Plot fold change against significance for one cell type |

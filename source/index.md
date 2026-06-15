@@ -91,8 +91,7 @@ sc_query = sc_query.normalize()
 sc_ref, sc_query = sc_ref.pca(sc_query)
 sc_ref, sc_query = sc_ref.harmonize(sc_query)
 sc_query = sc_query.label_transfer_from(
-  sc_ref, 'cell_type',
-  cell_type_column='cell_type_transferred')
+  sc_ref, 'cell_type')
 ```
 
 </div>
@@ -109,6 +108,7 @@ pb = SingleCell('data.h5ad')\
   .pseudobulk('sample', 'cell_type')
 de = pb\
   .qc('condition')\
+  .library_size()\
   .DE('~ condition + sex + pmi',
       group='condition',
       categorical_columns=['condition', 'sex'])

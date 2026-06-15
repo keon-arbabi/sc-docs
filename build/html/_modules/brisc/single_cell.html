@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>brisc.single_cell &#8212; brisc  documentation</title>
+    <title>brisc.single_cell &#8212; brisc documentation</title>
   
   
   
@@ -400,7 +400,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.validated_dict</span><span class="w"> </span><span class="kn">import</span> <span class="n">Obsm</span><span class="p">,</span> <span class="n">Obsp</span><span class="p">,</span> <span class="n">Uns</span><span class="p">,</span> <span class="n">Varm</span><span class="p">,</span> <span class="n">Varp</span>
 <span class="nf">import_cython</span><span class="p">({</span>
     <span class="s1">&#39;doublets&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;call_doublets&#39;</span><span class="p">,</span> <span class="s1">&#39;compute_cxds&#39;</span><span class="p">,</span> <span class="s1">&#39;compute_obs&#39;</span><span class="p">,</span> <span class="s1">&#39;compute_S&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;get_hvgs&#39;</span><span class="p">,</span> <span class="s1">&#39;simulate_doublets&#39;</span><span class="p">),</span>
+                 <span class="s1">&#39;get_hvgs&#39;</span><span class="p">,</span> <span class="s1">&#39;get_simulated_doublets_max_nnz&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;simulate_doublets&#39;</span><span class="p">),</span>
     <span class="s1">&#39;embed&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;localmap&#39;</span><span class="p">,</span> <span class="s1">&#39;pacmap&#39;</span><span class="p">,</span> <span class="s1">&#39;umap_fuzzy_weights&#39;</span><span class="p">,</span> <span class="s1">&#39;umap_optimize&#39;</span><span class="p">),</span>
     <span class="s1">&#39;harmonize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;label_transfer&#39;</span><span class="p">,</span> <span class="s1">&#39;harmony&#39;</span><span class="p">,</span> <span class="s1">&#39;harmony_original&#39;</span><span class="p">,</span>
                   <span class="s1">&#39;normalize_rows&#39;</span><span class="p">),</span>
@@ -934,19 +935,20 @@
                                 <span class="n">datasets_to_load</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;indices&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                                 <span class="n">datasets_to_load</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s1">&#39;indptr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-                        <span class="c1"># 2. Preload datasets in parallel</span>
-                        <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                        <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                        <span class="c1"># the multiprocessing-based reader.</span>
-                        <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                        <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                        <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                        <span class="c1"># associated with the open file handle when forking.</span>
+                        <span class="c1"># 2. Preload datasets in parallel.</span>
+                        <span class="c1"># If any dataset is chunked or compressed (indicated by</span>
+                        <span class="c1"># a `None` `file_offset`), fall back to the</span>
+                        <span class="c1"># multiprocessing-based reader. The HDF5 file must be</span>
+                        <span class="c1"># closed before `read_parallel_multiprocessing()` to</span>
+                        <span class="c1"># avoid the child processes inheriting the HDF5</span>
+                        <span class="c1"># library&#39;s state associated with the open file handle</span>
+                        <span class="c1"># when forking.</span>
                         <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                             <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                                 <span class="n">h5ad_file</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                               <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                             <span class="n">h5ad_file</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                             <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                                 <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -1228,7 +1230,8 @@
                             <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                                 <span class="n">h5Seurat_file</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                               <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                             <span class="n">h5Seurat_file</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                             <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                                 <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -1418,7 +1421,8 @@
                             <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                                 <span class="n">h5_file</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                               <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                               <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                             <span class="n">h5_file</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                             <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                                 <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -2981,18 +2985,12 @@
                 <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_tabulate_h5ad_dataframe</span><span class="p">(</span>
                     <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">,</span> <span class="na">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -3059,18 +3057,12 @@
                 <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_tabulate_h5ad_dataframe</span><span class="p">(</span>
                     <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;var&#39;</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">,</span> <span class="na">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -3166,18 +3158,12 @@
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
                     <span class="k">return</span> <span class="p">{}</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -3280,18 +3266,12 @@
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
                     <span class="k">return</span> <span class="p">{}</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -3384,18 +3364,12 @@
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
                     <span class="k">return</span> <span class="p">{}</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -3493,18 +3467,12 @@
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
                     <span class="k">return</span> <span class="p">{}</span>
                 <span class="c1"># 2. Preload datasets in parallel</span>
-                <span class="c1"># If any fixed-width dataset is chunked or compressed</span>
-                <span class="c1"># (indicated by a `None` `file_offset`), fall back to</span>
-                <span class="c1"># the multiprocessing-based reader.</span>
-                <span class="c1"># Crucial: the HDF5 file must be closed before</span>
-                <span class="c1"># `read_parallel_multiprocessing()` to avoid the child</span>
-                <span class="c1"># processes inheriting the HDF5 library&#39;s state</span>
-                <span class="c1"># associated with the open file handle when forking.</span>
                 <span class="n">datasets_to_preload</span> <span class="o">=</span> \
                     <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_get_datasets_to_preload</span><span class="p">(</span>
                         <span class="n">f</span><span class="p">,</span> <span class="n">datasets_to_load</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span>
-                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                       <span class="k">for</span> <span class="n">datasets</span> <span class="ow">in</span> <span class="n">datasets_to_preload</span>
+                       <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">):</span>
                     <span class="n">f</span><span class="o">.</span><span class="nf">close</span><span class="p">()</span>
                     <span class="n">preloaded_datasets</span> <span class="o">=</span> \
                         <span class="nf">read_parallel_multiprocessing</span><span class="p">(</span>
@@ -4781,12 +4749,14 @@
                         <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">mmwrite</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="nf">mmwrite</span><span class="p">(</span><span class="n">filename_expanduser</span><span class="p">,</span> <span class="n">counts</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">is_mtx</span><span class="p">:</span>
+                    <span class="nf">mmwrite</span><span class="p">(</span><span class="n">filename_expanduser</span><span class="p">,</span> <span class="n">counts</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_obs</span><span class="o">.</span><span class="nf">write_csv</span><span class="p">(</span><span class="n">barcode_filename</span><span class="p">,</span> <span class="na">include_header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_var</span><span class="o">.</span><span class="nf">write_csv</span><span class="p">(</span><span class="n">feature_filename</span><span class="p">,</span> <span class="na">include_header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="kn">import</span><span class="w"> </span><span class="nn">gzip</span>
+                    <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="nf">open</span><span class="p">(</span><span class="n">filename_expanduser</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="nf">mmwrite</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">counts</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
                     <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="nf">open</span><span class="p">(</span><span class="n">barcode_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_obs</span><span class="o">.</span><span class="nf">write_csv</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="na">include_header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
                     <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="nf">open</span><span class="p">(</span><span class="n">feature_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -7903,7 +7873,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A new SingleCell dataset with the specified key(s) removed from</span>
-<span class="sd">            uns.</span>
+<span class="sd">            `uns`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="nf">to_tuple_checked</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="s1">&#39;keys&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;strings&#39;</span><span class="p">)</span>
         <span class="nf">check_types</span><span class="p">(</span><span class="n">more_keys</span><span class="p">,</span> <span class="s1">&#39;more_keys&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;strings&#39;</span><span class="p">)</span>
@@ -9581,7 +9551,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A new SingleCell dataset where the function has been applied to</span>
-<span class="sd">            uns.</span>
+<span class="sd">            `uns`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check that `function` is callable</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
@@ -10337,11 +10307,11 @@
                        <span class="o">.</span><span class="nf">with_columns</span><span class="p">(</span>
                            <span class="na">_SingleCell_batch_indices</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">int_range</span><span class="p">(</span>
                                <span class="n">pl</span><span class="o">.</span><span class="nf">len</span><span class="p">(),</span> <span class="na">dtype</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="n">UInt32</span><span class="p">))</span>
-                       <span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">QC_column</span><span class="p">))</span> \
-                <span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="n">batch_column_name</span><span class="p">,</span> <span class="na">maintain_order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> \
-                <span class="o">.</span><span class="nf">agg</span><span class="p">(</span><span class="s1">&#39;_SingleCell_batch_indices&#39;</span><span class="p">)</span> \
-                <span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">&#39;_SingleCell_batch_indices&#39;</span><span class="p">)</span> \
-                <span class="o">.</span><span class="nf">collect</span><span class="p">()</span> \
+                       <span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">QC_column</span><span class="p">))</span>\
+                <span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="n">batch_column_name</span><span class="p">,</span> <span class="na">maintain_order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>\
+                <span class="o">.</span><span class="nf">agg</span><span class="p">(</span><span class="s1">&#39;_SingleCell_batch_indices&#39;</span><span class="p">)</span>\
+                <span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">&#39;_SingleCell_batch_indices&#39;</span><span class="p">)</span>\
+                <span class="o">.</span><span class="nf">collect</span><span class="p">()</span>\
                 <span class="o">.</span><span class="nf">to_series</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If neither `batch_column` nor `QC_column` were specified, use a</span>
@@ -10371,8 +10341,8 @@
             <span class="n">doublet_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">array</span><span class="p">([],</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
         <span class="n">num_total_genes</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">all_detection_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_total_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
-        <span class="n">detection_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
-        <span class="n">ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">detection_counts_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+        <span class="n">ps_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">hvgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
         <span class="n">distances</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">obs_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">num_genes</span> <span class="o">*</span> <span class="n">num_genes</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
@@ -10406,11 +10376,11 @@
 
                 <span class="n">batch_num_genes</span> <span class="o">=</span> <span class="nf">get_hvgs</span><span class="p">(</span>
                     <span class="na">all_detection_counts</span><span class="o">=</span><span class="n">all_detection_counts</span><span class="p">,</span>
-                    <span class="na">detection_counts</span><span class="o">=</span><span class="n">detection_counts</span><span class="p">,</span> <span class="na">ps</span><span class="o">=</span><span class="n">ps</span><span class="p">,</span> <span class="na">hvgs</span><span class="o">=</span><span class="n">hvgs</span><span class="p">,</span>
-                    <span class="na">distances</span><span class="o">=</span><span class="n">distances</span><span class="p">,</span> <span class="na">num_cells</span><span class="o">=</span><span class="n">num_cells</span><span class="p">,</span>
+                    <span class="na">detection_counts</span><span class="o">=</span><span class="n">detection_counts_buffer</span><span class="p">,</span> <span class="na">ps</span><span class="o">=</span><span class="n">ps_buffer</span><span class="p">,</span>
+                    <span class="na">hvgs</span><span class="o">=</span><span class="n">hvgs</span><span class="p">,</span> <span class="na">distances</span><span class="o">=</span><span class="n">distances</span><span class="p">,</span> <span class="na">num_cells</span><span class="o">=</span><span class="n">num_cells</span><span class="p">,</span>
                     <span class="na">num_total_genes</span><span class="o">=</span><span class="n">num_total_genes</span><span class="p">,</span> <span class="na">num_genes</span><span class="o">=</span><span class="n">num_genes</span><span class="p">)</span>
-                <span class="n">detection_counts</span> <span class="o">=</span> <span class="n">detection_counts</span><span class="p">[:</span><span class="n">batch_num_genes</span><span class="p">]</span>
-                <span class="n">ps</span> <span class="o">=</span> <span class="n">ps</span><span class="p">[:</span><span class="n">batch_num_genes</span><span class="p">]</span>
+                <span class="n">detection_counts</span> <span class="o">=</span> <span class="n">detection_counts_buffer</span><span class="p">[:</span><span class="n">batch_num_genes</span><span class="p">]</span>
+                <span class="n">ps</span> <span class="o">=</span> <span class="n">ps_buffer</span><span class="p">[:</span><span class="n">batch_num_genes</span><span class="p">]</span>
                 <span class="n">X_batch</span> <span class="o">=</span> <span class="n">X_batch</span><span class="p">[:,</span> <span class="n">hvgs</span><span class="p">[:</span><span class="n">batch_num_genes</span><span class="p">]]</span>
 
                 <span class="c1"># Convert `X_batch` to CSR, if CSC</span>
@@ -10419,18 +10389,20 @@
 
                 <span class="c1"># Sort indices, if not already sorted (necessary for</span>
                 <span class="c1"># `simulate_doublets`)</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">X</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">X_batch</span><span class="o">.</span><span class="n">has_sorted_indices</span><span class="p">:</span>
                     <span class="n">X_batch</span><span class="o">.</span><span class="nf">sort_indices</span><span class="p">()</span>
 
                 <span class="c1"># Get `obs`, where `obs[i, j]` is the number of cells that</span>
-                <span class="c1"># express exactly one of genes `i` and `j`</span>
+                <span class="c1"># express exactly one of genes `i` and `j`. Only the upper</span>
+                <span class="c1"># triangle of `obs` is used; the rest is garbage.</span>
                 <span class="n">obs</span> <span class="o">=</span> <span class="n">obs_buffer</span><span class="p">[:</span><span class="n">batch_num_genes</span> <span class="o">*</span> <span class="n">batch_num_genes</span><span class="p">]</span>\
                     <span class="o">.</span><span class="nf">reshape</span><span class="p">((</span><span class="n">batch_num_genes</span><span class="p">,</span> <span class="n">batch_num_genes</span><span class="p">))</span>
                 <span class="nf">compute_obs</span><span class="p">(</span><span class="na">detection_counts</span><span class="o">=</span><span class="n">detection_counts</span><span class="p">,</span>
                             <span class="na">indices</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="na">indptr</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span>
                             <span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">num_threads</span><span class="o">=</span><span class="n">num_threads</span><span class="p">)</span>
 
-                <span class="c1"># Get `S`, the upper-tail log binomial p-values of `obs`</span>
+                <span class="c1"># Get `S`, the upper-tail log binomial p-values of `obs`. Only</span>
+                <span class="c1"># the upper triangle of `S` is used; the rest is garbage.</span>
                 <span class="n">S</span> <span class="o">=</span> <span class="n">S_buffer</span><span class="p">[:</span><span class="n">batch_num_genes</span> <span class="o">*</span> <span class="n">batch_num_genes</span><span class="p">]</span>\
                     <span class="o">.</span><span class="nf">reshape</span><span class="p">((</span><span class="n">batch_num_genes</span><span class="p">,</span> <span class="n">batch_num_genes</span><span class="p">))</span>
                 <span class="nf">compute_S</span><span class="p">(</span><span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">ps</span><span class="o">=</span><span class="n">ps</span><span class="p">,</span> <span class="na">num_cells</span><span class="o">=</span><span class="n">num_cells</span><span class="p">,</span> <span class="na">S</span><span class="o">=</span><span class="n">S</span><span class="p">,</span>
@@ -10446,13 +10418,13 @@
 
                 <span class="c1"># Now simulate doublets within the batch and compute their cxds</span>
                 <span class="c1"># scores, using the original `S` matrix derived from the real</span>
-                <span class="c1"># data. Conservatively allocate twice as much memory for the</span>
-                <span class="c1"># indices as the original indices, since in the worst-case</span>
-                <span class="c1"># scenario none of the indices will match up and all coinflips</span>
-                <span class="c1"># will be 1.</span>
+                <span class="c1"># data. Conservatively allocate enough memory for `sim_indices`</span>
+                <span class="c1"># for the worst-case scenario where every pair of cells shares</span>
+                <span class="c1"># zero genes.</span>
+                <span class="n">max_nnz</span> <span class="o">=</span> <span class="nf">get_simulated_doublets_max_nnz</span><span class="p">(</span>
+                    <span class="n">X_batch</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">num_cells</span><span class="p">,</span> <span class="n">batch_index</span><span class="p">)</span>
                 <span class="n">sim_indptr</span> <span class="o">=</span> <span class="n">sim_indptr_buffer</span><span class="p">[:</span><span class="n">num_cells</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">sim_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indices</span><span class="p">),</span>
-                                       <span class="na">dtype</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">sim_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">empty</span><span class="p">(</span><span class="n">max_nnz</span><span class="p">,</span> <span class="na">dtype</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
                 <span class="nf">simulate_doublets</span><span class="p">(</span><span class="na">data</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="na">indices</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span>
                                   <span class="na">indptr</span><span class="o">=</span><span class="n">X_batch</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span>
                                   <span class="na">sim_indices</span><span class="o">=</span><span class="n">sim_indices</span><span class="p">,</span>
@@ -10593,7 +10565,7 @@
 <span class="sd">                         `self.num_threads` cores.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            A new SingleCell dataset where `var` contains two additional</span>
+<span class="sd">            A new SingleCell dataset where `obs` contains two additional</span>
 <span class="sd">            columns, `doublet_column` (default: `doublet`), indicating whether</span>
 <span class="sd">            each cell is predicted to be a doublet, and `doublet_score_column`</span>
 <span class="sd">            (default: `&#39;doublet_score&#39;`), containing each cell&#39;s doublet score.</span>
@@ -11633,7 +11605,12 @@
                     <span class="n">cell_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nf">array</span><span class="p">([],</span> <span class="na">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
                     <span class="n">num_cells</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">num_cells</span> <span class="o">=</span> <span class="n">cell_mask</span><span class="o">.</span><span class="nf">sum</span><span class="p">()</span>
+                    <span class="c1"># The cast to int is necessary for floating-point identical</span>
+                    <span class="c1"># results: in NumPy &gt;= 2.0, a Python int is a &quot;weak&quot; scalar</span>
+                    <span class="c1"># (int * float32 array -&gt; float32) but a NumPy integer is</span>
+                    <span class="c1"># &quot;strong&quot; (np.int64 * float32 array -&gt; float64 since</span>
+                    <span class="c1"># `np.promote_types(int64, float32) == float64`).</span>
+                    <span class="n">num_cells</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cell_mask</span><span class="o">.</span><span class="nf">sum</span><span class="p">())</span>
                 <span class="nf">gene_mean_and_variance_csc</span><span class="p">(</span>
                     <span class="na">data</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="na">indices</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="na">indptr</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span>
                     <span class="na">cell_mask</span><span class="o">=</span><span class="n">cell_mask</span><span class="p">,</span> <span class="na">num_cells</span><span class="o">=</span><span class="n">num_cells</span><span class="p">,</span>
@@ -11988,7 +11965,7 @@
 <span class="sd">            seed: the random seed to use when initializing the PCs, via R&#39;s</span>
 <span class="sd">                  `set.seed()` function</span>
 <span class="sd">            match_parallel: if `False`, use a different order of operations for</span>
-<span class="sd">                            single-threaded PCA. This gives a moderate (~60%)</span>
+<span class="sd">                            single-threaded PCA. This gives a moderate (~2x)</span>
 <span class="sd">                            boost in single-threaded performance, and lower</span>
 <span class="sd">                            memory usage, at the cost of no longer exactly</span>
 <span class="sd">                            matching the PCs produced by the multithreaded</span>
@@ -14188,7 +14165,7 @@
             <span class="n">QC_column</span><span class="p">:</span> <span class="n">SingleCellColumn</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;passed_QC&#39;</span><span class="p">,</span>
             <span class="n">other_QC_column</span><span class="p">:</span> <span class="n">SingleCellColumn</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s1">&#39;passed_QC&#39;</span><span class="p">,</span>
             <span class="n">Harmony_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;harmony&#39;</span><span class="p">,</span>
-            <span class="n">cell_type_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+            <span class="n">cell_type_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">confidence_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">next_best</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
             <span class="n">next_best_cell_type_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -14225,13 +14202,12 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            other: the dataset to transfer cell-type labels from</span>
-<span class="sd">            original_cell_type_column: a String, Enum, Categorical, or integer</span>
-<span class="sd">                                       column of `other.obs` containing</span>
-<span class="sd">                                       cell-type labels. Can be a column name,</span>
-<span class="sd">                                       a polars expression, a polars Series, a</span>
-<span class="sd">                                       1D NumPy array, or a function that takes</span>
-<span class="sd">                                       in `other` and returns a polars Series</span>
-<span class="sd">                                       or 1D NumPy array.</span>
+<span class="sd">            original_cell_type_column: a column of `other.obs` containing</span>
+<span class="sd">                                       cell-type labels. Unless</span>
+<span class="sd">                                       `cell_type_column` is specified, the</span>
+<span class="sd">                                       same column name will be used for the</span>
+<span class="sd">                                       column to be added to `self` containing</span>
+<span class="sd">                                       the transferred labels.</span>
 <span class="sd">            QC_column: an optional Boolean column of `self.obs` indicating</span>
 <span class="sd">                       which cells passed QC. Can be a column name, a polars</span>
 <span class="sd">                       expression, a polars Series, a 1D NumPy array, or a</span>
@@ -14252,7 +14228,8 @@
 <span class="sd">                              indicating each cell&#39;s most likely cell type,</span>
 <span class="sd">                              i.e. the most common cell-type label among the</span>
 <span class="sd">                              cell&#39;s `num_neighbors` nearest neighbors in</span>
-<span class="sd">                              `other`</span>
+<span class="sd">                              `other`. If `None`, defaults to</span>
+<span class="sd">                              `original_cell_type_column`.</span>
 <span class="sd">            confidence_column: the name of a column to be added to `self.obs`</span>
 <span class="sd">                               indicating each cell&#39;s cell-type confidence,</span>
 <span class="sd">                               i.e. the fraction of the cell&#39;s `num_neighbors`</span>
@@ -14403,8 +14380,27 @@
 <span class="sd">            installing brisc via conda, but you can also do it manually via</span>
 <span class="sd">            `conda install &quot;libblas=*=*mkl&quot; scipy`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Check that `cell_type_column` is a string</span>
-        <span class="nf">check_type</span><span class="p">(</span><span class="n">cell_type_column</span><span class="p">,</span> <span class="s1">&#39;cell_type_column&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;a string&#39;</span><span class="p">)</span>
+        <span class="c1"># Check that `other` is a SingleCell dataset</span>
+        <span class="nf">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="n">SingleCell</span><span class="p">,</span> <span class="s1">&#39;a SingleCell dataset&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check that `cell_type_column` is a string or `None`; if `None`, set</span>
+        <span class="c1"># to `original_cell_type_column`.</span>
+        <span class="k">if</span> <span class="n">cell_type_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cell_type_column</span> <span class="o">=</span> <span class="n">original_cell_type_column</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nf">check_type</span><span class="p">(</span><span class="n">cell_type_column</span><span class="p">,</span> <span class="s1">&#39;cell_type_column&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;a string&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Get `original_cell_type_column` from `other`</span>
+        <span class="k">if</span> <span class="n">original_cell_type_column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">_obs</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;original_cell_type_column </span><span class="si">{</span><span class="n">original_cell_type_column</span><span class="si">!r}</span><span class="s1"> is &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;not a column of other.obs&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+        <span class="n">original_original_cell_type_column</span> <span class="o">=</span> <span class="n">original_cell_type_column</span>
+        <span class="n">original_cell_type_column</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">_obs</span><span class="p">[</span><span class="n">original_cell_type_column</span><span class="p">]</span>
+        <span class="nf">check_dtype</span><span class="p">(</span><span class="n">original_cell_type_column</span><span class="p">,</span>
+                    <span class="s1">&#39;other.obs[original_cell_type_column]&#39;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">Categorical</span><span class="p">,</span> <span class="s1">&#39;integer&#39;</span><span class="p">))</span>
 
         <span class="c1"># Check that `confidence_column` is a string or `None`; if `None`, set</span>
         <span class="c1"># to `f&#39;{cell_type_column}_confidence&#39;`.</span>
@@ -14475,9 +14471,6 @@
                         <span class="sa">f</span><span class="s1">&#39;to not compute </span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
 
-        <span class="c1"># Check that `other` is a SingleCell dataset</span>
-        <span class="nf">check_type</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="n">SingleCell</span><span class="p">,</span> <span class="s1">&#39;a SingleCell dataset&#39;</span><span class="p">)</span>
-
         <span class="c1"># Get `QC_column` from `self` and `other_QC_column` from `other`</span>
         <span class="k">if</span> <span class="n">QC_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">QC_column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="nf">_get_column</span><span class="p">(</span>
@@ -14487,13 +14480,6 @@
             <span class="n">other_QC_column</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="nf">_get_column</span><span class="p">(</span>
                 <span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">other_QC_column</span><span class="p">,</span> <span class="s1">&#39;other_QC_column&#39;</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">Boolean</span><span class="p">,</span>
                 <span class="na">allow_missing</span><span class="o">=</span><span class="n">other_QC_column</span> <span class="o">==</span> <span class="s1">&#39;passed_QC&#39;</span><span class="p">)</span>
-
-        <span class="c1"># Get `original_cell_type_column` from `other`</span>
-        <span class="n">original_original_cell_type_column</span> <span class="o">=</span> <span class="n">original_cell_type_column</span>
-        <span class="n">original_cell_type_column</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="nf">_get_column</span><span class="p">(</span>
-            <span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">original_cell_type_column</span><span class="p">,</span> <span class="s1">&#39;original_cell_type_column&#39;</span><span class="p">,</span>
-            <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">Categorical</span><span class="p">,</span> <span class="s1">&#39;integer&#39;</span><span class="p">),</span>
-            <span class="na">QC_column</span><span class="o">=</span><span class="n">other_QC_column</span><span class="p">)</span>
 
         <span class="c1"># If `other_QC_column` was specified, filter the cell type labels in</span>
         <span class="c1"># `original_cell_type_column` to cells passing QC</span>
@@ -14506,12 +14492,10 @@
         <span class="n">most_common_cell_types</span> <span class="o">=</span> \
             <span class="n">original_cell_type_column</span><span class="o">.</span><span class="nf">value_counts</span><span class="p">(</span><span class="na">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="nf">to_series</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">most_common_cell_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">original_cell_type_column_description</span> <span class="o">=</span> \
-                <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_describe_column</span><span class="p">(</span><span class="s1">&#39;original_cell_type_column&#39;</span><span class="p">,</span>
-                                            <span class="n">original_original_cell_type_column</span><span class="p">)</span>
             <span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">original_cell_type_column_description</span><span class="si">}</span><span class="s1"> must have at least &#39;</span>
-                <span class="sa">f</span><span class="s1">&#39;two distinct cell types&#39;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s1">&#39;original_cell_type_column &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;(other[</span><span class="si">{</span><span class="n">original_original_cell_type_column</span><span class="si">!r}</span><span class="s1">]) must have &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;at least two distinct cell types&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">other_QC_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">error_message</span> <span class="o">+=</span> <span class="s1">&#39; after filtering to cells passing QC&#39;</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
@@ -14844,16 +14828,17 @@
                        <span class="na">next_best_confidences</span><span class="o">=</span><span class="n">next_best_confidences</span><span class="p">,</span>
                        <span class="na">num_threads</span><span class="o">=</span><span class="n">num_threads</span><span class="p">)</span>
 
-        <span class="c1"># Map the cell-type codes back to their labels by constructing a polars</span>
-        <span class="c1"># Series from the codes, then casting it to an Enum. Also convert</span>
-        <span class="c1"># cell-type confidences to Series.</span>
-        <span class="n">cell_types</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">Series</span><span class="p">(</span><span class="n">cell_type_column</span><span class="p">,</span> <span class="n">cell_types</span><span class="p">)</span>\
-            <span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">Enum</span><span class="p">(</span><span class="n">most_common_cell_types</span><span class="o">.</span><span class="nf">to_list</span><span class="p">()))</span>
+        <span class="c1"># Map the cell-type codes back to their labels by gathering from</span>
+        <span class="c1"># `most_common_cell_types`, preserving the original dtype and category</span>
+        <span class="c1"># order. Also convert cell-type confidences to Series.</span>
+        <span class="n">cell_types</span> <span class="o">=</span> <span class="n">most_common_cell_types</span>\
+            <span class="o">.</span><span class="nf">gather</span><span class="p">(</span><span class="n">cell_types</span><span class="p">)</span>\
+            <span class="o">.</span><span class="nf">rename</span><span class="p">(</span><span class="n">cell_type_column</span><span class="p">)</span>
         <span class="n">confidences</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">Series</span><span class="p">(</span><span class="n">confidence_column</span><span class="p">,</span> <span class="n">confidences</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">next_best</span><span class="p">:</span>
-            <span class="n">next_best_cell_types</span> <span class="o">=</span> \
-                <span class="n">pl</span><span class="o">.</span><span class="nf">Series</span><span class="p">(</span><span class="n">next_best_cell_type_column</span><span class="p">,</span> <span class="n">next_best_cell_types</span><span class="p">)</span>\
-                <span class="o">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">Enum</span><span class="p">(</span><span class="n">most_common_cell_types</span><span class="o">.</span><span class="nf">to_list</span><span class="p">()))</span>
+            <span class="n">next_best_cell_types</span> <span class="o">=</span> <span class="n">most_common_cell_types</span>\
+                <span class="o">.</span><span class="nf">gather</span><span class="p">(</span><span class="n">next_best_cell_types</span><span class="p">)</span>\
+                <span class="o">.</span><span class="nf">rename</span><span class="p">(</span><span class="n">next_best_cell_type_column</span><span class="p">)</span>
             <span class="n">next_best_confidences</span> <span class="o">=</span> \
                 <span class="n">pl</span><span class="o">.</span><span class="nf">Series</span><span class="p">(</span><span class="n">next_best_confidence_column</span><span class="p">,</span> <span class="n">next_best_confidences</span><span class="p">)</span>
             <span class="n">columns</span> <span class="o">=</span> <span class="n">cell_types</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="n">next_best_cell_types</span><span class="p">,</span> \
@@ -20017,7 +20002,7 @@
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

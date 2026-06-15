@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>brisc &#8212; brisc  documentation</title>
+    <title>brisc &#8212; brisc documentation</title>
   
   
   
@@ -419,8 +419,7 @@
 <span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.pca.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pca</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
 <span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.harmonize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">harmonize</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
 <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.label_transfer_from.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">label_transfer_from</span></a><span class="p">(</span>
-  <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
-  <span class="na">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">)</span>
+  <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -435,6 +434,7 @@
   <span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.pseudobulk.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pseudobulk</span></a><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
 <span class="n">de</span> <span class="o">=</span> <span class="n">pb</span>\
   <span class="o">.</span><a href="api/pseudobulk/api/brisc.Pseudobulk.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="s1">&#39;condition&#39;</span><span class="p">)</span>\
+  <span class="o">.</span><a href="api/pseudobulk/api/brisc.Pseudobulk.library_size.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">library_size</span></a><span class="p">()</span>\
   <span class="o">.</span><a href="api/pseudobulk/api/brisc.Pseudobulk.DE.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">DE</span></a><span class="p">(</span><span class="s1">&#39;~ condition + sex + pmi&#39;</span><span class="p">,</span>
       <span class="na">group</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span>
       <span class="na">categorical_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">])</span>
@@ -501,7 +501,7 @@ document.body.classList.add('landing-page');
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

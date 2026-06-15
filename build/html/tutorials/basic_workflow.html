@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Basic Workflow &#8212; brisc  documentation</title>
+    <title>Basic Workflow &#8212; brisc documentation</title>
   
   
   
@@ -71,7 +71,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   </head>
-  <body class="tutorial-page" class="tutorial-page" data-default-mode="">
+  <body class="tutorial-page" data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
@@ -328,7 +328,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data Manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
 </ul>
 </div>
 </nav></div>
@@ -394,7 +394,7 @@
 <p>This tutorial walks through a standard single-cell analysis from start to finish: loading data, quality control, feature selection, normalization, dimensionality reduction, clustering, embedding, and marker gene identification.</p>
 <section id="dataset">
 <h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading">#</a></h2>
-<p>We use a ~10 million cell PBMC cytokine stimulation dataset from <a class="reference external" href="https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/">Parse Biosciences</a>. Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates — one plate per donor — and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions. Although this dataset is already quality-filtered, we run QC here to demonstrate the workflow.</p>
+<p>We use a ~10 million cell PBMC cytokine stimulation dataset from <a class="reference external" href="https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment/">Parse Biosciences</a>. Cryopreserved PBMCs from twelve healthy donors were seeded at 1 million cells per well in 96-well plates — one plate per donor — and treated with 90 different cytokines or PBS control for 24 hours, yielding 1,092 experimental conditions.</p>
 <p>Download the data:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">subprocess</span><span class="w"> </span><span class="kn">import</span> <span class="n">run</span>
 <span class="nf">run</span><span class="p">(</span><span class="s1">&#39;wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/&#39;</span>
@@ -410,34 +410,14 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 </pre></div>
 </div>
-<p>SingleCell supports reading and writing files from each of the three major single-cell ecosystems:</p>
-<ul class="simple">
-<li><p>scverse/Scanpy AnnData (<code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>)</p></li>
-<li><p>Seurat (<code class="docutils literal notranslate"><span class="pre">.rds</span></code> and <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>)</p></li>
-<li><p>Bioconductor SingleCellExperiment (<code class="docutils literal notranslate"><span class="pre">.rds</span></code>)</p></li>
-</ul>
-<p>as well as raw 10x data files (<code class="docutils literal notranslate"><span class="pre">.h5</span></code> or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>/<code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>). See <a class="reference internal" href="interoperability.html"><span class="std std-doc">Interoperability</span></a> for details on format conversion, partial loading, and the ryp Python-R bridge.</p>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text">Inspecting the file</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">Inspect an <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file’s structure with <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ls()</span></code></a> to see what’s inside — its dimensions and the available <code class="docutils literal notranslate"><span class="pre">obs</span></code>/<code class="docutils literal notranslate"><span class="pre">var</span></code> columns — without loading the data.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>X: 9,697,974 × 40,352 sparse array with 18,830,591,942 non-zero elements, data type &#39;float32&#39;, and first non-zero element = 1
-obs: _index, bc1_well, bc1_wind, bc2_well, bc2_wind, bc3_well, bc3_wind, cell_type, cytokine, donor, gene_count, log1p_n_genes_by_counts,
-     log1p_total_counts, log1p_total_counts_MT, mread_count, pct_counts_MT, sample, species, total_counts_MT, treatment, tscp_count
-var: _index, n_cells
-</pre></div>
-</div>
-</div>
-</details><p><code class="docutils literal notranslate"><span class="pre">num_threads</span></code> controls parallelism for this load and all subsequent operations on the dataset. The default (<code class="docutils literal notranslate"><span class="pre">-1</span></code>) uses all available cores. On shared machines like HPC clusters, setting an explicit value avoids contention with other jobs. It can also be set per step, or changed on the dataset at any time through the <code class="docutils literal notranslate"><span class="pre">num_threads</span></code> property (e.g. <code class="docutils literal notranslate"><span class="pre">sc.num_threads</span> <span class="pre">=</span> <span class="pre">8</span></code>).</p>
-<p><code class="docutils literal notranslate"><span class="pre">obs_columns</span></code> is optional — it loads only the named metadata columns instead of all of them. Omit it to load every column; here we keep just the ones used later in the workflow.</p>
+<p>SingleCell reads and writes the major single-cell formats (<code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5</span></code>, <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>, <code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>). See <a class="reference internal" href="interoperability.html"><span class="std std-doc">Interoperability</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
     <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
     <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">num_threads</span></code> controls parallelism for this load and every later operation on the dataset; <code class="docutils literal notranslate"><span class="pre">-1</span></code> (the default) uses all cores. Set it per step (e.g. <code class="docutils literal notranslate"><span class="pre">sc.pca(num_threads=8)</span></code>) or at any time via the property (<code class="docutils literal notranslate"><span class="pre">sc.num_threads</span> <span class="pre">=</span> <span class="pre">8</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">obs_columns</span></code> loads only the named metadata columns; omit it to load all of them. Here we keep just the columns used later in the workflow.</p>
 <p>A quick look at what was loaded:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.peek_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">peek_obs</span></a><span class="p">()</span>
 </pre></div>
@@ -461,10 +441,24 @@ shape: (6, 2)
 shape: (2, 2)
 </pre></div>
 </div>
-</section>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Inspect a file without loading</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ls()</span></code></a> reports an <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file’s dimensions and its <code class="docutils literal notranslate"><span class="pre">obs</span></code>/<code class="docutils literal notranslate"><span class="pre">var</span></code> columns without reading the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>X: 9,697,974 × 40,352 sparse array with 18,830,591,942 non-zero elements, data type &#39;float32&#39;, and first non-zero element = 1
+obs: _index, bc1_well, bc1_wind, bc2_well, bc2_wind, bc3_well, bc3_wind, cell_type, cytokine, donor, gene_count, log1p_n_genes_by_counts,
+     log1p_total_counts, log1p_total_counts_MT, mread_count, pct_counts_MT, sample, species, total_counts_MT, treatment, tscp_count
+var: _index, n_cells
+</pre></div>
+</div>
+</div>
+</details></section>
 <section id="quality-control">
 <h2>Quality control<a class="headerlink" href="#quality-control" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> filters out low-quality cells. By default, it keeps cells with:</p>
+<p>This dataset is already quality-filtered, but we run <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> to demonstrate the step. By default it keeps cells with:</p>
 <ul class="simple">
 <li><p><strong>≤5% mitochondrial reads</strong></p></li>
 <li><p><strong>≥100 genes detected</strong></p></li>
@@ -484,8 +478,8 @@ Filtering to cells with non-zero MALAT1 expression...
 Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed QC...
 </pre></div>
 </div>
-<p>The pipeline assumes raw integer counts, so <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> errors on floating-point input — a guard against running on normalized data. This dataset’s raw counts are stored as <code class="docutils literal notranslate"><span class="pre">float32</span></code>, so we pass <code class="docutils literal notranslate"><span class="pre">allow_float=True</span></code> to allow them; only do this when your values are genuinely raw counts stored as floats.</p>
-<p><code class="docutils literal notranslate"><span class="pre">subset=False</span></code> (the default) keeps all cells and adds a <code class="docutils literal notranslate"><span class="pre">passed_QC</span></code> column to <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs.html#brisc.SingleCell.obs" title="brisc.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a> — downstream methods automatically ignore flagged cells via their <code class="docutils literal notranslate"><span class="pre">QC_column</span></code> argument. <code class="docutils literal notranslate"><span class="pre">subset=True</span></code> instead removes failing cells, but roughly doubles peak memory by copying <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> expects raw integer counts and errors on floating-point input, guarding against running on normalized data. This dataset’s raw counts are stored as <code class="docutils literal notranslate"><span class="pre">float32</span></code>, so we pass <code class="docutils literal notranslate"><span class="pre">allow_float=True</span></code> — only safe when the values are genuinely raw counts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">subset=False</span></code> (the default) keeps all cells and adds a <code class="docutils literal notranslate"><span class="pre">passed_QC</span></code> column to <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs.html#brisc.SingleCell.obs" title="brisc.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>; downstream methods skip flagged cells via their <code class="docutils literal notranslate"><span class="pre">QC_column</span></code> argument. <code class="docutils literal notranslate"><span class="pre">subset=True</span></code> removes failing cells instead, but roughly doubles peak memory by copying <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">obs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -539,9 +533,10 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Customizing thresholds</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Each threshold is configurable:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">max_mito_fraction</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="na">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="na">nonzero_MALAT1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">max_mito_fraction</span><span class="o">=</span><span class="mf">0.10</span><span class="p">,</span> <span class="na">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="na">nonzero_MALAT1</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">custom_filter</span></code> adds an extra per-cell filter on top of these: pass a Boolean polars expression (or column name) and only cells where it is <code class="docutils literal notranslate"><span class="pre">True</span></code> are kept.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -560,6 +555,14 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 <span class="sd-summary-text">Skipping QC</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> sets <code class="docutils literal notranslate"><span class="pre">uns['QCed']</span> <span class="pre">=</span> <span class="pre">True</span></code>. Downstream methods check this flag and error if QC has not been run. If your data is already clean, run <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.skip_qc.html#brisc.SingleCell.skip_qc" title="brisc.SingleCell.skip_qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">skip_qc()</span></code></a> instead of <code class="docutils literal notranslate"><span class="pre">qc</span></code> to set the flag without filtering:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.skip_qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">skip_qc</span></a><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Duplicate cell or gene names</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.qc.html#brisc.SingleCell.qc" title="brisc.SingleCell.qc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">qc()</span></code></a> raises an error if any name appears more than once in <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs_names.html#brisc.SingleCell.obs_names" title="brisc.SingleCell.obs_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs_names</span></code></a> or <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.var_names.html#brisc.SingleCell.var_names" title="brisc.SingleCell.var_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var_names</span></code></a>. Deduplicate first with <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.make_obs_names_unique.html#brisc.SingleCell.make_obs_names_unique" title="brisc.SingleCell.make_obs_names_unique"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_obs_names_unique()</span></code></a> or <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.make_var_names_unique.html#brisc.SingleCell.make_var_names_unique" title="brisc.SingleCell.make_var_names_unique"><code class="xref py py-meth docutils literal notranslate"><span class="pre">make_var_names_unique()</span></code></a>, which append <code class="docutils literal notranslate"><span class="pre">-1</span></code>, <code class="docutils literal notranslate"><span class="pre">-2</span></code>, … to repeated names:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.make_var_names_unique.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">make_var_names_unique</span></a><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -659,7 +662,7 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 <p>brisc offers three embedding methods for visualization:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pacmap.html#brisc.SingleCell.pacmap" title="brisc.SingleCell.pacmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pacmap()</span></code></a> — <a class="reference external" href="https://arxiv.org/abs/2012.04456">PaCMAP</a>, a relative of UMAP that captures global structure better. Default choice.</p></li>
-<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.localmap.html#brisc.SingleCell.localmap" title="brisc.SingleCell.localmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">localmap()</span></code></a> — <a class="reference external" href="https://arxiv.org/abs/2412.15426">LocalMAP</a>, a relative of UMAP that captures global structure better.</p></li>
+<li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.localmap.html#brisc.SingleCell.localmap" title="brisc.SingleCell.localmap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">localmap()</span></code></a> — <a class="reference external" href="https://arxiv.org/abs/2412.15426">LocalMAP</a>, a newer relative of PaCMAP that further sharpens local cluster separation.</p></li>
 <li><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.umap.html#brisc.SingleCell.umap" title="brisc.SingleCell.umap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">umap()</span></code></a> — the standard UMAP algorithm.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pacmap.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pacmap</span></a><span class="p">()</span>
@@ -728,7 +731,7 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 <section id="pipeline-summary">
 <h2>Pipeline summary<a class="headerlink" href="#pipeline-summary" title="Link to this heading">#</a></h2>
 <p>Because each method returns a new dataset, the full pipeline chains together:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span> <span class="n">num_threads</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>\
     <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">(</span><span class="na">allow_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>\
     <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="na">batch_column</span><span class="o">=</span><span class="s1">&#39;donor&#39;</span><span class="p">)</span>\
     <span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.normalize.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">normalize</span></a><span class="p">()</span>\
@@ -740,8 +743,9 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 
 <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.plot_embedding.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_embedding</span></a><span class="p">(</span><span class="s1">&#39;pacmap&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;pacmap.png&#39;</span><span class="p">)</span>
 <span class="n">markers</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.find_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">find_markers</span></a><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
-<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.plot_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_markers</span></a><span class="p">(</span><span class="n">markers</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">],</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;markers.png&#39;</span><span class="p">)</span>
-<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;processed.h5ad&#39;</span><span class="p">,</span> <span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">markers</span><span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="na">maintain_order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="nf">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.plot_markers.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">plot_markers</span></a><span class="p">(</span><span class="n">top</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">],</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;markers.png&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;Parse_10M_PBMC_cytokines_processed.h5ad&#39;</span><span class="p">,</span> <span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -753,7 +757,7 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Load</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('data.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell()</span></code></a></p></td>
 <td><p>Read data from any supported format</p></td>
 </tr>
 <tr class="row-odd"><td><p>Quality control</p></td>
@@ -801,7 +805,7 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 <td><p>Draw a dot plot of marker genes</p></td>
 </tr>
 <tr class="row-even"><td><p>Save</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('processed.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save()</span></code></a></p></td>
 <td><p>Write to <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code>, <code class="docutils literal notranslate"><span class="pre">.h5</span></code>, <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>, or <code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code></p></td>
 </tr>
 </tbody>
@@ -897,7 +901,7 @@ Adding a Boolean column, obs[&#39;passed_QC&#39;], indicating which cells passed
 
   <p class="copyright">
     
-      © Copyright 2025, Keon Arbabi &amp; Michael Wainberg.
+      © Copyright 2026, Keon Arbabi &amp; Michael Wainberg.
       <br/>
     
   </p>

@@ -3,12 +3,13 @@
 from __future__ import annotations
 import re
 from pathlib import Path
-# `brisc` is imported from site-packages of the active conda env (built
-# from /home/wainberg/brisc/brisc/).  No sys.path mutation needed.
+# `brisc` is imported from site-packages of the active conda env; no
+# sys.path mutation needed.
 
 project = "brisc"
 author = "Keon Arbabi & Michael Wainberg"
-copyright = "2025, Keon Arbabi & Michael Wainberg"
+copyright = "2026, Keon Arbabi & Michael Wainberg"
+html_title = "brisc documentation"
 
 templates_path = ["_templates"]
 
