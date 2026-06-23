@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -545,50 +544,50 @@ Harmony embeddings by running <cite>harmonize()</cite> and then specifying
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>QC_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
+<li><p class="param-header"><strong>QC_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
 cells passed QC. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in this SingleCell dataset and
 returns a polars Series or 1D NumPy array. Set to <cite>None</cite>
 to include all cells. Cells failing QC will be ignored
 and have their embeddings set to <cite>NaN</cite>.</p></li>
-<li><p class="param-header"><strong>PC_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the principal components
+<li><p class="param-header"><strong>PC_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the principal components
 calculated with <cite>PCA()</cite>, to use as an input for the
 embedding calculation</p></li>
-<li><p class="param-header"><strong>neighbors_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the nearest-neighbor
+<li><p class="param-header"><strong>neighbors_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the nearest-neighbor
 indices for each cell, to use as an input for the
 embedding calculation</p></li>
-<li><p class="param-header"><strong>distances_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the squared Euclidean
+<li><p class="param-header"><strong>distances_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the squared Euclidean
 distance to each nearest neighbor in
 <cite>neighbors_key</cite>, to use as an input for the
 embedding calculation</p></li>
-<li><p class="param-header"><strong>embedding_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> where the embeddings will be
+<li><p class="param-header"><strong>embedding_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> where the embeddings will be
 stored</p></li>
-<li><p class="param-header"><strong>num_iterations</strong> : <em>int</em></p><p class="param-desc">the number of optimization iterations. In
+<li><p class="param-header"><strong>num_iterations</strong>: <em>int</em></p><p class="param-desc">the number of optimization iterations. In
 umap-learn, this defaulted to 500 for datasets of
 10,000 elements or less, and 200 for datasets
 larger than 10,000 elements.</p></li>
-<li><p class="param-header"><strong>alpha</strong> : <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the initial learning rate for optimization</p></li>
-<li><p class="param-header"><strong>gamma</strong> : <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the weight applied to negative samples during optimization</p></li>
-<li><p class="param-header"><strong>negative_sample_rate</strong> : <em>int</em></p><p class="param-desc">the number of negative samples per positive
+<li><p class="param-header"><strong>alpha</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the initial learning rate for optimization</p></li>
+<li><p class="param-header"><strong>gamma</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the weight applied to negative samples during optimization</p></li>
+<li><p class="param-header"><strong>negative_sample_rate</strong>: <em>int</em></p><p class="param-desc">the number of negative samples per positive
 sample</p></li>
-<li><p class="param-header"><strong>a</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">UMAP curve parameter; if <cite>None</cite>, will be fit based on the values
+<li><p class="param-header"><strong>a</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">UMAP curve parameter; if <cite>None</cite>, will be fit based on the values
 of <cite>spread</cite> and <cite>min_dist</cite>. Either both or neither of <cite>a</cite> and
 <cite>b</cite> must be <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>b</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">UMAP curve parameter; if <cite>None</cite>, will be fit based on the values
+<li><p class="param-header"><strong>b</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">UMAP curve parameter; if <cite>None</cite>, will be fit based on the values
 of <cite>spread</cite> and <cite>min_dist</cite>. Either both or neither of <cite>a</cite> and
 <cite>b</cite> must be <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>spread</strong> : <em>float</em></p><p class="param-desc">the effective scale of embedded points. Only used when <cite>a</cite>
+<li><p class="param-header"><strong>spread</strong>: <em>float</em></p><p class="param-desc">the effective scale of embedded points. Only used when <cite>a</cite>
 and <cite>b</cite> are <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>min_dist</strong> : <em>float</em></p><p class="param-desc">the minimum distance between points in the embedding.
+<li><p class="param-header"><strong>min_dist</strong>: <em>float</em></p><p class="param-desc">the minimum distance between points in the embedding.
 Only used when <cite>a</cite> and <cite>b</cite> are <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>seed</strong> : <em>int</em></p><p class="param-desc">the random seed to use for UMAP</p></li>
-<li><p class="param-header"><strong>overwrite</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>embedding_key</cite> if already present
+<li><p class="param-header"><strong>seed</strong>: <em>int</em></p><p class="param-desc">the random seed to use for UMAP</p></li>
+<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>embedding_key</cite> if already present
 in <cite>obsm</cite>, instead of raising an error</p></li>
-<li><p class="param-header"><strong>hogwild</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, go <a class="reference external" href="https://arxiv.org/abs/1106.5730">Hogwild!</a>
+<li><p class="param-header"><strong>hogwild</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, go <a class="reference external" href="https://arxiv.org/abs/1106.5730">Hogwild!</a>
 and optimize the embedding in parallel. Results will not
 be reproducible!</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when running <cite>umap()</cite>.
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when running <cite>umap()</cite>.
 Cannot be specified when <cite>hogwild=False</cite>. When
 <cite>hogwild=True</cite>, must be explicitly specified and
 greater than 1 unless <cite>self.num_threads</cite> is greater

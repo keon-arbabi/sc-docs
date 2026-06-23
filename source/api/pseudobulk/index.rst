@@ -16,6 +16,8 @@ Pseudobulk
 
 .. currentmodule:: brisc
 
+.. classdescription:: Pseudobulk
+
 .. autoclass:: Pseudobulk
    :no-members:
 
@@ -25,7 +27,6 @@ I/O
 .. autosummary::
    :nosignatures:
 
-   Pseudobulk.__init__
    Pseudobulk.save
 
 Properties

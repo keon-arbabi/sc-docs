@@ -7,5 +7,4 @@ I/O
    :toctree: api/
    :nosignatures:
 
-   DE.__init__
    DE.save

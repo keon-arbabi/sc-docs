@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -56,7 +56,7 @@
     <script src="../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="brisc.SingleCell.__init__" href="api/brisc.SingleCell.__init__.html" />
+    <link rel="next" title="brisc.SingleCell.save" href="api/brisc.SingleCell.save.html" />
     <link rel="prev" title="SingleCell" href="index.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -320,7 +320,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">I/O</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -523,49 +522,46 @@
 <h1>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.__init__</span></code></a></p></td>
-<td><p>Load a SingleCell dataset from a file, or create one from an in-memory AnnData object or count matrix + metadata.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
 <td><p>Save this SingleCell dataset to a file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
 <td><p>Print the fields in an <cite>.h5ad</cite> file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
 <td><p>Load just <cite>obs</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
 <td><p>Load just <cite>var</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
 <td><p>Load just <cite>obsm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
 <td><p>Load just <cite>varm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
 <td><p>Load just <cite>obsp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
 <td><p>Load just <cite>varp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
 <td><p>Load just <cite>uns</cite> from an <cite>.h5ad</cite> file as a dictionary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
 <td><p>Converts this SingleCell dataset to an AnnData object, the representation used by Scanpy.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a Seurat object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a Seurat object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a SingleCellExperiment object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a SingleCellExperiment object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
 </tbody>
@@ -593,11 +589,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="api/brisc.SingleCell.__init__.html"
+       href="api/brisc.SingleCell.save.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">__init__</p>
+        <p class="prev-next-title">save</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

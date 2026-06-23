@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -535,11 +534,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>n</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of genes to return; mutually exclusive with
+<li><p class="param-header"><strong>n</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of genes to return; mutually exclusive with
 <cite>fraction</cite></p></li>
-<li><p class="param-header"><strong>fraction</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">the fraction of genes to return; mutually exclusive with
+<li><p class="param-header"><strong>fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">the fraction of genes to return; mutually exclusive with
 <cite>n</cite></p></li>
-<li><p class="param-header"><strong>by_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer column
+<li><p class="param-header"><strong>by_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer column
 of <cite>var</cite> to subsample by. Can be a column name, a
 polars expression, a polars Series, a 1D NumPy array, or
 a function that takes in this SingleCell dataset and
@@ -552,14 +551,14 @@ oversampled by one element, or some of the largest
 groups may be undersampled by one element. Can contain
 <cite>null</cite> entries: the corresponding genes will not be
 included in the result.</p></li>
-<li><p class="param-header"><strong>subsample_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">an optional name of a Boolean column to add to
+<li><p class="param-header"><strong>subsample_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">an optional name of a Boolean column to add to
 var indicating the subsampled genes; if <cite>None</cite>,
 subset to these genes instead</p></li>
-<li><p class="param-header"><strong>seed</strong> : <em>int</em></p><p class="param-desc">the random seed to use when subsampling</p></li>
-<li><p class="param-header"><strong>overwrite</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>subsample_column</cite> if already
+<li><p class="param-header"><strong>seed</strong>: <em>int</em></p><p class="param-desc">the random seed to use when subsampling</p></li>
+<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>subsample_column</cite> if already
 present in <cite>var</cite>, instead of raising an error. Must be
 <cite>False</cite> when <cite>subsample_column</cite> is <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when subsetting <cite>X</cite> to
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when subsetting <cite>X</cite> to
 the sampled genes. Set <cite>num_threads=-1</cite> to use all
 available cores, as determined by <cite>os.cpu_count()</cite>. By
 default (<cite>num_threads=None</cite>), use <cite>self.num_threads</cite>

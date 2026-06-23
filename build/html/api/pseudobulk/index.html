@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.Pseudobulk.save.html">save</a></li>
 </ul>
 </details></li>
@@ -471,23 +470,17 @@
 <h1>Pseudobulk<a class="headerlink" href="#pseudobulk" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<dl class="py class">
-<dt class="sig sig-object py" id="brisc.Pseudobulk">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">brisc.</span></span><span class="sig-name descname"><span class="pre">Pseudobulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/brisc/pseudobulk.html#Pseudobulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.Pseudobulk" title="Link to this definition">#</a></dt>
-<dd><p>A pseudobulked single-cell dataset resulting from calling <cite>pseudobulk()</cite>
-on a SingleCell dataset.</p>
-<p>Has slots for:</p>
+<div class="class-description docutils container">
+<p>A pseudobulked single-cell dataset resulting from calling <cite>pseudobulk()</cite>
+on a SingleCell dataset. Has slots for:</p>
 <ul class="simple">
 <li><p><cite>X</cite>: a dict of NumPy arrays of counts per cell and gene for each cell
 type</p></li>
 <li><p><cite>obs</cite>: a dict of polars DataFrames of sample metadata for each cell type</p></li>
 <li><p><cite>var</cite>: a dict of polars DataFrames of gene metadata for each cell type</p></li>
-<li><dl class="simple">
-<dt><cite>num_threads</cite>: the default number of threads to use for operations on the</dt><dd><p>dataset that support multithreading (which can be overridden by
-individual functions)</p>
-</dd>
-</dl>
-</li>
+<li><p><cite>num_threads</cite>: the default number of threads to use for operations on the
+dataset that support multithreading (which can be overridden by
+individual functions)</p></li>
 </ul>
 <p>as well as <cite>obs_names</cite> and <cite>var_names</cite>, aliases for a dict of <cite>obs[:, 0]</cite>
 and <cite>var[:, 0]</cite> for each cell type.</p>
@@ -510,14 +503,29 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <li><p><cite>for obs in pseudobulk.iter_obs():</cite> yields just the <cite>obs</cite></p></li>
 <li><p><cite>for var in pseudobulk.iter_var():</cite> yields just the <cite>var</cite></p></li>
 </ul>
-<dl class="field-list simple">
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="brisc.Pseudobulk">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">brisc.</span></span><span class="sig-name descname"><span class="pre">Pseudobulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/brisc/pseudobulk.html#Pseudobulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.Pseudobulk" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>source</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>X</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>[</em><em>np.dtype</em><em>[</em><em>np.integer</em><em> | </em><em>np.floating</em><em>]</em><em>]</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>obs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>var</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>np.integer</em><em> | </em><em>None</em></p></li>
+<li><p class="param-header"><strong>source</strong>: <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p><p class="param-desc">a directory to load a saved Pseudobulk dataset from (see
+<cite>save()</cite>). Mutually exclusive with <cite>X</cite>, <cite>obs</cite>, and <cite>var</cite>.</p></li>
+<li><p class="param-header"><strong>X</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>ndarray</em><em>[</em><em>dtype</em><em>[</em><em>floating</em><em>]</em><em>]</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a {cell type: NumPy array} dictionary of counts or log CPMs.
+Mutually exclusive with <cite>source</cite>.</p></li>
+<li><p class="param-header"><strong>obs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>DataFrame</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a {cell type: polars DataFrame} dict of metadata per sample,
+when <cite>X</cite> is a dictionary. The first column must be String,
+Enum, Categorical, or integer. Mutually exclusive with
+<cite>source</cite>.</p></li>
+<li><p class="param-header"><strong>var</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>DataFrame</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a {cell type: polars DataFrame} dict of metadata per gene,
+when <cite>X</cite> is a dictionary. The first column must be String,
+Enum, Categorical, or integer. Mutually exclusive with
+<cite>source</cite>.</p></li>
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the default number of threads to use for all
+subsequent operations on this Pseudobulk dataset. By
+default (<cite>num_threads=None</cite>), use all available cores,
+as determined by <cite>os.cpu_count()</cite>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -527,10 +535,7 @@ name and the <cite>X</cite>, <cite>obs</cite> and <cite>var</cite> for each cell
 <h2>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.__init__.html#brisc.Pseudobulk.__init__" title="brisc.Pseudobulk.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.__init__</span></code></a></p></td>
-<td><p>Load a saved Pseudobulk dataset, or create one from an in-memory count matrix + metadata for each cell type.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.save.html#brisc.Pseudobulk.save" title="brisc.Pseudobulk.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.Pseudobulk.save.html#brisc.Pseudobulk.save" title="brisc.Pseudobulk.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseudobulk.save</span></code></a></p></td>
 <td><p>Saves a Pseudobulk dataset to <cite>directory</cite> (which must not exist unless <cite>overwrite=True</cite>, and will be created) with three files per cell type: the <cite>X</cite> at <cite>f'{cell_type}.X.npy'</cite>, the <cite>obs</cite> at <cite>f'{cell_type}.obs.parquet'</cite>, and the <cite>var</cite> at <cite>f'{cell_type}.var.parquet'</cite>.</p></td>
 </tr>
 </tbody>

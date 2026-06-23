@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -546,36 +545,36 @@ i.e. <cite>other</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>other</strong> : <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">the dataset to transfer cell-type labels from</p></li>
-<li><p class="param-header"><strong>original_cell_type_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a column of <cite>other.obs</cite> containing
+<li><p class="param-header"><strong>other</strong>: <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">the dataset to transfer cell-type labels from</p></li>
+<li><p class="param-header"><strong>original_cell_type_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a column of <cite>other.obs</cite> containing
 cell-type labels. Unless
 <cite>cell_type_column</cite> is specified, the
 same column name will be used for the
 column to be added to <cite>self</cite> containing
 the transferred labels.</p></li>
-<li><p class="param-header"><strong>QC_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>self.obs</cite> indicating
+<li><p class="param-header"><strong>QC_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>self.obs</cite> indicating
 which cells passed QC. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in <cite>self</cite> and returns a polars
 Series or 1D NumPy array. Set to <cite>None</cite> to include all
 cells. Cells failing QC will have their cell-type labels
 and confidences set to <cite>null</cite>.</p></li>
-<li><p class="param-header"><strong>other_QC_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>other.obs</cite>
+<li><p class="param-header"><strong>other_QC_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>other.obs</cite>
 indicating which cells passed QC. Can be a column
 name, a polars expression, a polars Series, a 1D
 NumPy array, or a function that takes in <cite>other</cite>
 and returns a polars Series or 1D NumPy array. Set
 to <cite>None</cite> to include all cells. Cells failing QC
 will be ignored during the label transfer.</p></li>
-<li><p class="param-header"><strong>Harmony_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>self.obsm</cite> and <cite>other.obsm</cite> containing the
+<li><p class="param-header"><strong>Harmony_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>self.obsm</cite> and <cite>other.obsm</cite> containing the
 Harmony embeddings for each dataset</p></li>
-<li><p class="param-header"><strong>cell_type_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to <cite>self.obs</cite>
+<li><p class="param-header"><strong>cell_type_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to <cite>self.obs</cite>
 indicating each cell’s most likely cell type,
 i.e. the most common cell-type label among the
 cell’s <cite>num_neighbors</cite> nearest neighbors in
 <cite>other</cite>. If <cite>None</cite>, defaults to
 <cite>original_cell_type_column</cite>.</p></li>
-<li><p class="param-header"><strong>confidence_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to <cite>self.obs</cite>
+<li><p class="param-header"><strong>confidence_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to <cite>self.obs</cite>
 indicating each cell’s cell-type confidence,
 i.e. the fraction of the cell’s <cite>num_neighbors</cite>
 nearest neighbors in <cite>other</cite> that share the most
@@ -584,9 +583,9 @@ are equally common among the nearest neighbors,
 tiebreak based on which of them is most common
 in <cite>original_cell_type_column</cite>. If <cite>None</cite>,
 defaults to <cite>f’{cell_type_column}_confidence’</cite>.</p></li>
-<li><p class="param-header"><strong>next_best</strong> : <em>bool</em></p><p class="param-desc">whether to also compute each cell’s second-most likely
+<li><p class="param-header"><strong>next_best</strong>: <em>bool</em></p><p class="param-desc">whether to also compute each cell’s second-most likely
 cell type and confidence, or just its most likely</p></li>
-<li><p class="param-header"><strong>next_best_cell_type_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to
+<li><p class="param-header"><strong>next_best_cell_type_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to
 <cite>self.obs</cite> indicating each cell’s
 second-most likely cell type, i.e. the
 second-most common cell-type label
@@ -597,7 +596,7 @@ defaults to
 <cite>f’next_best_{cell_type_column}’</cite>. Can
 only be specified when
 <cite>next_best=True</cite>.</p></li>
-<li><p class="param-header"><strong>next_best_confidence_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to
+<li><p class="param-header"><strong>next_best_confidence_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of a column to be added to
 <cite>self.obs</cite> indicating each cell’s
 cell-type confidence, i.e. the
 fraction of the cell’s <cite>num_neighbors</cite>
@@ -612,11 +611,11 @@ them is most common in <cite>other</cite>. If
 <cite>f’next_best_{cell_type_column}_confidence’</cite>.
 Can only be specified when
 <cite>next_best=True</cite>.</p></li>
-<li><p class="param-header"><strong>num_neighbors</strong> : <em>int</em></p><p class="param-desc">the number of nearest neighbors to use when
+<li><p class="param-header"><strong>num_neighbors</strong>: <em>int</em></p><p class="param-desc">the number of nearest neighbors to use when
 determining a cell’s label. All cell-type
 confidences will be multiples of
 <cite>1 / num_neighbors</cite>.</p></li>
-<li><p class="param-header"><strong>num_clusters</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of k-means clusters to use during the
+<li><p class="param-header"><strong>num_clusters</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of k-means clusters to use during the
 nearest-neighbor search. Must be less than the number
 of cells. If <cite>None</cite>, will be set to
 <cite>ceil(min(4 * sqrt(num_cells), num_cells / 100))</cite>
@@ -638,28 +637,28 @@ cells, clusters with fewer than 100 cells will be
 merged into the adjacent cluster with the nearest
 centroid, so the actual number of clusters used may
 be smaller.</p></li>
-<li><p class="param-header"><strong>num_clusters_searched</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of a cell’s nearest clusters to
+<li><p class="param-header"><strong>num_clusters_searched</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of a cell’s nearest clusters to
 search; must be between 1 and
 <cite>num_clusters</cite>. Defaults to
 <cite>min(64, num_clusters)</cite>.</p></li>
-<li><p class="param-header"><strong>num_kmeans_iterations</strong> : <em>int</em></p><p class="param-desc">the maximum number of iterations of
+<li><p class="param-header"><strong>num_kmeans_iterations</strong>: <em>int</em></p><p class="param-desc">the maximum number of iterations of
 k-means clustering to perform before
 starting the nearest-neighbor search,
 stopping early if a relative convergence of
 <cite>kmeans_tolerance</cite> is reached</p></li>
-<li><p class="param-header"><strong>kmeans_tolerance</strong> : <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the relative change in inertia (the sum of
+<li><p class="param-header"><strong>kmeans_tolerance</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the relative change in inertia (the sum of
 squared distances from each cell to its assigned
 centroid) used to determine whether to stop
 optimizing the k-means clustering before
 <cite>num_kmeans_iterations</cite> iterations</p></li>
-<li><p class="param-header"><strong>kmeans_barbar</strong> : <em>bool</em></p><p class="param-desc">whether to use
+<li><p class="param-header"><strong>kmeans_barbar</strong>: <em>bool</em></p><p class="param-desc">whether to use
 <a class="reference external" href="https://arxiv.org/abs/1203.6402">k-means||</a>
 initialization (a parallel version of k-means++)
 to initialize the k-means clustering centroids,
 instead of random initialization. This is more
 accurate but takes considerably longer for large
 datasets and <cite>num_clusters</cite>.</p></li>
-<li><p class="param-header"><strong>num_init_iterations</strong> : <em>int</em></p><p class="param-desc">the number of k-means|| iterations used to
+<li><p class="param-header"><strong>num_init_iterations</strong>: <em>int</em></p><p class="param-desc">the number of k-means|| iterations used to
 initialize the k-means clustering that
 constitutes the first step of the
 nearest-neighbor search. k-means|| is a
@@ -668,7 +667,7 @@ initialization scheme for k-means clustering.
 The default value of 5 is recommended by the
 <a class="reference external" href="https://arxiv.org/abs/1203.6402">k-means|| paper</a>.
 Only used when <cite>kmeans_barbar=True</cite>.</p></li>
-<li><p class="param-header"><strong>oversampling_factor</strong> : <em>int</em><em> | </em><em>float</em></p><p class="param-desc"><p>the number of candidate centroids selected, on
+<li><p class="param-header"><strong>oversampling_factor</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc"><p>the number of candidate centroids selected, on
 average, at each of the <cite>num_init_iterations</cite>
 iterations of k-means||, as a multiple of
 <cite>num_clusters</cite>. The default value of 1 is the
@@ -682,25 +681,25 @@ which the final <cite>num_clusters</cite> centroids will
 then be selected via k-means++. Only used when
 <cite>kmeans_barbar=True</cite>.</p>
 </p></li>
-<li><p class="param-header"><strong>chunk_size_kmeans</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the chunk size used for distance calculations
+<li><p class="param-header"><strong>chunk_size_kmeans</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the chunk size used for distance calculations
 during k-means clustering, and also during the
 per-query centroid ranking step of the
 nearest-neighbor search. Setting this to a power
 of 2 is recommended. Defaults to
 <cite>min(4096, number of cells in other)</cite>.</p></li>
-<li><p class="param-header"><strong>chunk_size_search</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the chunk size used to group query cells
+<li><p class="param-header"><strong>chunk_size_search</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the chunk size used to group query cells
 together during the nearest-neighbor search.
 Overly small values will tend to increase
 runtime by reducing the reuse of information
 during the search, whereas overly large values
 will lead to excessive memory use. Defaults to
 <cite>min(256, number of cells in other)</cite>.</p></li>
-<li><p class="param-header"><strong>seed</strong> : <em>int</em></p><p class="param-desc">the random seed to use when finding nearest neighbors</p></li>
-<li><p class="param-header"><strong>overwrite</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>cell_type_column</cite> and/or
+<li><p class="param-header"><strong>seed</strong>: <em>int</em></p><p class="param-desc">the random seed to use when finding nearest neighbors</p></li>
+<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>cell_type_column</cite> and/or
 <cite>confidence_column</cite> if already present in this dataset’s
 obs, instead of raising an error</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print details of the nearest-neighbor search</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use for the nearest-neighbor
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print details of the nearest-neighbor search</p></li>
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use for the nearest-neighbor
 search and label transfer. Set <cite>num_threads=-1</cite> to use
 all available cores, as determined by
 <cite>os.cpu_count()</cite>, or leave unset to use

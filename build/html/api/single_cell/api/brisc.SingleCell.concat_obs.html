@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -555,26 +554,26 @@ all be coerced to CSR.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>datasets</strong> : <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a><em> | </em><em>Iterable</em><em>[</em><a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a><em>]</em></p><p class="param-desc">one or more SingleCell datasets to concatenate with this
+<li><p class="param-header"><strong>datasets</strong>: <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a><em> | </em><em>Iterable</em><em>[</em><a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a><em>]</em></p><p class="param-desc">one or more SingleCell datasets to concatenate with this
 one</p></li>
-<li><p class="param-header"><strong>*more_datasets</strong> : <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">additional SingleCell datasets to concatenate with
+<li><p class="param-header"><strong>*more_datasets</strong>: <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">additional SingleCell datasets to concatenate with
 this one, specified as positional arguments</p></li>
-<li><p class="param-header"><strong>dataset_column</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of an Enum column to be added to the
+<li><p class="param-header"><strong>dataset_column</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the name of an Enum column to be added to the
 concatenated dataset’s <cite>obs</cite> labeling which dataset
 each cell came from. The labels themselves are
 determined by the <cite>dataset_labels</cite> argument.</p></li>
-<li><p class="param-header"><strong>dataset_labels</strong> : <em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a sequence of labels for each dataset, used to
+<li><p class="param-header"><strong>dataset_labels</strong>: <em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a sequence of labels for each dataset, used to
 populate <cite>dataset_column</cite>. There must be one label
 per dataset being concatenated. If <cite>dataset_labels</cite>
 is not specified, the labels default to
 <cite>{dataset_column}_0</cite>, <cite>{dataset_column}_1</cite>, …,
 <cite>{dataset_column}_{N - 1}</cite>. Can only be specified
 when <cite>dataset_column</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>flexible</strong> : <em>bool</em></p><p class="param-desc">whether to subset to genes, columns of <cite>obs</cite> and <cite>var</cite>,
+<li><p class="param-header"><strong>flexible</strong>: <em>bool</em></p><p class="param-desc">whether to subset to genes, columns of <cite>obs</cite> and <cite>var</cite>,
 and keys of <cite>obsm</cite>, <cite>varm</cite> and <cite>uns</cite> common to all
 datasets before concatenating, rather than raising an
 error on any mismatches</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when concatenating. Does
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when concatenating. Does
 not affect the concatenated SingleCell dataset’s
 <cite>num_threads</cite>; this will always be the same as the
 first dataset’s <cite>num_threads</cite>.</p></li>

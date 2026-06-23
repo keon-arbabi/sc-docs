@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -541,9 +540,9 @@ different implementation of the same IRLBA algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>others</strong> : <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">optional SingleCell datasets to jointly compute principal
+<li><p class="param-header"><strong>others</strong>: <a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p><p class="param-desc">optional SingleCell datasets to jointly compute principal
 components across, alongside this one.</p></li>
-<li><p class="param-header"><strong>QC_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em><em> | </em><em>Sequence</em><em>[</em><a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
+<li><p class="param-header"><strong>QC_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em><em> | </em><em>Sequence</em><em>[</em><a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
 cells passed QC. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in this SingleCell dataset and
@@ -554,7 +553,7 @@ specified, <cite>QC_column</cite> can be a length-<cite>1 + len(others)</cite>
 sequence of columns, expressions, Series, functions, or
 <cite>None</cite> for each dataset (for <cite>self</cite>, followed by each
 dataset in <cite>others</cite>).</p></li>
-<li><p class="param-header"><strong>hvg_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>Sequence</em><em>[</em><a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>var</cite> indicating the
+<li><p class="param-header"><strong>hvg_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>Sequence</em><em>[</em><a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>] </em><em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>var</cite> indicating the
 highly variable genes. Set to <cite>None</cite> to include all
 genes. Can be a column name, a polars expression, a
 polars Series, a 1D NumPy array, or a function that
@@ -564,28 +563,28 @@ Series or 1D NumPy array. When <cite>others</cite> is specified,
 of columns, expressions, Series, functions, or <cite>None</cite>
 for each dataset (for <cite>self</cite>, followed by each dataset
 in <cite>others</cite>).</p></li>
-<li><p class="param-header"><strong>PC_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> where the principal components will be
+<li><p class="param-header"><strong>PC_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> where the principal components will be
 stored</p></li>
-<li><p class="param-header"><strong>num_PCs</strong> : <em>int</em></p><p class="param-desc">the number of top principal components to calculate</p></li>
-<li><p class="param-header"><strong>subspace_size</strong> : <em>int</em></p><p class="param-desc">the size of the Krylov subspace used by IRLBA when
+<li><p class="param-header"><strong>num_PCs</strong>: <em>int</em></p><p class="param-desc">the number of top principal components to calculate</p></li>
+<li><p class="param-header"><strong>subspace_size</strong>: <em>int</em></p><p class="param-desc">the size of the Krylov subspace used by IRLBA when
 calculating PCs. Must be greater than or equal to
 <cite>num_PCs</cite>, and about twice <cite>num_PCs</cite> is recommended.</p></li>
-<li><p class="param-header"><strong>tolerance</strong> : <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the relative tolerance (expressed as the ratio of a
+<li><p class="param-header"><strong>tolerance</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the relative tolerance (expressed as the ratio of a
 singular value’s residual to the maximum singular value)
 required to deem a singular value converged. IRLBA will
 stop early, before <cite>max_iterations</cite> iterations, if all
 singular values have converged.</p></li>
-<li><p class="param-header"><strong>max_iterations</strong> : <em>int</em></p><p class="param-desc">the maximum number of iterations to run IRLBA for,
+<li><p class="param-header"><strong>max_iterations</strong>: <em>int</em></p><p class="param-desc">the maximum number of iterations to run IRLBA for,
 stopping early if all singular values have
 converged (see <cite>tolerance</cite>)</p></li>
-<li><p class="param-header"><strong>chunk_size</strong> : <em>int</em></p><p class="param-desc">the number of rows per fixed block in deterministic
+<li><p class="param-header"><strong>chunk_size</strong>: <em>int</em></p><p class="param-desc">the number of rows per fixed block in deterministic
 parallel reductions. Used to parallelize operations
 like mean and norm that would otherwise be serial.
 Block boundaries are fixed regardless of thread count,
 ensuring floating-point identical results.</p></li>
-<li><p class="param-header"><strong>seed</strong> : <em>int</em></p><p class="param-desc">the random seed to use when initializing the PCs, via R’s
+<li><p class="param-header"><strong>seed</strong>: <em>int</em></p><p class="param-desc">the random seed to use when initializing the PCs, via R’s
 <cite>set.seed()</cite> function</p></li>
-<li><p class="param-header"><strong>match_parallel</strong> : <em>bool</em></p><p class="param-desc">if <cite>False</cite>, use a different order of operations for
+<li><p class="param-header"><strong>match_parallel</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, use a different order of operations for
 single-threaded PCA. This gives a moderate (~2x)
 boost in single-threaded performance, and lower
 memory usage, at the cost of no longer exactly
@@ -601,12 +600,12 @@ cells across datasets. If <cite>True</cite>, exactly match the
 results of the multithreaded version when
 <cite>num_threads=1</cite>. Must be <cite>False</cite> unless
 <cite>num_threads=1</cite>.</p></li>
-<li><p class="param-header"><strong>overwrite</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>PC_key</cite> if already present in
+<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, overwrite <cite>PC_key</cite> if already present in
 obsm, instead of raising an error</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print a message when the singular values did
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print a message when the singular values did
 not converge to a tolerance of <cite>tolerance</cite> within
 <cite>max_iterations</cite> iterations</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use for PCA. Set
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use for PCA. Set
 <cite>num_threads=-1</cite> to use all available cores, as
 determined by <cite>os.cpu_count()</cite>, or leave unset to use
 <cite>self.num_threads</cite> cores. Does not affect the returned

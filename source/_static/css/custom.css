@@ -17,6 +17,9 @@ dl.field-list dd > ul.simple > li {
 }
 p.param-header {
     margin-bottom: 0.1em;
+    /* Monospace so the ":" between the name and type matches them (they set it
+       on their own spans; without this the bare colon falls back to body font). */
+    font-family: var(--pst-font-family-monospace);
 }
 /* param name: orange, monospace */
 p.param-header strong {
@@ -78,6 +81,21 @@ dl.field-list dd > ul.simple > li > *:not(.param-header) {
 }
 p.param-desc {
     margin-top: 0;
+}
+
+/* Class description: a boxed lead-in (between the page title and the
+   constructor signature) using the same surface background as the API
+   method-overview tables on the page. */
+.bd-article .class-description {
+    background-color: var(--pst-color-surface);
+    padding: 0.7em 1em 0.75em;
+    margin-bottom: 1.4em;
+}
+.bd-article .class-description > :first-child {
+    margin-top: 0;
+}
+.bd-article .class-description > :last-child {
+    margin-bottom: 0;
 }
 
 /* Autodoc method/function/class body. The theme indents the whole method

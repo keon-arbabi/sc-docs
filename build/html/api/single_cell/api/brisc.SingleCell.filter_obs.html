@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -536,10 +535,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>*predicates</strong> : <em>Expr</em><em> | </em><em>Series</em><em> | </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>Expr</em><em> | </em><em>Series</em><em> | </em><em>str</em><em>] </em><em>| </em><em>bool</em><em> | </em><em>list</em><em>[</em><em>bool</em><em>] </em><em>| </em><em>ndarray</em><em>[</em><em>dtype</em><em>[</em><em>bool</em><em>]</em><em>]</em></p><p class="param-desc">one or more column names, expressions that evaluate to
+<li><p class="param-header"><strong>*predicates</strong>: <em>Expr</em><em> | </em><em>Series</em><em> | </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>Expr</em><em> | </em><em>Series</em><em> | </em><em>str</em><em>] </em><em>| </em><em>bool</em><em> | </em><em>list</em><em>[</em><em>bool</em><em>] </em><em>| </em><em>ndarray</em><em>[</em><em>dtype</em><em>[</em><em>bool</em><em>]</em><em>]</em></p><p class="param-desc">one or more column names, expressions that evaluate to
 Boolean Series, Boolean Series, lists of Booleans,
 and/or 1D Boolean NumPy arrays</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering <cite>X</cite>. Set
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering <cite>X</cite>. Set
 <cite>num_threads=-1</cite> to use all available cores, as
 determined by <cite>os.cpu_count()</cite>. By default
 (<cite>num_threads=None</cite>), use <cite>self.num_threads</cite> cores.
@@ -547,7 +546,7 @@ Does not affect the filtered SingleCell dataset’s
 <cite>num_threads</cite>; this will always be the same as the
 original dataset’s <cite>num_threads</cite>. Can only be
 specified when <cite>X</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>**constraints</strong> : <em>Any</em></p><p class="param-desc">column filters: <cite>name=value</cite> filters to cells
+<li><p class="param-header"><strong>**constraints</strong>: <em>Any</em></p><p class="param-desc">column filters: <cite>name=value</cite> filters to cells
 where the column named <cite>name</cite> has the value <cite>value</cite></p></li>
 </ul>
 </dd>

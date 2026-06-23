@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -323,7 +323,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">DE</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.DE.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.DE.save.html">save</a></li>
 </ul>
 </details></li>
@@ -413,13 +412,13 @@ genes are plotted in three different colors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>cell_type</strong> : <em>str</em></p><p class="param-desc">the cell type to generate the volcano plot for</p></li>
-<li><p class="param-header"><strong>filename</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p><p class="param-desc">the file to save to. If <cite>None</cite>, generate the plot but do
+<li><p class="param-header"><strong>cell_type</strong>: <em>str</em></p><p class="param-desc">the cell type to generate the volcano plot for</p></li>
+<li><p class="param-header"><strong>filename</strong>: <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p><p class="param-desc">the file to save to. If <cite>None</cite>, generate the plot but do
 not save it, which allows it to be shown interactively or
 modified further before saving.</p></li>
-<li><p class="param-header"><strong>ax</strong> : <em>'Axes'</em><em> | </em><em>None</em></p><p class="param-desc">the Matplotlib axes to save the plot onto; if <cite>None</cite>, create a
+<li><p class="param-header"><strong>ax</strong>: <em>'Axes'</em><em> | </em><em>None</em></p><p class="param-desc">the Matplotlib axes to save the plot onto; if <cite>None</cite>, create a
 new figure with Matpotlib’s constrained layout and plot onto it</p></li>
-<li><p class="param-header"><strong>figure_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>figure_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>plt.figure</cite> when <cite>ax</cite> is <cite>None</cite>, such as:</p>
 <ul>
 <li><p><cite>figsize</cite>: a two-element sequence of the width and
@@ -431,16 +430,16 @@ to avoid overlapping plot elements. Defaults to
 of <cite>None</cite>.</p></li>
 </ul>
 </p></li>
-<li><p class="param-header"><strong>significance_column</strong> : <em>str</em></p><p class="param-desc">the name of a numeric column of <cite>self.table</cite>
+<li><p class="param-header"><strong>significance_column</strong>: <em>str</em></p><p class="param-desc">the name of a numeric column of <cite>self.table</cite>
 to determine significance from</p></li>
-<li><p class="param-header"><strong>threshold</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em></p><p class="param-desc">the significance threshold corresponding to
+<li><p class="param-header"><strong>threshold</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the significance threshold corresponding to
 <cite>significance_column</cite></p></li>
-<li><p class="param-header"><strong>genes_to_label</strong> : <em>int</em><em> | </em><em>np.integer</em><em> | </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">an integer number of top DE genes to label, a name
+<li><p class="param-header"><strong>genes_to_label</strong>: <em>int</em><em> | </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">an integer number of top DE genes to label, a name
 or sequence of names of genes to label, or <cite>None</cite>
 to not add labels. If an integer, only DE genes
 will be labeled, even if <cite>genes_to_label</cite> is larger
 than the number of DE genes.</p></li>
-<li><p class="param-header"><strong>label_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>label_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>textalloc.allocate()</cite> when adding gene labels to
 control the text properties, such as:</p>
 <blockquote>
@@ -467,28 +466,28 @@ to 0 and 0.02, instead of textalloc’s defaults of
 for the full list of possible arguments. Can only be
 specified when <cite>genes_to_label</cite> is non-zero.</p>
 </p></li>
-<li><p class="param-header"><strong>upregulated_size</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em></p><p class="param-desc">the size of each upregulated gene’s point</p></li>
-<li><p class="param-header"><strong>downregulated_size</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em></p><p class="param-desc">the size of each downregulated gene’s point</p></li>
-<li><p class="param-header"><strong>non_significant_size</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em></p><p class="param-desc">the size of each non-significant gene’s point</p></li>
-<li><p class="param-header"><strong>upregulated_color</strong> : <em>Color</em></p><p class="param-desc">the color of each upregulated gene’s point. Can
+<li><p class="param-header"><strong>upregulated_size</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the size of each upregulated gene’s point</p></li>
+<li><p class="param-header"><strong>downregulated_size</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the size of each downregulated gene’s point</p></li>
+<li><p class="param-header"><strong>non_significant_size</strong>: <em>int</em><em> | </em><em>float</em></p><p class="param-desc">the size of each non-significant gene’s point</p></li>
+<li><p class="param-header"><strong>upregulated_color</strong>: <a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a></p><p class="param-desc">the color of each upregulated gene’s point. Can
 be any valid Matplotlib color, like a hex string
 (e.g. <cite>‘#FF0000’</cite>), a named color (e.g. ‘red’),
 a 3- or 4-element RGB/RGBA tuple of integers
 0-255 or floats 0-1, or a single float 0-1 for
 grayscale.</p></li>
-<li><p class="param-header"><strong>downregulated_color</strong> : <em>Color</em></p><p class="param-desc">the color of each downregulated gene’s point.
+<li><p class="param-header"><strong>downregulated_color</strong>: <a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a></p><p class="param-desc">the color of each downregulated gene’s point.
 Can be any valid Matplotlib color, like a hex
 string (e.g. <cite>‘#FF0000’</cite>), a named color (e.g.
 ‘red’), a 3- or 4-element RGB/RGBA tuple of
 integers 0-255 or floats 0-1, or a single
 float 0-1 for grayscale.</p></li>
-<li><p class="param-header"><strong>non_significant_color</strong> : <em>Color</em></p><p class="param-desc">the color of each non-significant gene’s
+<li><p class="param-header"><strong>non_significant_color</strong>: <a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a></p><p class="param-desc">the color of each non-significant gene’s
 point. Can be any valid Matplotlib color,
 like a hex string (e.g. <cite>‘#FF0000’</cite>), a
 named color (e.g. ‘red’), a 3- or 4-element
 RGB/RGBA tuple of integers 0-255 or floats
 0-1, or a single float 0-1 for grayscale.</p></li>
-<li><p class="param-header"><strong>upregulated_scatter_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be
+<li><p class="param-header"><strong>upregulated_scatter_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be
 passed to <cite>ax.scatter()</cite> for
 upregulated genes, such as:</p>
 <ul>
@@ -521,21 +520,21 @@ since these arguments conflict with the
 <cite>upregulated_color</cite> arguments,
 respectively.</p>
 </p></li>
-<li><p class="param-header"><strong>downregulated_scatter_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to
+<li><p class="param-header"><strong>downregulated_scatter_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to
 be passed to <cite>ax.scatter()</cite> for
 downregulated genes; see the
 documentation of the
 <cite>upregulated_scatter_kwargs</cite> argument
 for details</p></li>
-<li><p class="param-header"><strong>non_significant_scatter_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments
+<li><p class="param-header"><strong>non_significant_scatter_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments
 to be passed to <cite>ax.scatter()</cite> for
 non-significant genes; see the
 documentation of the
 <cite>upregulated_scatter_kwargs</cite>
 argument for details</p></li>
-<li><p class="param-header"><strong>legend</strong> : <em>bool</em></p><p class="param-desc">whether to add a legend showing the marker style for
+<li><p class="param-header"><strong>legend</strong>: <em>bool</em></p><p class="param-desc">whether to add a legend showing the marker style for
 upregulated, downregulated, and non-significant points</p></li>
-<li><p class="param-header"><strong>legend_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>legend_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>ax.legend()</cite> to modify the legend, such as:</p>
 <ul>
 <li><p><cite>loc</cite>, <cite>bbox_to_anchor</cite>, and <cite>bbox_transform</cite> to
@@ -551,24 +550,24 @@ of Matplotlib’s default of <cite>True</cite>.</p></li>
 </ul>
 <p>Can only be specified when <cite>legend=True</cite>.</p>
 </p></li>
-<li><p class="param-header"><strong>title</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the title of the plot, or <cite>None</cite> to not add a title</p></li>
-<li><p class="param-header"><strong>title_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>title</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the title of the plot, or <cite>None</cite> to not add a title</p></li>
+<li><p class="param-header"><strong>title_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_title()</cite> to control text properties, such as
 <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>title</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>xlabel</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the x-axis label, or <cite>None</cite> to not label the x-axis</p></li>
-<li><p class="param-header"><strong>xlabel_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>xlabel</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the x-axis label, or <cite>None</cite> to not label the x-axis</p></li>
+<li><p class="param-header"><strong>xlabel_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_xlabel()</cite> to control text properties, such
 as <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>xlabel</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>ylabel</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the y-axis label, or <cite>None</cite> to not label the y-axis</p></li>
-<li><p class="param-header"><strong>ylabel_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>ylabel</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the y-axis label, or <cite>None</cite> to not label the y-axis</p></li>
+<li><p class="param-header"><strong>ylabel_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_ylabel()</cite> to control text properties, such
 as <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>ylabel</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>despine</strong> : <em>bool</em></p><p class="param-desc">whether to remove the top and right spines (borders of the
+<li><p class="param-header"><strong>despine</strong>: <em>bool</em></p><p class="param-desc">whether to remove the top and right spines (borders of the
 plot area) from the volcano plot</p></li>
-<li><p class="param-header"><strong>savefig_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>savefig_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>plt.savefig()</cite>, such as:</p>
 <ul>
 <li><p><cite>dpi</cite>: defaults to 300 instead of Matplotlib’s

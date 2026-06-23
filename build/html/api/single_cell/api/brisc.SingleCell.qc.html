@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -543,41 +542,41 @@ with <cite>make_var_names_unique()</cite>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>custom_filter</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
+<li><p class="param-header"><strong>custom_filter</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
 filter to apply on top of the other QC filters;
 <cite>True</cite> elements will be kept. Can be a column name,
 a polars expression, a polars Series, a 1D NumPy
 array, or a function that takes in this SingleCell
 dataset and returns a polars Series or 1D NumPy
 array.</p></li>
-<li><p class="param-header"><strong>subset</strong> : <em>bool</em></p><p class="param-desc">whether to subset to cells passing QC, instead of merely
+<li><p class="param-header"><strong>subset</strong>: <em>bool</em></p><p class="param-desc">whether to subset to cells passing QC, instead of merely
 adding a <cite>QC_column</cite> to <cite>obs</cite>. This will roughly double
 memory usage, but speed up subsequent operations.</p></li>
-<li><p class="param-header"><strong>QC_column</strong> : <em>str</em></p><p class="param-desc">the name of a Boolean column to add to <cite>obs</cite> indicating
+<li><p class="param-header"><strong>QC_column</strong>: <em>str</em></p><p class="param-desc">the name of a Boolean column to add to <cite>obs</cite> indicating
 which cells passed QC, if <cite>subset=False</cite>. Gives an error
 if <cite>obs</cite> already has a column with this name, unless
 <cite>overwrite=True</cite>.</p></li>
-<li><p class="param-header"><strong>max_mito_fraction</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &lt;= this
+<li><p class="param-header"><strong>max_mito_fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &lt;= this
 fraction of mitochondrial counts (i.e. from
 genes starting with <cite>‘MT’</cite>. The default of 5%
 matches Seurat’s recommended value.</p></li>
-<li><p class="param-header"><strong>min_genes</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &gt;= this many genes
+<li><p class="param-header"><strong>min_genes</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &gt;= this many genes
 detected (with non-zero count). The default of 100
 matches Scanpy’s recommended value, while Seurat
 recommends a minimum of 200.</p></li>
-<li><p class="param-header"><strong>nonzero_MALAT1</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, filter out cells with 0 expression of
+<li><p class="param-header"><strong>nonzero_MALAT1</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, filter out cells with 0 expression of
 the nuclear-expressed lncRNA MALAT1, which
 <a class="reference external" href="https://biorxiv.org/content/10.1101/2024.07.14.603469v1">likely represent</a>
 empty droplets or poor-quality cells. There must be
 exactly one gene in <cite>obs_names</cite> with the name
 <cite>‘MALAT1’</cite> or <cite>‘Malat1’</cite> to use this filter.</p></li>
-<li><p class="param-header"><strong>remove_doublets</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, remove predicted doublets (see
+<li><p class="param-header"><strong>remove_doublets</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, remove predicted doublets (see
 <cite>find_doublets()</cite>). Doublet detection uses the
 cxds algorithm to score each cell, then thresholds
 this continuous score to a binary one (doublet
 versus non-doublet) using a threshold derived from
 simulated doublets.</p></li>
-<li><p class="param-header"><strong>batch_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer
+<li><p class="param-header"><strong>batch_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer
 column of <cite>obs</cite> indicating which batch each cell is
 from. Can be a column name, a polars expression, a
 polars Series, a 1D NumPy array, or a function that
@@ -589,12 +588,12 @@ is <cite>null</cite> will collectively be treated as a single
 batch. Set to <cite>None</cite> if all cells belong to the same
 sequencing batch. Can only be specified when
 <cite>remove_doublets=True</cite>.</p></li>
-<li><p class="param-header"><strong>doublet_fraction</strong> : <em>float</em><em> | </em><em>None</em></p><p class="param-desc">an optional fraction of cells (within each batch,
+<li><p class="param-header"><strong>doublet_fraction</strong>: <em>float</em><em> | </em><em>None</em></p><p class="param-desc">an optional fraction of cells (within each batch,
 if <cite>batch_column</cite> is specified) to be classified
 as doublets. If <cite>None</cite>, automatically detect the
 threshold via the approach described in
 <cite>find_doublets()</cite>.</p></li>
-<li><p class="param-header"><strong>num_doublet_genes</strong> : <em>int</em></p><p class="param-desc">the number of highly variable genes, i.e. genes
+<li><p class="param-header"><strong>num_doublet_genes</strong>: <em>int</em></p><p class="param-desc">the number of highly variable genes, i.e. genes
 expressed in as close to 50% of cells as
 possible, to use during doublet detection. This
 parameter usually has a minimal influence on
@@ -603,7 +602,7 @@ the hundreds), so increasing it further will
 mainly just increase runtime. If
 <cite>num_doublet_genes</cite> is greater than the number
 of genes in the dataset, all genes will be used.</p></li>
-<li><p class="param-header"><strong>allow_float</strong> : <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
+<li><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
 floating-point (suggesting the user may not be using
 the raw counts); if <cite>True</cite>, disable this sanity check.
 Note that all steps except mitochondrial percent
@@ -611,14 +610,14 @@ filtering give the same result on normalized counts,
 so if <cite>max_mito_fraction=None</cite> were specified (not
 recommended), this function would give the same result
 on raw and normalized counts.</p></li>
-<li><p class="param-header"><strong>overwrite</strong> : <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>uns[‘QCed’]</cite> is <cite>True</cite>
+<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>uns[‘QCed’]</cite> is <cite>True</cite>
 (indicating the dataset has already been QCed) or
 <cite>QC_column</cite> is already present in <cite>obs</cite>; if <cite>True</cite>,
 disable these two sanity checks and, when
 <cite>subset=False</cite>, overwrite <cite>QC_column</cite> if present.</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print how many cells were filtered out at each
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print how many cells were filtered out at each
 step of the QC process</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering based on
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering based on
 mitochondrial counts and MALAT1 expression, and for
 doublet detection. Set <cite>num_threads=-1</cite> to use all
 available cores, as determined by <cite>os.cpu_count()</cite>,

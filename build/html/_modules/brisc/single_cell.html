@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -431,9 +431,7 @@
 <a class="viewcode-back" href="../../api/single_cell/index.html#brisc.SingleCell">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SingleCell</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A single-cell dataset.</span>
-
-<span class="sd">    Has slots for:</span>
+<span class="sd">    A single-cell dataset. Has slots for:</span>
 
 <span class="sd">    - `X`: a scipy sparse array of counts per cell and gene</span>
 <span class="sd">    - `obs`: a polars DataFrame of cell metadata</span>
@@ -451,8 +449,6 @@
 <span class="sd">    as well as `obs_names` and `var_names`, aliases for `obs[:, 0]` and</span>
 <span class="sd">    `var[:, 0]`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="SingleCell.__init__">
-<a class="viewcode-back" href="../../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="s1">&#39;AnnData&#39;</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="o">/</span><span class="p">,</span>
@@ -494,18 +490,6 @@
 <span class="sd">        `.rds` file contains both raw and normalized counts, only the raw</span>
 <span class="sd">        counts will be loaded. To load normalized counts instead, use the `X`</span>
 <span class="sd">        argument (for AnnData objects) or `X_key` argument (for files).</span>
-
-<span class="sd">        Reading and writing `.rds` files requires the ryp Python-R bridge.</span>
-<span class="sd">        To create a SingleCell dataset from an in-memory Seurat or</span>
-<span class="sd">        SingleCellExperiment object in the ryp R workspace, use</span>
-<span class="sd">        `SingleCell.from_seurat()` or `SingleCell.from_sce()`.</span>
-
-<span class="sd">        Reading and writing loom files is not supported because SingleCell only</span>
-<span class="sd">        supports sparse count matrices, and loom only supports dense matrices.</span>
-<span class="sd">        Using loom files for SingleCell data is not recommended due to this</span>
-<span class="sd">        wastefulness. If you must, load them with</span>
-<span class="sd">        `SingleCell(scanpy.read_loom(loom_filename))`; `read_loom()` implicitly</span>
-<span class="sd">        converts the counts to a sparse matrix by default.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            source: a filename or AnnData object, or `None` if specifying `X`,</span>
@@ -667,23 +651,32 @@
 <span class="sd">                &gt;&gt;&gt; sc = SingleCell(X=X, obs=obs, var=var)</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            Both ordered and unordered categorical columns of `obs` and `var`</span>
-<span class="sd">            will be loaded as polars Enums rather than polars Categoricals.</span>
-<span class="sd">            This is because polars Categoricals use a shared numerical encoding</span>
-<span class="sd">            across columns, so their codes are not `[0, 1, 2, ...]` like pandas</span>
-<span class="sd">            categoricals and polars Enums are. Using Categoricals leads to a</span>
-<span class="sd">            large overhead (~25%) when loading `obs` from an `.h5ad` file, for</span>
-<span class="sd">            example.</span>
+<span class="sd">            To avoid substantial overhead, both ordered and unordered</span>
+<span class="sd">            categorical columns of `obs` and `var` will be loaded as polars</span>
+<span class="sd">            Enums rather than polars Categoricals.</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            SingleCell does not support dense matrices, which are highly</span>
 <span class="sd">            memory-inefficient for single-cell data. Passing a NumPy array as</span>
-<span class="sd">            the `X` argument will give an error; if for some reason your data</span>
-<span class="sd">            has been improperly stored as a dense matrix, convert it to a</span>
-<span class="sd">            sparse array first with `csr_array(numpy_array)`). However, when</span>
-<span class="sd">            loading from disk or converting from other formats, dense matrices</span>
-<span class="sd">            will be automatically converted to sparse matrices, to avoid giving</span>
-<span class="sd">            an error when loading or converting.</span>
+<span class="sd">            the `X` argument will give an error: convert it to a sparse array</span>
+<span class="sd">            first with `csr_array(numpy_array)`. However, when loading from</span>
+<span class="sd">            disk or converting from other formats, dense matrices will be</span>
+<span class="sd">            automatically converted to sparse matrices.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Reading and writing `.rds` files requires the ryp Python-R bridge.</span>
+<span class="sd">            To create a SingleCell dataset from an in-memory Seurat or</span>
+<span class="sd">            SingleCellExperiment object in the ryp R workspace, use</span>
+<span class="sd">            `SingleCell.from_seurat()` or `SingleCell.from_sce()`.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Reading and writing loom files is not supported because SingleCell</span>
+<span class="sd">            only supports sparse count matrices, while loom only supports dense</span>
+<span class="sd">            matrices. Using loom files for SingleCell data is not recommended</span>
+<span class="sd">            due to this wastefulness. If necessary, loom files can be loaded</span>
+<span class="sd">            with `SingleCell(scanpy.read_loom(loom_filename))`.</span>
+<span class="sd">            `scanpy.read_loom()` implicitly converts the counts to a sparse</span>
+<span class="sd">            matrix by default.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Initialize this SingleCell dataset&#39;s `num_threads`</span>
         <span class="n">num_threads</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><span class="nf">_process_num_threads_static</span><span class="p">(</span><span class="n">num_threads</span><span class="p">)</span>
@@ -1712,8 +1705,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_uns</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
-
+                <span class="bp">self</span><span class="o">.</span><span class="n">_uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">X</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">csr_array</span> <span class="o">|</span> <span class="n">csc_array</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -7002,8 +6994,8 @@
               <span class="o">*</span><span class="p">,</span>
               <span class="n">num_threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SingleCell</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Make a copy of this SingleCell dataset, converting `X` to a csc_array.</span>
-<span class="sd">        Raise an error if `X` is already a `csc_array`.</span>
+<span class="sd">        Make a copy of this SingleCell dataset, converting `X` to a</span>
+<span class="sd">        `csc_array`. Raise an error if `X` is already a `csc_array`.</span>
 
 <span class="sd">        This function is provided for completeness, but `csr_array` is a far</span>
 <span class="sd">        better format than `csc_array` for cell-wise operations like</span>
@@ -12117,7 +12109,8 @@
                     <span class="n">genes_in_all_datasets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span>\
                         <span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_names</span>
                                 <span class="o">.</span><span class="nf">is_in</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="nf">concat</span><span class="p">([</span><span class="n">dataset</span><span class="o">.</span><span class="n">var_names</span>
-                                                  <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">others</span><span class="p">])))</span>
+                                                  <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">others</span><span class="p">])</span>
+                                       <span class="o">.</span><span class="nf">implode</span><span class="p">()))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">hvg_in_self</span> <span class="o">=</span> \
                         <span class="bp">self</span><span class="o">.</span><span class="n">_var</span><span class="o">.</span><span class="nf">filter</span><span class="p">(</span><span class="n">hvg_columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="nf">to_series</span><span class="p">()</span> \
@@ -12129,7 +12122,7 @@
                             <span class="k">if</span> <span class="n">hvg_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span>
                             <span class="n">dataset</span><span class="o">.</span><span class="n">_var</span><span class="o">.</span><span class="nf">to_series</span><span class="p">()</span>
                             <span class="k">for</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">hvg_col</span> <span class="ow">in</span>
-                            <span class="nb">zip</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">hvg_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:])])))</span>
+                            <span class="nb">zip</span><span class="p">(</span><span class="n">others</span><span class="p">,</span> <span class="n">hvg_columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:])])</span><span class="o">.</span><span class="nf">implode</span><span class="p">()))</span>
                 <span class="n">gene_indices</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">genes_in_all_datasets</span>
                     <span class="o">.</span><span class="nf">to_frame</span><span class="p">()</span>

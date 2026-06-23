@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -536,12 +535,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>other</strong> : <em>DataFrame</em></p><p class="param-desc">a polars DataFrame to join <cite>obs</cite> with</p></li>
-<li><p class="param-header"><strong>on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in both DataFrames</p></li>
-<li><p class="param-header"><strong>left_on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>obs</cite></p></li>
-<li><p class="param-header"><strong>right_on</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>other</cite></p></li>
-<li><p class="param-header"><strong>suffix</strong> : <em>str</em></p><p class="param-desc">a suffix to append to columns with a duplicate name</p></li>
-<li><p class="param-header"><strong>validate</strong> : <em>Literal</em><em>[</em><em>'m:m'</em><em>, </em><em>'m:1'</em><em>, </em><em>'1:m'</em><em>, </em><em>'1:1'</em><em>]</em></p><p class="param-desc"><p>checks whether the join is of the specified type. Can be:</p>
+<li><p class="param-header"><strong>other</strong>: <em>DataFrame</em></p><p class="param-desc">a polars DataFrame to join <cite>obs</cite> with</p></li>
+<li><p class="param-header"><strong>on</strong>: <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in both DataFrames</p></li>
+<li><p class="param-header"><strong>left_on</strong>: <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>obs</cite></p></li>
+<li><p class="param-header"><strong>right_on</strong>: <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Sequence</em><em>[</em><em>str</em><em> | </em><em>Expr</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">the name(s) of the join column(s) in <cite>other</cite></p></li>
+<li><p class="param-header"><strong>suffix</strong>: <em>str</em></p><p class="param-desc">a suffix to append to columns with a duplicate name</p></li>
+<li><p class="param-header"><strong>validate</strong>: <em>Literal</em><em>[</em><em>'m:m'</em><em>, </em><em>'m:1'</em><em>, </em><em>'1:m'</em><em>, </em><em>'1:1'</em><em>]</em></p><p class="param-desc"><p>checks whether the join is of the specified type. Can be:</p>
 <ul>
 <li><p>’m:m’ (many-to-many): the default, no checks performed.</p></li>
 <li><p>’1:1’ (one-to-one): check that none of the values in
@@ -553,9 +552,9 @@ the join column(s) appear more than once in <cite>obs</cite>.</p></li>
 the join column(s) appear more than once in <cite>other</cite>.</p></li>
 </ul>
 </p></li>
-<li><p class="param-header"><strong>nulls_equal</strong> : <em>bool</em></p><p class="param-desc">whether to include <cite>null</cite> as a valid value to join on.
+<li><p class="param-header"><strong>nulls_equal</strong>: <em>bool</em></p><p class="param-desc">whether to include <cite>null</cite> as a valid value to join on.
 By default, <cite>null</cite> values will never produce matches.</p></li>
-<li><p class="param-header"><strong>coalesce</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, coalesce each of the pairs of join columns
+<li><p class="param-header"><strong>coalesce</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, coalesce each of the pairs of join columns
 (the columns in <cite>on</cite> or <cite>left_on</cite>/<cite>right_on</cite>) from <cite>obs</cite>
 and <cite>other</cite> into a single column, filling missing values
 from one with the corresponding values from the other.

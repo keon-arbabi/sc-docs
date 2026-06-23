@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -549,12 +548,12 @@ of the cell types overlap between the two resolutions):</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>ID_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a String, Enum, Categorical, or integer column of <cite>obs</cite>
+<li><p class="param-header"><strong>ID_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a String, Enum, Categorical, or integer column of <cite>obs</cite>
 containing sample IDs. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in this SingleCell dataset and
 returns a polars Series or 1D NumPy array.</p></li>
-<li><p class="param-header"><strong>cell_type_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a String, Enum, Categorical, or integer column of
+<li><p class="param-header"><strong>cell_type_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> </p><p class="param-desc">a String, Enum, Categorical, or integer column of
 <cite>obs</cite> containing cell-type labels. Can be a
 column name, a polars expression, a polars
 Series, a 1D NumPy array, or a function that
@@ -563,14 +562,14 @@ polars Series or 1D NumPy array. If
 cell_type_column is an integer column, the cell
 types in the Pseudobulk dataset will be coerced
 to strings.</p></li>
-<li><p class="param-header"><strong>QC_column</strong> : <a href="../../../api/single_cell/typedefs.html" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
+<li><p class="param-header"><strong>QC_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> indicating which
 cells passed QC. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in this SingleCell dataset and
 returns a polars Series or 1D NumPy array. Set to <cite>None</cite>
 to include all cells. Cells failing QC will be excluded
 from the pseudobulk.</p></li>
-<li><p class="param-header"><strong>cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to pseudobulk; by default,
+<li><p class="param-header"><strong>cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to pseudobulk; by default,
 pseudobulks all cell types in <cite>cell_type_column</cite>.
 Specifying <cite>cell_types</cite> is exactly equivalent to
 filtering the result to these cell types, but will be
@@ -580,13 +579,13 @@ change the order in which cell types appear in the
 resulting Pseudobulk dataset, even if pseuodbulking all
 cell types. Mutually exclusive with
 <cite>excluded_cell_types</cite> and <cite>include_nulls</cite>.</p></li>
-<li><p class="param-header"><strong>excluded_cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude from
+<li><p class="param-header"><strong>excluded_cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>int</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude from
 pseudobulking. Mutually exclusive with
 <cite>cell_types</cite> and <cite>include_nulls</cite>.</p></li>
-<li><p class="param-header"><strong>additional_obs</strong> : <em>DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">an optional DataFrame of additional sample-level
+<li><p class="param-header"><strong>additional_obs</strong>: <em>DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">an optional DataFrame of additional sample-level
 covariates, which will be joined to the
 pseudobulk’s <cite>obs</cite> for each cell type</p></li>
-<li><p class="param-header"><strong>include_nulls</strong> : <em>bool</em></p><p class="param-desc">whether to exclude cells with <cite>null</cite> values in
+<li><p class="param-header"><strong>include_nulls</strong>: <em>bool</em></p><p class="param-desc">whether to exclude cells with <cite>null</cite> values in
 <cite>ID_column</cite> and/or <cite>cell_type_column</cite> from the
 pseudobulk. If <cite>include_nulls=True</cite>, <cite>null</cite> will be
 treated just like any other value. This means that,
@@ -596,10 +595,10 @@ together, as will all cells from a given sample ID
 that have <cite>null</cite> as the cell type. Mutually
 exclusive with <cite>cell_types</cite> and
 <cite>excluded_cell_types</cite>.</p></li>
-<li><p class="param-header"><strong>sort_genes</strong> : <em>bool</em></p><p class="param-desc">whether to sort genes in alphabetical order in the
+<li><p class="param-header"><strong>sort_genes</strong>: <em>bool</em></p><p class="param-desc">whether to sort genes in alphabetical order in the
 pseudobulk; by default, genes appear in the same order
 as in the SingleCell dataset</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when pseudobulking;
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when pseudobulking;
 parallelism happens across {sample, cell type} pairs
 (or just samples, if <cite>cell_type_column</cite> is <cite>None</cite>).
 Set <cite>num_threads=-1</cite> to use all available cores, as
@@ -611,7 +610,7 @@ threads than the number of cell type-sample pairs will
 not provide additional speedup. Does not affect the
 Pseudobulk dataset’s <cite>num_threads</cite>; this will always
 be the same as the SingleCell dataset’s <cite>num_threads</cite>.</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print the number of cells excluded when
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print the number of cells excluded when
 <cite>include_nulls=False</cite> (and neither <cite>cell_types</cite> nor
 <cite>excluded_cell_types</cite> are specified)</p></li>
 </ul>

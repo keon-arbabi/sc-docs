@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -394,6 +394,32 @@ default fills, single-column inputs, etc.</p>
 (strings, numbers, Booleans), NumPy arrays, or nested dictionaries
 of the same types. Stored in <a class="reference internal" href="api/brisc.SingleCell.uns.html#brisc.SingleCell.uns" title="brisc.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SingleCell.uns</span></code></a>.</p>
 </section>
+<section id="unsitem">
+<h2>UnsItem<a class="headerlink" href="#unsitem" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">np.ndarray</span></code></p>
+<p>A single value inside an <a class="reference internal" href="api/brisc.SingleCell.uns.html#brisc.SingleCell.uns" title="brisc.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">SingleCell.uns</span></code></a> dictionary: a scalar
+(string, number, or Boolean) or a NumPy array.</p>
+</section>
+<section id="pseudobulkcolumn">
+<h2>PseudobulkColumn<a class="headerlink" href="#pseudobulkcolumn" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">pl.Expr</span> <span class="pre">|</span> <span class="pre">pl.Series</span> <span class="pre">|</span> <span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">Callable[[Pseudobulk,</span> <span class="pre">str],</span> <span class="pre">pl.Series</span> <span class="pre">|</span> <span class="pre">np.ndarray]</span></code></p>
+<p>The <a class="reference internal" href="../pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> analogue of <a class="reference internal" href="#singlecellcolumn">SingleCellColumn</a>. A column name,
+Polars expression, Polars Series, 1D NumPy array, or a function that takes a
+Pseudobulk dataset and a cell-type name and returns a Series or array.</p>
+</section>
+<section id="color">
+<h2>Color<a class="headerlink" href="#color" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">str</span> <span class="pre">|</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">tuple[int,</span> <span class="pre">int,</span> <span class="pre">int]</span> <span class="pre">|</span> <span class="pre">tuple[int,</span> <span class="pre">int,</span> <span class="pre">int,</span> <span class="pre">int]</span> <span class="pre">|</span> <span class="pre">tuple[float,</span> <span class="pre">float,</span> <span class="pre">float]</span> <span class="pre">|</span> <span class="pre">tuple[float,</span> <span class="pre">float,</span> <span class="pre">float,</span> <span class="pre">float]</span></code></p>
+<p>A color specification: a named or hex color string, a grayscale float, or an
+RGB(A) tuple of three or four ints (0–255) or floats (0–1). Used by the
+plotting methods.</p>
+</section>
+<section id="indexer">
+<h2>Indexer<a class="headerlink" href="#indexer" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">slice</span> <span class="pre">|</span> <span class="pre">np.ndarray</span> <span class="pre">|</span> <span class="pre">pl.Series</span> <span class="pre">|</span> <span class="pre">list[int</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">bool]</span></code></p>
+<p>Anything that can index a dataset: an integer or string position/name, a
+slice, or a Boolean/integer mask (NumPy array, Polars Series, or list).</p>
+</section>
 </section>
 
 
@@ -428,6 +454,10 @@ of the same types. Stored in <a class="reference internal" href="api/brisc.Singl
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singlecellcolumn">SingleCellColumn</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar">Scalar</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsdict">UnsDict</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsitem">UnsItem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudobulkcolumn">PseudobulkColumn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color">Color</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexer">Indexer</a></li>
 </ul>
   </nav></div>
 

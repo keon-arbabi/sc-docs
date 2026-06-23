@@ -49,6 +49,13 @@ autodoc_member_order = "bysource"
 # Move type hints from signature to parameter descriptions (Scanpy style)
 autodoc_typehints = "description"
 
+# Document only the constructor (__init__) docstring on each class page, not the
+# class-level docstring: the class "description" (e.g. SingleCell's slots
+# overview) duplicates the Properties / Data-access tables below. The
+# constructor signature stays on the class line (default
+# autodoc_class_signature = "mixed").
+autoclass_content = "init"
+
 # Don't force one-parameter-per-line wrapping; let CSS handle natural wrapping
 maximum_signature_line_length = 10000
 
@@ -167,6 +174,127 @@ def _md_to_rst_links(app, what, name, obj, options, lines):
     new_text = _md_link_re.sub(_repl, text)
     if new_text != text:
         lines[:] = new_text.split("\n")
+
+# Constructor summary lines that become redundant once the class and __init__
+# docstrings are merged (autoclass_content="both"): the class docstring already
+# says what the object is. We strip them at build time so the brisc source
+# docstrings stay untouched. Keyed by class fullname; the rest of each __init__
+# docstring (its parameters) is preserved.
+_DROP_CONSTRUCTOR_SUMMARIES = {
+    "brisc.DE": "Initialize the DE object.",
+    "brisc.Pseudobulk":
+        "Load a saved Pseudobulk dataset, or create one from an in-memory "
+        "count matrix + metadata for each cell type.",
+}
+
+def _drop_constructor_summary(app, what, name, obj, options, lines):
+    # `name` is the class fullname when autoclass merges in the __init__
+    # docstring, or the constructor itself; handle both.
+    cls_name = name[:-9] if name.endswith(".__init__") else name
+    summary = _DROP_CONSTRUCTOR_SUMMARIES.get(cls_name)
+    if not summary:
+        return
+    target = summary.split()
+    # Find the leading paragraph (run of non-blank lines) whose whitespace-
+    # normalized text equals `summary`, and delete it plus one trailing blank.
+    i = 0
+    while i < len(lines):
+        if not lines[i].strip():
+            i += 1
+            continue
+        j, words = i, []
+        while j < len(lines) and lines[j].strip():
+            words += lines[j].split()
+            j += 1
+        if words == target:
+            if j < len(lines) and not lines[j].strip():
+                j += 1
+            del lines[i:j]
+            return
+        i = j
+
+# Fold SingleCell's long constructor `Examples:` and `Note:` sections into two
+# collapsible sphinx-design dropdowns, so the class page stays scannable. Runs
+# BEFORE napoleon (priority 400 in setup()) so it operates on the raw Google-
+# style sections; only SingleCell's constructor has these.
+def _section_span(lines, header, start=0):
+    """Return [i, j) covering a Google `header` line and its more-indented
+    body (blank lines included), or None if not found."""
+    for i in range(start, len(lines)):
+        if lines[i].strip() == header:
+            base = len(lines[i]) - len(lines[i].lstrip())
+            j = i + 1
+            while j < len(lines):
+                s = lines[j]
+                if s.strip() and (len(s) - len(s.lstrip())) <= base:
+                    break
+                j += 1
+            return i, j
+    return None
+
+def _strip_trailing_blanks(block):
+    while block and not block[-1].strip():
+        block.pop()
+    return block
+
+def _constructor_dropdowns(app, what, name, obj, options, lines):
+    cls_name = name[:-9] if name.endswith(".__init__") else name
+    if cls_name != "brisc.SingleCell":
+        return
+    ex = _section_span(lines, "Examples:")
+    if ex is None:
+        return
+    ex_s, ex_e = ex
+    # Collect the consecutive `Note:` sections that follow Examples.
+    notes, k = [], ex_e
+    while True:
+        nspan = _section_span(lines, "Note:", k)
+        if nspan is None or nspan[0] != k:
+            break
+        notes.append(nspan)
+        k = nspan[1]
+    region_end = notes[-1][1] if notes else ex_e
+    # Examples dropdown (body keeps its existing indentation, valid as content).
+    block = [".. dropdown:: Examples", ""] + \
+        _strip_trailing_blanks(lines[ex_s + 1:ex_e])
+    # One Notes dropdown holding every Note paragraph.
+    if notes:
+        block += ["", ".. dropdown:: Notes", ""]
+        for idx, (ns, ne) in enumerate(notes):
+            if idx:
+                block.append("")
+            block += _strip_trailing_blanks(lines[ns + 1:ne])
+    lines[ex_s:region_end] = block
+
+# Render a class's docstring as standalone prose, so the class "description" can
+# sit between the page title and the constructor signature in index.rst
+# (autoclass always renders the docstring *after* the signature). Single source
+# of truth: the class docstring itself, not a hand-copied blurb.
+from docutils import nodes
+from docutils.parsers.rst import Directive
+from docutils.statemachine import StringList
+import inspect as _inspect
+
+class _ClassDescription(Directive):
+    required_arguments = 1  # class name in `brisc`, e.g. SingleCell
+
+    def run(self):
+        import brisc
+        cls = getattr(brisc, self.arguments[0])
+        doc_lines = _md_fences_to_rst(
+            _inspect.cleandoc(cls.__doc__ or "").split("\n"))
+        text = "\n".join(doc_lines)
+        def _repl(m):
+            label, url = m.group(2), m.group(3)
+            if not url.startswith(("http://", "https://")):
+                url = "https://" + url
+            return f"`{label} <{url}>`_"
+        text = _md_link_re.sub(_repl, text)
+        container = nodes.container(classes=["class-description"])
+        self.state.nested_parse(
+            StringList(text.split("\n"), source="<class-description>"),
+            self.content_offset, container)
+        return [container]
 
 # Build method → API doc URL mappings
 def _build_api_links():
@@ -386,7 +514,7 @@ def _semantic_highlight(app, exception=None):
         def _param_repl(m):
             name, types, sep = m.group(1), m.group(2), m.group(3)
             header = (
-                f'<li><p class="param-header"><strong>{name}</strong> : '
+                f'<li><p class="param-header"><strong>{name}</strong>: '
                 f'{types}</p>'
             )
             if '–' in sep:
@@ -398,6 +526,15 @@ def _semantic_highlight(app, exception=None):
             r'(\s*–\s*|</p>)',
             _param_repl,
             text)
+
+        # Strip module qualifiers from rendered type tokens: `sparse.csr_array`
+        # → `csr_array`, `pl.DataFrame` → `DataFrame`, `np.integer` → `integer`.
+        text = re.sub(
+            r'(<em>)(?:np|pl|sparse)\.([A-Za-z_]\w*</em>)', r'\1\2', text)
+        # `Literal[False]` → `False` (any single-argument `Literal[...]`).
+        text = re.sub(
+            r'<em>Literal</em><em>\[</em><em>([^<]*)</em><em>\](\s*)</em>',
+            r'<em>\1\2</em>', text)
 
         # Simplify types: remove np.integer/np.floating/np.bool_ duplicates
         # "int | integer" → "int", "float | floating" → "float"
@@ -419,11 +556,28 @@ def _semantic_highlight(app, exception=None):
             r'<em>ndarray</em><em>\]\s*</em>'
         )
         _scc_link = (
-            f'<a href="{"../" * depth}api/single_cell/typedefs.html"'
-            f' style="text-decoration:none">'
+            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+            f'#singlecellcolumn" style="text-decoration:none">'
             f'<em>SingleCellColumn</em></a> '
         )
         text = re.sub(_scc_pattern, _scc_link, text)
+
+        # Collapse the PseudobulkColumn union (the SingleCellColumn twin, whose
+        # callable takes a Pseudobulk + cell type) to its typedef name.
+        _pbc_pattern = (
+            r'<em>str</em><em> \| </em><em>Expr</em><em> \| </em>'
+            r'<em>Series</em><em> \| </em><em>ndarray</em><em> \| </em>'
+            r'<em>Callable</em><em>\[</em><em>\[</em>'
+            r'.*?Pseudobulk.*?'
+            r'<em>\]</em><em>,\s*</em><em>Series</em><em> \| </em>'
+            r'<em>ndarray</em><em>\]\s*</em>'
+        )
+        _pbc_link = (
+            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+            f'#pseudobulkcolumn" style="text-decoration:none">'
+            f'<em>PseudobulkColumn</em></a> '
+        )
+        text = re.sub(_pbc_pattern, _pbc_link, text)
 
         # Collapse the Scalar-style union (str | int | float | Decimal | date
         # | time | datetime | timedelta | bool | bytes | Expr | Series | ...)
@@ -449,11 +603,23 @@ def _semantic_highlight(app, exception=None):
             r'<em>\]</em>)?'
         )
         _scalar_link = (
-            f'<a href="{"../" * depth}api/single_cell/typedefs.html"'
-            f' style="text-decoration:none">'
+            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+            f'#scalar" style="text-decoration:none">'
             f'<em>Scalar</em></a> '
         )
         text = re.sub(_scalar_full, _scalar_link, text)
+
+        # Link bare type-alias names to the (orphan) typedefs page. Skip any
+        # already wrapped above (the union collapses) — detected by a trailing
+        # </a>.
+        for _alias in ('SingleCellColumn', 'PseudobulkColumn', 'Scalar',
+                       'UnsDict', 'UnsItem', 'Color', 'Indexer'):
+            text = re.sub(
+                rf'<em>{_alias}</em>(?!</a>)',
+                f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+                f'#{_alias.lower()}" style="text-decoration:none">'
+                f'<em>{_alias}</em></a>',
+                text)
 
         if text != original:
             html_file.write_text(text)
@@ -536,6 +702,9 @@ def _generate_benchmark_data(app):
     )
 
 def setup(app):
+    app.add_directive("classdescription", _ClassDescription)
+    app.connect("autodoc-process-docstring", _constructor_dropdowns, priority=400)
     app.connect("autodoc-process-docstring", _md_to_rst_links)
+    app.connect("autodoc-process-docstring", _drop_constructor_summary)
     app.connect("builder-inited", _generate_benchmark_data)
     app.connect("build-finished", _semantic_highlight, priority=901)

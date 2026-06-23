@@ -11,6 +11,8 @@ DE
 
 .. currentmodule:: brisc
 
+.. classdescription:: DE
+
 .. autoclass:: DE
    :no-members:
 
@@ -20,7 +22,6 @@ I/O
 .. autosummary::
    :nosignatures:
 
-   DE.__init__
    DE.save
 
 Properties

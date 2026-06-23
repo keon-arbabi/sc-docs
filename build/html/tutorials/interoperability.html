@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -56,7 +56,7 @@
     <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Essential Commands" href="essential_commands.html" />
+    <link rel="next" title="Data manipulation" href="data_manipulation.html" />
     <link rel="prev" title="Differential Expression" href="differential_expression.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -328,7 +328,7 @@
 <li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data manipulation</a></li>
 </ul>
 </div>
 </nav></div>
@@ -391,16 +391,16 @@
                   
   <section id="interoperability">
 <h1>Interoperability<a class="headerlink" href="#interoperability" title="Link to this heading">#</a></h1>
-<section id="loading-from-file">
-<h2>Loading from file<a class="headerlink" href="#loading-from-file" title="Link to this heading">#</a></h2>
-<p>SingleCell reads and writes all three major single-cell ecosystems natively, with no intermediate conversion steps:</p>
+<section id="loading-from-files">
+<h2>Loading from files<a class="headerlink" href="#loading-from-files" title="Link to this heading">#</a></h2>
+<p>brisc can interface with files and objects from all three major single-cell ecosystems:</p>
 <ul class="simple">
 <li><p><strong>scverse/Scanpy</strong> – AnnData <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files and in-memory AnnData objects</p></li>
 <li><p><strong>Seurat</strong> – <code class="docutils literal notranslate"><span class="pre">.rds</span></code> and <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code> files, plus in-memory Seurat objects via the ryp Python-R bridge</p></li>
 <li><p><strong>Bioconductor</strong> – SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files and in-memory SCE objects via ryp</p></li>
 </ul>
 <p>as well as raw 10x Genomics data (<code class="docutils literal notranslate"><span class="pre">.h5</span></code> or <code class="docutils literal notranslate"><span class="pre">.mtx</span></code>/<code class="docutils literal notranslate"><span class="pre">.mtx.gz</span></code>).</p>
-<p>The constructor auto-detects format from the file extension:</p>
+<p>The SingleCell constructor auto-detects a file’s format from its extension:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
 
 <span class="c1"># scverse / Scanpy</span>
@@ -423,7 +423,7 @@
 </div>
 <section id="choosing-the-count-matrix">
 <h3>Choosing the count matrix<a class="headerlink" href="#choosing-the-count-matrix" title="Link to this heading">#</a></h3>
-<p>When a file contains both raw and normalized counts, SingleCell loads raw counts by default. Use <code class="docutils literal notranslate"><span class="pre">X_key</span></code> to choose a different layer:</p>
+<p>When a file contains both raw and normalized counts, SingleCell loads raw counts by default. Use <code class="docutils literal notranslate"><span class="pre">X_key</span></code> to choose a different location:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># .h5ad: use SingleCell.ls() to find the right key</span>
 <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.ls.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">ls</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
 
@@ -449,7 +449,7 @@
                 <span class="na">var_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gene_symbol&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>You can skip loading the count matrix entirely (useful for metadata-only exploration or working with dimensionally reduced objects). Note that datasets loaded without <code class="docutils literal notranslate"><span class="pre">X</span></code> cannot be saved, converted, or used for analyses that require counts:</p>
+<p>You can skip loading the count matrix entirely (useful if you only need the metadata or principal components). Note that datasets loaded without <code class="docutils literal notranslate"><span class="pre">X</span></code> cannot be saved, converted, or used for analyses that require counts:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -465,16 +465,13 @@
 
 <span class="c1"># dict: {key: NumPy array | polars DataFrame}</span>
 <span class="n">obsm</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.read_obsm.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_obsm</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X_pca&#39;</span><span class="p">])</span>
-
-<span class="c1"># dict (nested: scalars, arrays, sub-dicts)</span>
-<span class="n">uns</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.read_uns.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_uns</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="saving-to-file">
 <h2>Saving to file<a class="headerlink" href="#saving-to-file" title="Link to this heading">#</a></h2>
-<p>Format is inferred from the file extension:</p>
+<p>As with loading, format is inferred from the file extension:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># scverse / Scanpy</span>
 <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.h5ad&#39;</span><span class="p">)</span>
 
@@ -496,7 +493,7 @@
 </pre></div>
 </div>
 <p>When saving to <code class="docutils literal notranslate"><span class="pre">.rds</span></code>, the <code class="docutils literal notranslate"><span class="pre">X_key</span></code> argument controls which layer <code class="docutils literal notranslate"><span class="pre">X</span></code> is stored in:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># save as normalized counts in the &#39;data&#39; layer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># save counts to the &#39;data&#39; layer</span>
 <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.save.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">save</span></a><span class="p">(</span><span class="s1">&#39;output.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -513,7 +510,7 @@
 <h2>In-memory conversion<a class="headerlink" href="#in-memory-conversion" title="Link to this heading">#</a></h2>
 <section id="from-anndata">
 <h3>From AnnData<a class="headerlink" href="#from-anndata" title="Link to this heading">#</a></h3>
-<p>Pass an AnnData object directly to the constructor. By default, raw counts are loaded from <code class="docutils literal notranslate"><span class="pre">adata.layers['UMIs']</span></code> or <code class="docutils literal notranslate"><span class="pre">adata.raw.X</span></code> if present, falling back to <code class="docutils literal notranslate"><span class="pre">adata.X</span></code>:</p>
+<p>Pass an AnnData object directly to the SingleCell constructor. By default, raw counts are loaded from <code class="docutils literal notranslate"><span class="pre">adata.layers['UMIs']</span></code> or <code class="docutils literal notranslate"><span class="pre">adata.raw.X</span></code> if present, falling back to <code class="docutils literal notranslate"><span class="pre">adata.X</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
 
 <span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="nf">read_h5ad</span><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
@@ -523,7 +520,7 @@
 <span class="n">sc_data</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;raw_counts&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>The constructor shares <code class="docutils literal notranslate"><span class="pre">adata</span></code>’s count matrix rather than copying it (the reverse of <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_scanpy()</span></code></a>), so edits to one alias the other — use <code class="docutils literal notranslate"><span class="pre">SingleCell(adata.copy())</span></code> for an independent dataset. A dense <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> is the exception: it is copied to a sparse <code class="docutils literal notranslate"><span class="pre">csr_array</span></code>, with a warning.</p>
+<p>The constructor shares <code class="docutils literal notranslate"><span class="pre">adata</span></code>’s count matrix rather than copying it (the reverse of <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_scanpy()</span></code></a>), so edits to one also affect the other; use <code class="docutils literal notranslate"><span class="pre">SingleCell(adata.copy())</span></code> for an independent dataset. A dense <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> is the exception: it is copied to a sparse <code class="docutils literal notranslate"><span class="pre">csr_array</span></code>, with a warning.</p>
 </section>
 <section id="to-anndata">
 <h3>To AnnData<a class="headerlink" href="#to-anndata" title="Link to this heading">#</a></h3>
@@ -533,7 +530,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The count matrix is shared, not copied. Modifying <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> will also modify the original SingleCell dataset. To avoid this, use <code class="docutils literal notranslate"><span class="pre">sc_data.copy().to_scanpy()</span></code>.</p>
-<p>There is no <code class="docutils literal notranslate"><span class="pre">from_scanpy()</span></code> method – <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></a> serves that purpose.</p>
+<p>There is no <code class="docutils literal notranslate"><span class="pre">from_scanpy()</span></code> method – <code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code> serves that purpose.</p>
 </div>
 </section>
 <section id="constructing-from-scratch">
@@ -645,22 +642,22 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Load <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code></p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad')</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad')</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Load <code class="docutils literal notranslate"><span class="pre">.rds</span></code> / <code class="docutils literal notranslate"><span class="pre">.h5Seurat</span></code></p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.rds')</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.rds')</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Load 10x <code class="docutils literal notranslate"><span class="pre">.h5</span></code> / <code class="docutils literal notranslate"><span class="pre">.mtx</span></code></p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('matrix.h5')</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('matrix.h5')</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Load specific layer</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X_key='raw/X')</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X_key='raw/X')</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Load subset of columns</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">obs_columns=[...])</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">obs_columns=[...])</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Load without counts</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X=False)</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X=False)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Read <code class="docutils literal notranslate"><span class="pre">obs</span></code> only</p></td>
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.read_obs('file.h5ad')</span></code></a></p></td>
@@ -669,7 +666,7 @@
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('out.h5ad')</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>From AnnData</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>To AnnData</p></td>
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_scanpy()</span></code></a></p></td>
@@ -687,7 +684,7 @@
 <td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_sce('obj')</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>Construct manually</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(X=X,</span> <span class="pre">obs=obs,</span> <span class="pre">var=var)</span></code></a></p></td>
+<td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(X=X,</span> <span class="pre">obs=obs,</span> <span class="pre">var=var)</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -715,11 +712,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="essential_commands.html"
+       href="data_manipulation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Essential Commands</p>
+        <p class="prev-next-title">Data manipulation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -742,7 +739,7 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-from-file">Loading from file</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-from-files">Loading from files</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-count-matrix">Choosing the count matrix</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-loading">Partial loading</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-individual-slots">Reading individual slots</a></li>

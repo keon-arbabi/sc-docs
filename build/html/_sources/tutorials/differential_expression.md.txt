@@ -1,10 +1,10 @@
 # Differential Expression
 
-This tutorial covers pseudobulk differential expression: summing each sample's counts into one profile per cell type, then testing genes for expression differences between conditions. It uses the same Parse Biosciences ~10 million cell PBMC dataset as the other tutorials, comparing IFN-gamma–stimulated cells against PBS controls within each cell type with [limma-voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29).
+This tutorial covers pseudobulk differential expression: summing each sample's counts across all cells of the same cell type, then testing genes for expression differences between conditions with [limma-voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). It uses the same ~10 million cell cytokine stimulation dataset as the other tutorials, comparing IFN-gamma-stimulated cells against phosphate-buffered saline (PBS) controls within each cell type.
 
 ## Loading and quality control
 
-Load the data and run QC as in [Basic Workflow](basic_workflow.md).
+Load the data and run QC as in the [basic workflow](basic_workflow.md):
 
 ```python
 from brisc import SingleCell
@@ -18,13 +18,11 @@ sc = SingleCell(
 
 ## Pseudobulk aggregation
 
-{meth}`~brisc.SingleCell.pseudobulk` sums the raw counts of all cells that share a sample and cell type. Differential expression (DE) then runs on these per-sample profiles rather than on individual cells.
+{meth}`~brisc.SingleCell.pseudobulk` sums each gene's raw counts across all cells from the same sample and cell type. Differential expression (DE) then runs on these per-sample gene expression profiles rather than on individual cells.
 
-The result is a {class}`~brisc.Pseudobulk` dataset with three slots — {attr}`~brisc.Pseudobulk.X`, {attr}`~brisc.Pseudobulk.obs`, and {attr}`~brisc.Pseudobulk.var` — and each slot is a dictionary keyed by cell type. For a given cell type, `X` is a samples × genes matrix of summed counts, `obs` is one metadata row per sample, and `var` is the gene metadata. `obs` adds a `num_cells` column and keeps the cell-level columns that are constant within each sample, such as `donor` and `cytokine`.
+{class}`~brisc.Pseudobulk` datasets have three slots — {attr}`~brisc.Pseudobulk.X`, {attr}`~brisc.Pseudobulk.obs`, and {attr}`~brisc.Pseudobulk.var` — and each slot is a dictionary where the keys are cell types. For a given cell type, `X` is a samples × genes matrix of summed counts, `obs` is a DataFrame of sample-level metadata, and `var` is a DataFrame of gene-level metadata. `obs` has a `num_cells` column indicating how many cells went into each sample's pseudobulk. Whereas `var` retains all of the columns from the original SingleCell dataset, `obs` keeps only the ones that are the same for every cell within a sample, such as `donor` and `cytokine`.
 
-This layout supports two kinds of indexing. Indexing a slot by cell type, like `pb.obs['CD14 Mono']`, returns that cell type's DataFrame directly; indexing the dataset itself by cell type, like `pb['CD14 Mono']`, returns a new `Pseudobulk` subset to just that cell type.
-
-We keep only the IFN-gamma and PBS samples for DE testing.
+We keep only the IFN-gamma and PBS samples for DE testing:
 
 ```python
 pb = sc.pseudobulk('sample', 'cell_type')
@@ -59,44 +57,39 @@ shape: (5, 4)
 IFN-gamma samples have far fewer cells than PBS samples; the `log2(num_cells)` covariate accounts for this in the model.
 
 :::{dropdown} Saving the pseudobulk
-A pseudobulk dataset is a compact summary, so saving it lets you re-run DE later without reloading the single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory; reload it with {meth}`Pseudobulk('dir') <brisc.Pseudobulk.__init__>`. Pass `cell_types=` or `excluded_cell_types=` to save only some cell types.
+A pseudobulk dataset is a compact summary of the original SingleCell dataset, so saving it is a convenient way to re-run DE later without reloading the raw single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory; reload it with {meth}`Pseudobulk(directory) <brisc.Pseudobulk.__init__>`. Pass `cell_types=` or `excluded_cell_types=` to save only certain cell types.
 :::
 
 ## Sample-level quality control
 
-{meth}`~brisc.Pseudobulk.qc` runs independently for each cell type, filtering out low-quality samples and genes. By default it keeps:
+{meth}`~brisc.Pseudobulk.qc` runs independently for each cell type, filtering out low-quality samples, genes, and cell types. By default it keeps:
 
 - **samples with ≥10 cells of that cell type**
 - **non-outlier samples** — those whose zero-count gene total is less than 3 standard deviations above the mean
 - **genes detected in ≥80% of samples**
+- **cell types with ≥2 samples remaining** after applying the above three filters
 
-Passing `cytokine` as the group column applies the gene-detection filter within each condition — keeping a gene only if it is detected in ≥80% of samples in both IFN-gamma and PBS. Without a group column, that 80% threshold is checked across all samples pooled instead.
+Passing `cytokine` as the group column applies the gene-detection filter within each condition, keeping a gene only if it is detected in ≥80% of samples in both IFN-gamma and PBS. Without specifying a group column, that 80% threshold would instead be evaluated across all samples.
 
 ```python
 pb = pb.qc('cytokine')
 ```
 ```none
 [B Intermediate/Memory] Starting with 24 samples and 40,352 genes.
-[B Intermediate/Memory] Applying the custom filter...
 [B Intermediate/Memory] Filtering to samples with at least 10 B Intermediate/Memory cells...
 [B Intermediate/Memory] 24 samples remain after filtering to samples with at least 10 B Intermediate/Memory cells.
 [B Intermediate/Memory] Filtering to samples where the number of genes with 0 counts is <3 standard deviations above the mean...
 [B Intermediate/Memory] 24 samples remain after filtering to samples where the number of genes with 0 counts is <3 standard deviations above the mean.
 [B Intermediate/Memory] Filtering to genes with at least one count in 80.0% of samples in each group...
 [B Intermediate/Memory] 14,696 genes remain after filtering to genes with at least one count in 80.0% of samples in each group.
-
 ...
-
 [Plasmablast] Starting with 22 samples and 40,352 genes.
-[Plasmablast] Applying the custom filter...
 [Plasmablast] Filtering to samples with at least 10 Plasmablast cells...
 [Plasmablast] 11 samples remain after filtering to samples with at least 10 Plasmablast cells.
 [Plasmablast] Skipping this cell type because it has only 1 sample where group_column = 'IFN-gamma' after filtering, which is fewer than min_samples (2)
-
-...
 ```
 
-The number of genes kept therefore varies by cell type, and a rare type can drop out entirely when a condition is left with too few samples — here Plasmablast is skipped because only one IFN-gamma sample has enough cells.
+The number of genes kept varies by cell type, and a rare cell type can drop out entirely when a condition is left with too few samples. Here, Plasmablast is skipped because only one IFN-gamma sample has enough cells.
 
 :::{dropdown} Customizing the filters
 Each threshold is configurable:
@@ -107,16 +100,14 @@ pb = pb.qc(
     min_nonzero_fraction=0.9, min_samples=3)
 ```
 
-`min_cells`, `max_standard_deviations`, and `min_nonzero_fraction` (defaults 10, 3, and 0.8) are the three filters above; pass `None` to switch any off, or `min_nonzero_fraction=0` to drop only all-zero genes. `min_samples` (default 2) sets how many samples a cell type needs to survive — the cutoff that dropped Plasmablast.
-
-`custom_filter` adds an extra per-sample Boolean filter, `cell_types` / `excluded_cell_types` limit QC to some cell types, and `verbose=False` silences the per-step log.
+`min_cells`, `max_standard_deviations`,  `min_nonzero_fraction`, and `min_samples` are the four filters above; pass `None` to switch a filter off, or `min_nonzero_fraction=0` to drop only all-zero genes. Use `custom_filter` to adds an extra per-sample Boolean filter.
 :::
 
 ## Differential expression
 
-{meth}`~brisc.Pseudobulk.library_size` computes a TMM-normalized library size per sample, and {meth}`~brisc.Pseudobulk.DE` then fits a limma-voom model for each cell type.
+{meth}`~brisc.Pseudobulk.library_size` computes a trimmed mean of M-values (TMM)-normalized library size for each sample, and {meth}`~brisc.Pseudobulk.DE` then fits a limma-voom model for each cell type.
 
-The formula `~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)` describes each gene's expression: `cytokine` is the effect of interest (the leading `0 +` drops the intercept so each condition gets its own coefficient), `donor` accounts for the paired donors, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. The `contrasts` argument asks for the IFN-gamma minus PBS difference.
+The formula `~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)` describes the model to be used for each gene's expression. `cytokine` is the effect of interest (the leading `0 +` drops the intercept so each condition gets its own coefficient), `donor` accounts for the paired donors, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. The `contrasts` argument asks for the IFN-gamma minus PBS difference.
 
 ```python
 pb = pb.library_size()
@@ -169,12 +160,12 @@ de = pb.DE(
 :::
 
 :::{dropdown} Other DE options
-- `group=False` uses a single mean–variance trend (plain voom) rather than voomByGroup.
+- `group=False` uses a single mean-variance trend (plain voom) rather than voomByGroup.
 - `robust=True` makes the empirical Bayes step robust to outlier samples.
 - `strict=True` errors on any cell type whose design matrix is rank-deficient or has too few samples to fit its coefficients — by default these cell types are silently skipped.
 - `return_voom_info=False` skips storing the voom weights and plot data, for lower memory and runtime when you don't need them.
-- `cell_types` / `excluded_cell_types` restrict testing to a subset of cell types.
-- `formula` — and likewise `coefficient`, `contrasts`, and `group` — can be a dict keyed by cell type, for per-cell-type designs (e.g. a covariate present in only some).
+- `cell_types` and `excluded_cell_types` restrict testing to a subset of cell types.
+- `formula`, `coefficient`, `contrasts`, and `group` can be dictionaries keyed by cell type, to allow different cell types to have different designs (e.g. when a covariate is present in only some cell types).
 :::
 
 ## Exploring the results
@@ -199,9 +190,9 @@ shape: (5, 2)
 └───────────────────────┴──────────┘
 ```
 
-The monocytes and B cells respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this threshold.
+The monocytes and B cells respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this significance threshold.
 
-{meth}`~brisc.DE.get_hits` returns the hits themselves; `num_top_hits` caps how many it reports per cell type.
+{meth}`~brisc.DE.get_hits` returns the hits themselves; `num_top_hits` caps how many hits it reports per cell type.
 
 ```python
 print(de.get_hits(num_top_hits=5))
@@ -237,7 +228,7 @@ shape: (21, 11)
 └───────────────────────┴──────────────────┴──────────┴───────────┴──────────┴───────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
 ```
 
-Classic interferon-response genes recur across cell types — `LAP3`, `GBP5`, `IFIT2`, and `CXCL10` are all canonical IFN-gamma targets.
+Classic interferon-response genes recur across cell types: `LAP3`, `GBP5`, `IFIT2`, and `CXCL10` are all canonical IFN-gamma targets.
 
 {meth}`~brisc.DE.plot_volcano` plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:
 
@@ -253,9 +244,9 @@ de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
 :::
 
 :::{dropdown} Other result options
-- {meth}`~brisc.DE.plot_voom` draws the mean–variance trend that voom fits, with one curve per group (when using voomByGroup).
-- `significance_column='Bonferroni'` or a lower `threshold` in `get_hits` and `plot_volcano` gives a stricter cut.
-- {meth}`~brisc.DE.save` writes the results (and voom info) to a directory; reload them later with {meth}`DE('dir') <brisc.DE.__init__>`.
+- {meth}`~brisc.DE.plot_voom` draws the mean-variance trend that voom fits, with one curve per group when using voomByGroup.
+- `significance_column='Bonferroni'` or a lower `threshold` in `get_hits` and `plot_volcano` gives a stricter set of DE genes.
+- {meth}`~brisc.DE.save` writes the results (and voom info) to a directory; reload them later with {meth}`DE(directory) <brisc.DE.__init__>`.
 :::
 
 ## Pipeline summary

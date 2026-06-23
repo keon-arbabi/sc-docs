@@ -7,7 +7,6 @@ I/O
    :toctree: api/
    :nosignatures:
 
-   SingleCell.__init__
    SingleCell.save
    SingleCell.ls
    SingleCell.read_obs

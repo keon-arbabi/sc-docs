@@ -7,5 +7,4 @@ I/O
    :toctree: api/
    :nosignatures:
 
-   Pseudobulk.__init__
    Pseudobulk.save

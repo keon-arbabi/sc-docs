@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -531,8 +530,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="brisc.SingleCell.tocsc">
 <span class="sig-prename descclassname"><span class="pre">SingleCell.</span></span><span class="sig-name descname"><span class="pre">tocsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/brisc/single_cell.html#SingleCell.tocsc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.SingleCell.tocsc" title="Link to this definition">#</a></dt>
-<dd><p>Make a copy of this SingleCell dataset, converting <cite>X</cite> to a csc_array.
-Raise an error if <cite>X</cite> is already a <cite>csc_array</cite>.</p>
+<dd><p>Make a copy of this SingleCell dataset, converting <cite>X</cite> to a
+<cite>csc_array</cite>. Raise an error if <cite>X</cite> is already a <cite>csc_array</cite>.</p>
 <p>This function is provided for completeness, but <cite>csr_array</cite> is a far
 better format than <cite>csc_array</cite> for cell-wise operations like
 pseudobulking, so using <cite>tocsc()</cite> is rarely advisable.</p>

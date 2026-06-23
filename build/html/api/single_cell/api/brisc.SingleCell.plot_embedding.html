@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -535,8 +534,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>embedding_key</strong> : <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the embedding to plot</p></li>
-<li><p class="param-header"><strong>color_column</strong> : <em>SingleCellColumn</em><em> | </em><em>None</em></p><p class="param-desc">an optional column of <cite>obs</cite> indicating how to color
+<li><p class="param-header"><strong>embedding_key</strong>: <em>str</em></p><p class="param-desc">the key of <cite>obsm</cite> containing the embedding to plot</p></li>
+<li><p class="param-header"><strong>color_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a><em> | </em><em>None</em></p><p class="param-desc">an optional column of <cite>obs</cite> indicating how to color
 each cell in the plot. Can be a column name, a polars
 expression, a polars Series, a 1D NumPy array, or a
 function that takes in this SingleCell dataset and
@@ -547,19 +546,19 @@ the number of UMIs per cell), specified as an
 integer/floating-point column. Missing (<cite>null</cite>) cells
 will be plotted with the color <cite>default_color</cite>. Set
 to <cite>None</cite> to use <cite>default_color</cite> for all cells.</p></li>
-<li><p class="param-header"><strong>filename</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p><p class="param-desc">the file to save to. If <cite>None</cite>, generate the plot but do
+<li><p class="param-header"><strong>filename</strong>: <em>str</em><em> | </em><em>Path</em><em> | </em><em>None</em></p><p class="param-desc">the file to save to. If <cite>None</cite>, generate the plot but do
 not save it, which allows it to be shown interactively or
 modified further before saving.</p></li>
-<li><p class="param-header"><strong>cells_to_plot_column</strong> : <em>SingleCellColumn</em><em> | </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite>
+<li><p class="param-header"><strong>cells_to_plot_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a><em> | </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite>
 indicating which cells to plot. Can be a
 column name, a polars expression, a polars
 Series, a 1D NumPy array, or a function that
 takes in this SingleCell dataset and returns
 a polars Series or 1D NumPy array. Set to
 <cite>None</cite> to plot all cells passing QC.</p></li>
-<li><p class="param-header"><strong>ax</strong> : <em>'Axes'</em><em> | </em><em>None</em></p><p class="param-desc">the Matplotlib axes to save the plot onto; if <cite>None</cite>, create a
+<li><p class="param-header"><strong>ax</strong>: <em>'Axes'</em><em> | </em><em>None</em></p><p class="param-desc">the Matplotlib axes to save the plot onto; if <cite>None</cite>, create a
 new figure with Matpotlib’s constrained layout and plot onto it</p></li>
-<li><p class="param-header"><strong>figure_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>figure_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>plt.figure</cite> when <cite>ax</cite> is <cite>None</cite>, such as:</p>
 <ul>
 <li><p><cite>figsize</cite>: a two-element sequence of the width and
@@ -572,11 +571,11 @@ to avoid overlapping plot elements. Defaults to
 of <cite>None</cite>.</p></li>
 </ul>
 </p></li>
-<li><p class="param-header"><strong>point_size</strong> : <em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em><em> | </em><em>str</em><em> | </em><em>None</em></p><p class="param-desc">the size of the points for each cell; defaults to
+<li><p class="param-header"><strong>point_size</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>str</em><em> | </em><em>None</em></p><p class="param-desc">the size of the points for each cell; defaults to
 20,000 divided by the number of cells. Can be a single
 number, or the name of a column of <cite>obs</cite> to make each
 point a different size.</p></li>
-<li><p class="param-header"><strong>sort_by_frequency</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, assign colors and sort the legend in
+<li><p class="param-header"><strong>sort_by_frequency</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, assign colors and sort the legend in
 order of decreasing frequency; if <cite>False</cite> (the
 default), use
 <a class="reference external" href="https://en.wikipedia.org/wiki/Natural_sort_order">natural sort order</a>.
@@ -584,7 +583,7 @@ Cannot be <cite>True</cite> unless <cite>colormap</cite> is <cite>None</cite> an
 <cite>color_column</cite> is discrete; if <cite>colormap</cite> is
 not <cite>None</cite>, the plot order is determined by the
 order of the keys in <cite>colormap</cite>.</p></li>
-<li><p class="param-header"><strong>colormap</strong> : <em>str</em><em> | </em><em>'Colormap'</em><em> | </em><em>dict</em><em>[</em><em>Any</em><em>, </em><em>Color</em><em>]</em></p><p class="param-desc">a string or Colormap object indicating the Matplotlib
+<li><p class="param-header"><strong>colormap</strong>: <em>str</em><em> | </em><em>'Colormap'</em><em> | </em><em>dict</em><em>[</em><em>Any</em><em>, </em><a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a><em>]</em></p><p class="param-desc">a string or Colormap object indicating the Matplotlib
 colormap to use; or, if <cite>color_column</cite> is discrete, a
 dictionary mapping values in <cite>color_column</cite> to Matplotlib
 colors (cells with values of <cite>color_column</cite> that are not
@@ -596,34 +595,34 @@ maximally perceptually distinct colormap if
 <cite>color_column</cite> is discrete (with colors assigned in
 decreasing order of frequency). Cannot be specified if
 <cite>color_column</cite> is <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>lightness_range</strong> : <em>tuple</em><em>[</em><em>float</em><em> | </em><em>np.floating</em><em>, </em><em>float</em><em> | </em><em>np.floating</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the lightness range of
+<li><p class="param-header"><strong>lightness_range</strong>: <em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the lightness range of
 colors to generate, or <cite>None</cite> to take the full
 range: <cite>[0, 100]</cite>. Can only be specified when
 <cite>color_column</cite> is discrete and <cite>colormap</cite> is
 <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>chroma_range</strong> : <em>tuple</em><em>[</em><em>float</em><em> | </em><em>np.floating</em><em>, </em><em>float</em><em> | </em><em>np.floating</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the chroma range of colors
+<li><p class="param-header"><strong>chroma_range</strong>: <em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the chroma range of colors
 to generate, or <cite>None</cite> to take the full range:
 <cite>[0, 100]</cite>. Grays have low chroma, and vivid colors
 have high chroma. Can only be specified when
 <cite>color_column</cite> is discrete and <cite>colormap</cite> is <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>hue_range</strong> : <em>tuple</em><em>[</em><em>float</em><em> | </em><em>np.floating</em><em>, </em><em>float</em><em> | </em><em>np.floating</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the hue range of colors to
+<li><p class="param-header"><strong>hue_range</strong>: <em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a two-element tuple with the hue range of colors to
 generate, or <cite>None</cite> to take the full range: <cite>[0, 360]</cite>.
 Red is at 0°, green at 120°, and blue at 240°. Because
 it wraps around, the first element of the tuple can be
 greater than the second, unlike for <cite>lightness_range</cite>
 and <cite>chroma_range</cite>. Can only be specified when
 <cite>color_column</cite> is discrete and <cite>colormap</cite> is <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>first_color</strong> : <em>Color</em></p><p class="param-desc">the first color of the palette. Can be any valid
+<li><p class="param-header"><strong>first_color</strong>: <a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a></p><p class="param-desc">the first color of the palette. Can be any valid
 Matplotlib color, like a hex string (e.g.
 <cite>‘#FF0000’</cite>), a named color (e.g. ‘red’), a 3- or
 4-element RGB/RGBA tuple of integers 0-255 or floats
 0-1, or a single float 0-1 for grayscale.</p></li>
-<li><p class="param-header"><strong>stride</strong> : <em>int</em><em> | </em><em>np.integer</em></p><p class="param-desc">as an optimization, consider only RGB colors where R, G,
+<li><p class="param-header"><strong>stride</strong>: <em>int</em></p><p class="param-desc">as an optimization, consider only RGB colors where R, G,
 and B are all multiples of this value. Must be a small
 divisor of 255: 1, 3, 5, 15, or 17. Set to 1 for the best
 possible solution, at orders of magnitude more
 computational cost.</p></li>
-<li><p class="param-header"><strong>default_color</strong> : <em>Color</em></p><p class="param-desc">the default color to plot cells in when
+<li><p class="param-header"><strong>default_color</strong>: <a href="../../../api/single_cell/typedefs.html#color" style="text-decoration:none"><em>Color</em></a></p><p class="param-desc">the default color to plot cells in when
 <cite>color_column</cite> is <cite>None</cite>, or when certain cells have
 missing (<cite>null</cite>) values for <cite>color_column</cite>, or when
 <cite>colormap</cite> is a dictionary and some cells have
@@ -633,7 +632,7 @@ a hex string (e.g. <cite>‘#FF0000’</cite>), a named color (e.g.
 ‘red’), a 3- or 4-element RGB/RGBA tuple of integers
 0-255 or floats 0-1, or a single float 0-1 for
 grayscale.</p></li>
-<li><p class="param-header"><strong>scatter_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>scatter_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>ax.scatter()</cite>, such as:</p>
 <ul>
 <li><p><cite>rasterized</cite>: whether to convert the scatter plot
@@ -660,12 +659,12 @@ an error, since these arguments conflict with the
 <cite>point_size</cite>, <cite>color_column</cite>, and <cite>colormap</cite>
 arguments, respectively.</p>
 </p></li>
-<li><p class="param-header"><strong>label</strong> : <em>bool</em></p><p class="param-desc">whether to label cells with each distinct value of
+<li><p class="param-header"><strong>label</strong>: <em>bool</em></p><p class="param-desc">whether to label cells with each distinct value of
 <cite>color_column</cite>. Labels will be placed at the median x and y
 position of the points with that color. Can only be <cite>True</cite>
 when <cite>color_column</cite> is discrete. When set to <cite>True</cite>, you may
 also want to set <cite>legend=False</cite> to avoid redundancy.</p></li>
-<li><p class="param-header"><strong>label_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>label_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>ax.text()</cite> when adding labels to control the text
 properties, such as:</p>
 <ul>
@@ -683,9 +682,9 @@ better contrast.</p></li>
 </ul>
 <p>Can only be specified when <cite>label=True</cite>.</p>
 </p></li>
-<li><p class="param-header"><strong>legend</strong> : <em>bool</em></p><p class="param-desc">whether to add a legend for each value in <cite>color_column</cite>.
+<li><p class="param-header"><strong>legend</strong>: <em>bool</em></p><p class="param-desc">whether to add a legend for each value in <cite>color_column</cite>.
 Ignored unless <cite>color_column</cite> is discrete.</p></li>
-<li><p class="param-header"><strong>legend_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>legend_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>ax.legend()</cite> to modify the legend, such as:</p>
 <ul>
 <li><p><cite>loc</cite>, <cite>bbox_to_anchor</cite>, and <cite>bbox_transform</cite> to
@@ -709,9 +708,9 @@ Matplotlib’s default of <cite>True</cite>.</p></li>
 <p>Can only be specified when <cite>color_column</cite> is
 discrete and <cite>legend=True</cite>.</p>
 </p></li>
-<li><p class="param-header"><strong>colorbar</strong> : <em>bool</em></p><p class="param-desc">whether to add a colorbar. Ignored unless <cite>color_column</cite>
+<li><p class="param-header"><strong>colorbar</strong>: <em>bool</em></p><p class="param-desc">whether to add a colorbar. Ignored unless <cite>color_column</cite>
 is quantitative.</p></li>
-<li><p class="param-header"><strong>colorbar_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>colorbar_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>plt.colorbar()</cite>, such as:</p>
 <ul>
 <li><p><cite>location</cite>: <cite>‘left’</cite>, <cite>‘right’</cite>, <cite>‘top’</cite>, or
@@ -732,28 +731,28 @@ vertical and 0.15 if horizontal.</p></li>
 <p>Can only be specified when <cite>color_column</cite> is
 quantitative and <cite>colorbar=True</cite>.</p>
 </p></li>
-<li><p class="param-header"><strong>title</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the title of the plot, or <cite>None</cite> to not add a title</p></li>
-<li><p class="param-header"><strong>title_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>title</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the title of the plot, or <cite>None</cite> to not add a title</p></li>
+<li><p class="param-header"><strong>title_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_title()</cite> to control text properties, such as
 <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>title</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>xlabel</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the x-axis label, or <cite>None</cite> to not label the x-axis</p></li>
-<li><p class="param-header"><strong>xlabel_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>xlabel</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the x-axis label, or <cite>None</cite> to not label the x-axis</p></li>
+<li><p class="param-header"><strong>xlabel_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_xlabel()</cite> to control text properties, such
 as <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>xlabel</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>ylabel</strong> : <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the y-axis label, or <cite>None</cite> to not label the y-axis</p></li>
-<li><p class="param-header"><strong>ylabel_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>ylabel</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">the y-axis label, or <cite>None</cite> to not label the y-axis</p></li>
+<li><p class="param-header"><strong>ylabel_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a dictionary of keyword arguments to be passed to
 <cite>ax.set_ylabel()</cite> to control text properties, such
 as <cite>color</cite> and <cite>size</cite>. Can only be specified when
 <cite>ylabel</cite> is not <cite>None</cite>.</p></li>
-<li><p class="param-header"><strong>xlim</strong> : <em>tuple</em><em>[</em><em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em><em>, </em><em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a length-2 tuple of the left and right x-axis limits, or
+<li><p class="param-header"><strong>xlim</strong>: <em>tuple</em><em>[</em><em>int</em><em> | </em><em>float</em><em>, </em><em>int</em><em> | </em><em>float</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a length-2 tuple of the left and right x-axis limits, or
 <cite>None</cite> to set the limits based on the data</p></li>
-<li><p class="param-header"><strong>ylim</strong> : <em>tuple</em><em>[</em><em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em><em>, </em><em>int</em><em> | </em><em>float</em><em> | </em><em>np.integer</em><em> | </em><em>np.floating</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a length-2 tuple of the bottom and top y-axis limits, or
+<li><p class="param-header"><strong>ylim</strong>: <em>tuple</em><em>[</em><em>int</em><em> | </em><em>float</em><em>, </em><em>int</em><em> | </em><em>float</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">a length-2 tuple of the bottom and top y-axis limits, or
 <cite>None</cite> to set the limits based on the data</p></li>
-<li><p class="param-header"><strong>despine</strong> : <em>bool</em></p><p class="param-desc">whether to remove the top and right spines (borders of the
+<li><p class="param-header"><strong>despine</strong>: <em>bool</em></p><p class="param-desc">whether to remove the top and right spines (borders of the
 plot area) from the plot</p></li>
-<li><p class="param-header"><strong>savefig_kwargs</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
+<li><p class="param-header"><strong>savefig_kwargs</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc"><p>a dictionary of keyword arguments to be passed to
 <cite>plt.savefig()</cite>, such as:</p>
 <ul>
 <li><p><cite>dpi</cite>: defaults to 300 instead of Matplotlib’s

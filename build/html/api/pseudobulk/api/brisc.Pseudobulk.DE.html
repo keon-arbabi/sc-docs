@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.save.html">save</a></li>
 </ul>
 </details></li>
@@ -523,7 +522,7 @@ contrasts for ordered factors:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>formula</strong> : <em>str</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em></p><p class="param-desc">a string representation of an R formula specifying the DE
+<li><p class="param-header"><strong>formula</strong>: <em>str</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em></p><p class="param-desc">a string representation of an R formula specifying the DE
 design in terms of columns of <cite>obs</cite>, e.g.
 <cite>‘~ disease_status + age + sex’</cite>. Will be converted into
 an R formula object with R’s <cite>as.formula()</cite> function and
@@ -532,7 +531,7 @@ then expanded into a design matrix with R’s
 May also be a dictionary mapping cell-type names to
 formulas; each cell type in this Pseudobulk dataset must
 be present.</p></li>
-<li><p class="param-header"><strong>coefficient</strong> : <em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>] </em><em>| </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>]</em><em>]</em></p><p class="param-desc">the name or 0-based index of a coefficient in the
+<li><p class="param-header"><strong>coefficient</strong>: <em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>] </em><em>| </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>int</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em> | </em><em>int</em><em>]</em><em>]</em></p><p class="param-desc">the name or 0-based index of a coefficient in the
 design matrix to report DE with respect to, or a
 sequence of names or indices to report DE with respect
 to multiple coefficients. Or, a dictionary mapping
@@ -542,7 +541,7 @@ indices work in the usual Python way. Defaults to
 <cite>coefficient=1</cite>, the first variable in <cite>formula</cite>
 (<cite>coefficient=0</cite> would refer to the intercept).
 Mutually exclusive with <cite>contrasts</cite>.</p></li>
-<li><p class="param-header"><strong>contrasts</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional dictionary mapping contrast names to string
+<li><p class="param-header"><strong>contrasts</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional dictionary mapping contrast names to string
 representations of R formulas specifying contrasts
 between names of columns in the design matrix (e.g.
 <cite>{‘DrugA_vs_Control’: ‘DrugA - Control’}</cite>); the contrast
@@ -560,7 +559,7 @@ backticks are optional:
 <cite>{‘CD8 vs CD4’: ‘CD8+ T-cells - CD4+ T-cells’}</cite> is valid
 even though the two column names <cite>‘CD8+ T-cells’</cite> and
 <cite>‘CD4+ T-cells’</cite> are not escaped with backticks.</p></li>
-<li><p class="param-header"><strong>group</strong> : <em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>~typing.Callable</em><em>[</em><em>[</em><em>~brisc.pseudobulk.Pseudobulk</em><em>, </em><em>str</em><em>]</em><em>, </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>~typing.Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>None</em><em>]</em></p><p class="param-desc">if <cite>group=False</cite>, force the use of voom instead of
+<li><p class="param-header"><strong>group</strong>: <em>False </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>~typing.Callable</em><em>[</em><em>[</em><em>~brisc.pseudobulk.Pseudobulk</em><em>, </em><em>str</em><em>]</em><em>, </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>~typing.Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>str</em><em> | </em><em>~polars.expr.expr.Expr</em><em> | </em><em>~polars.series.series.Series</em><em> | </em><em>~numpy.ndarray</em><em> | </em><em>None</em><em>]</em></p><p class="param-desc">if <cite>group=False</cite>, force the use of voom instead of
 voomByGroup. If <cite>group=None</cite>, group on the unique
 combinations of values of the categorical columns of <cite>obs</cite>
 referenced in <cite>coefficient</cite>, or the columns of <cite>obs</cite>
@@ -578,24 +577,24 @@ voomByGroup and group on the unique values of that column.
 voomByGroup, the same groups are also used as the <cite>group</cite>
 argument to <cite>calcNormFactors()</cite> when normalizing by library
 size. All groups must have at least two samples.</p></li>
-<li><p class="param-header"><strong>categorical_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">one or more names of integer or Enum columns
+<li><p class="param-header"><strong>categorical_columns</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">one or more names of integer or Enum columns
 of <cite>obs</cite> to treat as categorical (i.e. convert
 to unordered factors) rather than continuous
 or ordinal, or a dictionary mapping cell-type
 names to names of integer or Enum columns</p></li>
-<li><p class="param-header"><strong>cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to test for DE; if <cite>None</cite>, test
+<li><p class="param-header"><strong>cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to test for DE; if <cite>None</cite>, test
 all cell types. If specified and using dictionaries for
 <cite>formula</cite>, <cite>coefficient</cite>, <cite>contrasts</cite>, or <cite>group</cite>, the
 keys of these dictionaries must match the cell types
 specified here. Mutually exclusive with
 <cite>excluded_cell_types</cite>.</p></li>
-<li><p class="param-header"><strong>excluded_cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude when testing
+<li><p class="param-header"><strong>excluded_cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude when testing
 for DE. If specified and using dictionaries
 for <cite>formula</cite>, <cite>coefficient</cite>, <cite>contrasts</cite>, or
 <cite>group</cite>, the keys of these dictionaries must
 also exclude these cell types. Mutually
 exclusive with <cite>cell_types</cite>.</p></li>
-<li><p class="param-header"><strong>library_size_column</strong> : <em>str</em><em> | </em><em>Expr</em><em> | </em><em>Series</em><em> | </em><em>ndarray</em><em> | </em><em>Callable</em><em>[</em><em>[</em><a class="reference internal" href="../index.html#brisc.Pseudobulk" title="brisc.pseudobulk.Pseudobulk"><em>Pseudobulk</em></a><em>, </em><em>str</em><em>]</em><em>, </em><em>Series</em><em> | </em><em>ndarray</em><em>]</em></p><p class="param-desc">a floating-point column of <cite>obs</cite> containing
+<li><p class="param-header"><strong>library_size_column</strong>: <a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> </p><p class="param-desc">a floating-point column of <cite>obs</cite> containing
 each sample’s library size. Can be a column
 name, a polars expression, a polars Series, a
 1D NumPy array, or a function that takes in
@@ -604,24 +603,24 @@ returns a polars Series or 1D NumPy array. Or,
 a dictionary mapping cell-type names to any of
 the above; each cell type in this Pseudobulk
 dataset must be present.</p></li>
-<li><p class="param-header"><strong>strict</strong> : <em>bool</em></p><p class="param-desc">whether to raise an error if the design matrix does not
+<li><p class="param-header"><strong>strict</strong>: <em>bool</em></p><p class="param-desc">whether to raise an error if the design matrix does not
 have more rows than columns and/or is rank-deficient for
 any cell type. If <cite>strict=False</cite>, cell types where this is
 the case will be skipped, and an error will only be raised
 if every cell type is skipped.</p></li>
-<li><p class="param-header"><strong>robust</strong> : <em>bool</em></p><p class="param-desc">whether to specify <cite>robust=True</cite> in limma’s <cite>eBayes()</cite>
+<li><p class="param-header"><strong>robust</strong>: <em>bool</em></p><p class="param-desc">whether to specify <cite>robust=True</cite> in limma’s <cite>eBayes()</cite>
 function. You may wish to specify this if your dataset
 contains outliers.</p></li>
-<li><p class="param-header"><strong>return_voom_info</strong> : <em>bool</em></p><p class="param-desc">whether to include the voom weights and voom plot
+<li><p class="param-header"><strong>return_voom_info</strong>: <em>bool</em></p><p class="param-desc">whether to include the voom weights and voom plot
 data in the returned DE object; set to <cite>False</cite>
 for reduced runtime if you do not need to use the
 voom weights or generate voom plots</p></li>
-<li><p class="param-header"><strong>allow_float</strong> : <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
+<li><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
 floating-point (suggesting the user may not be using
 the raw counts, e.g. due to accidentally having run
 <cite>log_CPM()</cite> already); if <cite>True</cite>, disable this sanity
 check</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print out details of the DE estimation</p></li>
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print out details of the DE estimation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

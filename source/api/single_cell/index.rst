@@ -15,6 +15,8 @@ SingleCell
 
 .. currentmodule:: brisc
 
+.. classdescription:: SingleCell
+
 .. autoclass:: SingleCell
    :no-members:
 
@@ -24,7 +26,6 @@ I/O
 .. autosummary::
    :nosignatures:
 
-   SingleCell.__init__
    SingleCell.save
    SingleCell.ls
    SingleCell.read_obs

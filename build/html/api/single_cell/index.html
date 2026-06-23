@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="I/O" href="io.html" />
-    <link rel="prev" title="Essential Commands" href="../../tutorials/essential_commands.html" />
+    <link rel="prev" title="Data manipulation" href="../../tutorials/data_manipulation.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.ls.html">ls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.read_obs.html">read_obs</a></li>
@@ -524,11 +523,8 @@
 <h1>SingleCell<a class="headerlink" href="#singlecell" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<dl class="py class">
-<dt class="sig sig-object py" id="brisc.SingleCell">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">brisc.</span></span><span class="sig-name descname"><span class="pre">SingleCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/brisc/single_cell.html#SingleCell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.SingleCell" title="Link to this definition">#</a></dt>
-<dd><p>A single-cell dataset.</p>
-<p>Has slots for:</p>
+<div class="class-description docutils container">
+<p>A single-cell dataset. Has slots for:</p>
 <ul class="simple">
 <li><p><cite>X</cite>: a scipy sparse array of counts per cell and gene</p></li>
 <li><p><cite>obs</cite>: a polars DataFrame of cell metadata</p></li>
@@ -545,75 +541,261 @@ individual functions)</p></li>
 </ul>
 <p>as well as <cite>obs_names</cite> and <cite>var_names</cite>, aliases for <cite>obs[:, 0]</cite> and
 <cite>var[:, 0]</cite>.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="brisc.SingleCell">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">brisc.</span></span><span class="sig-name descname"><span class="pre">SingleCell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obsp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">varp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/brisc/single_cell.html#SingleCell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.SingleCell" title="Link to this definition">#</a></dt>
+<dd><p>Load a SingleCell dataset from a file, or create one from an in-memory
+AnnData object or count matrix + metadata.</p>
+<p>SingleCell supports reading and writing files from each of the three
+major single-cell ecosystems:</p>
+<ul class="simple">
+<li><p>scverse/Scanpy AnnData (<cite>.h5ad</cite>)</p></li>
+<li><p>Seurat (<cite>.rds</cite> and <cite>.h5Seurat</cite>)</p></li>
+<li><p>Bioconductor SingleCellExperiment (<cite>.rds</cite>)</p></li>
+</ul>
+<p>as well as raw 10x data files (<cite>.h5</cite> or <cite>.mtx</cite>/<cite>.mtx.gz</cite>).</p>
+<p>By default, when an AnnData object, <cite>.h5ad</cite> file, <cite>.h5Seurat</cite> file, or
+<cite>.rds</cite> file contains both raw and normalized counts, only the raw
+counts will be loaded. To load normalized counts instead, use the <cite>X</cite>
+argument (for AnnData objects) or <cite>X_key</cite> argument (for files).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>source</strong> : <em>str</em><em> | </em><em>Path</em><em> | </em><em>'AnnData'</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>X</strong> : <em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em> | </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>obs</strong> : <em>pl.DataFrame</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>var</strong> : <em>pl.DataFrame</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>obsm</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em> | </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>varm</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em> | </em><em>pl.DataFrame</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>obsp</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>varp</strong> : <em>dict</em><em>[</em><em>str</em><em>, </em><em>sparse.csr_array</em><em> | </em><em>sparse.csc_array</em><em> | </em><em>sparse.csr_matrix</em><em> | </em><em>sparse.csc_matrix</em><em>] </em><em>| </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>uns</strong> : <em>UnsDict</em><em> | </em><em>Literal</em><em>[</em><em>False</em><em>] </em><em>| </em><em>None</em></p></li>
-<li><p class="param-header"><strong>X_key</strong> : <em>str</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>assay</strong> : <em>str</em><em> | </em><em>None</em></p></li>
-<li><p class="param-header"><strong>obs_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p></li>
-<li><p class="param-header"><strong>var_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>np.integer</em></p></li>
+<li><p class="param-header"><strong>source</strong>: <em>str</em><em> | </em><em>Path</em><em> | </em><em>'AnnData'</em><em> | </em><em>None</em></p><p class="param-desc">a filename or AnnData object, or <cite>None</cite> if specifying <cite>X</cite>,
+<cite>obs</cite>, and <cite>var</cite> instead. Supported file formats are
+scverse/Scanpy AnnData (<cite>.h5ad</cite>), Seurat (<cite>.rds</cite> and
+<cite>.h5Seurat</cite>), Bioconductor SingleCellExperiment (<cite>.rds</cite>),
+and raw 10x data files (<cite>.h5</cite> or <cite>.mtx</cite>/<cite>.mtx.gz</cite>). If
+<cite>source</cite> is a 10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename,
+<cite>barcodes.tsv</cite>/<cite>barcodes.tsv.gz</cite> and
+<cite>features.tsv</cite>/<cite>features.tsv.gz</cite> are assumed to be in the
+same directory (with the ungzipped versions used
+preferentially), unless custom paths to these files are
+specified via the <cite>obs</cite> and/or <cite>var</cite> arguments.</p></li>
+<li><p class="param-header"><strong>X</strong>: <em>csr_array</em><em> | </em><em>csc_array</em><em> | </em><em>csr_matrix</em><em> | </em><em>csc_matrix</em><em> | </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">If <cite>source</cite> is <cite>None</cite>, the data as a sparse array or matrix
+(with rows = cells, columns = genes).
+If <cite>source</cite> is an AnnData object, an optional sparse array or
+matrix to use as <cite>X</cite>. By default, <cite>X</cite> will be loaded from
+<cite>source.layers[‘UMIs’]</cite> or <cite>source.raw.X</cite> if present and
+<cite>source.X</cite> otherwise.
+If <cite>X</cite> is <cite>None</cite> when <cite>source</cite> is <cite>None</cite>, or <cite>False</cite> when
+<cite>source</cite> is a filename, do not store any data in <cite>X</cite> and set it
+to <cite>None</cite>. This helps save memory, but the resulting dataset
+cannot be saved, converted to another format, or used to run
+analyses that require <cite>X</cite>.</p></li>
+<li><p class="param-header"><strong>obs</strong>: <em>DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">a polars DataFrame of metadata for each cell (row of <cite>X</cite>), or
+<cite>None</cite> if specifying <cite>source</cite> instead. Or, if <cite>source</cite> is a
+10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename, an optional filename for
+cell-level metadata, which is otherwise assumed to be at
+<cite>barcodes.tsv</cite> (or <cite>barcodes.tsv.gz</cite>) in the same directory as
+the <cite>.mtx</cite>/<cite>.mtx.gz</cite> file.</p></li>
+<li><p class="param-header"><strong>var</strong>: <em>DataFrame</em><em> | </em><em>None</em></p><p class="param-desc">a polars DataFrame of metadata for each gene (column of <cite>X</cite>),
+or <cite>None</cite> if specifying <cite>source</cite> instead. Or, if <cite>source</cite> is a
+10x <cite>.mtx</cite>/<cite>.mtx.gz</cite> filename, an optional filename for
+gene-level metadata, which is otherwise assumed to be at
+<cite>features.tsv</cite> (or <cite>features.tsv.gz</cite>) in the same directory as
+the <cite>.mtx</cite>/<cite>.mtx.gz</cite> file.</p></li>
+<li><p class="param-header"><strong>obsm</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>ndarray</em><em> | </em><em>DataFrame</em><em>] </em><em>| </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to NumPy arrays
+and polars DataFrames of metadata for each cell, or <cite>False</cite>
+to skip loading <cite>obsm</cite> when reading <cite>.h5ad</cite> and <cite>.h5Seurat</cite>
+files</p></li>
+<li><p class="param-header"><strong>varm</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>ndarray</em><em> | </em><em>DataFrame</em><em>] </em><em>| </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to NumPy arrays
+and polars DataFrames of metadata for each gene, or <cite>False</cite>
+to skip loading <cite>varm</cite> when reading <cite>.h5ad</cite> files</p></li>
+<li><p class="param-header"><strong>obsp</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>csr_array</em><em> | </em><em>csc_array</em><em> | </em><em>csr_matrix</em><em> | </em><em>csc_matrix</em><em>] </em><em>| </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to sparse arrays
+or matrices containing pairwise cell-cell information like
+nearest-neighbors graphs, or <cite>False</cite> to skip loading <cite>obsp</cite>
+when reading <cite>.h5ad</cite> and <cite>.h5Seurat</cite> files</p></li>
+<li><p class="param-header"><strong>varp</strong>: <em>dict</em><em>[</em><em>str</em><em>, </em><em>csr_array</em><em> | </em><em>csc_array</em><em> | </em><em>csr_matrix</em><em> | </em><em>csc_matrix</em><em>] </em><em>| </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to sparse arrays
+or matrices containing pairwise gene-gene information, or
+<cite>False</cite> to skip loading <cite>varp</cite> when reading <cite>.h5ad</cite> files</p></li>
+<li><p class="param-header"><strong>uns</strong>: <a href="../../api/single_cell/typedefs.html#unsdict" style="text-decoration:none"><em>UnsDict</em></a><em> | </em><em>False </em><em>| </em><em>None</em></p><p class="param-desc">an optional dictionary mapping string names to unstructured
+metadata - scalars (strings, numbers or Booleans), NumPy
+arrays, or nested dictionaries thereof - or <cite>False</cite> to skip
+loading <cite>uns</cite> when reading <cite>.h5ad</cite> or <cite>.h5Seurat</cite> files</p></li>
+<li><p class="param-header"><strong>X_key</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc"><p>if <cite>source</cite> is an AnnData <cite>.h5ad</cite>, Seurat <cite>.rds</cite> or
+<cite>.h5Seurat</cite> filename, or SingleCellExperiment <cite>.rds</cite>
+filename, the location within <cite>source</cite> to use as <cite>X</cite>:</p>
+<ul>
+<li><p>If <cite>source</cite> is an <cite>.h5ad</cite> filename, the name of the key in
+the <cite>.h5ad</cite> file to use as <cite>X</cite>. If <cite>None</cite>, defaults to
+<cite>‘layers/UMIs’</cite> (i.e. <cite>self.layers[‘UMIs’]</cite> in Scanpy) or
+<cite>‘raw/X’</cite> (i.e. <cite>self.raw.X</cite> in Scanpy) if present,
+otherwise <cite>‘X’</cite>.
+Tip: <cite>SingleCell.ls(h5ad_file)</cite> shows the structure of an
+<cite>.h5ad</cite> file without loading it, allowing you to figure
+out which key to use as <cite>X</cite>.</p></li>
+<li><p>If <cite>source</cite> is a Seurat <cite>.rds</cite> or <cite>.h5Seurat</cite> filename,
+the layer within the active assay (or the assay specified
+by the <cite>assay</cite> argument, if not <cite>None</cite>) to use as <cite>X</cite>. Set
+to <cite>‘data’</cite> to load the normalized counts, or
+<cite>‘scale.data’</cite> to load the normalized and scaled counts,
+if available. If <cite>None</cite>, defaults to <cite>‘counts’</cite>.</p></li>
+<li><p>If <cite>source</cite> is a SingleCellExperiment <cite>.rds</cite> filename, the
+element within <cite>&#64;assays&#64;data</cite> to use as <cite>X</cite>. Set to
+<cite>‘logcounts’</cite> to load the normalized counts, if available.
+If <cite>None</cite>, defaults to <cite>‘counts’</cite>.</p></li>
+</ul>
+</p></li>
+<li><p class="param-header"><strong>assay</strong>: <em>str</em><em> | </em><em>None</em></p><p class="param-desc">if <cite>source</cite> is a Seurat <cite>.rds</cite> or <cite>.h5Seurat</cite>/<cite>.h5seurat</cite>
+filename, the name of the assay within the Seurat object to
+load data from. Defaults to the Seurat object’s
+<cite>active.assay</cite> attribute (usually <cite>‘RNA’</cite>).</p></li>
+<li><p class="param-header"><strong>obs_columns</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">if <cite>source</cite> is an <cite>.h5ad</cite> or <cite>.h5Seurat</cite> filename, the
+columns of <cite>obs</cite> to load. If not specified, load all
+columns. Specifying only a subset of columns can speed
+up reading. Not supported for <cite>.h5</cite> files, since they
+only have a single <cite>obs</cite> column (<cite>‘barcodes’</cite>), nor
+for Seurat and SingleCellExperiment <cite>.rds</cite> files,
+since <cite>.rds</cite> files do not support partial loading.</p></li>
+<li><p class="param-header"><strong>var_columns</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>]</em></p><p class="param-desc">if <cite>source</cite> is an <cite>.h5ad</cite>, <cite>.h5</cite>, or <cite>.h5Seurat</cite>
+filename, the columns of <cite>var</cite> to load. If not
+specified, load all columns. Specifying only a subset
+of columns can speed up reading. Not supported for
+Seurat and SingleCellExperiment <cite>.rds</cite> files, since
+the <cite>.rds</cite> file format does not support partial
+loading.</p></li>
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em></p><p class="param-desc">the number of threads to use when reading <cite>.h5ad</cite> and
+<cite>.h5</cite> files, and the default number of threads to use
+for all subsequent operations on this SingleCell
+dataset. Also sets the number of threads for this
+SingleCell dataset’s count matrix, if present. By
+default (<cite>num_threads=-1</cite>), use all available cores,
+as determined by <cite>os.cpu_count()</cite>.</p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Examples</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Load an <cite>.h5ad</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load an <cite>.h5ad</cite> file where raw counts are stored in a non-default
+location, <cite>adata.raw.counts</cite> (use <cite>SingleCell.ls(‘data.h5ad’)</cite> to
+inspect its structure before loading):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;raw/counts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load only selected metadata columns from an <cite>.h5ad</cite> file
+to reduce loading time and memory usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">],</span>
+<span class="gp">... </span>                <span class="na">var_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;gene_symbol&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Skip loading the count matrix to minimize memory usage (note:
+dataset cannot be saved, converted, or used for analyses that
+require <cite>X</cite>):</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;large_data.h5ad&#39;</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load a Seurat <cite>.h5Seurat</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.h5Seurat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load a Seurat <cite>.rds</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;seurat_obj.rds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load a Bioconductor SingleCellExperiment <cite>.rds</cite> file and use
+log-normalized counts:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;sce_obj.rds&#39;</span><span class="p">,</span> <span class="na">X_key</span><span class="o">=</span><span class="s1">&#39;logcounts&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load raw 10x Genomics data from an <cite>.h5</cite> file:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;matrix.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Load raw 10x Genomics data from an <cite>.mtx.gz</cite> file, with barcodes
+and features stored in the same directory as <cite>barcodes.tsv.gz</cite> and
+<cite>features.tsv.gz</cite> in the usual way:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;matrix.mtx.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Manually create a SingleCell dataset from an in-memory sparse
+matrix and metadata:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">csr_array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="nf">csr_array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">obs</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">DataFrame</span><span class="p">({</span><span class="s1">&#39;cell_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;cell1&#39;</span><span class="p">,</span> <span class="s1">&#39;cell2&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">var</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">DataFrame</span><span class="p">({</span><span class="s1">&#39;gene_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;g1&#39;</span><span class="p">,</span> <span class="s1">&#39;g2&#39;</span><span class="p">,</span> <span class="s1">&#39;g3&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <a href="../../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="na">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="na">obs</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="na">var</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Notes</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">To avoid substantial overhead, both ordered and unordered
+categorical columns of <cite>obs</cite> and <cite>var</cite> will be loaded as polars
+Enums rather than polars Categoricals.</p>
+<p class="sd-card-text">SingleCell does not support dense matrices, which are highly
+memory-inefficient for single-cell data. Passing a NumPy array as
+the <cite>X</cite> argument will give an error: convert it to a sparse array
+first with <cite>csr_array(numpy_array)</cite>. However, when loading from
+disk or converting from other formats, dense matrices will be
+automatically converted to sparse matrices.</p>
+<p class="sd-card-text">Reading and writing <cite>.rds</cite> files requires the ryp Python-R bridge.
+To create a SingleCell dataset from an in-memory Seurat or
+SingleCellExperiment object in the ryp R workspace, use
+<cite>SingleCell.from_seurat()</cite> or <cite>SingleCell.from_sce()</cite>.</p>
+<p class="sd-card-text">Reading and writing loom files is not supported because SingleCell
+only supports sparse count matrices, while loom only supports dense
+matrices. Using loom files for SingleCell data is not recommended
+due to this wastefulness. If necessary, loom files can be loaded
+with <cite>SingleCell(scanpy.read_loom(loom_filename))</cite>.
+<cite>scanpy.read_loom()</cite> implicitly converts the counts to a sparse
+matrix by default.</p>
+</div>
+</details></dd></dl>
 
 <section id="i-o">
 <h2>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.__init__</span></code></a></p></td>
-<td><p>Load a SingleCell dataset from a file, or create one from an in-memory AnnData object or count matrix + metadata.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
 <td><p>Save this SingleCell dataset to a file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
 <td><p>Print the fields in an <cite>.h5ad</cite> file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
 <td><p>Load just <cite>obs</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
 <td><p>Load just <cite>var</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
 <td><p>Load just <cite>obsm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
 <td><p>Load just <cite>varm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
 <td><p>Load just <cite>obsp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
 <td><p>Load just <cite>varp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
 <td><p>Load just <cite>uns</cite> from an <cite>.h5ad</cite> file as a dictionary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
 <td><p>Converts this SingleCell dataset to an AnnData object, the representation used by Scanpy.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a Seurat object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a Seurat object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a SingleCellExperiment object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a SingleCellExperiment object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
 </tbody>
@@ -815,7 +997,7 @@ individual functions)</p></li>
 <td><p>Make a copy of this SingleCell dataset, converting <cite>X</cite> to a <cite>csr_array</cite>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.tocsc.html#brisc.SingleCell.tocsc" title="brisc.SingleCell.tocsc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.tocsc</span></code></a></p></td>
-<td><p>Make a copy of this SingleCell dataset, converting <cite>X</cite> to a csc_array.</p></td>
+<td><p>Make a copy of this SingleCell dataset, converting <cite>X</cite> to a <cite>csc_array</cite>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -993,12 +1175,12 @@ individual functions)</p></li>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../tutorials/essential_commands.html"
+       href="../../tutorials/data_manipulation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Essential Commands</p>
+        <p class="prev-next-title">Data manipulation</p>
       </div>
     </a>
     <a class="right-next"

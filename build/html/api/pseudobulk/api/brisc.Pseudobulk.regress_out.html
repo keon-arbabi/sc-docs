@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -324,7 +324,6 @@
   <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.__init__.html">__init__</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.save.html">save</a></li>
 </ul>
 </details></li>
@@ -512,7 +511,7 @@ contrasts for ordered factors:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>formula</strong> : <em>str</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em></p><p class="param-desc">a string representation of an R formula specifying the
+<li><p class="param-header"><strong>formula</strong>: <em>str</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em></p><p class="param-desc">a string representation of an R formula specifying the
 design matrix to regress out in terms of columns of <cite>obs</cite>,
 e.g. <cite>‘~ disease_status + age + sex’</cite>. Will be converted
 into an R formula object with R’s <cite>as.formula()</cite> function
@@ -521,22 +520,22 @@ and then expanded into a design matrix with R’s
 May also be a dictionary mapping cell-type names to
 formulas; each cell type in this Pseudobulk dataset must
 be present.</p></li>
-<li><p class="param-header"><strong>categorical_columns</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">one or more names of integer or Enum columns
+<li><p class="param-header"><strong>categorical_columns</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>]</em></p><p class="param-desc">one or more names of integer or Enum columns
 to treat as categorical (i.e. convert to
 unordered factors) rather than continuous
 or ordinal, or a dictionary mapping cell-type
 names to names of integer or Enum columns</p></li>
-<li><p class="param-header"><strong>cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to regress the covariates out
+<li><p class="param-header"><strong>cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to regress the covariates out
 of; if <cite>None</cite>, regress covariates out of all cell
 types. Mutually exclusive with <cite>excluded_cell_types</cite>.</p></li>
-<li><p class="param-header"><strong>excluded_cell_types</strong> : <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude when
+<li><p class="param-header"><strong>excluded_cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude when
 regressing out covariates; mutually exclusive
 with <cite>cell_types</cite></p></li>
-<li><p class="param-header"><strong>error_if_int</strong> : <em>bool</em></p><p class="param-desc">if <cite>True</cite>, raise an error if <cite>self.X.dtype</cite> is
+<li><p class="param-header"><strong>error_if_int</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, raise an error if <cite>self.X.dtype</cite> is
 integer (indicating the user may not have run
 <cite>log_CPM()</cite> yet)</p></li>
-<li><p class="param-header"><strong>verbose</strong> : <em>bool</em></p><p class="param-desc">whether to print out details of the regressing-out process</p></li>
-<li><p class="param-header"><strong>num_threads</strong> : <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when regressing out. Set
+<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print out details of the regressing-out process</p></li>
+<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when regressing out. Set
 <cite>num_threads=-1</cite> to use all available cores, as
 determined by <cite>os.cpu_count()</cite>, or leave unset to use
 <cite>self.num_threads</cite> cores. Does not affect the returned

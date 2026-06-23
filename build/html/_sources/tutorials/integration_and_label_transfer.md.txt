@@ -1,14 +1,19 @@
 # Integration and Label Transfer
 
+
 This tutorial covers reference mapping: integrating an annotated reference dataset with a query, then transferring the reference's cell-type labels onto the query. It uses the same Parse Biosciences ~10 million cell PBMC dataset as the other tutorials, treating the PBS-control cells as the annotated reference and the cytokine-treated cells as the query. Because these query cells keep their original labels, we can check the transferred labels against them at the end.
+
 
 ## Loading and quality control
 
+
 Load the data and run QC as in [Basic Workflow](basic_workflow.md).
+
 
 ```python
 from brisc import SingleCell
 import polars as pl
+
 
 sc = SingleCell(
     'Parse_10M_PBMC_cytokines.h5ad',
@@ -16,9 +21,12 @@ sc = SingleCell(
     .qc(allow_float=True)
 ```
 
+
 ## Reference and query
 
+
 {meth}`~brisc.SingleCell.split_by_obs` returns a dictionary mapping each value of an `obs` column to a {class}`~brisc.SingleCell` of just those cells. Reference and query are normally separate datasets; for this self-contained example we split one on `treatment` into the PBS controls (the reference) and cytokine-treated cells (the query).
+
 
 ```python
 sc = sc.split_by_obs('treatment')
@@ -31,18 +39,24 @@ SingleCell dataset in CSR format with 603,928 cells (obs), 40,352 genes (var), a
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
 
+
 SingleCell dataset in CSR format with 8,839,235 cells (obs), 40,352 genes (var), and 17,313,941,540 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
 ```
 
+
 The reference is far smaller than the query — typical of reference mapping, where a small, carefully annotated dataset labels a much larger one.
+
 
 ## Integration
 
+
 Integration places the cells of two datasets in one batch-corrected coordinate space, so cells of the same type align regardless of their source dataset. Three steps build that space, each using both datasets at once: {meth}`~brisc.SingleCell.hvg` picks one shared set of highly variable genes, {meth}`~brisc.SingleCell.pca` builds one shared set of PCs, and {meth}`~brisc.SingleCell.harmonize` removes the batch differences between them with [Harmony](https://github.com/immunogenomics/harmony), storing the result in `obsm['harmony']`. So each method takes the other dataset as an argument and returns both.
 
+
 Normalization is the exception — it treats each cell independently, so the datasets are normalized separately.
+
 
 ```python
 sc_ref, sc_query = sc_ref.hvg(sc_query, batch_column='donor')
@@ -52,6 +66,7 @@ sc_ref, sc_query = sc_ref.pca(sc_query)
 sc_ref, sc_query = sc_ref.harmonize(sc_query)
 ```
 
+
 ```none
 40,352 genes are present in every dataset.
 Initialization is complete: objective = 3932457.75
@@ -60,16 +75,21 @@ Completed 2 of 10 iterations: objective = 2146725.00 (k-means error = 2740209.50
 Reached convergence after 2 iterations
 ```
 
+
 ## Label transfer
 
+
 {meth}`~brisc.SingleCell.label_transfer_from` transfers cell-type labels from the reference to the query. For each query cell, it finds the `num_neighbors` (default 20) nearest reference cells in the shared Harmony embedding and assigns the most common reference label; the fraction of those neighbors that agree becomes a confidence score.
+
 
 ```python
 sc_query = sc_query.label_transfer_from(
     sc_ref, 'cell_type', cell_type_column='cell_type_transferred')
 ```
 
+
 This adds `cell_type_transferred` and `cell_type_transferred_confidence` to {attr}`~brisc.SingleCell.obs`:
+
 
 ```python
 print(sc_query.obs.select('cell_type', 'cell_type_transferred',
@@ -95,15 +115,19 @@ shape: (10, 3)
 └────────────┴───────────────────────┴──────────────────────────────────┘
 ```
 
+
 Most calls are confident; the low-confidence row (0.45) is a CD8 Naive cell labeled CD4 Memory, and the confidence score is what flags these uncertain transfers so you can filter on them.
+
 
 :::{dropdown} Next best labels
 Pass `next_best=True` to also record each cell's runner-up label and its confidence, in `next_best_cell_type_transferred` and `next_best_cell_type_transferred_confidence`. This helps when a cell sits between two similar types:
+
 
 ```python
 sc_query = sc_query.label_transfer_from(
     sc_ref, 'cell_type', cell_type_column='cell_type_transferred',
     next_best=True, overwrite=True)
+
 
 print(sc_query.obs.select(
     'cell_type', 'cell_type_transferred', 'cell_type_transferred_confidence',
@@ -130,17 +154,22 @@ shape: (10, 5)
 └────────────┴───────────────────────┴─────────────────────────────────┴─────────────────────────────────┴─────────────────────────────────┘
 ```
 
+
 Here the 0.45 cell splits evenly between CD4 Memory and its runner-up, CD8 Naive — which is its true label.
 :::
 
+
 ## Validation
 
+
 Because the query carries ground-truth labels, we can measure how well the transfer recovered them.
+
 
 ```python
 correct = pl.col('cell_type') == pl.col('cell_type_transferred')
 overall = sc_query.obs.select(correct.mean()).item()
 print(f'overall accuracy: {overall:.1%}')
+
 
 print(sc_query.obs
     .group_by('cell_type')
@@ -177,13 +206,18 @@ shape: (18, 4)
 │ NKT                   ┆ 145969  ┆ 0.433667      ┆ 0.727498        │
 └───────────────────────┴─────────┴───────────────┴─────────────────┘
 
+
 ```
+
 
 Common, distinct types transfer almost perfectly (CD14 Mono 99%, NK 97%, B Naive 97%), while rare or closely related types are harder — NKT (43%) is mostly absorbed into the neighboring NK and CD8 populations, and its low mean confidence (0.73) reflects that.
 
+
 ## Pipeline summary
 
+
 The full reference-mapping pipeline:
+
 
 ```python
 sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad').qc(allow_float=True)
@@ -198,9 +232,10 @@ sc_query = sc_query.label_transfer_from(
     sc_ref, 'cell_type', cell_type_column='cell_type_transferred')
 ```
 
+
 | Step | Method | What it does |
 |---|---|---|
-| Load | {meth}`SingleCell() <brisc.SingleCell.__init__>` | Read data from any supported format |
+| Load | {class}`SingleCell() <brisc.SingleCell>` | Read data from any supported format |
 | Quality control | {meth}`sc.qc() <brisc.SingleCell.qc>` | Filter low-quality cells |
 | Split | {meth}`sc.split_by_obs('treatment') <brisc.SingleCell.split_by_obs>` | Split into the reference and query |
 | Feature selection | {meth}`sc_ref.hvg(sc_query) <brisc.SingleCell.hvg>` | Select one shared set of highly variable genes |

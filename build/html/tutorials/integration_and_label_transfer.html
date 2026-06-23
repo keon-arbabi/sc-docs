@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -328,7 +328,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Integration and Label Transfer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="essential_commands.html">Essential Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data manipulation</a></li>
 </ul>
 </div>
 </nav></div>
@@ -398,6 +398,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">polars</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pl</span>
 
+
 <span class="n">sc</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span>
     <span class="s1">&#39;Parse_10M_PBMC_cytokines.h5ad&#39;</span><span class="p">,</span>
     <span class="na">obs_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span> <span class="s1">&#39;donor&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;treatment&#39;</span><span class="p">,</span> <span class="s1">&#39;cytokine&#39;</span><span class="p">])</span>\
@@ -417,6 +418,7 @@
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>SingleCell dataset in CSR format with 603,928 cells (obs), 40,352 genes (var), and 1,164,409,519 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
     var: _index, n_cells
+
 
 SingleCell dataset in CSR format with 8,839,235 cells (obs), 40,352 genes (var), and 17,313,941,540 non-zero float32 entries (X)
     obs: _index, sample, donor, cell_type, treatment, cytokine, passed_QC
@@ -484,6 +486,7 @@ Reached convergence after 2 iterations
     <span class="n">sc_ref</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="na">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">,</span>
     <span class="na">next_best</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="na">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+
 <span class="nb">print</span><span class="p">(</span><span class="n">sc_query</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span>
     <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">,</span> <span class="s1">&#39;cell_type_transferred_confidence&#39;</span><span class="p">,</span>
     <span class="s1">&#39;next_best_cell_type_transferred&#39;</span><span class="p">,</span>
@@ -518,6 +521,7 @@ Reached convergence after 2 iterations
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">correct</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;cell_type_transferred&#39;</span><span class="p">)</span>
 <span class="n">overall</span> <span class="o">=</span> <span class="n">sc_query</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="nf">select</span><span class="p">(</span><span class="n">correct</span><span class="o">.</span><span class="nf">mean</span><span class="p">())</span><span class="o">.</span><span class="nf">item</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;overall accuracy: </span><span class="si">{</span><span class="n">overall</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
 
 <span class="nb">print</span><span class="p">(</span><span class="n">sc_query</span><span class="o">.</span><span class="n">obs</span>
     <span class="o">.</span><span class="nf">group_by</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">)</span>
@@ -554,6 +558,7 @@ shape: (18, 4)
 │ NKT                   ┆ 145969  ┆ 0.433667      ┆ 0.727498        │
 └───────────────────────┴─────────┴───────────────┴─────────────────┘
 
+
 </pre></div>
 </div>
 <p>Common, distinct types transfer almost perfectly (CD14 Mono 99%, NK 97%, B Naive 97%), while rare or closely related types are harder — NKT (43%) is mostly absorbed into the neighboring NK and CD8 populations, and its low mean confidence (0.73) reflects that.</p>
@@ -582,7 +587,7 @@ shape: (18, 4)
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Load</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.__init__.html#brisc.SingleCell.__init__" title="brisc.SingleCell.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/index.html#brisc.SingleCell" title="brisc.SingleCell"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleCell()</span></code></a></p></td>
 <td><p>Read data from any supported format</p></td>
 </tr>
 <tr class="row-odd"><td><p>Quality control</p></td>

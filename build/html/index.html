@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=fd5058c3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=411f9b8e" />
   
   <!-- So that users can add custom icons -->
   <script defer src="_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
@@ -357,27 +357,27 @@
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
 <h3 class="feature-title">Deterministic</h3>
-<p class="feature-desc">Every step gives floating-point identical results between runs, for any number of threads.</p>
+<p class="feature-desc">Every step gives floating-point identical results between runs, regardless of the number of threads used.</p>
 </div>
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
 <h3 class="feature-title">Complete toolkit</h3>
-<p class="feature-desc">Preprocessing, dimensionality reduction, harmonization, label transfer, clustering, embedding, pseudobulk DE, and plotting.</p>
+<p class="feature-desc">Supports preprocessing, dimensionality reduction, harmonization, label transfer, clustering, embedding, pseudobulk differential expression, and plotting.</p>
 </div>
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg></div>
 <h3 class="feature-title">Interoperable</h3>
-<p class="feature-desc">Read and write <code>.h5ad</code>, <code>.rds</code>, <code>.h5Seurat</code>, and 10x files; interleave Python and R analyses via <a href="https://github.com/Wainberg/ryp">ryp</a> without intermediate writes to disk.</p>
+<p class="feature-desc">Reads and writes <code>.h5ad</code>, <code>.rds</code>, <code>.h5Seurat</code>, and 10x files; supports interleaving Python and R analyses via <a href="https://github.com/Wainberg/ryp">ryp</a> without intermediate writes to disk.</p>
 </div>
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></svg></div>
 <h3 class="feature-title">Memory-efficient</h3>
-<p class="feature-desc">~2× lower peak memory usage than Scanpy by tracking cells that pass QC instead of subsetting.</p>
+<p class="feature-desc">Uses ~2× lower peak memory usage than Scanpy by tabulating which cells pass QC, instead of subsetting to them.</p>
 </div>
 <div class="feature-card">
 <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
 <h3 class="feature-title">User-friendly</h3>
-<p class="feature-desc">Sensible defaults, strict type-checking, and solution-focused error messages.</p>
+<p class="feature-desc">Features sensible defaults, strict type-checking, and solution-focused error messages.</p>
 </div>
 </div>
 <div class="showcase-chart">
@@ -392,6 +392,7 @@
 <div class="card-tab"><span class="card-tab-title">Basic workflow</span><span class="card-dots"><span class="card-dot card-dot-green"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-red"></span></span></div>
 <div class="card-code">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+
 
 <span class="n">sc</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>\
   <span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>\
@@ -411,6 +412,7 @@
 <div class="card-code">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
 
+
 <span class="n">sc_ref</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data_ref.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>
 <span class="n">sc_query</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data_query.h5ad&#39;</span><span class="p">)</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>
 <span class="n">sc_ref</span><span class="p">,</span> <span class="n">sc_query</span> <span class="o">=</span> <span class="n">sc_ref</span><span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.hvg.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">hvg</span></a><span class="p">(</span><span class="n">sc_query</span><span class="p">)</span>
@@ -428,6 +430,7 @@
 <div class="card-tab"><span class="card-tab-title">Pseudobulk differential expression</span><span class="card-dots"><span class="card-dot card-dot-green"></span><span class="card-dot card-dot-yellow"></span><span class="card-dot card-dot-red"></span></span></div>
 <div class="card-code">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">brisc</span><span class="w"> </span><span class="kn">import</span> <span class="n">SingleCell</span>
+
 
 <span class="n">pb</span> <span class="o">=</span> <a href="api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">)</span>\
   <span class="o">.</span><a href="api/single_cell/api/brisc.SingleCell.qc.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">qc</span></a><span class="p">()</span>\
