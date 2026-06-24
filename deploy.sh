@@ -13,7 +13,9 @@ cd "$(dirname "$0")"
 PROJECT="brisc-docs"
 
 eval "$(~/miniforge3/bin/conda shell.bash hook)"
-conda activate base
+# The brisc env has both the Sphinx stack and an importable brisc wheel, which
+# conf.py imports at top level; base has Sphinx but not brisc, so it can't build.
+conda activate brisc
 make clean html
 
 # Put the no-index files at the site root so the preview is never indexed.

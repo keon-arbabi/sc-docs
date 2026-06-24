@@ -795,11 +795,24 @@ def _generate_benchmark_data(app):
             "bars": gpu_bars,
         }
 
+    out_path = Path(app.srcdir) / "_static" / "js" / "benchmark-data.js"
+
+    # benchmark-data.js doubles as a cache: regenerate it (refreshing the
+    # committed copy) when the sc-benchmarking CSVs are present, but fall back
+    # to the existing cached file when they aren't -- never clobber real
+    # numbers with empty bars on a machine that lacks the results.
+    has_data = any(group["bars"] for group in groups.values())
+    if not has_data and out_path.exists():
+        from sphinx.util import logging as sphinx_logging
+        sphinx_logging.getLogger(__name__).info(
+            "[benchmark] %s not found; using cached %s",
+            _BENCHMARK_DIR, out_path.name)
+        return
+
     payload = {
         "subtitle": "192 CPUs, 755 GB RAM",
         "groups": groups,
     }
-    out_path = Path(app.srcdir) / "_static" / "js" / "benchmark-data.js"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(
         "window.BENCHMARK_DATA = " + json.dumps(payload, indent=2, ensure_ascii=False) + ";\n"
