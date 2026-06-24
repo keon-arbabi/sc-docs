@@ -27,19 +27,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -49,10 +49,10 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/interoperability';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -153,6 +153,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="index.html">
     Tutorials
@@ -260,6 +267,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="index.html">
     Tutorials
@@ -318,19 +332,39 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Interoperability</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_manipulation.html">Data manipulation</a></li>
-</ul>
-</div>
+<nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <p class="bd-links__title guide-nav-link" role="heading" aria-level="1">
+    <a class="reference internal"
+       href="../installation.html">Installation</a>
+  </p>
+  <p class="bd-links__title guide-nav-link" role="heading" aria-level="1">
+    <a class="reference internal"
+       href="index.html">Tutorials</a>
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="nav bd-sidenav">
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="basic_workflow.html">Basic Workflow</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="integration_and_label_transfer.html">Integration and Label Transfer</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="differential_expression.html">Differential Expression</a>
+      </li>
+      <li class="toctree-l1 current active">
+        <a class="reference internal current"
+           href="#">Interoperability</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="data_manipulation.html">Data manipulation</a>
+      </li>
+    </ul>
+  </div>
 </nav></div>
     </div>
   
@@ -456,7 +490,7 @@
 </section>
 <section id="reading-individual-slots">
 <h3>Reading individual slots<a class="headerlink" href="#reading-individual-slots" title="Link to this heading">#</a></h3>
-<p>You can also read <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs.html#brisc.SingleCell.obs" title="brisc.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.var.html#brisc.SingleCell.var" title="brisc.SingleCell.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obsm.html#brisc.SingleCell.obsm" title="brisc.SingleCell.obsm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsm</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.varm.html#brisc.SingleCell.varm" title="brisc.SingleCell.varm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">varm</span></code></a>, or <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.uns.html#brisc.SingleCell.uns" title="brisc.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code></a> from an <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file without loading the full dataset:</p>
+<p>You can also read <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obs.html" title="brisc.SingleCell.obs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obs</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.var.html" title="brisc.SingleCell.var"><code class="xref py py-attr docutils literal notranslate"><span class="pre">var</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.obsm.html" title="brisc.SingleCell.obsm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">obsm</span></code></a>, <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.varm.html" title="brisc.SingleCell.varm"><code class="xref py py-attr docutils literal notranslate"><span class="pre">varm</span></code></a>, or <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.uns.html" title="brisc.SingleCell.uns"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uns</span></code></a> from an <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> file without loading the full dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># polars DataFrame</span>
 <span class="n">obs</span> <span class="o">=</span> <span class="n">SingleCell</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.read_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">read_obs</span></a><span class="p">(</span><span class="s1">&#39;data.h5ad&#39;</span><span class="p">,</span> <span class="na">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="s1">&#39;batch&#39;</span><span class="p">])</span>
 
@@ -520,7 +554,7 @@
 <span class="n">sc_data</span> <span class="o">=</span> <a href="../api/single_cell/index.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">SingleCell</span></a><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="na">X</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="s1">&#39;raw_counts&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>The constructor shares <code class="docutils literal notranslate"><span class="pre">adata</span></code>’s count matrix rather than copying it (the reverse of <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_scanpy()</span></code></a>), so edits to one also affect the other; use <code class="docutils literal notranslate"><span class="pre">SingleCell(adata.copy())</span></code> for an independent dataset. A dense <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> is the exception: it is copied to a sparse <code class="docutils literal notranslate"><span class="pre">csr_array</span></code>, with a warning.</p>
+<p>The constructor shares <code class="docutils literal notranslate"><span class="pre">adata</span></code>’s count matrix rather than copying it (the reverse of <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_scanpy()</span></code></a>), so edits to one also affect the other; use <code class="docutils literal notranslate"><span class="pre">SingleCell(adata.copy())</span></code> for an independent dataset. A dense <code class="docutils literal notranslate"><span class="pre">adata.X</span></code> is the exception: it is copied to a sparse <code class="docutils literal notranslate"><span class="pre">csr_array</span></code>, with a warning.</p>
 </section>
 <section id="to-anndata">
 <h3>To AnnData<a class="headerlink" href="#to-anndata" title="Link to this heading">#</a></h3>
@@ -550,7 +584,7 @@
 </section>
 <section id="the-ryp-python-r-bridge">
 <h2>The ryp Python-R bridge<a class="headerlink" href="#the-ryp-python-r-bridge" title="Link to this heading">#</a></h2>
-<p>Seurat and SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files are handled transparently via <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a>, a Python-R bridge. Loading and saving <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files works like any other format. For in-memory conversion between SingleCell and R objects, use <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_seurat()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_sce()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a>. Unlike the AnnData path, these conversions usually copy the count matrix into or out of R’s memory, so a conversion can use up to roughly double the matrix’s memory. (<a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a> can avoid the copy when <code class="docutils literal notranslate"><span class="pre">X</span></code> is already <code class="docutils literal notranslate"><span class="pre">float64</span></code> with 32-bit indices.)</p>
+<p>Seurat and SingleCellExperiment <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files are handled transparently via <a class="reference external" href="https://github.com/Wainberg/ryp">ryp</a>, a Python-R bridge. Loading and saving <code class="docutils literal notranslate"><span class="pre">.rds</span></code> files works like any other format. For in-memory conversion between SingleCell and R objects, use <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_seurat()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_sce()</span></code></a> / <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a>. Unlike the AnnData path, these conversions usually copy the count matrix into or out of R’s memory, so a conversion can use up to roughly double the matrix’s memory. (<a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_seurat()</span></code></a> and <a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to_sce()</span></code></a> can avoid the copy when <code class="docutils literal notranslate"><span class="pre">X</span></code> is already <code class="docutils literal notranslate"><span class="pre">float64</span></code> with 32-bit indices.)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>R’s sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.</p>
@@ -660,28 +694,28 @@
 <td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell('file.h5ad',</span> <span class="pre">X=False)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Read <code class="docutils literal notranslate"><span class="pre">obs</span></code> only</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.read_obs('file.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.read_obs.html" title="brisc.SingleCell.read_obs"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.read_obs('file.h5ad')</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Save to any format</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('out.h5ad')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.save.html" title="brisc.SingleCell.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.save('out.h5ad')</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>From AnnData</p></td>
 <td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(adata)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>To AnnData</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_scanpy()</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_scanpy.html" title="brisc.SingleCell.to_scanpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_scanpy()</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>From Seurat (in-memory)</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_seurat('obj')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_seurat.html" title="brisc.SingleCell.from_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_seurat('obj')</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>To Seurat (in-memory)</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_seurat('obj')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_seurat.html" title="brisc.SingleCell.to_seurat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_seurat('obj')</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>From SCE (in-memory)</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_sce('obj')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.from_sce.html" title="brisc.SingleCell.from_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell.from_sce('obj')</span></code></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>To SCE (in-memory)</p></td>
-<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_sce('obj')</span></code></a></p></td>
+<td><p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.to_sce.html" title="brisc.SingleCell.to_sce"><code class="xref py py-meth docutils literal notranslate"><span class="pre">sc.to_sce('obj')</span></code></a></p></td>
 </tr>
 <tr class="row-even"><td><p>Construct manually</p></td>
 <td><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SingleCell(X=X,</span> <span class="pre">obs=obs,</span> <span class="pre">var=var)</span></code></p></td>
@@ -775,8 +809,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -810,7 +844,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

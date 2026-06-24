@@ -1467,6 +1467,13 @@ html[data-theme="dark"]  { --api-nav-label: #faf4f2; }
     white-space: nowrap;
     margin-left: 1.125rem;
 }
+/* Match the gap between standalone chips (Installation, Tutorials, ...) to the
+   0.4rem gap between the API chips inside the group: the theme's default
+   margin-inline:2px is tighter, and 0.2rem each side sums to 0.4rem between
+   neighbours. Exclude the API group so its larger left margin still stands. */
+.bd-header ul.navbar-nav > li.nav-item:not(.api-nav-group) {
+    margin-inline: 0.2rem;
+}
 .bd-header .bd-navbar-elements .api-nav-group .api-nav-fix {
     color: var(--api-nav-label);
     font-weight: 600;
@@ -1503,6 +1510,58 @@ html[data-theme="dark"]  { --api-nav-label: #faf4f2; }
    already shows its "Search Ctrl+K" label inline. */
 .tooltip {
     display: none !important;
+}
+
+/* Installation is the first guide page; its "previous" link points back to the
+   landing page ("brisc"), which isn't a real step in the guide flow. Hide it,
+   and keep "Next: Tutorials" pinned to the right. */
+body.installation-page .prev-next-area .left-prev {
+    display: none !important;
+}
+body.installation-page .prev-next-area .right-next {
+    margin-left: auto;
+}
+
+/* Guide sidebar headers (Installation / Tutorials): clickable, but styled like
+   the section titles rather than links — inherit the bd-links__title font and
+   color, drop the underline, and use the accent color on hover and for the
+   current page. */
+.bd-links__title.guide-nav-link a {
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+}
+.bd-links__title.guide-nav-link a:hover,
+.bd-links__title.guide-nav-link a.current {
+    color: var(--pst-color-accent);
+    text-decoration: none;
+}
+
+/* Underline inline <cite> reference links (method/class refs and parameter
+   jumps) on hover. Decorate the inner <cite> — like the existing span rule for
+   code-block links — so the underline takes the text's own color, not the
+   link's inherited color. */
+a.api-link:hover cite {
+    text-decoration: underline;
+}
+
+/* Cross-reference links ({class}/{meth} roles) color their text on the inner
+   <code class="xref">, so on hover underline that element instead of the <a> —
+   like the typedef and api-link links — so the underline matches the link's
+   font color rather than the link's default color. */
+.bd-article p a:not(.headerlink):not(.api-link):has(> code.xref):hover,
+.bd-article li > p a:not(.headerlink):not(.api-link):has(> code.xref):hover {
+    text-decoration: none;
+}
+.bd-article p a:hover > code.xref,
+.bd-article li > p a:hover > code.xref {
+    text-decoration: underline;
+}
+
+/* Parameter cross-reference jump targets (ids added by conf.py): offset the
+   scroll so the parameter isn't hidden under the sticky header. */
+li[id^="param-"] {
+    scroll-margin-top: calc(var(--pst-header-height, 4rem) + 1rem);
 }
 
 /* The landing page uses the logo as its visual title, so visually hide the

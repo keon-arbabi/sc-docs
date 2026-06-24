@@ -92,12 +92,21 @@
       .forEach(ul => {
         if (ul.querySelector('.api-nav-group')) return;
         const lis = [...ul.children].filter(el => el.matches('li.nav-item'));
-        if (lis.length < 4) return;
-        const tutLink = lis[0].querySelector('a.nav-link');
-        if (tutLink) chip(tutLink, lis[0]);
-        const apiLis = lis.slice(1, 4);
+        // API entries point into the API reference; everything else
+        // (Installation, Tutorials, ...) is a standalone chip. Detect via the
+        // resolved absolute href so it works at any page depth, then chip the
+        // non-API links in place.
+        const isApi = li => {
+          const a = li.querySelector('a.nav-link');
+          return !!a && a.href.includes('/api/');
+        };
+        lis.filter(li => !isApi(li)).forEach(li => {
+          const a = li.querySelector('a.nav-link');
+          if (a) chip(a, li);
+        });
+        const apiLis = lis.filter(isApi);
         const links = apiLis.map(li => li.querySelector('a.nav-link'));
-        if (links.some(a => !a)) return;
+        if (!apiLis.length || links.some(a => !a)) return;
         const group = document.createElement('li');
         group.className = 'nav-item api-nav-group';
         const label = document.createElement('span');

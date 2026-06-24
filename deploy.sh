@@ -13,7 +13,7 @@ cd "$(dirname "$0")"
 PROJECT="brisc-docs"
 
 eval "$(~/miniforge3/bin/conda shell.bash hook)"
-conda activate brisc
+conda activate base
 make clean html
 
 # Put the no-index files at the site root so the preview is never indexed.

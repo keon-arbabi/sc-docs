@@ -105,10 +105,25 @@ html_theme_options = {
     },
 }
 
-# sidebar-nav-bs provides the full collapsible toctree navigation.
-html_sidebars = {
-    "**": ["sidebar-nav-bs"],
-}
+# sidebar-nav-bs provides the full collapsible toctree navigation. The
+# Installation page and every Tutorials page instead share one unified "guide"
+# sidebar (Installation + the Tutorials tree), rendered by
+# _templates/guide-nav.html. _GUIDE_TUTORIALS is the single source of truth for
+# the tutorial entries: handed to the template via html_context and used to
+# build the per-page html_sidebars overrides below.
+_GUIDE_TUTORIALS = [
+    ("tutorials/basic_workflow", "Basic Workflow"),
+    ("tutorials/integration_and_label_transfer", "Integration and Label Transfer"),
+    ("tutorials/differential_expression", "Differential Expression"),
+    ("tutorials/interoperability", "Interoperability"),
+    ("tutorials/data_manipulation", "Data manipulation"),
+]
+html_context = {"guide_tutorials": _GUIDE_TUTORIALS}
+
+html_sidebars = {"**": ["sidebar-nav-bs"]}
+for _guide_page in ["installation", "tutorials/index",
+                    *(doc for doc, _ in _GUIDE_TUTORIALS)]:
+    html_sidebars[_guide_page] = ["guide-nav"]
 
 # Strip prompt prefixes from code copy
 copybutton_prompt_text = r">>> |\.\.\. "
@@ -411,6 +426,60 @@ def _link_calls(text, depth):
 
     return _link_re.sub(repl, text)
 
+# Inline `code` references in docstrings render as <cite> (RST's default
+# title-reference role for single backticks). Link the ones that name an API
+# method or class -- qualified (Class.method), a bare call (method()), or a bare
+# class name -- to their reference page, without touching the docstrings. Bare
+# words and parameter names (no parens, not a class) are left alone.
+_CITE_RE = re.compile(r'<cite>([^<]+)</cite>')
+_CITE_REF_RE = re.compile(
+    r'^(?:(SingleCell|Pseudobulk|DE)\.)?([A-Za-z_]\w*)(\(\s*[^)]*\s*\))?$')
+
+def _link_inline_refs(text, depth, current_class):
+    links = _get_api_links()
+    classes = {'SingleCell', 'Pseudobulk', 'DE'}
+    def repl(m):
+        pm = _CITE_REF_RE.match(m.group(1).strip())
+        if not pm:
+            return m.group(0)
+        cls_prefix, name, call = pm.group(1), pm.group(2), pm.group(3)
+        if cls_prefix:                    # Class.method (qualified)
+            url = links.get((cls_prefix, name))
+        elif call:                        # bare method() -- resolve in page context
+            url = (links.get((current_class, name)) if current_class else None) \
+                  or links.get(name)
+        elif name in classes:             # bare class name
+            url = links.get(name)
+        else:
+            url = None
+        if not url:
+            return m.group(0)
+        rel = '../' * depth + url
+        return (f'<a href="{rel}" class="api-link" '
+                f'style="text-decoration:none;color:inherit">{m.group(0)}</a>')
+    return _CITE_RE.sub(repl, text)
+
+# Within an API page, the parameter list (built by the Scanpy-style _param_repl
+# pass below) is the set of names a docstring might reference. Give each
+# parameter an id anchor, then turn any bare `name` cite that matches a parameter
+# into a same-page jump to its description.
+_PARAM_HEADER_RE = re.compile(r'<li><p class="param-header"><strong>(\w+)</strong>')
+
+def _link_param_refs(text):
+    params = set(_PARAM_HEADER_RE.findall(text))
+    if not params:
+        return text
+    text = _PARAM_HEADER_RE.sub(
+        lambda m: f'<li id="param-{m.group(1)}">'
+                  f'<p class="param-header"><strong>{m.group(1)}</strong>',
+        text)
+    def repl(m):
+        if m.group(1) not in params:
+            return m.group(0)
+        return (f'<a href="#param-{m.group(1)}" class="api-link" '
+                f'style="text-decoration:none;color:inherit">{m.group(0)}</a>')
+    return re.sub(r'<cite>(\w+)</cite>', repl, text)
+
 _SIDEBAR_TITLE_MAP = [
     ("api/single_cell/", "SingleCell"),
     ("api/pseudobulk/",  "Pseudobulk"),
@@ -493,6 +562,32 @@ def _semantic_highlight(app, exception=None):
         # the body so CSS shows the "On this page" secondary sidebar.
         elif rel_str.startswith("tutorials/") and rel_str != "tutorials/index.html":
             text = text.replace('<body ', '<body class="tutorial-page" ', 1)
+        # Installation: tag the body so CSS can drop its "previous: brisc"
+        # prev-next link (the landing page isn't a step in the guide flow).
+        elif rel_str == "installation.html":
+            text = text.replace('<body ', '<body class="installation-page" ', 1)
+
+        # Link inline <cite> references (single-backtick code in docstrings) to
+        # their API pages where they name a method or class. Runs on every page;
+        # only docstring-derived pages contain <cite> elements.
+        current_class = None
+        if rel_str.startswith("api/single_cell/"):
+            current_class = "SingleCell"
+        elif rel_str.startswith("api/pseudobulk/"):
+            current_class = "Pseudobulk"
+        elif rel_str.startswith("api/de/"):
+            current_class = "DE"
+        text = _link_inline_refs(text, depth, current_class)
+
+        # Cross-reference links to an API object (the {class}/{meth} roles,
+        # autosummary entries, signature/type links, viewcode "back" links) point
+        # at the object's definition anchor (#brisc.X). On cross-page links the
+        # fragment is redundant -- it's the target page's primary object -- and
+        # makes for ugly URLs, so drop it: the link then lands at the page top
+        # (its title). Only strip when a path precedes the "#"; same-page anchors
+        # (the ¶ permalinks and the "On this page" TOC, href="#brisc.X") are kept.
+        text = re.sub(
+            r'(<a [^>]*href="[^"#]+)#brisc\.[\w.]*"', r'\1"', text)
 
         # -- Code-block semantic highlighting (only where pygments ran) --
         if '<span class="n">' not in text:
@@ -527,10 +622,19 @@ def _semantic_highlight(app, exception=None):
             _param_repl,
             text)
 
-        # Strip module qualifiers from rendered type tokens: `sparse.csr_array`
-        # → `csr_array`, `pl.DataFrame` → `DataFrame`, `np.integer` → `integer`.
+        # Link bare-name cites that match a parameter on the page to that
+        # parameter's description (id anchors are added here too).
+        text = _link_param_refs(text)
+
+        # Strip module qualifiers (and Sphinx's `~` short-name marker) from
+        # rendered type tokens, keeping only the final component: `pl.DataFrame`
+        # → `DataFrame`, `np.integer` → `integer`, and fully-qualified forms like
+        # `~polars.expr.expr.Expr` → `Expr`, `~typing.Callable` → `Callable`,
+        # `~brisc.pseudobulk.Pseudobulk` → `Pseudobulk`. This also lets the
+        # type-alias collapses below match types autodoc rendered with the long
+        # qualified names (e.g. the Pseudobulk.DE `group` union → PseudobulkColumn).
         text = re.sub(
-            r'(<em>)(?:np|pl|sparse)\.([A-Za-z_]\w*</em>)', r'\1\2', text)
+            r'(<em>)~?(?:\w+\.)+(\w+)(</em>)', r'\1\2\3', text)
         # `Literal[False]` → `False` (any single-argument `Literal[...]`).
         text = re.sub(
             r'<em>Literal</em><em>\[</em><em>([^<]*)</em><em>\](\s*)</em>',

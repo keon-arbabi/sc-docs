@@ -27,19 +27,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -49,10 +49,10 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/data_manipulation';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -153,6 +153,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="index.html">
     Tutorials
@@ -260,6 +267,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="index.html">
     Tutorials
@@ -318,19 +332,39 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-<nav class="bd-docs-nav bd-links"
-     aria-label="Section Navigation">
-  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_workflow.html">Basic Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="integration_and_label_transfer.html">Integration and Label Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="differential_expression.html">Differential Expression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interoperability.html">Interoperability</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data manipulation</a></li>
-</ul>
-</div>
+<nav class="bd-docs-nav bd-links" aria-label="Section Navigation">
+  <p class="bd-links__title guide-nav-link" role="heading" aria-level="1">
+    <a class="reference internal"
+       href="../installation.html">Installation</a>
+  </p>
+  <p class="bd-links__title guide-nav-link" role="heading" aria-level="1">
+    <a class="reference internal"
+       href="index.html">Tutorials</a>
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="nav bd-sidenav">
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="basic_workflow.html">Basic Workflow</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="integration_and_label_transfer.html">Integration and Label Transfer</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="differential_expression.html">Differential Expression</a>
+      </li>
+      <li class="toctree-l1">
+        <a class="reference internal"
+           href="interoperability.html">Interoperability</a>
+      </li>
+      <li class="toctree-l1 current active">
+        <a class="reference internal current"
+           href="#">Data manipulation</a>
+      </li>
+    </ul>
+  </div>
 </nav></div>
     </div>
   
@@ -597,7 +631,7 @@
 </section>
 <section id="pseudobulk">
 <h2>Pseudobulk<a class="headerlink" href="#pseudobulk" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html#brisc.SingleCell.pseudobulk" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pseudobulk()</span></code></a> returns a <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> dataset, with three slots — <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">obs</span></code>, and <code class="docutils literal notranslate"><span class="pre">var</span></code>. Access a slot, a cell type, or its pieces:</p>
+<p><a class="reference internal" href="../api/single_cell/api/brisc.SingleCell.pseudobulk.html" title="brisc.SingleCell.pseudobulk"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pseudobulk()</span></code></a> returns a <a class="reference internal" href="../api/pseudobulk/index.html" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> dataset, with three slots — <code class="docutils literal notranslate"><span class="pre">X</span></code>, <code class="docutils literal notranslate"><span class="pre">obs</span></code>, and <code class="docutils literal notranslate"><span class="pre">var</span></code>. Access a slot, a cell type, or its pieces:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># index by cell type, returning a Pseudobulk with just that one cell type</span>
 <span class="n">pb</span><span class="p">[</span><span class="s1">&#39;CD14 Mono&#39;</span><span class="p">]</span>
 
@@ -664,11 +698,11 @@
 <span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.regress_out.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">regress_out</span></a><span class="p">(</span><span class="s1">&#39;~ donor + log2(num_cells) + log2(library_size)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This <code class="docutils literal notranslate"><span class="pre">log_CPM</span></code>/<code class="docutils literal notranslate"><span class="pre">regress_out</span></code> path is separate from <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a>, which needs raw counts and so can’t run after <code class="docutils literal notranslate"><span class="pre">log_CPM</span></code>.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">log_CPM</span></code>/<code class="docutils literal notranslate"><span class="pre">regress_out</span></code> path is separate from <a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a>, which requires raw counts and cannot run after <code class="docutils literal notranslate"><span class="pre">log_CPM</span></code>.</p>
 </section>
 <section id="de-results">
 <h2>DE results<a class="headerlink" href="#de-results" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html#brisc.Pseudobulk.DE" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a> returns a <a class="reference internal" href="../api/de/index.html#brisc.DE" title="brisc.DE"><code class="xref py py-class docutils literal notranslate"><span class="pre">DE</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">table</span></code> is a polars DataFrame you filter and sort normally:</p>
+<p><a class="reference internal" href="../api/pseudobulk/api/brisc.Pseudobulk.DE.html" title="brisc.Pseudobulk.DE"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DE()</span></code></a> returns a <a class="reference internal" href="../api/de/index.html" title="brisc.DE"><code class="xref py py-class docutils literal notranslate"><span class="pre">DE</span></code></a> object whose <code class="docutils literal notranslate"><span class="pre">table</span></code> is a polars DataFrame you filter and sort normally:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># one row per gene per cell type</span>
 <span class="n">de</span><span class="o">.</span><span class="n">table</span>
 
@@ -691,22 +725,20 @@
 <h2>Custom operations<a class="headerlink" href="#custom-operations" title="Link to this heading">#</a></h2>
 <p>When a transformation isn’t wrapped by a brisc method, apply your own function with the <code class="docutils literal notranslate"><span class="pre">pipe_*</span></code> methods:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># run an arbitrary polars operation on obs (or var)</span>
-<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe_obs</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="nf">with_columns</span><span class="p">(</span>
-    <span class="na">log_counts</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;num_counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">log1p</span><span class="p">()))</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe_obs</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="nf">to_dummies</span><span class="p">(</span><span class="s1">&#39;cell_type&#39;</span><span class="p">))</span>
 
 <span class="c1"># transform the count matrix</span>
 <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe_X.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe_X</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="nf">sqrt</span><span class="p">())</span>
 
 <span class="c1"># transform one entry of a dict-valued slot (here, keep the first 20 PCs);</span>
-<span class="c1"># pipe_obsp_key, pipe_varm_key, pipe_varp_key, and pipe_uns_key do the same for</span>
-<span class="c1"># the other slots, while pipe_obsm transforms the whole obsm dict at once</span>
+<span class="c1"># the other slots have *_key variants, and pipe_obsm transforms the whole dict</span>
 <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe_obsm_key.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe_obsm_key</span></a><span class="p">(</span><span class="s1">&#39;pca&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">pca</span><span class="p">:</span> <span class="n">pca</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">20</span><span class="p">])</span>
 
 <span class="c1"># transform the whole dataset</span>
 <span class="n">sc</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><a href="../api/single_cell/api/brisc.SingleCell.pipe.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe</span></a><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A <a class="reference internal" href="../api/pseudobulk/index.html#brisc.Pseudobulk" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> uses <code class="docutils literal notranslate"><span class="pre">map_obs</span></code>, <code class="docutils literal notranslate"><span class="pre">map_var</span></code>, and <code class="docutils literal notranslate"><span class="pre">map_X</span></code> to apply a function within each cell type, and <code class="docutils literal notranslate"><span class="pre">pipe</span></code> to transform the whole dataset:</p>
+<p>A <a class="reference internal" href="../api/pseudobulk/index.html" title="brisc.Pseudobulk"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pseudobulk</span></code></a> uses <code class="docutils literal notranslate"><span class="pre">map_obs</span></code>, <code class="docutils literal notranslate"><span class="pre">map_var</span></code>, and <code class="docutils literal notranslate"><span class="pre">map_X</span></code> to apply a function within each cell type, and <code class="docutils literal notranslate"><span class="pre">pipe</span></code> to transform the whole dataset:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># apply a function within each cell type</span>
 <span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.map_obs.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">map_obs</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="nf">with_columns</span><span class="p">(</span>
     <span class="na">log_counts</span><span class="o">=</span><span class="n">pl</span><span class="o">.</span><span class="nf">col</span><span class="p">(</span><span class="s1">&#39;num_cells&#39;</span><span class="p">)</span><span class="o">.</span><span class="nf">log1p</span><span class="p">()))</span>
@@ -716,7 +748,6 @@
 <span class="n">pb</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><a href="../api/pseudobulk/api/brisc.Pseudobulk.pipe.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">pipe</span></a><span class="p">(</span><span class="n">my_function</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">pipe_obs</span></code>, <code class="docutils literal notranslate"><span class="pre">pipe_var</span></code>, <code class="docutils literal notranslate"><span class="pre">map_obs</span></code>, and <code class="docutils literal notranslate"><span class="pre">map_var</span></code> substitute the function’s output for the existing table, so the function must return the same rows in the same order — <code class="docutils literal notranslate"><span class="pre">X</span></code> is not realigned.</p>
 </section>
 </section>
 
@@ -793,8 +824,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -828,7 +859,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

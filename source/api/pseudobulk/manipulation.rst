@@ -33,3 +33,12 @@ Manipulation
    Pseudobulk.split_by_cell_type
    Pseudobulk.concat_obs
    Pseudobulk.concat_var
+   Pseudobulk.copy
+   Pseudobulk.to_df
+   Pseudobulk.map_X
+   Pseudobulk.map_obs
+   Pseudobulk.map_var
+   Pseudobulk.pipe
+   Pseudobulk.pipe_X
+   Pseudobulk.pipe_obs
+   Pseudobulk.pipe_var

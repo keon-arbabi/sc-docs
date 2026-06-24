@@ -5,14 +5,12 @@ Pseudobulk
    :maxdepth: 2
    :hidden:
 
+   analysis
    io
    properties
    data_access
    dictionary_interface
    manipulation
-   transformation
-   analysis
-   utility
 
 .. currentmodule:: brisc
 
@@ -20,6 +18,19 @@ Pseudobulk
 
 .. autoclass:: Pseudobulk
    :no-members:
+
+Analysis
+--------
+
+.. autosummary::
+   :nosignatures:
+
+   Pseudobulk.qc
+   Pseudobulk.library_size
+   Pseudobulk.CPM
+   Pseudobulk.log_CPM
+   Pseudobulk.regress_out
+   Pseudobulk.DE
 
 I/O
 ---
@@ -51,6 +62,8 @@ Data access
 
    Pseudobulk.sample
    Pseudobulk.gene
+   Pseudobulk.peek_obs
+   Pseudobulk.peek_var
 
 Dictionary interface
 --------------------
@@ -100,40 +113,11 @@ Manipulation
    Pseudobulk.split_by_cell_type
    Pseudobulk.concat_obs
    Pseudobulk.concat_var
-
-Transformation
---------------
-
-.. autosummary::
-   :nosignatures:
-
    Pseudobulk.copy
    Pseudobulk.to_df
    Pseudobulk.map_X
    Pseudobulk.map_obs
    Pseudobulk.map_var
-
-Analysis
---------
-
-.. autosummary::
-   :nosignatures:
-
-   Pseudobulk.qc
-   Pseudobulk.library_size
-   Pseudobulk.CPM
-   Pseudobulk.log_CPM
-   Pseudobulk.regress_out
-   Pseudobulk.DE
-
-Utility
--------
-
-.. autosummary::
-   :nosignatures:
-
-   Pseudobulk.peek_obs
-   Pseudobulk.peek_var
    Pseudobulk.pipe
    Pseudobulk.pipe_X
    Pseudobulk.pipe_obs

@@ -27,19 +27,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -49,10 +49,10 @@
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/pseudobulk/api/brisc.Pseudobulk.qc';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -153,6 +153,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../tutorials/index.html">
     Tutorials
@@ -261,6 +268,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../tutorials/index.html">
     Tutorials
   </a>
@@ -323,6 +337,15 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Pseudobulk</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html#analysis">Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.library_size.html">library_size</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.CPM.html">CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.log_CPM.html">log_CPM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.regress_out.html">regress_out</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.DE.html">DE</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.save.html">save</a></li>
 </ul>
@@ -340,6 +363,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.sample.html">sample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.gene.html">gene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.peek_var.html">peek_var</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#dictionary-interface">Dictionary interface</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -381,28 +406,11 @@
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.split_by_cell_type.html">split_by_cell_type</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.concat_obs.html">concat_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.concat_var.html">concat_var</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#transformation">Transformation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.copy.html">copy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.to_df.html">to_df</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.map_X.html">map_X</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.map_obs.html">map_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.map_var.html">map_var</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html#analysis">Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.library_size.html">library_size</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.CPM.html">CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.log_CPM.html">log_CPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.regress_out.html">regress_out</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.DE.html">DE</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.peek_obs.html">peek_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.peek_var.html">peek_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.pipe.html">pipe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.pipe_X.html">pipe_X</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.Pseudobulk.pipe_obs.html">pipe_obs</a></li>
@@ -479,31 +487,31 @@
 <span class="sig-prename descclassname"><span class="pre">Pseudobulk.</span></span><span class="sig-name descname"><span class="pre">qc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_column</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cells</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_standard_deviations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_nonzero_fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excluded_cell_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_if_negative_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_float</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/brisc/pseudobulk.html#Pseudobulk.qc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#brisc.Pseudobulk.qc" title="Link to this definition">#</a></dt>
 <dd><p>Subsets each cell type to samples passing quality control (QC). If
 samples fall into discrete groups (e.g. disease cases versus controls),
-these should be specified via the <cite>group_column</cite> argument.</p>
+these should be specified via the <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> argument.</p>
 <p>Filters, in order, to:</p>
 <ul class="simple">
-<li><p>samples that pass the <cite>custom_filter</cite> (if specified), have
-non-missing values for <cite>group_column</cite> (if specified), and have at
-least <cite>min_cells</cite> cells of that type (default: 10)</p></li>
+<li><p>samples that pass the <a href="#param-custom_filter" class="api-link" style="text-decoration:none;color:inherit"><cite>custom_filter</cite></a> (if specified), have
+non-missing values for <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> (if specified), and have at
+least <a href="#param-min_cells" class="api-link" style="text-decoration:none;color:inherit"><cite>min_cells</cite></a> cells of that type (default: 10)</p></li>
 <li><p>samples where the number of genes with 0 counts is at most
-<cite>max_standard_deviations</cite> standard deviations above the mean
+<a href="#param-max_standard_deviations" class="api-link" style="text-decoration:none;color:inherit"><cite>max_standard_deviations</cite></a> standard deviations above the mean
 (default: 3)</p></li>
 <li><p>genes with at least 1 count in <cite>100 * min_nonzero_fraction`%
 (default: 80%) of samples (in every group, if `group_column</cite> is
 specified)</p></li>
 </ul>
 <p>If at any point during this filtering process, there are fewer than
-<cite>min_samples</cite> (default: 2) samples (in any group, if <cite>group_column</cite> is
-specified), or <cite>group_column</cite> is specified and all samples have the
-same value of <cite>group_column</cite>, the cell type is filtered out entirely.</p>
+<a href="#param-min_samples" class="api-link" style="text-decoration:none;color:inherit"><cite>min_samples</cite></a> (default: 2) samples (in any group, if <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> is
+specified), or <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> is specified and all samples have the
+same value of <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a>, the cell type is filtered out entirely.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>group_column</strong>: <a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional String, Categorical, Enum, Boolean, or
+<li id="param-group_column"><p class="param-header"><strong>group_column</strong>: <a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional String, Categorical, Enum, Boolean, or
 integer column of <cite>obs</cite> with sample group
 information, e.g. which samples are disease cases and
 which are controls. If specified, the
-<cite>min_nonzero_fraction</cite> and <cite>min_samples</cite> filters must
+<a href="#param-min_nonzero_fraction" class="api-link" style="text-decoration:none;color:inherit"><cite>min_nonzero_fraction</cite></a> and <a href="#param-min_samples" class="api-link" style="text-decoration:none;color:inherit"><cite>min_samples</cite></a> filters must
 pass for every group, rather than merely passing for
 the dataset as a whole. Set to <cite>None</cite> if samples do
 not fall into discrete groups. Can be <cite>None</cite>, a
@@ -515,7 +523,7 @@ mapping cell-type names to any of the above; each
 cell type in this Pseudobulk dataset must be present.
 Can contain <cite>null</cite> entries: the corresponding samples
 will be deemed to fail QC.</p></li>
-<li><p class="param-header"><strong>custom_filter</strong>: <a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
+<li id="param-custom_filter"><p class="param-header"><strong>custom_filter</strong>: <a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em> | </em><em>dict</em><em>[</em><em>str</em><em>, </em><a href="../../../api/single_cell/typedefs.html#pseudobulkcolumn" style="text-decoration:none"><em>PseudobulkColumn</em></a> <em>| </em><em>None</em><em>]</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
 filter to apply on top of the other QC filters;
 <cite>True</cite> elements will be kept. Can be <cite>None</cite>, a
 column name, a polars expression, a polars Series, a
@@ -525,33 +533,33 @@ polars Series or 1D NumPy array. Or, a dictionary
 mapping cell-type names to any of the above; each
 cell type in this Pseudobulk dataset must be
 present.</p></li>
-<li><p class="param-header"><strong>min_samples</strong>: <em>int</em></p><p class="param-desc">filter to cell types with at least this many samples
+<li id="param-min_samples"><p class="param-header"><strong>min_samples</strong>: <em>int</em></p><p class="param-desc">filter to cell types with at least this many samples
 in every group, or with at least this many total
-samples if <cite>group_column</cite> is <cite>None</cite></p></li>
-<li><p class="param-header"><strong>min_cells</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to samples with ≥ this many cells
+samples if <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> is <cite>None</cite></p></li>
+<li id="param-min_cells"><p class="param-header"><strong>min_cells</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to samples with ≥ this many cells
 of each cell type</p></li>
-<li><p class="param-header"><strong>max_standard_deviations</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to samples where the
+<li id="param-max_standard_deviations"><p class="param-header"><strong>max_standard_deviations</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to samples where the
 number of genes with 0 counts is at most
 this many standard deviations above the
 mean</p></li>
-<li><p class="param-header"><strong>min_nonzero_fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to genes with at least
+<li id="param-min_nonzero_fraction"><p class="param-header"><strong>min_nonzero_fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to genes with at least
 one count in this fraction of samples in each
-group, or if <cite>group_column</cite> is <cite>None</cite>, at
+group, or if <a href="#param-group_column" class="api-link" style="text-decoration:none;color:inherit"><cite>group_column</cite></a> is <cite>None</cite>, at
 least one count in this fraction of samples
 overall. Note: <cite>min_nonzero_fraction=0</cite>
 filters out only genes with all-zero counts,
 while <cite>min_nonzero_fraction=None</cite> does not
 filter out any genes.</p></li>
-<li><p class="param-header"><strong>cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to QC; if <cite>None</cite>, QC all cell
-types. Mutually exclusive with <cite>excluded_cell_types</cite>.</p></li>
-<li><p class="param-header"><strong>excluded_cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude from QC;
-mutually exclusive with <cite>cell_types</cite></p></li>
-<li><p class="param-header"><strong>error_if_negative_counts</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, raise an error if any counts
+<li id="param-cell_types"><p class="param-header"><strong>cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to QC; if <cite>None</cite>, QC all cell
+types. Mutually exclusive with <a href="#param-excluded_cell_types" class="api-link" style="text-decoration:none;color:inherit"><cite>excluded_cell_types</cite></a>.</p></li>
+<li id="param-excluded_cell_types"><p class="param-header"><strong>excluded_cell_types</strong>: <em>str</em><em> | </em><em>Iterable</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em></p><p class="param-desc">one or more cell types to exclude from QC;
+mutually exclusive with <a href="#param-cell_types" class="api-link" style="text-decoration:none;color:inherit"><cite>cell_types</cite></a></p></li>
+<li id="param-error_if_negative_counts"><p class="param-header"><strong>error_if_negative_counts</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, raise an error if any counts
 are negative</p></li>
-<li><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
+<li id="param-allow_float"><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
 floating-point (suggesting the user may not be using
 the raw counts); if <cite>True</cite>, disable this sanity check</p></li>
-<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print how many samples and genes were filtered
+<li id="param-verbose"><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print how many samples and genes were filtered
 out at each step of the QC process</p></li>
 </ul>
 </dd>
@@ -560,7 +568,7 @@ out at each step of the QC process</p></li>
 subset to samples and genes passing QC.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../index.html#brisc.Pseudobulk" title="brisc.pseudobulk.Pseudobulk"><em>Pseudobulk</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html" title="brisc.pseudobulk.Pseudobulk"><em>Pseudobulk</em></a></p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -637,8 +645,8 @@ considerations.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -672,7 +680,7 @@ considerations.</p>
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

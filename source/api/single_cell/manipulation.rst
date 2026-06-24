@@ -52,3 +52,22 @@ Manipulation
    SingleCell.subsample_var
    SingleCell.tocsr
    SingleCell.tocsc
+   SingleCell.copy
+   SingleCell.concat_obs
+   SingleCell.concat_var
+   SingleCell.split_by_obs
+   SingleCell.split_by_var
+   SingleCell.pipe
+   SingleCell.pipe_X
+   SingleCell.pipe_obs
+   SingleCell.pipe_var
+   SingleCell.pipe_obsm
+   SingleCell.pipe_obsm_key
+   SingleCell.pipe_varm
+   SingleCell.pipe_varm_key
+   SingleCell.pipe_obsp
+   SingleCell.pipe_obsp_key
+   SingleCell.pipe_varp
+   SingleCell.pipe_varp_key
+   SingleCell.pipe_uns
+   SingleCell.pipe_uns_key

@@ -9,3 +9,5 @@ Data access
 
    Pseudobulk.sample
    Pseudobulk.gene
+   Pseudobulk.peek_obs
+   Pseudobulk.peek_var

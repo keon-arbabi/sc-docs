@@ -9,6 +9,7 @@ Analysis
 
    SingleCell.qc_metrics
    SingleCell.qc
+   SingleCell.skip_qc
    SingleCell.find_doublets
    SingleCell.get_sample_covariates
    SingleCell.pseudobulk

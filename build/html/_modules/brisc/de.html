@@ -26,19 +26,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -48,10 +48,10 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/brisc/de';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -150,6 +150,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../tutorials/index.html">
     Tutorials
@@ -255,6 +262,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../tutorials/index.html">
     Tutorials
@@ -381,7 +395,7 @@
 
 
 <div class="viewcode-block" id="DE">
-<a class="viewcode-back" href="../../api/de/index.html#brisc.DE">[docs]</a>
+<a class="viewcode-back" href="../../api/de/index.html">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DE</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Differential expression results returned by `Pseudobulk.DE()`.</span>
@@ -455,16 +469,21 @@
                     <span class="n">error_message</span> <span class="o">=</span> \
                         <span class="sa">f</span><span class="s1">&#39;DE results directory </span><span class="si">{</span><span class="n">source</span><span class="si">!r}</span><span class="s1"> does not exist&#39;</span>
                     <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
-            <span class="n">cell_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="nf">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span>
-                          <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s1">/cell_types.txt&#39;</span><span class="p">)]</span>
-            <span class="n">voom_weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">cell_type</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="nf">read_parquet</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cell_type</span><span class="o">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
-                                    <span class="sa">f</span><span class="s1">&#39;voom_weights.parquet&#39;</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">cell_types</span><span class="p">}</span>
-            <span class="n">voom_plot_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">cell_type</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="nf">read_parquet</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cell_type</span><span class="o">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
-                                    <span class="sa">f</span><span class="s1">&#39;voom_plot_data.parquet&#39;</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">cell_types</span><span class="p">}</span>
+            <span class="n">cell_types_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s1">/cell_types.txt&#39;</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">exists</span><span class="p">(</span><span class="n">cell_types_file</span><span class="p">):</span>
+                <span class="n">cell_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="nf">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span>
+                              <span class="nb">open</span><span class="p">(</span><span class="n">cell_types_file</span><span class="p">)]</span>
+                <span class="n">voom_weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">cell_type</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="nf">read_parquet</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cell_type</span><span class="o">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
+                                        <span class="sa">f</span><span class="s1">&#39;voom_weights.parquet&#39;</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">cell_types</span><span class="p">}</span>
+                <span class="n">voom_plot_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">cell_type</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="nf">read_parquet</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cell_type</span><span class="o">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">.&#39;</span>
+                                        <span class="sa">f</span><span class="s1">&#39;voom_plot_data.parquet&#39;</span><span class="p">))</span>
+                    <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">cell_types</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">voom_weights</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">voom_plot_data</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">table</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="nf">read_parquet</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="nf">join</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">&#39;table.parquet&#39;</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">table</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="nf">check_type</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="s1">&#39;a polars DataFrame&#39;</span><span class="p">)</span>
@@ -534,6 +553,7 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="nf">equals</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">table</span><span class="p">)</span> <span class="ow">and</span> \
             <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">voom_weights</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voom_weights</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span>
+             <span class="n">other</span><span class="o">.</span><span class="n">voom_weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
              <span class="bp">self</span><span class="o">.</span><span class="n">voom_weights</span><span class="o">.</span><a href="../../api/pseudobulk/api/brisc.Pseudobulk.keys.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">keys</span></a><span class="p">()</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">voom_weights</span><span class="o">.</span><a href="../../api/pseudobulk/api/brisc.Pseudobulk.keys.html" class="api-link" style="text-decoration:none;color:inherit"><span class="nf">keys</span></a><span class="p">()</span> <span class="ow">and</span>
              <span class="nb">all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">voom_weights</span><span class="p">[</span><span class="n">cell_type</span><span class="p">]</span><span class="o">.</span><span class="nf">equals</span><span class="p">(</span>
                      <span class="n">other</span><span class="o">.</span><span class="n">voom_weights</span><span class="p">[</span><span class="n">cell_type</span><span class="p">])</span> <span class="ow">and</span>
@@ -557,7 +577,7 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voom_plot_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="DE.save">
-<a class="viewcode-back" href="../../api/de/api/brisc.DE.save.html#brisc.DE.save">[docs]</a>
+<a class="viewcode-back" href="../../api/de/api/brisc.DE.save.html">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> \
             <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -608,7 +628,7 @@
 
 
 <div class="viewcode-block" id="DE.get_hits">
-<a class="viewcode-back" href="../../api/de/api/brisc.DE.get_hits.html#brisc.DE.get_hits">[docs]</a>
+<a class="viewcode-back" href="../../api/de/api/brisc.DE.get_hits.html">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="o">*</span><span class="p">,</span>
                  <span class="n">significance_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
@@ -649,7 +669,7 @@
 
 
 <div class="viewcode-block" id="DE.get_num_hits">
-<a class="viewcode-back" href="../../api/de/api/brisc.DE.get_num_hits.html#brisc.DE.get_num_hits">[docs]</a>
+<a class="viewcode-back" href="../../api/de/api/brisc.DE.get_num_hits.html">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_num_hits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="o">*</span><span class="p">,</span>
                      <span class="n">significance_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;FDR&#39;</span><span class="p">,</span>
@@ -689,7 +709,7 @@
 
 
 <div class="viewcode-block" id="DE.plot_voom">
-<a class="viewcode-back" href="../../api/de/api/brisc.DE.plot_voom.html#brisc.DE.plot_voom">[docs]</a>
+<a class="viewcode-back" href="../../api/de/api/brisc.DE.plot_voom.html">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_voom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                   <span class="n">cell_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                   <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -891,11 +911,11 @@
 <span class="sd">                            Can only be specified when `filename` is specified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Import matplotlib</span>
-        <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+        <span class="n">original_sigint_handler</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">default_int_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">original_sigint_handler</span><span class="p">)</span>
 
         <span class="c1"># Check that this DE object contains `voom_plot_data`, the data</span>
         <span class="c1"># necessary to generate the voom plot from (scatter-plot points and</span>
@@ -1142,7 +1162,7 @@
                             <span class="k">if</span> <span class="n">bad_key</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
                                 <span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
                                     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">bad_key</span><span class="si">!r}</span><span class="s1"> cannot be specified as a &#39;</span>
-                                    <span class="sa">f</span><span class="s1">&#39;key in </span><span class="si">{</span><span class="n">kwargs_name</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">!r]; specify &#39;</span>
+                                    <span class="sa">f</span><span class="s1">&#39;key in </span><span class="si">{</span><span class="n">kwargs_name</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s1">]; specify &#39;</span>
                                     <span class="sa">f</span><span class="s1">&#39;the </span><span class="si">{</span><span class="n">alternate_argument</span><span class="si">}</span><span class="s1"> argument &#39;</span>
                                     <span class="sa">f</span><span class="s1">&#39;instead&#39;</span><span class="p">)</span>
                                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
@@ -1289,7 +1309,7 @@
                 <span class="k">if</span> <span class="n">ylabel_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">ylabel_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="n">ax</span><span class="o">.</span><span class="nf">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="o">**</span><span class="n">ylabel_kwargs</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">title_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">title_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="n">ax</span><span class="o">.</span><span class="nf">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">[</span><span class="n">cell_type</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
@@ -1327,7 +1347,7 @@
 
 
 <div class="viewcode-block" id="DE.plot_volcano">
-<a class="viewcode-back" href="../../api/de/api/brisc.DE.plot_volcano.html#brisc.DE.plot_volcano">[docs]</a>
+<a class="viewcode-back" href="../../api/de/api/brisc.DE.plot_volcano.html">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">plot_volcano</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">cell_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                      <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1337,8 +1357,8 @@
                      <span class="n">figure_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">significance_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span>
                      <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
-                     <span class="n">genes_to_label</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span>
-                                     <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                     <span class="n">genes_to_label</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span>
+                                     <span class="kc">None</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
                      <span class="n">label_kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">upregulated_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span> <span class="o">|</span>
                                        <span class="n">np</span><span class="o">.</span><span class="n">floating</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
@@ -1540,11 +1560,11 @@
 <span class="sd">                            Can only be specified when `filename` is specified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Import matplotlib</span>
-        <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
+        <span class="n">original_sigint_handler</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIG_IGN</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">default_int_handler</span><span class="p">)</span>
+            <span class="n">signal</span><span class="o">.</span><span class="nf">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">original_sigint_handler</span><span class="p">)</span>
 
         <span class="c1"># Check that `cell_type` is a cell type in this DE object</span>
         <span class="nf">check_type</span><span class="p">(</span><span class="n">cell_type</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;a string&#39;</span><span class="p">)</span>
@@ -1618,8 +1638,8 @@
                     <span class="s1">&#39;since no genes are being labeled&#39;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">if</span> <span class="n">genes_to_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">genes_to_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">label</span><span class="p">:</span>
                 <span class="n">genes_to_label</span> <span class="o">=</span> \
                     <span class="nf">to_tuple_checked</span><span class="p">(</span><span class="n">genes_to_label</span><span class="p">,</span> <span class="s1">&#39;genes_to_label&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span>
                                      <span class="s1">&#39;strings&#39;</span><span class="p">)</span>
@@ -1748,6 +1768,14 @@
                             <span class="sa">f</span><span class="s1">&#39;it contains a key of type &#39;</span>
                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span>
                         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+
+        <span class="c1"># Check that `label_kwargs` is not specified when `genes_to_label` is</span>
+        <span class="c1"># `None`</span>
+        <span class="k">if</span> <span class="n">genes_to_label</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">label_kwargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error_message</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s1">&#39;label_kwargs cannot be specified when genes_to_label is &#39;</span>
+                <span class="s1">&#39;None, since no genes are being labeled&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
 
         <span class="c1"># Check that `legend` and `despine` are Boolean</span>
         <span class="nf">check_type</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="s1">&#39;legend&#39;</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;Boolean&#39;</span><span class="p">)</span>
@@ -1882,8 +1910,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1917,7 +1945,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

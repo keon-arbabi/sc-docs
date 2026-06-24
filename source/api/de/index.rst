@@ -5,9 +5,9 @@ DE
    :maxdepth: 2
    :hidden:
 
+   analysis
    io
    properties
-   analysis
 
 .. currentmodule:: brisc
 
@@ -15,6 +15,17 @@ DE
 
 .. autoclass:: DE
    :no-members:
+
+Analysis
+--------
+
+.. autosummary::
+   :nosignatures:
+
+   DE.get_hits
+   DE.get_num_hits
+   DE.plot_voom
+   DE.plot_volcano
 
 I/O
 ---
@@ -31,14 +42,3 @@ Properties
    :nosignatures:
 
    DE.groups
-
-Analysis
---------
-
-.. autosummary::
-   :nosignatures:
-
-   DE.get_hits
-   DE.get_num_hits
-   DE.plot_voom
-   DE.plot_volcano

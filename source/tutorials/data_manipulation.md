@@ -294,11 +294,11 @@ pb = pb.log_CPM()
 pb = pb.regress_out('~ donor + log2(num_cells) + log2(library_size)')
 ```
 
-This `log_CPM`/`regress_out` path is separate from {meth}`~brisc.Pseudobulk.DE`, which needs raw counts and so can't run after `log_CPM`.
+This `log_CPM`/`regress_out` path is separate from {meth}`~brisc.Pseudobulk.DE`, which requires raw counts and cannot run after `log_CPM`.
 
 ## DE results
 
-{meth}`~brisc.Pseudobulk.DE` returns a {class}`~brisc.DE` whose `table` is a polars DataFrame you filter and sort normally:
+{meth}`~brisc.Pseudobulk.DE` returns a {class}`~brisc.DE` object whose `table` is a polars DataFrame you filter and sort normally:
 
 ```python
 # one row per gene per cell type
@@ -324,15 +324,13 @@ When a transformation isn't wrapped by a brisc method, apply your own function w
 
 ```python
 # run an arbitrary polars operation on obs (or var)
-sc = sc.pipe_obs(lambda df: df.with_columns(
-    log_counts=pl.col('num_counts').log1p()))
+sc = sc.pipe_obs(lambda df: df.to_dummies('cell_type'))
 
 # transform the count matrix
 sc = sc.pipe_X(lambda X: X.sqrt())
 
 # transform one entry of a dict-valued slot (here, keep the first 20 PCs);
-# pipe_obsp_key, pipe_varm_key, pipe_varp_key, and pipe_uns_key do the same for
-# the other slots, while pipe_obsm transforms the whole obsm dict at once
+# the other slots have *_key variants, and pipe_obsm transforms the whole dict
 sc = sc.pipe_obsm_key('pca', lambda pca: pca[:, :20])
 
 # transform the whole dataset
@@ -351,4 +349,3 @@ pb = pb.map_X(lambda X: np.log1p(X))
 pb = pb.pipe(my_function)
 ```
 
-`pipe_obs`, `pipe_var`, `map_obs`, and `map_var` substitute the function's output for the existing table, so the function must return the same rows in the same order — `X` is not realigned.

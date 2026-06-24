@@ -5,13 +5,11 @@ SingleCell
    :maxdepth: 2
    :hidden:
 
+   analysis
    io
    properties
    data_access
    manipulation
-   structural
-   analysis
-   utility
 
 .. currentmodule:: brisc
 
@@ -19,6 +17,37 @@ SingleCell
 
 .. autoclass:: SingleCell
    :no-members:
+
+Analysis
+--------
+
+.. autosummary::
+   :nosignatures:
+
+   SingleCell.qc_metrics
+   SingleCell.qc
+   SingleCell.skip_qc
+   SingleCell.find_doublets
+   SingleCell.get_sample_covariates
+   SingleCell.pseudobulk
+   SingleCell.hvg
+   SingleCell.normalize
+   SingleCell.pca
+   SingleCell.neighbors
+   SingleCell.shared_neighbors
+   SingleCell.harmonize
+   SingleCell.cluster
+   SingleCell.label_transfer_from
+   SingleCell.umap
+   SingleCell.pacmap
+   SingleCell.localmap
+   SingleCell.find_markers
+   SingleCell.plot_heatmap
+   SingleCell.plot_markers
+   SingleCell.plot_umap
+   SingleCell.plot_pacmap
+   SingleCell.plot_localmap
+   SingleCell.plot_embedding
 
 I/O
 ---
@@ -68,6 +97,8 @@ Data access
 
    SingleCell.cell
    SingleCell.gene
+   SingleCell.peek_obs
+   SingleCell.peek_var
 
 Manipulation
 ------------
@@ -120,58 +151,11 @@ Manipulation
    SingleCell.subsample_var
    SingleCell.tocsr
    SingleCell.tocsc
-
-Structural
-----------
-
-.. autosummary::
-   :nosignatures:
-
    SingleCell.copy
    SingleCell.concat_obs
    SingleCell.concat_var
    SingleCell.split_by_obs
    SingleCell.split_by_var
-
-Analysis
---------
-
-.. autosummary::
-   :nosignatures:
-
-   SingleCell.qc_metrics
-   SingleCell.qc
-   SingleCell.find_doublets
-   SingleCell.get_sample_covariates
-   SingleCell.pseudobulk
-   SingleCell.hvg
-   SingleCell.normalize
-   SingleCell.pca
-   SingleCell.neighbors
-   SingleCell.shared_neighbors
-   SingleCell.harmonize
-   SingleCell.cluster
-   SingleCell.label_transfer_from
-   SingleCell.umap
-   SingleCell.pacmap
-   SingleCell.localmap
-   SingleCell.find_markers
-   SingleCell.plot_heatmap
-   SingleCell.plot_markers
-   SingleCell.plot_umap
-   SingleCell.plot_pacmap
-   SingleCell.plot_localmap
-   SingleCell.plot_embedding
-
-Utility
--------
-
-.. autosummary::
-   :nosignatures:
-
-   SingleCell.skip_qc
-   SingleCell.peek_obs
-   SingleCell.peek_var
    SingleCell.pipe
    SingleCell.pipe_X
    SingleCell.pipe_obs
@@ -186,4 +170,3 @@ Utility
    SingleCell.pipe_varp_key
    SingleCell.pipe_uns
    SingleCell.pipe_uns_key
-

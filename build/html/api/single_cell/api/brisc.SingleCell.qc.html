@@ -27,19 +27,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -49,14 +49,14 @@
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/api/brisc.SingleCell.qc';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="brisc.SingleCell.find_doublets" href="brisc.SingleCell.find_doublets.html" />
+    <link rel="next" title="brisc.SingleCell.skip_qc" href="brisc.SingleCell.skip_qc.html" />
     <link rel="prev" title="brisc.SingleCell.qc_metrics" href="brisc.SingleCell.qc_metrics.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -153,6 +153,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../tutorials/index.html">
     Tutorials
@@ -261,6 +268,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../../tutorials/index.html">
     Tutorials
   </a>
@@ -323,6 +337,33 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html#analysis">Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.qc_metrics.html">qc_metrics</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.skip_qc.html">skip_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_doublets.html">find_doublets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.get_sample_covariates.html">get_sample_covariates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pseudobulk.html">pseudobulk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.hvg.html">hvg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.normalize.html">normalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.neighbors.html">neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.shared_neighbors.html">shared_neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.harmonize.html">harmonize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cluster.html">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.label_transfer_from.html">label_transfer_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.umap.html">umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pacmap.html">pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.localmap.html">localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_markers.html">find_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_heatmap.html">plot_heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_markers.html">plot_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_umap.html">plot_umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_pacmap.html">plot_pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_localmap.html">plot_localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_embedding.html">plot_embedding</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#i-o">I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.ls.html">ls</a></li>
@@ -358,6 +399,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cell.html">cell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.gene.html">gene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_var.html">peek_var</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#manipulation">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -406,46 +449,11 @@
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.subsample_var.html">subsample_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.tocsr.html">tocsr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.tocsc.html">tocsc</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#structural">Structural</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.copy.html">copy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.concat_obs.html">concat_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.concat_var.html">concat_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.split_by_obs.html">split_by_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.split_by_var.html">split_by_var</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html#analysis">Analysis</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.qc_metrics.html">qc_metrics</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_doublets.html">find_doublets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.get_sample_covariates.html">get_sample_covariates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pseudobulk.html">pseudobulk</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.hvg.html">hvg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.normalize.html">normalize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pca.html">pca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.neighbors.html">neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.shared_neighbors.html">shared_neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.harmonize.html">harmonize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.cluster.html">cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.label_transfer_from.html">label_transfer_from</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.umap.html">umap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pacmap.html">pacmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.localmap.html">localmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.find_markers.html">find_markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_heatmap.html">plot_heatmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_markers.html">plot_markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_umap.html">plot_umap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_pacmap.html">plot_pacmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_localmap.html">plot_localmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.plot_embedding.html">plot_embedding</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.skip_qc.html">skip_qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_obs.html">peek_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.peek_var.html">peek_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe.html">pipe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_X.html">pipe_X</a></li>
 <li class="toctree-l2"><a class="reference internal" href="brisc.SingleCell.pipe_obs.html">pipe_obs</a></li>
@@ -536,73 +544,73 @@ control (QC), or subsets to these cells if <cite>subset=True</cite>.</p>
 detected, and non-zero MALAT1 or Malat1 expression. Can also filter out
 doublets when <cite>remove_doublets=True</cite>.</p>
 <p>Raises an error if any cell names appear more than once in <cite>obs_names</cite>
-(they can be deduplicated with <cite>make_obs_names_unique()</cite>) or any gene
+(they can be deduplicated with <a href="../../../api/single_cell/api/brisc.SingleCell.make_obs_names_unique.html" class="api-link" style="text-decoration:none;color:inherit"><cite>make_obs_names_unique()</cite></a>) or any gene
 names appear more than once in <cite>var_names</cite> (they can be deduplicated
-with <cite>make_var_names_unique()</cite>).</p>
+with <a href="../../../api/single_cell/api/brisc.SingleCell.make_var_names_unique.html" class="api-link" style="text-decoration:none;color:inherit"><cite>make_var_names_unique()</cite></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p class="param-header"><strong>custom_filter</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
+<li id="param-custom_filter"><p class="param-header"><strong>custom_filter</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional Boolean column of <cite>obs</cite> containing a
 filter to apply on top of the other QC filters;
 <cite>True</cite> elements will be kept. Can be a column name,
 a polars expression, a polars Series, a 1D NumPy
 array, or a function that takes in this SingleCell
 dataset and returns a polars Series or 1D NumPy
 array.</p></li>
-<li><p class="param-header"><strong>subset</strong>: <em>bool</em></p><p class="param-desc">whether to subset to cells passing QC, instead of merely
-adding a <cite>QC_column</cite> to <cite>obs</cite>. This will roughly double
+<li id="param-subset"><p class="param-header"><strong>subset</strong>: <em>bool</em></p><p class="param-desc">whether to subset to cells passing QC, instead of merely
+adding a <a href="#param-QC_column" class="api-link" style="text-decoration:none;color:inherit"><cite>QC_column</cite></a> to <cite>obs</cite>. This will roughly double
 memory usage, but speed up subsequent operations.</p></li>
-<li><p class="param-header"><strong>QC_column</strong>: <em>str</em></p><p class="param-desc">the name of a Boolean column to add to <cite>obs</cite> indicating
+<li id="param-QC_column"><p class="param-header"><strong>QC_column</strong>: <em>str</em></p><p class="param-desc">the name of a Boolean column to add to <cite>obs</cite> indicating
 which cells passed QC, if <cite>subset=False</cite>. Gives an error
 if <cite>obs</cite> already has a column with this name, unless
 <cite>overwrite=True</cite>.</p></li>
-<li><p class="param-header"><strong>max_mito_fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &lt;= this
+<li id="param-max_mito_fraction"><p class="param-header"><strong>max_mito_fraction</strong>: <em>int</em><em> | </em><em>float</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &lt;= this
 fraction of mitochondrial counts (i.e. from
 genes starting with <cite>‘MT’</cite>. The default of 5%
 matches Seurat’s recommended value.</p></li>
-<li><p class="param-header"><strong>min_genes</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &gt;= this many genes
+<li id="param-min_genes"><p class="param-header"><strong>min_genes</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">if not <cite>None</cite>, filter to cells with &gt;= this many genes
 detected (with non-zero count). The default of 100
 matches Scanpy’s recommended value, while Seurat
 recommends a minimum of 200.</p></li>
-<li><p class="param-header"><strong>nonzero_MALAT1</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, filter out cells with 0 expression of
+<li id="param-nonzero_MALAT1"><p class="param-header"><strong>nonzero_MALAT1</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, filter out cells with 0 expression of
 the nuclear-expressed lncRNA MALAT1, which
 <a class="reference external" href="https://biorxiv.org/content/10.1101/2024.07.14.603469v1">likely represent</a>
 empty droplets or poor-quality cells. There must be
 exactly one gene in <cite>obs_names</cite> with the name
 <cite>‘MALAT1’</cite> or <cite>‘Malat1’</cite> to use this filter.</p></li>
-<li><p class="param-header"><strong>remove_doublets</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, remove predicted doublets (see
-<cite>find_doublets()</cite>). Doublet detection uses the
+<li id="param-remove_doublets"><p class="param-header"><strong>remove_doublets</strong>: <em>bool</em></p><p class="param-desc">if <cite>True</cite>, remove predicted doublets (see
+<a href="../../../api/single_cell/api/brisc.SingleCell.find_doublets.html" class="api-link" style="text-decoration:none;color:inherit"><cite>find_doublets()</cite></a>). Doublet detection uses the
 cxds algorithm to score each cell, then thresholds
 this continuous score to a binary one (doublet
 versus non-doublet) using a threshold derived from
 simulated doublets.</p></li>
-<li><p class="param-header"><strong>batch_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer
+<li id="param-batch_column"><p class="param-header"><strong>batch_column</strong>: <a href="../../../api/single_cell/typedefs.html#singlecellcolumn" style="text-decoration:none"><em>SingleCellColumn</em></a> <em>| </em><em>None</em></p><p class="param-desc">an optional String, Enum, Categorical, or integer
 column of <cite>obs</cite> indicating which batch each cell is
 from. Can be a column name, a polars expression, a
 polars Series, a 1D NumPy array, or a function that
 takes in this SingleCell dataset and returns a polars
 Series or 1D NumPy array. Only used during doublet
 detection; doublet detection will be performed
-separately for each batch; cells where <cite>batch_column</cite>
+separately for each batch; cells where <a href="#param-batch_column" class="api-link" style="text-decoration:none;color:inherit"><cite>batch_column</cite></a>
 is <cite>null</cite> will collectively be treated as a single
 batch. Set to <cite>None</cite> if all cells belong to the same
 sequencing batch. Can only be specified when
 <cite>remove_doublets=True</cite>.</p></li>
-<li><p class="param-header"><strong>doublet_fraction</strong>: <em>float</em><em> | </em><em>None</em></p><p class="param-desc">an optional fraction of cells (within each batch,
-if <cite>batch_column</cite> is specified) to be classified
+<li id="param-doublet_fraction"><p class="param-header"><strong>doublet_fraction</strong>: <em>float</em><em> | </em><em>None</em></p><p class="param-desc">an optional fraction of cells (within each batch,
+if <a href="#param-batch_column" class="api-link" style="text-decoration:none;color:inherit"><cite>batch_column</cite></a> is specified) to be classified
 as doublets. If <cite>None</cite>, automatically detect the
 threshold via the approach described in
-<cite>find_doublets()</cite>.</p></li>
-<li><p class="param-header"><strong>num_doublet_genes</strong>: <em>int</em></p><p class="param-desc">the number of highly variable genes, i.e. genes
+<a href="../../../api/single_cell/api/brisc.SingleCell.find_doublets.html" class="api-link" style="text-decoration:none;color:inherit"><cite>find_doublets()</cite></a>.</p></li>
+<li id="param-num_doublet_genes"><p class="param-header"><strong>num_doublet_genes</strong>: <em>int</em></p><p class="param-desc">the number of highly variable genes, i.e. genes
 expressed in as close to 50% of cells as
 possible, to use during doublet detection. This
 parameter usually has a minimal influence on
 accuracy as long as it is sufficiently large (in
 the hundreds), so increasing it further will
 mainly just increase runtime. If
-<cite>num_doublet_genes</cite> is greater than the number
+<a href="#param-num_doublet_genes" class="api-link" style="text-decoration:none;color:inherit"><cite>num_doublet_genes</cite></a> is greater than the number
 of genes in the dataset, all genes will be used.</p></li>
-<li><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
+<li id="param-allow_float"><p class="param-header"><strong>allow_float</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>self.X.dtype</cite> is
 floating-point (suggesting the user may not be using
 the raw counts); if <cite>True</cite>, disable this sanity check.
 Note that all steps except mitochondrial percent
@@ -610,29 +618,29 @@ filtering give the same result on normalized counts,
 so if <cite>max_mito_fraction=None</cite> were specified (not
 recommended), this function would give the same result
 on raw and normalized counts.</p></li>
-<li><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>uns[‘QCed’]</cite> is <cite>True</cite>
+<li id="param-overwrite"><p class="param-header"><strong>overwrite</strong>: <em>bool</em></p><p class="param-desc">if <cite>False</cite>, raise an error if <cite>uns[‘QCed’]</cite> is <cite>True</cite>
 (indicating the dataset has already been QCed) or
-<cite>QC_column</cite> is already present in <cite>obs</cite>; if <cite>True</cite>,
+<a href="#param-QC_column" class="api-link" style="text-decoration:none;color:inherit"><cite>QC_column</cite></a> is already present in <cite>obs</cite>; if <cite>True</cite>,
 disable these two sanity checks and, when
-<cite>subset=False</cite>, overwrite <cite>QC_column</cite> if present.</p></li>
-<li><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print how many cells were filtered out at each
+<cite>subset=False</cite>, overwrite <a href="#param-QC_column" class="api-link" style="text-decoration:none;color:inherit"><cite>QC_column</cite></a> if present.</p></li>
+<li id="param-verbose"><p class="param-header"><strong>verbose</strong>: <em>bool</em></p><p class="param-desc">whether to print how many cells were filtered out at each
 step of the QC process</p></li>
-<li><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering based on
+<li id="param-num_threads"><p class="param-header"><strong>num_threads</strong>: <em>int</em><em> | </em><em>None</em></p><p class="param-desc">the number of threads to use when filtering based on
 mitochondrial counts and MALAT1 expression, and for
 doublet detection. Set <cite>num_threads=-1</cite> to use all
 available cores, as determined by <cite>os.cpu_count()</cite>,
 or leave unset to use <cite>self.num_threads</cite> cores. Does
 not affect the QCed SingleCell dataset’s
-<cite>num_threads</cite>; this will always be the same as the
-original dataset’s <cite>num_threads</cite>.</p></li>
+<a href="#param-num_threads" class="api-link" style="text-decoration:none;color:inherit"><cite>num_threads</cite></a>; this will always be the same as the
+original dataset’s <a href="#param-num_threads" class="api-link" style="text-decoration:none;color:inherit"><cite>num_threads</cite></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new SingleCell dataset with <cite>QC_column</cite> added to <cite>obs</cite> (or subset
+<dd class="field-even"><p>A new SingleCell dataset with <a href="#param-QC_column" class="api-link" style="text-decoration:none;color:inherit"><cite>QC_column</cite></a> added to <cite>obs</cite> (or subset
 to QCed cells if <cite>subset=True</cite>) and <cite>uns[‘QCed’]</cite> set to <cite>True</cite>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../index.html#brisc.SingleCell" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html" title="brisc.single_cell.SingleCell"><em>SingleCell</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -659,11 +667,11 @@ to QCed cells if <cite>subset=True</cite>) and <cite>uns[‘QCed’]</cite> set 
       </div>
     </a>
     <a class="right-next"
-       href="brisc.SingleCell.find_doublets.html"
+       href="brisc.SingleCell.skip_qc.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">find_doublets</p>
+        <p class="prev-next-title">skip_qc</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -703,8 +711,8 @@ to QCed cells if <cite>subset=True</cite>) and <cite>uns[‘QCed’]</cite> set 
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -738,7 +746,7 @@ to QCed cells if <cite>subset=True</cite>) and <cite>uns[‘QCed’]</cite> set 
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>

@@ -7,7 +7,7 @@
 </div>
 
 
-brisc is a high-performance library for analyzing single-cell data at scale. It prioritizes running as fast as possible on multi-core CPU systems, strict reproducibility, and a clean, user-friendly interface. On datasets of 1 to 20 million cells, it cuts the runtime of common workflows from hours to minutes. <a href="tutorials/index.html" class="hero-cta"><strong>Get started.</strong> &rsaquo;</a>
+brisc is a high-performance library for analyzing single-cell data at scale. It prioritizes running as fast as possible on multi-core CPU systems, strict reproducibility, and a clean, user-friendly interface. On datasets of 1 to 20 million cells, it cuts the runtime of common workflows from hours to minutes. <a href="installation.html" class="hero-cta"><strong>Get started.</strong> &rsaquo;</a>
 
 
 <div class="features-grid">
@@ -143,6 +143,18 @@ de = pb\
 <script>
 document.body.classList.add('landing-page');
 </script>
+
+
+:::{toctree}
+:caption: Installation
+:hidden:
+:maxdepth: 1
+
+
+installation
+
+
+:::
 
 
 :::{toctree}

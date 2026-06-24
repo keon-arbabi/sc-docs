@@ -27,19 +27,19 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=a95f357e85573c9b56d5" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=411f9b8e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=bc6856e2" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=a95f357e85573c9b56d5"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -49,15 +49,15 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/single_cell/io';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/js/benchmark-data.js?v=2a674abd"></script>
+    <script src="../../_static/js/benchmark-data.js?v=6ebdbc20"></script>
     <script src="../../_static/js/benchmark.js?v=f68481de"></script>
     <script src="../../_static/js/carousel.js?v=7dda1511"></script>
-    <script src="../../_static/js/theme-fix.js?v=da088429"></script>
+    <script src="../../_static/js/theme-fix.js?v=ad91ad07"></script>
     <script src="../../_static/js/api-scrollspy.js?v=e93893b7"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="brisc.SingleCell.save" href="api/brisc.SingleCell.save.html" />
-    <link rel="prev" title="SingleCell" href="index.html" />
+    <link rel="prev" title="brisc.SingleCell.plot_embedding" href="api/brisc.SingleCell.plot_embedding.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -153,6 +153,13 @@
 <nav>
   <ul class="bd-navbar-elements navbar-nav">
     
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../tutorials/index.html">
     Tutorials
@@ -257,6 +264,13 @@
   <ul class="bd-navbar-elements navbar-nav">
     
 <li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
   <a class="nav-link nav-internal" href="../../tutorials/index.html">
     Tutorials
   </a>
@@ -319,6 +333,33 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">SingleCell</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#analysis">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.qc_metrics.html">qc_metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.qc.html">qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.skip_qc.html">skip_qc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.find_doublets.html">find_doublets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.get_sample_covariates.html">get_sample_covariates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pseudobulk.html">pseudobulk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.hvg.html">hvg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.normalize.html">normalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.neighbors.html">neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.shared_neighbors.html">shared_neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.harmonize.html">harmonize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.cluster.html">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.label_transfer_from.html">label_transfer_from</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.umap.html">umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pacmap.html">pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.localmap.html">localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.find_markers.html">find_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_heatmap.html">plot_heatmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_markers.html">plot_markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_umap.html">plot_umap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_pacmap.html">plot_pacmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_localmap.html">plot_localmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_embedding.html">plot_embedding</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">I/O</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.save.html">save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.ls.html">ls</a></li>
@@ -354,6 +395,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="index.html#data-access">Data access</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.cell.html">cell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.gene.html">gene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.peek_obs.html">peek_obs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.peek_var.html">peek_var</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="index.html#manipulation">Manipulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -402,46 +445,11 @@
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.subsample_var.html">subsample_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.tocsr.html">tocsr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.tocsc.html">tocsc</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#structural">Structural</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.copy.html">copy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.concat_obs.html">concat_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.concat_var.html">concat_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.split_by_obs.html">split_by_obs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.split_by_var.html">split_by_var</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#analysis">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.qc_metrics.html">qc_metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.qc.html">qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.find_doublets.html">find_doublets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.get_sample_covariates.html">get_sample_covariates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pseudobulk.html">pseudobulk</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.hvg.html">hvg</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.normalize.html">normalize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pca.html">pca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.neighbors.html">neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.shared_neighbors.html">shared_neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.harmonize.html">harmonize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.cluster.html">cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.label_transfer_from.html">label_transfer_from</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.umap.html">umap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pacmap.html">pacmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.localmap.html">localmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.find_markers.html">find_markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_heatmap.html">plot_heatmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_markers.html">plot_markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_umap.html">plot_umap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_pacmap.html">plot_pacmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_localmap.html">plot_localmap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.plot_embedding.html">plot_embedding</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="index.html#utility">Utility</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.skip_qc.html">skip_qc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.peek_obs.html">peek_obs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.peek_var.html">peek_var</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pipe.html">pipe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pipe_X.html">pipe_X</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/brisc.SingleCell.pipe_obs.html">pipe_obs</a></li>
@@ -522,46 +530,46 @@
 <h1>I/O<a class="headerlink" href="#i-o" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html#brisc.SingleCell.save" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.save.html" title="brisc.SingleCell.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.save</span></code></a></p></td>
 <td><p>Save this SingleCell dataset to a file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html#brisc.SingleCell.ls" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.ls.html" title="brisc.SingleCell.ls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.ls</span></code></a></p></td>
 <td><p>Print the fields in an <cite>.h5ad</cite> file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html#brisc.SingleCell.read_obs" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obs.html" title="brisc.SingleCell.read_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obs</span></code></a></p></td>
 <td><p>Load just <cite>obs</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html#brisc.SingleCell.read_var" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_var.html" title="brisc.SingleCell.read_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_var</span></code></a></p></td>
 <td><p>Load just <cite>var</cite> from an <cite>.h5ad</cite> file as a polars DataFrame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html#brisc.SingleCell.read_obsm" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsm.html" title="brisc.SingleCell.read_obsm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsm</span></code></a></p></td>
 <td><p>Load just <cite>obsm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html#brisc.SingleCell.read_varm" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varm.html" title="brisc.SingleCell.read_varm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varm</span></code></a></p></td>
 <td><p>Load just <cite>varm</cite> from an <cite>.h5ad</cite> file as a dictionary of Numpy arrays or DataFrames.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html#brisc.SingleCell.read_obsp" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_obsp.html" title="brisc.SingleCell.read_obsp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_obsp</span></code></a></p></td>
 <td><p>Load just <cite>obsp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html#brisc.SingleCell.read_varp" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_varp.html" title="brisc.SingleCell.read_varp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_varp</span></code></a></p></td>
 <td><p>Load just <cite>varp</cite> from an <cite>.h5ad</cite> file as a dictionary of sparse arrays.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html#brisc.SingleCell.read_uns" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.read_uns.html" title="brisc.SingleCell.read_uns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.read_uns</span></code></a></p></td>
 <td><p>Load just <cite>uns</cite> from an <cite>.h5ad</cite> file as a dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html#brisc.SingleCell.to_scanpy" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_scanpy.html" title="brisc.SingleCell.to_scanpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_scanpy</span></code></a></p></td>
 <td><p>Converts this SingleCell dataset to an AnnData object, the representation used by Scanpy.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html#brisc.SingleCell.from_seurat" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_seurat.html" title="brisc.SingleCell.from_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_seurat</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a Seurat object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html#brisc.SingleCell.to_seurat" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_seurat.html" title="brisc.SingleCell.to_seurat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_seurat</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a Seurat object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html#brisc.SingleCell.from_sce" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/brisc.SingleCell.from_sce.html" title="brisc.SingleCell.from_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.from_sce</span></code></a></p></td>
 <td><p>Create a SingleCell dataset from a SingleCellExperiment object that has already been loaded into memory via the ryp Python-R bridge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html#brisc.SingleCell.to_sce" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="api/brisc.SingleCell.to_sce.html" title="brisc.SingleCell.to_sce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SingleCell.to_sce</span></code></a></p></td>
 <td><p>Convert this SingleCell dataset to a SingleCellExperiment object in the R workspace of the ryp Python-R bridge.</p></td>
 </tr>
 </tbody>
@@ -580,12 +588,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="api/brisc.SingleCell.plot_embedding.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SingleCell</p>
+        <p class="prev-next-title">plot_embedding</p>
       </div>
     </a>
     <a class="right-next"
@@ -615,8 +623,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=a95f357e85573c9b56d5"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=a95f357e85573c9b56d5"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -650,7 +658,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.18.0.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.19.0.
 </p></div>
       
     </div>
