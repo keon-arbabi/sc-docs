@@ -2,9 +2,15 @@
 
 This tutorial covers pseudobulk differential expression: summing each sample's counts across all cells of the same cell type, then testing genes for expression differences between conditions with [limma-voom](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). It uses the same ~10 million cell cytokine stimulation dataset as the other tutorials, comparing IFN-gamma-stimulated cells against phosphate-buffered saline (PBS) controls within each cell type.
 
+:::{note}
+brisc runs differential expression through **limma**, an R package that isn't installed with brisc by default. Install it before running this tutorial — see [Installation → R packages](../installation.md#r-packages).
+:::
+
 ## Loading and quality control
 
-Load the data and run QC as in the [basic workflow](basic_workflow.md):
+The experiment spans several cytokines, but this analysis compares only IFN-gamma vs. PBS control, so we pass a `custom_filter` to `qc` that keeps just these cells and fails every other cytokine. As in the [basic workflow](basic_workflow.md), `qc` doesn't drop any cells — it records which ones passed in a `passed_QC` column.
+
+`cast_obs(strict=False)` then recasts `cytokine` as a two-level Enum with `PBS` first, making PBS the reference that IFN-gamma is compared against. Every other cytokine, not in those two levels, becomes null — leaving just PBS and IFN-gamma.
 
 ```python
 from brisc import SingleCell
@@ -13,7 +19,9 @@ import polars as pl
 sc = SingleCell(
     'Parse_10M_PBMC_cytokines.h5ad',
     obs_columns=['sample', 'donor', 'cell_type', 'cytokine'])\
-    .qc(allow_float=True)
+    .qc(custom_filter=pl.col('cytokine').is_in(['IFN-gamma', 'PBS']),
+        allow_float=True)\
+    .cast_obs({'cytokine': pl.Enum(['PBS', 'IFN-gamma'])}, strict=False)
 ```
 
 ## Pseudobulk aggregation
@@ -22,16 +30,15 @@ sc = SingleCell(
 
 {class}`~brisc.Pseudobulk` datasets have three slots — {attr}`~brisc.Pseudobulk.X`, {attr}`~brisc.Pseudobulk.obs`, and {attr}`~brisc.Pseudobulk.var` — and each slot is a dictionary where the keys are cell types. For a given cell type, `X` is a samples × genes matrix of summed counts, `obs` is a DataFrame of sample-level metadata, and `var` is a DataFrame of gene-level metadata. `obs` has a `num_cells` column indicating how many cells went into each sample's pseudobulk. Whereas `var` retains all of the columns from the original SingleCell dataset, `obs` keeps only the ones that are the same for every cell within a sample, such as `donor` and `cytokine`.
 
-We keep only the IFN-gamma and PBS samples for DE testing:
-
 ```python
 pb = sc.pseudobulk('sample', 'cell_type')
-pb = pb.filter_obs(pl.col('cytokine').is_in(['IFN-gamma', 'PBS']))
 print(pb)
 ```
 ```none
 Pseudobulk dataset with 18 cell types, each with 22-24 samples (obs) and 40,352 genes (var)
-    Cell types: B Intermediate/Memory, B Naive, CD4 Memory, CD4 Naive, CD8 Memory, CD8 Naive, CD14 Mono, CD16 Mono, HSPC, ILC, MAIT, NK, NK CD56bright, NKT, Plasmablast, Treg, cDC, pDC
+    Cell types: B Intermediate/Memory, B Naive, CD4 Memory, CD4 Naive, CD8,
+    Memory, CD8 Naive, CD14 Mono, CD16 Mono, HSPC, ILC, MAIT, NK, NK CD56bright,
+    NKT, Plasmablast, Treg, cDC, pDC
 ```
 
 CD14 monocytes, for instance, have a 24 × 40,352 count matrix and one `obs` row per sample:
@@ -57,7 +64,18 @@ shape: (5, 4)
 IFN-gamma samples have far fewer cells than PBS samples; the `log2(num_cells)` covariate accounts for this in the model.
 
 :::{dropdown} Saving the pseudobulk
-A pseudobulk dataset is a compact summary of the original SingleCell dataset, so saving it is a convenient way to re-run DE later without reloading the raw single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory; reload it with {meth}`Pseudobulk(directory) <brisc.Pseudobulk.__init__>`. Pass `cell_types=` or `excluded_cell_types=` to save only certain cell types.
+A pseudobulk dataset is a compact summary of the original SingleCell dataset, so saving it is a convenient way to re-run DE later without reloading the raw single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory, and {meth}`Pseudobulk(directory) <brisc.Pseudobulk.__init__>` reads it back:
+
+```python
+# save to a directory, then reload without the raw single-cell data
+pb.save('pseudobulk')
+
+from brisc import Pseudobulk
+pb = Pseudobulk('pseudobulk')
+
+# save only certain cell types (or pass excluded_cell_types=)
+pb.save('monocytes', cell_types=['CD14 Mono', 'CD16 Mono'])
+```
 :::
 
 ## Sample-level quality control
@@ -72,7 +90,7 @@ A pseudobulk dataset is a compact summary of the original SingleCell dataset, so
 Passing `cytokine` as the group column applies the gene-detection filter within each condition, keeping a gene only if it is detected in ≥80% of samples in both IFN-gamma and PBS. Without specifying a group column, that 80% threshold would instead be evaluated across all samples.
 
 ```python
-pb = pb.qc('cytokine')
+pb = pb.qc('cytokine', verbose=True)
 ```
 ```none
 [B Intermediate/Memory] Starting with 24 samples and 40,352 genes.
@@ -105,59 +123,47 @@ pb = pb.qc(
 
 ## Differential expression
 
-{meth}`~brisc.Pseudobulk.library_size` computes a trimmed mean of M-values (TMM)-normalized library size for each sample, and {meth}`~brisc.Pseudobulk.DE` then fits a limma-voom model for each cell type.
+{meth}`~brisc.Pseudobulk.library_size` computes a TMM-normalized library size for each sample, and {meth}`~brisc.Pseudobulk.de` then fits a limma-voom model independently for each cell type. The model is written as an R formula. Each term is the name of a column in `obs`. brisc passes those columns to R's [`model.matrix`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/model.matrix.html), which turns the formula into a design matrix.
 
-The formula `~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)` describes the model to be used for each gene's expression. `cytokine` is the effect of interest (the leading `0 +` drops the intercept so each condition gets its own coefficient), `donor` accounts for the paired donors, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. The `contrasts` argument asks for the IFN-gamma minus PBS difference.
+How a column enters the matrix depends on its type. Numeric columns like `log2(num_cells)` go in unchanged. Categorical columns — here `cytokine` and `donor` — are split into *indicator* columns, each holding 1 for samples in its category and 0 otherwise. This is *treatment coding*: a column with N categories becomes N − 1 indicators, each named by joining the column and category with no separator, so `cytokine`'s `IFN-gamma` becomes `cytokineIFN-gamma`.
+
+Treatment coding leaves one category out — the *reference* — which the model folds into the intercept. For `cytokine` that's `PBS`, the first level of the Enum we built while loading, so the design has a `cytokineIFN-gamma` column but no `cytokinePBS` column. This is exactly what we want: the `cytokineIFN-gamma` coefficient measures IFN-gamma relative to PBS. `de` reports the first non-intercept coefficient by default, so the call needs nothing but the formula:
 
 ```python
 pb = pb.library_size()
-de = pb.DE(
-    '~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)',
-    contrasts={'IFN-gamma_vs_PBS': '`cytokineIFN-gamma` - `cytokinePBS`'},
-    group='cytokine',
-    categorical_columns=['donor', 'cytokine'])
-```
-
-`donor` and `cytokine` load as Enum columns, which brisc treats as ordered factors. Listing them in `categorical_columns` switches them to standard treatment coding, which gives the coefficients the readable names (`cytokineIFN-gamma`, `cytokinePBS`) referenced in the contrast. `group='cytokine'` fits the mean–variance trend separately for each condition (voomByGroup), recommended when groups differ in overall expression.
-
-The result is a {class}`~brisc.DE` object whose `table` holds one row per gene per cell type, with the fold change, confidence interval, and corrected p-values:
-
-```python
-print(de.table.head())
-```
-```none
-shape: (5, 11)
-┌───────────────────────┬──────────────────┬──────────┬───────────┬──────────┬───────────┬───────────┬──────────┬──────────┬────────────┬──────────┐
-│ cell_type             ┆ coefficient      ┆ gene     ┆ logFC     ┆ SE       ┆ LCI       ┆ UCI       ┆ AveExpr  ┆ p        ┆ Bonferroni ┆ FDR      │
-│ ---                   ┆ ---              ┆ ---      ┆ ---       ┆ ---      ┆ ---       ┆ ---       ┆ ---      ┆ ---      ┆ ---        ┆ ---      │
-│ str                   ┆ str              ┆ str      ┆ f64       ┆ f64      ┆ f64       ┆ f64       ┆ f64      ┆ f64      ┆ f64        ┆ f64      │
-╞═══════════════════════╪══════════════════╪══════════╪═══════════╪══════════╪═══════════╪═══════════╪══════════╪══════════╪════════════╪══════════╡
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ DPM1     ┆ 0.222663  ┆ 0.641413 ┆ -1.138223 ┆ 1.583548  ┆ 5.572128 ┆ 0.733054 ┆ 1.0        ┆ 0.960307 │
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ SCYL3    ┆ 0.058436  ┆ 0.85565  ┆ -1.756998 ┆ 1.87387   ┆ 5.475793 ┆ 0.946406 ┆ 1.0        ┆ 0.993482 │
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ C1orf112 ┆ 0.808702  ┆ 0.780593 ┆ -0.847482 ┆ 2.464886  ┆ 5.03358  ┆ 0.31576  ┆ 1.0        ┆ 0.879665 │
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ FGR      ┆ -3.817447 ┆ 1.210963 ┆ -6.386748 ┆ -1.248147 ┆ 3.942816 ┆ 0.006227 ┆ 1.0        ┆ 0.694034 │
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ FUCA2    ┆ -0.737734 ┆ 1.348779 ┆ -3.599441 ┆ 2.123972  ┆ 3.232465 ┆ 0.592028 ┆ 1.0        ┆ 0.946363 │
-└───────────────────────┴──────────────────┴──────────┴───────────┴──────────┴───────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
-```
-
-:::{dropdown} Coefficient names
-Coefficient names come from R's `model.matrix`. A treatment-coded factor (one listed in `categorical_columns`) names each level `<column><level>` — e.g. `cytokineIFN-gamma`. With an intercept the factor's first level is the reference and is folded into it; with `~ 0 + ...` (no intercept) the *first* factor keeps every level, which is why the cell-means model above has both `cytokinePBS` and `cytokineIFN-gamma`. Continuous terms keep their formula text (`log2(num_cells)`), and a bare Enum not in `categorical_columns` becomes ordered, giving polynomial names like `cytokine.L`.
-:::
-
-:::{dropdown} Reference coding instead of contrasts
-The same IFN-gamma-vs-PBS comparison can be expressed without `contrasts`. Recode `cytokine` as a two-level factor with PBS as the reference (first) level; then `~ cytokine` makes the `cytokineIFN-gamma` coefficient itself the IFN-gamma-vs-PBS effect, which you report directly with `coefficient=`:
-
-```python
-pb = pb.with_columns_obs(
-    cytokine=pl.col('cytokine').cast(pl.Enum(['PBS', 'IFN-gamma'])))
-pb = pb.library_size(overwrite=True)
-de = pb.DE(
+de = pb.de(
     '~ cytokine + donor + log2(num_cells) + log2(library_size)',
-    coefficient='cytokineIFN-gamma',
-    group='cytokine',
-    categorical_columns=['donor', 'cytokine'])
+    verbose=True)
 ```
-:::
+
+```none
+[B Intermediate/Memory] Validating formula...
+[B Intermediate/Memory] Creating design matrix...
+[B Intermediate/Memory] Validating coefficient...
+[B Intermediate/Memory] Defining groups...
+[B Intermediate/Memory] Grouping on the 'cytokine' column of obs.
+[B Intermediate/Memory] Converting the expression matrix, library sizes and groups to R...
+[B Intermediate/Memory] Running voomByGroup...
+[B Intermediate/Memory] Running lmFit...
+[B Intermediate/Memory] Running eBayes...
+[B Intermediate/Memory] Collating results...
+
+[B Naive] Validating formula...
+[B Naive] Creating design matrix...
+[B Naive] Validating coefficient...
+[B Naive] Defining groups...
+[B Naive] Grouping on the 'cytokine' column of obs.
+[B Naive] Converting the expression matrix, library sizes and groups to R...
+[B Naive] Running voomByGroup...
+[B Naive] Running lmFit...
+[B Naive] Running eBayes...
+[B Naive] Collating results...
+...
+```
+
+In the formula, `cytokine` is the effect of interest, `donor` accounts for the paired donors, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. Because the effect of interest is categorical, `de` fits voom's mean–variance trend separately within each condition ([voomByGroup](https://pmc.ncbi.nlm.nih.gov/articles/PMC10160736/)) by default.
+
+`de` tests only the cell types that survived QC, so Plasmablast (dropped above) isn't among them. By default it also silently skips any surviving cell type it can't fit; pass `strict=True` to raise an error instead, or drop such cell types yourself with {meth}`~brisc.Pseudobulk.drop_cell_types`.
 
 :::{dropdown} Other DE options
 - `group=False` uses a single mean-variance trend (plain voom) rather than voomByGroup.
@@ -165,10 +171,13 @@ de = pb.DE(
 - `strict=True` errors on any cell type whose design matrix is rank-deficient or has too few samples to fit its coefficients — by default these cell types are silently skipped.
 - `return_voom_info=False` skips storing the voom weights and plot data, for lower memory and runtime when you don't need them.
 - `cell_types` and `excluded_cell_types` restrict testing to a subset of cell types.
+- `ordinal_columns` treats a column as ordered rather than categorical, polynomial-coding it ([`contr.poly`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/contrast.html)) into terms like `cytokine.L`.
 - `formula`, `coefficient`, `contrasts`, and `group` can be dictionaries keyed by cell type, to allow different cell types to have different designs (e.g. when a covariate is present in only some cell types).
 :::
 
 ## Exploring the results
+
+The results are collected in a {class}`~brisc.DE` object. Its methods summarize them, and the full per-gene table is `de.table`.
 
 {meth}`~brisc.DE.get_num_hits` counts the significant genes (FDR < 0.05) in each cell type; cell types with no hits are omitted.
 
@@ -176,65 +185,58 @@ de = pb.DE(
 print(de.get_num_hits())
 ```
 ```none
-shape: (5, 2)
+shape: (4, 2)
 ┌───────────────────────┬──────────┐
 │ cell_type             ┆ num_hits │
 │ ---                   ┆ ---      │
 │ str                   ┆ u32      │
 ╞═══════════════════════╪══════════╡
 │ B Intermediate/Memory ┆ 1        │
-│ B Naive               ┆ 419      │
-│ CD14 Mono             ┆ 921      │
-│ CD16 Mono             ┆ 1242     │
-│ pDC                   ┆ 8        │
+│ B Naive               ┆ 375      │
+│ CD14 Mono             ┆ 661      │
+│ CD16 Mono             ┆ 403      │
 └───────────────────────┴──────────┘
 ```
 
-The monocytes and B cells respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this significance threshold.
+B cells and monocytes respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this significance threshold.
 
-{meth}`~brisc.DE.get_hits` returns the hits themselves; `num_top_hits` caps how many hits it reports per cell type.
+{meth}`~brisc.DE.get_hits` returns the hits themselves; `num_top_hits` caps how many it reports per cell type. Each row is one gene in one cell type: `logFC` is the log2 fold change (the effect size), `SE` its standard error, `LCI`/`UCI` its 95% confidence interval, and `AveExpr` the gene's average expression in log CPM; `p`, `Bonferroni`, and `FDR` are the raw and corrected p-values, and `coefficient` names the tested effect.
 
 ```python
 print(de.get_hits(num_top_hits=5))
 ```
 ```none
-shape: (21, 11)
-┌───────────────────────┬──────────────────┬──────────┬───────────┬──────────┬───────────┬───────────┬──────────┬──────────┬────────────┬──────────┐
-│ cell_type             ┆ coefficient      ┆ gene     ┆ logFC     ┆ SE       ┆ LCI       ┆ UCI       ┆ AveExpr  ┆ p        ┆ Bonferroni ┆ FDR      │
-│ ---                   ┆ ---              ┆ ---      ┆ ---       ┆ ---      ┆ ---       ┆ ---       ┆ ---      ┆ ---      ┆ ---        ┆ ---      │
-│ str                   ┆ str              ┆ str      ┆ f64       ┆ f64      ┆ f64       ┆ f64       ┆ f64      ┆ f64      ┆ f64        ┆ f64      │
-╞═══════════════════════╪══════════════════╪══════════╪═══════════╪══════════╪═══════════╪═══════════╪══════════╪══════════╪════════════╪══════════╡
-│ B Intermediate/Memory ┆ IFN-gamma_vs_PBS ┆ TENM4    ┆ -6.541455 ┆ 0.932481 ┆ -8.5199   ┆ -4.563009 ┆ 5.045181 ┆ 0.000003 ┆ 0.045421   ┆ 0.045421 │
-│ B Naive               ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 7.407232  ┆ 1.310548 ┆ 4.623667  ┆ 10.190797 ┆ 7.001164 ┆ 0.000039 ┆ 0.59715    ┆ 0.00686  │
-│ B Naive               ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 5.912959  ┆ 1.276394 ┆ 3.201936  ┆ 8.623982  ┆ 6.22115  ┆ 0.000293 ┆ 1.0        ┆ 0.021485 │
-│ B Naive               ┆ IFN-gamma_vs_PBS ┆ CFLAR    ┆ 3.227135  ┆ 0.690015 ┆ 1.761564  ┆ 4.692705  ┆ 8.286078 ┆ 0.000268 ┆ 1.0        ┆ 0.020962 │
-│ B Naive               ┆ IFN-gamma_vs_PBS ┆ NFIX     ┆ 4.034178  ┆ 0.959142 ┆ 1.996989  ┆ 6.071367  ┆ 3.726182 ┆ 0.000702 ┆ 1.0        ┆ 0.034705 │
-│ B Naive               ┆ IFN-gamma_vs_PBS ┆ REV3L    ┆ -2.426383 ┆ 0.598103 ┆ -3.696736 ┆ -1.15603  ┆ 7.312945 ┆ 0.000956 ┆ 1.0        ┆ 0.040087 │
-│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CFH      ┆ 8.41647   ┆ 1.744176 ┆ 4.629897  ┆ 12.203043 ┆ 3.082947 ┆ 0.000378 ┆ 1.0        ┆ 0.028114 │
-│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 5.340517  ┆ 0.984571 ┆ 3.203031  ┆ 7.478003  ┆ 9.694517 ┆ 0.000137 ┆ 1.0        ┆ 0.024299 │
-│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ HS3ST1   ┆ -6.472272 ┆ 1.52021  ┆ -9.772619 ┆ -3.171925 ┆ 2.661385 ┆ 0.001035 ┆ 1.0        ┆ 0.037717 │
-│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 3.927577  ┆ 0.694199 ┆ 2.420484  ┆ 5.434671  ┆ 6.461136 ┆ 0.000094 ┆ 1.0        ┆ 0.022213 │
-│ CD14 Mono             ┆ IFN-gamma_vs_PBS ┆ CD38     ┆ 9.55195   ┆ 1.940199 ┆ 5.339815  ┆ 13.764086 ┆ 8.810696 ┆ 0.000319 ┆ 1.0        ┆ 0.027588 │
-│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ C1orf112 ┆ -1.851876 ┆ 0.496937 ┆ -2.910966 ┆ -0.792787 ┆ 4.496459 ┆ 0.002022 ┆ 1.0        ┆ 0.032473 │
-│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ GCLC     ┆ 2.931873  ┆ 0.673918 ┆ 1.495595  ┆ 4.368152  ┆ 7.405133 ┆ 0.000569 ┆ 1.0        ┆ 0.017878 │
-│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ LAP3     ┆ 2.727377  ┆ 0.451244 ┆ 1.765669  ┆ 3.689084  ┆ 9.924472 ┆ 0.000022 ┆ 0.313044   ┆ 0.005159 │
-│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ TMEM176A ┆ 1.858929  ┆ 0.472315 ┆ 0.852313  ┆ 2.865544  ┆ 4.429607 ┆ 0.001319 ┆ 1.0        ┆ 0.026377 │
-│ CD16 Mono             ┆ IFN-gamma_vs_PBS ┆ CASP10   ┆ 1.477641  ┆ 0.385716 ┆ 0.655589  ┆ 2.299694  ┆ 6.820638 ┆ 0.001633 ┆ 1.0        ┆ 0.029325 │
-│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CALCRL   ┆ 2.570484  ┆ 0.371683 ┆ 1.757332  ┆ 3.383635  ┆ 7.461197 ┆ 0.000019 ┆ 0.189731   ┆ 0.035574 │
-│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CD83     ┆ 2.328595  ┆ 0.340925 ┆ 1.582735  ┆ 3.074455  ┆ 7.666968 ┆ 0.000022 ┆ 0.213442   ┆ 0.035574 │
-│ pDC                   ┆ IFN-gamma_vs_PBS ┆ IFIT2    ┆ 2.561409  ┆ 0.373712 ┆ 1.743818  ┆ 3.379001  ┆ 6.730806 ┆ 0.000021 ┆ 0.206565   ┆ 0.035574 │
-│ pDC                   ┆ IFN-gamma_vs_PBS ┆ GBP5     ┆ 4.729849  ┆ 0.597065 ┆ 3.423617  ┆ 6.036082  ┆ 6.351485 ┆ 0.000005 ┆ 0.050837   ┆ 0.016946 │
-│ pDC                   ┆ IFN-gamma_vs_PBS ┆ CXCL10   ┆ 5.11896   ┆ 0.775682 ┆ 3.421958  ┆ 6.815962  ┆ 6.030659 ┆ 0.00003  ┆ 0.294685   ┆ 0.037911 │
-└───────────────────────┴──────────────────┴──────────┴───────────┴──────────┴───────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
+shape: (16, 11)
+┌───────────────────────┬───────────────────┬─────────┬───────────┬──────────┬────────────┬───────────┬──────────┬──────────┬────────────┬──────────┐
+│ cell_type             ┆ coefficient       ┆ gene    ┆ logFC     ┆ SE       ┆ LCI        ┆ UCI       ┆ AveExpr  ┆ p        ┆ Bonferroni ┆ FDR      │
+│ ---                   ┆ ---               ┆ ---     ┆ ---       ┆ ---      ┆ ---        ┆ ---       ┆ ---      ┆ ---      ┆ ---        ┆ ---      │
+│ str                   ┆ str               ┆ str     ┆ f64       ┆ f64      ┆ f64        ┆ f64       ┆ f64      ┆ f64      ┆ f64        ┆ f64      │
+╞═══════════════════════╪═══════════════════╪═════════╪═══════════╪══════════╪════════════╪═══════════╪══════════╪══════════╪════════════╪══════════╡
+│ B Intermediate/Memory ┆ cytokineIFN-gamma ┆ TENM4   ┆ -6.541458 ┆ 0.904791 ┆ -8.461154  ┆ -4.621763 ┆ 5.045181 ┆ 0.000002 ┆ 0.031375   ┆ 0.031375 │
+│ B Naive               ┆ cytokineIFN-gamma ┆ LAP3    ┆ 7.407211  ┆ 1.320611 ┆ 4.602272   ┆ 10.21215  ┆ 7.001164 ┆ 0.000043 ┆ 0.648348   ┆ 0.007978 │
+│ B Naive               ┆ cytokineIFN-gamma ┆ CASP10  ┆ 5.91294   ┆ 1.294467 ┆ 3.16353    ┆ 8.66235   ┆ 6.22115  ┆ 0.000334 ┆ 1.0        ┆ 0.025158 │
+│ B Naive               ┆ cytokineIFN-gamma ┆ CFLAR   ┆ 3.227118  ┆ 0.691294 ┆ 1.758831   ┆ 4.695406  ┆ 8.286078 ┆ 0.000273 ┆ 1.0        ┆ 0.023158 │
+│ B Naive               ┆ cytokineIFN-gamma ┆ NFIX    ┆ 4.034166  ┆ 0.997575 ┆ 1.915345   ┆ 6.152986  ┆ 3.726182 ┆ 0.000982 ┆ 1.0        ┆ 0.044351 │
+│ B Naive               ┆ cytokineIFN-gamma ┆ REV3L   ┆ -2.426383 ┆ 0.602491 ┆ -3.706056  ┆ -1.146709 ┆ 7.312945 ┆ 0.001017 ┆ 1.0        ┆ 0.044849 │
+│ CD14 Mono             ┆ cytokineIFN-gamma ┆ CFH     ┆ 8.416471  ┆ 1.822179 ┆ 4.460555   ┆ 12.372386 ┆ 3.082946 ┆ 0.000543 ┆ 1.0        ┆ 0.035723 │
+│ CD14 Mono             ┆ cytokineIFN-gamma ┆ LAP3    ┆ 5.340516  ┆ 0.965731 ┆ 3.243932   ┆ 7.437099  ┆ 9.694517 ┆ 0.000115 ┆ 1.0        ┆ 0.026415 │
+│ CD14 Mono             ┆ cytokineIFN-gamma ┆ CASP10  ┆ 3.927575  ┆ 0.699754 ┆ 2.408423   ┆ 5.446727  ┆ 6.461136 ┆ 0.000101 ┆ 1.0        ┆ 0.026415 │
+│ CD14 Mono             ┆ cytokineIFN-gamma ┆ CD38    ┆ 9.551953  ┆ 1.913129 ┆ 5.398585   ┆ 13.705321 ┆ 8.810696 ┆ 0.000283 ┆ 1.0        ┆ 0.031859 │
+│ CD14 Mono             ┆ cytokineIFN-gamma ┆ PDK4    ┆ -9.347026 ┆ 2.237785 ┆ -14.205216 ┆ -4.488837 ┆ 2.094128 ┆ 0.001197 ┆ 1.0        ┆ 0.04558  │
+│ CD16 Mono             ┆ cytokineIFN-gamma ┆ LAP3    ┆ 2.727379  ┆ 0.446265 ┆ 1.776283   ┆ 3.678475  ┆ 9.924472 ┆ 0.00002  ┆ 0.277314   ┆ 0.010575 │
+│ CD16 Mono             ┆ cytokineIFN-gamma ┆ CD38    ┆ 5.540838  ┆ 1.031595 ┆ 3.342265   ┆ 7.739412  ┆ 9.321841 ┆ 0.000078 ┆ 1.0        ┆ 0.014432 │
+│ CD16 Mono             ┆ cytokineIFN-gamma ┆ ST3GAL1 ┆ -1.436892 ┆ 0.364966 ┆ -2.214721  ┆ -0.659064 ┆ 8.076972 ┆ 0.001315 ┆ 1.0        ┆ 0.047342 │
+│ CD16 Mono             ┆ cytokineIFN-gamma ┆ ETV7    ┆ 4.134528  ┆ 0.825406 ┆ 2.375394   ┆ 5.893663  ┆ 5.994346 ┆ 0.000155 ┆ 1.0        ┆ 0.019453 │
+│ CD16 Mono             ┆ cytokineIFN-gamma ┆ PLAUR   ┆ -1.609256 ┆ 0.340264 ┆ -2.334438  ┆ -0.884073 ┆ 6.608727 ┆ 0.000268 ┆ 1.0        ┆ 0.024208 │
+└───────────────────────┴───────────────────┴─────────┴───────────┴──────────┴────────────┴───────────┴──────────┴──────────┴────────────┴──────────┘
 ```
 
-Classic interferon-response genes recur across cell types: `LAP3`, `GBP5`, `IFIT2`, and `CXCL10` are all canonical IFN-gamma targets.
+Classic interferon-stimulated genes recur across cell types: `LAP3` is a top hit in three of the four, and `CD38` in both monocyte subsets — both are canonical interferon targets induced by IFN-gamma.
 
 {meth}`~brisc.DE.plot_volcano` plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:
 
 ```python
-de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
-                ylabel='$-log_{10}(FDR)$')
+de.plot_volcano('CD14 Mono', 'scratch/volcano.png')
 ```
 
 :::{image} images/volcano.png
@@ -243,11 +245,65 @@ de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
 :align: center
 :::
 
+`de.table` is the complete result as a polars DataFrame — every tested gene in every cell type, not only the hits. Sort, filter, and select it like any polars DataFrame; here, sorted by FDR:
+
+```python
+print(de.table.sort('FDR').head())
+```
+```none
+shape: (5, 11)
+┌───────────┬───────────────────┬─────────────────┬───────────┬──────────┬───────────┬───────────┬──────────┬───────────┬────────────┬──────────┐
+│ cell_type ┆ coefficient       ┆ gene            ┆ logFC     ┆ SE       ┆ LCI       ┆ UCI       ┆ AveExpr  ┆ p         ┆ Bonferroni ┆ FDR      │
+│ ---       ┆ ---               ┆ ---             ┆ ---       ┆ ---      ┆ ---       ┆ ---       ┆ ---      ┆ ---       ┆ ---        ┆ ---      │
+│ str       ┆ str               ┆ str             ┆ f64       ┆ f64      ┆ f64       ┆ f64       ┆ f64      ┆ f64       ┆ f64        ┆ f64      │
+╞═══════════╪═══════════════════╪═════════════════╪═══════════╪══════════╪═══════════╪═══════════╪══════════╪═══════════╪════════════╪══════════╡
+│ B Naive   ┆ cytokineIFN-gamma ┆ CYP2J2          ┆ 13.502077 ┆ 1.424344 ┆ 10.476812 ┆ 16.527342 ┆ 2.316806 ┆ 7.0399e-8 ┆ 0.001068   ┆ 0.001068 │
+│ B Naive   ┆ cytokineIFN-gamma ┆ OASL            ┆ 10.644854 ┆ 1.280494 ┆ 7.925123  ┆ 13.364585 ┆ 5.743191 ┆ 3.9755e-7 ┆ 0.006032   ┆ 0.002011 │
+│ B Naive   ┆ cytokineIFN-gamma ┆ ENSG00000271955 ┆ 9.816521  ┆ 1.174002 ┆ 7.322975  ┆ 12.310066 ┆ 4.601677 ┆ 3.6876e-7 ┆ 0.005596   ┆ 0.002011 │
+│ B Naive   ┆ cytokineIFN-gamma ┆ LY6E-DT         ┆ 8.979601  ┆ 1.125847 ┆ 6.588335  ┆ 11.370868 ┆ 5.250673 ┆ 6.7586e-7 ┆ 0.010255   ┆ 0.002564 │
+│ B Naive   ┆ cytokineIFN-gamma ┆ TBX21           ┆ 9.276725  ┆ 1.319861 ┆ 6.473378  ┆ 12.080072 ┆ 3.216798 ┆ 0.000003  ┆ 0.049237   ┆ 0.003363 │
+└───────────┴───────────────────┴─────────────────┴───────────┴──────────┴───────────┴───────────┴──────────┴───────────┴────────────┴──────────┘
+```
+
 :::{dropdown} Other result options
 - {meth}`~brisc.DE.plot_voom` draws the mean-variance trend that voom fits, with one curve per group when using voomByGroup.
 - `significance_column='Bonferroni'` or a lower `threshold` in `get_hits` and `plot_volcano` gives a stricter set of DE genes.
 - {meth}`~brisc.DE.save` writes the results (and voom info) to a directory; reload them later with {meth}`DE(directory) <brisc.DE.__init__>`.
 :::
+
+## Differential expression with complex designs
+
+The default coefficient reports one comparison — a single condition against the baseline. A *contrast* tests any linear combination of the design-matrix columns instead: an average of several conditions, the difference between two of them, or a whole panel of comparisons at once. You write each as an expression in the `contrasts` argument, and `de` evaluates it.
+
+The interferons are a good example. The dataset has 90 cytokines, and the four type I interferons — IFN-alpha1, IFN-beta, IFN-epsilon, IFN-omega — all signal through the IFNAR receptor, while IFN-gamma (type II) signals through IFNGR. How do their responses differ? That asks for the *average* of the four type I coefficients minus the IFN-gamma coefficient — a combination no single coefficient can give, and just what `contrasts` is for.
+
+For those coefficients to exist, drop the intercept with `~ 0 + cytokine` so every interferon gets its own column. With an intercept, treatment coding leaves one level out as the reference, so it gets no column — and a contrast that names it fails with *"not the name of a column of the design matrix"*. Then name the comparison in the `contrasts` dictionary. brisc parses the expression itself, so the column names go in as written — backticked here only because the `-` in a name like `IFN-gamma` would otherwise read as subtraction:
+
+```python
+from brisc import SingleCell
+import polars as pl
+
+interferons = ['IFN-alpha1', 'IFN-beta', 'IFN-epsilon', 'IFN-omega', 'IFN-gamma']
+
+sc = SingleCell(
+    'Parse_10M_PBMC_cytokines.h5ad',
+    obs_columns=['sample', 'donor', 'cell_type', 'cytokine'])\
+    .qc(custom_filter=pl.col('cytokine').is_in(interferons),
+        allow_float=True)
+
+pb = sc.pseudobulk('sample', 'cell_type')\
+    .qc('cytokine')\
+    .library_size()
+
+de = pb.de(
+    '~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)',
+    contrasts={'type_I_vs_type_II':
+        '(`cytokineIFN-alpha1` + `cytokineIFN-beta`'
+        ' + `cytokineIFN-epsilon` + `cytokineIFN-omega`)/4'
+        ' - `cytokineIFN-gamma`'})
+```
+
+The same form expresses any linear combination — one cytokine family against another, or several comparisons at once by adding more entries to the dictionary.
 
 ## Pipeline summary
 
@@ -260,21 +316,17 @@ import polars as pl
 sc = SingleCell(
     'Parse_10M_PBMC_cytokines.h5ad', num_threads=-1,
     obs_columns=['sample', 'donor', 'cell_type', 'cytokine'])\
-    .qc(allow_float=True)
+    .qc(custom_filter=pl.col('cytokine').is_in(['IFN-gamma', 'PBS']),
+        allow_float=True)\
+    .cast_obs({'cytokine': pl.Enum(['PBS', 'IFN-gamma'])}, strict=False)
 
 pb = sc.pseudobulk('sample', 'cell_type')\
-    .filter_obs(pl.col('cytokine').is_in(['IFN-gamma', 'PBS']))\
     .qc('cytokine')\
     .library_size()
 
-de = pb.DE(
-    '~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)',
-    contrasts={'IFN-gamma_vs_PBS': '`cytokineIFN-gamma` - `cytokinePBS`'},
-    group='cytokine',
-    categorical_columns=['donor', 'cytokine'])
+de = pb.de('~ cytokine + donor + log2(num_cells) + log2(library_size)')
 
-de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
-                ylabel='$-log_{10}(FDR)$')
+de.plot_volcano('CD14 Mono', 'volcano.png')
 ```
 
 | Step | Method | What it does |
@@ -284,5 +336,5 @@ de.plot_volcano('CD14 Mono', 'volcano.png', significance_column='FDR',
 | Pseudobulk | {meth}`sc.pseudobulk() <brisc.SingleCell.pseudobulk>` | Sum raw counts per sample × cell type |
 | Sample QC | {meth}`pb.qc() <brisc.Pseudobulk.qc>` | Filter low-quality samples and genes per group |
 | Library size | {meth}`pb.library_size() <brisc.Pseudobulk.library_size>` | Compute TMM-normalized library sizes |
-| Differential expression | {meth}`pb.DE() <brisc.Pseudobulk.DE>` | Fit a limma-voom model per cell type |
+| Differential expression | {meth}`pb.de() <brisc.Pseudobulk.de>` | Fit a limma-voom model per cell type |
 | Volcano plot | {meth}`de.plot_volcano() <brisc.DE.plot_volcano>` | Plot fold change against significance for one cell type |

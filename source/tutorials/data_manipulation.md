@@ -288,17 +288,17 @@ Normalize, then regress out covariates:
 ```python
 # TMM-normalized library sizes, then log counts per million
 pb = pb.library_size()
-pb = pb.log_CPM()
+pb = pb.log_cpm()
 
 # regress out covariates from the log-CPM values
 pb = pb.regress_out('~ donor + log2(num_cells) + log2(library_size)')
 ```
 
-This `log_CPM`/`regress_out` path is separate from {meth}`~brisc.Pseudobulk.DE`, which requires raw counts and cannot run after `log_CPM`.
+This `log_cpm`/`regress_out` path is separate from {meth}`~brisc.Pseudobulk.de`, which requires raw counts and cannot run after `log_cpm`.
 
 ## DE results
 
-{meth}`~brisc.Pseudobulk.DE` returns a {class}`~brisc.DE` object whose `table` is a polars DataFrame you filter and sort normally:
+{meth}`~brisc.Pseudobulk.de` returns a {class}`~brisc.DE` object whose `table` is a polars DataFrame:
 
 ```python
 # one row per gene per cell type

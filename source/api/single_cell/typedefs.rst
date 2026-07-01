@@ -16,10 +16,6 @@ A flexible column specification. Can be a column name (string), a Polars
 expression, a Polars Series, a 1D NumPy array, or a function that takes a
 SingleCell dataset and returns a Series or array.
 
-Used by :meth:`SingleCell.qc`, :meth:`SingleCell.find_doublets`,
-:meth:`SingleCell.pseudobulk`, :meth:`SingleCell.hvg`,
-:meth:`SingleCell.normalize`, and others.
-
 Scalar
 ------
 
@@ -61,8 +57,7 @@ Color
 ``str | float | tuple[int, int, int] | tuple[int, int, int, int] | tuple[float, float, float] | tuple[float, float, float, float]``
 
 A color specification: a named or hex color string, a grayscale float, or an
-RGB(A) tuple of three or four ints (0--255) or floats (0--1). Used by the
-plotting methods.
+RGB(A) tuple of three or four ints (0--255) or floats (0--1).
 
 Indexer
 -------

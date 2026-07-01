@@ -1,22 +1,20 @@
 # Interoperability
 
+:::{note}
+Reading, writing, and converting Seurat and SingleCellExperiment data goes through R via [ryp](https://github.com/Wainberg/ryp), which needs the **Seurat** and **SingleCellExperiment** R packages. Install them before running those sections — see [Installation → R packages](../installation.md#r-packages).
+:::
 
 ## Loading from files
 
-
 brisc can interface with files and objects from all three major single-cell ecosystems:
-
 
 - **scverse/Scanpy** -- AnnData `.h5ad` files and in-memory AnnData objects
 - **Seurat** -- `.rds` and `.h5Seurat` files, plus in-memory Seurat objects via the ryp Python-R bridge
 - **Bioconductor** -- SingleCellExperiment `.rds` files and in-memory SCE objects via ryp
 
-
 as well as raw 10x Genomics data (`.h5` or `.mtx`/`.mtx.gz`).
 
-
 The SingleCell constructor auto-detects a file's format from its extension:
-
 
 ```python
 from brisc import SingleCell
@@ -39,12 +37,9 @@ sc = SingleCell('matrix.mtx')
 sc = SingleCell('matrix.mtx.gz')
 ```
 
-
 ### Choosing the count matrix
 
-
 When a file contains both raw and normalized counts, SingleCell loads raw counts by default. Use `X_key` to choose a different location:
-
 
 ```python
 # .h5ad: use SingleCell.ls() to find the right key
@@ -63,12 +58,9 @@ sc = SingleCell('seurat_obj.h5Seurat', assay='SCT')
 sc = SingleCell('sce_obj.rds', X_key='logcounts')
 ```
 
-
 ### Partial loading
 
-
 For large `.h5ad` and `.h5Seurat` files, you can load only the metadata columns you need:
-
 
 ```python
 sc = SingleCell('data.h5ad',
@@ -76,20 +68,15 @@ sc = SingleCell('data.h5ad',
                 var_columns=['gene_symbol'])
 ```
 
-
 You can skip loading the count matrix entirely (useful if you only need the metadata or principal components). Note that datasets loaded without `X` cannot be saved, converted, or used for analyses that require counts:
-
 
 ```python
 sc = SingleCell('data.h5ad', X=False)
 ```
 
-
 ### Reading individual slots
 
-
 You can also read {attr}`~brisc.SingleCell.obs`, {attr}`~brisc.SingleCell.var`, {attr}`~brisc.SingleCell.obsm`, {attr}`~brisc.SingleCell.varm`, or {attr}`~brisc.SingleCell.uns` from an `.h5ad` file without loading the full dataset:
-
 
 ```python
 # polars DataFrame
@@ -102,12 +89,9 @@ var = SingleCell.read_var('data.h5ad')
 obsm = SingleCell.read_obsm('data.h5ad', keys=['X_pca'])
 ```
 
-
 ## Saving to file
 
-
 As with loading, format is inferred from the file extension:
-
 
 ```python
 # scverse / Scanpy
@@ -130,19 +114,15 @@ sc.save('matrix.mtx')
 sc.save('matrix.mtx.gz')
 ```
 
-
 When saving to `.rds`, the `X_key` argument controls which layer `X` is stored in:
-
 
 ```python
 # save counts to the 'data' layer
 sc.save('output.rds', X_key='data')
 ```
 
-
 :::{note}
 When saving to Seurat `.rds`, the `X_` prefix is automatically stripped from `obsm` keys (e.g. `X_umap` becomes `umap`) to match Seurat's conventions. Seurat also adds `orig.ident`, `nCount_RNA`, and `nFeature_RNA` by default, which can be slow; to suppress the latter two:
-
 
 ```python
 from ryp import r
@@ -150,15 +130,11 @@ r('options(Seurat.object.assay.calcn = FALSE)')
 ```
 :::
 
-
 ## In-memory conversion
-
 
 ### From AnnData
 
-
 Pass an AnnData object directly to the SingleCell constructor. By default, raw counts are loaded from `adata.layers['UMIs']` or `adata.raw.X` if present, falling back to `adata.X`:
-
 
 ```python
 import scanpy as sc
@@ -170,31 +146,23 @@ sc_data = SingleCell(adata)
 sc_data = SingleCell(adata, X=adata.layers['raw_counts'])
 ```
 
-
 The constructor shares `adata`'s count matrix rather than copying it (the reverse of {meth}`~brisc.SingleCell.to_scanpy`), so edits to one also affect the other; use `SingleCell(adata.copy())` for an independent dataset. A dense `adata.X` is the exception: it is copied to a sparse `csr_array`, with a warning.
 
-
 ### To AnnData
-
 
 ```python
 adata = sc_data.to_scanpy()
 ```
 
-
 :::{note}
 The count matrix is shared, not copied. Modifying `adata.X` will also modify the original SingleCell dataset. To avoid this, use `sc_data.copy().to_scanpy()`.
-
 
 There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` serves that purpose.
 :::
 
-
 ### Constructing from scratch
 
-
 You can also build a SingleCell dataset from individual components:
-
 
 ```python
 import polars as pl
@@ -207,20 +175,15 @@ var = pl.DataFrame({'gene_id': ['g1', 'g2', 'g3']})
 sc = SingleCell(X=X, obs=obs, var=var)
 ```
 
-
 ## The ryp Python-R bridge
 
-
 Seurat and SingleCellExperiment `.rds` files are handled transparently via [ryp](https://github.com/Wainberg/ryp), a Python-R bridge. Loading and saving `.rds` files works like any other format. For in-memory conversion between SingleCell and R objects, use {meth}`~brisc.SingleCell.from_seurat` / {meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.from_sce` / {meth}`~brisc.SingleCell.to_sce`. Unlike the AnnData path, these conversions usually copy the count matrix into or out of R's memory, so a conversion can use up to roughly double the matrix's memory. ({meth}`~brisc.SingleCell.to_seurat` and {meth}`~brisc.SingleCell.to_sce` can avoid the copy when `X` is already `float64` with 32-bit indices.)
-
 
 :::{note}
 R's sparse matrices use 32-bit indices, so Seurat and SingleCellExperiment objects cannot hold count matrices with more than 2,147,483,647 (INT32_MAX) non-zero elements. Large datasets may exceed this limit.
 :::
 
-
 ### Seurat
-
 
 ```python
 from ryp import r
@@ -244,9 +207,7 @@ sc.to_seurat('seurat_out', v3=True)
 sc.save('output.rds')
 ```
 
-
 ### SingleCellExperiment
-
 
 ```python
 from ryp import r
@@ -267,12 +228,9 @@ sc.to_sce('sce_out')
 sc.save('output_sce.rds', sce=True)
 ```
 
-
 ### Example: combining Seurat and Scanpy
 
-
 A common reason to bridge ecosystems is to use tools that only exist in one. For instance, [Azimuth](https://azimuth.hubmapconsortium.org/) provides automated cell type annotation via a Seurat reference atlas (R only), while [scvi-tools](https://scvi-tools.org/) provides deep generative models for integration and differential expression (Python only). SingleCell lets you chain these without writing intermediate files:
-
 
 ```python
 from brisc import SingleCell
@@ -302,9 +260,7 @@ adata.obsm['X_scVI'] = model.get_latent_representation()
 sc = SingleCell(adata)
 ```
 
-
 ## Summary
-
 
 | Operation | Method |
 |---|---|

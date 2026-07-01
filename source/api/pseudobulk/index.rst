@@ -27,10 +27,10 @@ Analysis
 
    Pseudobulk.qc
    Pseudobulk.library_size
-   Pseudobulk.CPM
-   Pseudobulk.log_CPM
+   Pseudobulk.cpm
+   Pseudobulk.log_cpm
    Pseudobulk.regress_out
-   Pseudobulk.DE
+   Pseudobulk.de
 
 I/O
 ---

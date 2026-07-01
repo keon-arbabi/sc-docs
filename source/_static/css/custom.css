@@ -295,8 +295,8 @@ details.sd-dropdown summary.sd-card-header + div.sd-summary-content {
     --pst-sd-dropdown-color: var(--pst-color-primary);
 }
 
-/* Add breathing room when a dropdown immediately follows a figure/image */
-a.image-reference + details.sd-dropdown {
+/* Add breathing room when content immediately follows a figure/image */
+a.image-reference + * {
     margin-top: 1.5rem;
 }
 

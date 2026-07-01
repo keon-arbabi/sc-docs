@@ -1,7 +1,7 @@
 # Integration and Label Transfer
 
 
-This tutorial covers reference mapping: integrating an annotated reference dataset with a query, then transferring the reference's cell-type labels onto the query. It uses the same Parse Biosciences ~10 million cell PBMC dataset as the other tutorials, treating the PBS-control cells as the annotated reference and the cytokine-treated cells as the query. Because these query cells keep their original labels, we can check the transferred labels against them at the end.
+This tutorial covers reference mapping: integrating an annotated reference dataset with a query, then transferring the reference's cell-type labels onto the query. It uses the same ~10 million cell cytokine stimulation dataset as the other tutorials, treating the PBS-control cells as the annotated reference and the cytokine-treated cells as the query. Because these query cells keep their original labels, we can check the transferred labels against them at the end.
 
 
 ## Loading and quality control
