@@ -236,7 +236,7 @@ Classic interferon-stimulated genes recur across cell types: `LAP3` is a top hit
 {meth}`~brisc.DE.plot_volcano` plots fold change against significance for one cell type. CD14 monocytes mount one of the strongest responses to IFN-gamma:
 
 ```python
-de.plot_volcano('CD14 Mono', 'scratch/volcano.png')
+de.plot_volcano('CD14 Mono', 'volcano.png')
 ```
 
 :::{image} images/volcano.png

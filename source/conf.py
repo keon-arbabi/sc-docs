@@ -65,6 +65,33 @@ autodoc_type_aliases = {}
 # Generate stub files from autosummary directives
 autosummary_generate = True
 
+# Shorten every autosummary stub filename from the fully-qualified object name
+# to just the member: `brisc.SingleCell.hvg` -> `hvg`. With the class dirs
+# renamed to `singlecell/` etc. and stubs generated beside the index (no `api/`
+# subdir), this yields short URLs like `/singlecell/hvg` instead of
+# `/api/single_cell/api/brisc.SingleCell.hvg`. Same basename across classes
+# (e.g. `qc`) is fine -- each lands in its own class directory.
+def _build_filename_map():
+    try:
+        from brisc import SingleCell, Pseudobulk, DE
+    except Exception:
+        # Falls back to full-name stubs (e.g. under a Sphinx-only env that
+        # can't import brisc); real builds run in the brisc env.
+        return {}
+    fmap = {}
+    for cls in (SingleCell, Pseudobulk, DE):
+        for name in dir(cls):
+            if name == "__init__":
+                continue  # documented on the class page, not a stub
+            # keep public names and dunders; skip _private
+            if name.startswith("_") and not (
+                    name.startswith("__") and name.endswith("__")):
+                continue
+            fmap[f"brisc.{cls.__name__}.{name}"] = name
+    return fmap
+
+autosummary_filename_map = _build_filename_map()
+
 # Napoleon settings (Google-style docstrings with Args:, Returns:, Note:)
 napoleon_google_docstring = True
 napoleon_numpy_docstring = False
@@ -84,9 +111,9 @@ html_css_files = ["css/custom.css"]
 html_js_files = [
     "js/benchmark-data.js",
     "js/benchmark.js",
-    "js/carousel.js",
     "js/theme-fix.js",
     "js/api-scrollspy.js",
+    "js/header-reveal.js",
 ]
 html_show_sourcelink = False
 
@@ -133,10 +160,23 @@ copybutton_prompt_is_regexp = True
 
 # Match Markdown links in docstrings -- tolerates whitespace (including
 # a line break) between `]` and `(`, and URLs without an http(s):// prefix.
+# Group 1 is the optional backtick pair (a `[`code`](url)` link vs plain
+# `[text](url)`); group 2 the label, group 3 the URL.
 _md_link_re = re.compile(
     r"\[(`?)([^\]]+?)\1\]\s*\(([^\s\)]+)\)",
     re.DOTALL,
 )
+
+def _md_link_to_rst(m):
+    """Convert one Markdown link match to RST. A backtick-wrapped label
+    ([`code`](url)) keeps its code formatting by becoming a `codelink` role
+    (an inline-code hyperlink); a plain label becomes a normal RST hyperlink."""
+    code, label, url = m.group(1), m.group(2), m.group(3)
+    if not url.startswith(("http://", "https://")):
+        url = "https://" + url
+    if code:
+        return f":codelink:`{label} <{url}>`"
+    return f"`{label} <{url}>`_"
 
 # Markdown fenced code blocks (```lang ... ```) are not valid RST -- autodoc
 # parses docstrings as reStructuredText, so the fence renders as literal
@@ -181,12 +221,7 @@ def _md_to_rst_links(app, what, name, obj, options, lines):
         lines[:] = fenced
     # 2) Markdown links -> RST links.
     text = "\n".join(lines)
-    def _repl(m):
-        label, url = m.group(2), m.group(3)
-        if not url.startswith(("http://", "https://")):
-            url = "https://" + url
-        return f"`{label} <{url}>`_"
-    new_text = _md_link_re.sub(_repl, text)
+    new_text = _md_link_re.sub(_md_link_to_rst, text)
     if new_text != text:
         lines[:] = new_text.split("\n")
 
@@ -299,17 +334,29 @@ class _ClassDescription(Directive):
         doc_lines = _md_fences_to_rst(
             _inspect.cleandoc(cls.__doc__ or "").split("\n"))
         text = "\n".join(doc_lines)
-        def _repl(m):
-            label, url = m.group(2), m.group(3)
-            if not url.startswith(("http://", "https://")):
-                url = "https://" + url
-            return f"`{label} <{url}>`_"
-        text = _md_link_re.sub(_repl, text)
+        text = _md_link_re.sub(_md_link_to_rst, text)
         container = nodes.container(classes=["class-description"])
         self.state.nested_parse(
             StringList(text.split("\n"), source="<class-description>"),
             self.content_offset, container)
         return [container]
+
+# `codelink` role: renders `:codelink:`label <url>`` as an inline-code
+# hyperlink (a <reference> wrapping a <literal>), so backtick-wrapped Markdown
+# links in docstrings -- [`os.cpu_count()`](url) -- keep their code formatting
+# instead of collapsing to plain prose-link text. RST can't nest inline markup
+# inside a hyperlink, so we build the node tree directly.
+from docutils.utils import unescape as _unescape
+
+_codelink_target_re = re.compile(r"^(?P<label>.*?)\s*<(?P<url>[^>]+)>$", re.DOTALL)
+
+def _codelink_role(name, rawtext, text, lineno, inliner,
+                   options=None, content=None):
+    m = _codelink_target_re.match(_unescape(text))
+    label, url = (m.group("label"), m.group("url")) if m else (text, text)
+    ref = nodes.reference(rawtext, "", refuri=url)
+    ref += nodes.literal("", label)
+    return [ref], []
 
 # Build method → API doc URL mappings
 def _build_api_links():
@@ -317,17 +364,17 @@ def _build_api_links():
     from brisc import SingleCell, Pseudobulk, DE
     links = {}
     # class names → their index pages
-    links['SingleCell'] = 'api/single_cell/index.html'
-    links['Pseudobulk'] = 'api/pseudobulk/index.html'
-    links['DE'] = 'api/de/index.html'
-    # methods and properties
-    for cls, prefix in [(SingleCell, 'api/single_cell/api/brisc.SingleCell'),
-                        (Pseudobulk, 'api/pseudobulk/api/brisc.Pseudobulk'),
-                        (DE, 'api/de/api/brisc.DE')]:
+    links['SingleCell'] = 'singlecell/index.html'
+    links['Pseudobulk'] = 'pseudobulk/index.html'
+    links['DE'] = 'de/index.html'
+    # methods and properties: each stub lives at <class-dir>/<member>.html
+    for cls, prefix in [(SingleCell, 'singlecell/'),
+                        (Pseudobulk, 'pseudobulk/'),
+                        (DE, 'de/')]:
         for name in dir(cls):
             if name.startswith('_') and name != '__init__':
                 continue
-            url = f'{prefix}.{name}.html'
+            url = f'{prefix}{name}.html'
             links[(cls.__name__, name)] = url
             # bare name → SingleCell takes priority, but don't overwrite class names
             if name not in links or cls is SingleCell:
@@ -344,30 +391,10 @@ def _get_api_links():
         _api_links = _build_api_links()
     return _api_links
 
-# Pattern: <span class="n">NAME</span><span class="p">(...</span>  → function call
-# The paren span may be `(`, `()`, or `(...)` depending on Pygments.
-_call_re = re.compile(
-    r'<span class="n">([^<]+)</span>'
-    r'(<span class="p">\([^<]*</span>)')
 # Pattern: <span class="n">NAME</span><span class="o">=</span>  → keyword arg
 _kwarg_re = re.compile(
     r'<span class="n">([^<]+)</span>'
     r'(<span class="o">=</span>)')
-# Pattern: .<span class="n">NAME</span><span class="p">(...</span>  → method call
-_method_re = re.compile(
-    r'(<span class="o">\.</span>)'
-    r'<span class="n">([^<]+)</span>'
-    r'(<span class="p">\([^<]*</span>)')
-
-def _make_linked_span(name, css_class, depth):
-    """Wrap a span in an <a> tag if the name is a known API method."""
-    url = _get_api_links().get(name)
-    if url:
-        rel_url = '../' * depth + url
-        return (f'<a href="{rel_url}" class="api-link" '
-                f'style="text-decoration:none;color:inherit">'
-                f'<span class="{css_class}">{name}</span></a>')
-    return f'<span class="{css_class}">{name}</span>'
 
 # Receiver-variable conventions and method return types, so qualified/chained
 # calls resolve to the right class (e.g. pb.qc -> Pseudobulk.qc, not
@@ -380,7 +407,7 @@ _VAR_CLASS = {
 _CLASSES = {'SingleCell', 'Pseudobulk', 'DE'}
 _RETURNS = {
     ('SingleCell', 'pseudobulk'): 'Pseudobulk',
-    ('Pseudobulk', 'DE'): 'DE',
+    ('Pseudobulk', 'de'): 'DE',
 }
 # A call site: optional `RECV.` receiver, then NAME, then an opening paren.
 _link_re = re.compile(
@@ -481,15 +508,28 @@ def _link_param_refs(text):
     return re.sub(r'<cite>(\w+)</cite>', repl, text)
 
 _SIDEBAR_TITLE_MAP = [
-    ("api/single_cell/", "SingleCell"),
-    ("api/pseudobulk/",  "Pseudobulk"),
-    ("api/de/",          "DE"),
+    ("singlecell/", "SingleCell"),
+    ("pseudobulk/", "Pseudobulk"),
+    ("de/",         "DE"),
 ]
 _SIDEBAR_TITLE_RE = re.compile(
     r'<p class="bd-links__title"[^>]*>Section Navigation</p>'
 )
 _SIDEBAR_ENTRY_RE = re.compile(
     r'>brisc\.(SingleCell|Pseudobulk|DE)\.([A-Za-z_][A-Za-z0-9_]*)<'
+)
+
+# Autosummary tables list each member by its qualified `Class.method` name.
+# Drop the `Class.` prefix so the method column reads `find_doublets`, not
+# `SingleCell.find_doublets`. Scoped to the generic-object xref (`py-obj`) that
+# autosummary emits for its entries, so inline prose cross-references (rendered
+# as `py-attr`/`py-meth`, e.g. `SingleCell.uns` in the typedefs prose) keep
+# their qualifier. The link href and hover title stay fully qualified.
+_AUTOSUMMARY_QUALIFIED_RE = re.compile(
+    r'(<code class="xref py py-obj[^"]*"><span class="pre">)'
+    r'(?:SingleCell|Pseudobulk|DE)\.'
+    r'([A-Za-z_]\w*)'
+    r'(</span></code>)'
 )
 
 # Category basename (matches the rst filename) → Sphinx-generated heading
@@ -543,12 +583,24 @@ def _semantic_highlight(app, exception=None):
         # (and anywhere else that shows the fully-qualified dotted name).
         text = _SIDEBAR_ENTRY_RE.sub(r'>\2<', text)
 
+        # Strip the "Class." prefix from autosummary method-table entries
+        # (SingleCell.find_doublets → find_doublets); href/title stay qualified.
+        text = _AUTOSUMMARY_QUALIFIED_RE.sub(r'\1\2\3', text)
+
         # Rewrite sidebar category links to jump to the anchored section on
         # the class index page (instead of loading a dedicated category
         # page).  e.g. href="constructor.html"  →  href="index.html#constructor"
+        # On the class index page itself, use a bare `#anchor` so it scrolls in
+        # place: the page is served at the clean URL /<class>/, so an
+        # `index.html#...` href is a *different* document to the browser and
+        # triggers a full cross-document load instead of an in-page scroll.
+        is_class_index = rel_str in (
+            "singlecell/index.html", "pseudobulk/index.html", "de/index.html")
         def _cat_repl(m):
             prefix, upward, cat = m.group(1), m.group(2), m.group(3)
             anchor = _CATEGORY_ANCHORS.get(cat, cat)
+            if is_class_index:
+                return f'{prefix}#{anchor}"'
             return f'{prefix}{upward}index.html#{anchor}"'
         text = _SIDEBAR_CAT_RE.sub(_cat_repl, text)
 
@@ -556,8 +608,19 @@ def _semantic_highlight(app, exception=None):
         # secondary sidebar -- the left-hand sidebar is the sole navigation
         # there, with category entries jumping to the anchored section on
         # the class index page (rewritten above).
-        if rel_str.startswith("api/"):
+        if rel_str.startswith(("singlecell/", "pseudobulk/", "de/")):
             text = text.replace('<body ', '<body class="api-page" ', 1)
+            # Sphinx prefixes staticmethod signatures with a C++-style
+            # `static ` keyword. Replace it with Python's `@staticmethod`
+            # decorator, rendered (via CSS) on its own line above the
+            # signature.
+            text = text.replace(
+                '<span class="property"><span class="k">'
+                '<span class="pre">static</span></span>'
+                '<span class="w"> </span></span>',
+                '<span class="staticmethod-decorator">'
+                '<span class="pre">@staticmethod</span></span>',
+            )
         # Tutorial content pages (not the index, which has no sections): mark
         # the body so CSS shows the "On this page" secondary sidebar.
         elif rel_str.startswith("tutorials/") and rel_str != "tutorials/index.html":
@@ -571,11 +634,11 @@ def _semantic_highlight(app, exception=None):
         # their API pages where they name a method or class. Runs on every page;
         # only docstring-derived pages contain <cite> elements.
         current_class = None
-        if rel_str.startswith("api/single_cell/"):
+        if rel_str.startswith("singlecell/"):
             current_class = "SingleCell"
-        elif rel_str.startswith("api/pseudobulk/"):
+        elif rel_str.startswith("pseudobulk/"):
             current_class = "Pseudobulk"
-        elif rel_str.startswith("api/de/"):
+        elif rel_str.startswith("de/"):
             current_class = "DE"
         text = _link_inline_refs(text, depth, current_class)
 
@@ -605,18 +668,23 @@ def _semantic_highlight(app, exception=None):
 
         # Scanpy-style params: split "name (type) – desc" into two lines.
         # Handles both the form with a description (em-dash present) and
-        # the form without (just name + type).
+        # the form without (just name + type). A method with several params
+        # renders each as `<li><p><strong>...`; a method with a *single* param
+        # renders it as a bare `<dd class="field-odd"><p><strong>...` (no
+        # <ul>/<li>). Match either opening and re-emit it (group 1) so single-
+        # parameter methods get the same styled header + description.
         def _param_repl(m):
-            name, types, sep = m.group(1), m.group(2), m.group(3)
+            opening, name, types, sep = m.groups()
             header = (
-                f'<li><p class="param-header"><strong>{name}</strong>: '
+                f'{opening}<p class="param-header"><strong>{name}</strong>: '
                 f'{types}</p>'
             )
             if '–' in sep:
                 return header + '<p class="param-desc">'
             return header
         text = re.sub(
-            r'<li><p><strong>([^<]+)</strong>\s*'
+            r'(<li>|<dd class="field-(?:odd|even)">)'
+            r'<p><strong>([^<]+)</strong>\s*'
             r'\(([^)]*(?:\([^)]*\))*[^)]*)\)'
             r'(\s*–\s*|</p>)',
             _param_repl,
@@ -657,12 +725,17 @@ def _semantic_highlight(app, exception=None):
             r'<em>Callable</em><em>\[</em><em>\[</em>'
             r'.*?SingleCell.*?'
             r'<em>\]</em><em>,\s*</em><em>Series</em><em> \| </em>'
-            r'<em>ndarray</em><em>\]\s*</em>'
+            r'<em>ndarray</em><em>\](\s*)</em>'
         )
+        # Re-emit (\g<1>) exactly the whitespace autodoc placed inside the
+        # union's closing `]` em -- a space when a separator follows
+        # (`... | Sequence`), nothing when a bracket closes right after
+        # (`Sequence[SingleCellColumn]`) -- rather than hardcoding a space,
+        # which would render `SingleCellColumn ]`.
         _scc_link = (
-            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+            f'<a href="{"../" * depth}singlecell/typedefs.html'
             f'#singlecellcolumn" style="text-decoration:none">'
-            f'<em>SingleCellColumn</em></a> '
+            f'<em>SingleCellColumn</em></a>' r'\g<1>'
         )
         text = re.sub(_scc_pattern, _scc_link, text)
 
@@ -674,12 +747,12 @@ def _semantic_highlight(app, exception=None):
             r'<em>Callable</em><em>\[</em><em>\[</em>'
             r'.*?Pseudobulk.*?'
             r'<em>\]</em><em>,\s*</em><em>Series</em><em> \| </em>'
-            r'<em>ndarray</em><em>\]\s*</em>'
+            r'<em>ndarray</em><em>\](\s*)</em>'
         )
-        _pbc_link = (
-            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+        _pbc_link = (  # \g<1>: preserve the closing `]` whitespace (see _scc_link)
+            f'<a href="{"../" * depth}singlecell/typedefs.html'
             f'#pseudobulkcolumn" style="text-decoration:none">'
-            f'<em>PseudobulkColumn</em></a> '
+            f'<em>PseudobulkColumn</em></a>' r'\g<1>'
         )
         text = re.sub(_pbc_pattern, _pbc_link, text)
 
@@ -706,10 +779,14 @@ def _semantic_highlight(app, exception=None):
             _scalar_inner +
             r'<em>\]</em>)?'
         )
+        # No trailing space: _scalar_full ends at <em>Series</em> / the
+        # Iterable `]` and consumes no separator whitespace, so the following
+        # token (` | `, `]`, `,`) already carries the correct spacing. A
+        # hardcoded space here would render `Scalar ]` inside a Sequence[...].
         _scalar_link = (
-            f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+            f'<a href="{"../" * depth}singlecell/typedefs.html'
             f'#scalar" style="text-decoration:none">'
-            f'<em>Scalar</em></a> '
+            f'<em>Scalar</em></a>'
         )
         text = re.sub(_scalar_full, _scalar_link, text)
 
@@ -720,7 +797,7 @@ def _semantic_highlight(app, exception=None):
                        'UnsDict', 'UnsItem', 'Color', 'Indexer'):
             text = re.sub(
                 rf'<em>{_alias}</em>(?!</a>)',
-                f'<a href="{"../" * depth}api/single_cell/typedefs.html'
+                f'<a href="{"../" * depth}singlecell/typedefs.html'
                 f'#{_alias.lower()}" style="text-decoration:none">'
                 f'<em>{_alias}</em></a>',
                 text)
@@ -820,6 +897,7 @@ def _generate_benchmark_data(app):
 
 def setup(app):
     app.add_directive("classdescription", _ClassDescription)
+    app.add_role("codelink", _codelink_role)
     app.connect("autodoc-process-docstring", _constructor_dropdowns, priority=400)
     app.connect("autodoc-process-docstring", _md_to_rst_links)
     app.connect("autodoc-process-docstring", _drop_constructor_summary)

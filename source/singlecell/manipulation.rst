@@ -4,7 +4,7 @@ Manipulation
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    SingleCell.set_obs_names

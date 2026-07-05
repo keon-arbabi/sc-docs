@@ -4,7 +4,7 @@ Data access
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    SingleCell.cell

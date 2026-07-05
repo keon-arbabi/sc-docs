@@ -1,17 +1,12 @@
 # Basic Workflow
 
-
 This tutorial walks through a standard single-cell analysis from start to finish: loading data, quality control, feature selection, normalization, dimensionality reduction, clustering, embedding, and marker gene identification.
-
 
 ## Dataset
 
-
 We use a ~10 million cell cytokine stimulation dataset from [Parse Biosciences](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment). Peripheral blood mononuclear cells (PBMCs) from twelve healthy donors were treated with either one of 90 different cytokines or a phosphate-buffered saline (PBS) control for 24 hours, yielding (90 + 1) × 12 = 1,092 experimental conditions.
 
-
 Download the data:
-
 
 ```python
 from subprocess import run
@@ -20,21 +15,16 @@ run('wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/'
     shell=True)
 ```
 
-
 ## Loading data
 
-
 {class}`~brisc.SingleCell` is brisc's main class. It represents a single-cell dataset — the count matrix plus metadata for each cell and gene — and provides the methods for working with it.
-
 
 ```python
 from brisc import SingleCell
 import polars as pl
 ```
 
-
 SingleCell reads and writes the major single-cell formats (`.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, `.mtx.gz`). See [Interoperability](interoperability.md).
-
 
 ```python
 sc = SingleCell(
@@ -42,18 +32,13 @@ sc = SingleCell(
     obs_columns=['sample', 'donor', 'cell_type', 'treatment', 'cytokine'])
 ```
 
-
 By default, loading uses all cores available on your machine, as detected by `os.cpu_count()`. You can change this via the `num_threads` parameter. `num_threads`also controls parallelism for every subsequent operation on the dataset. This can be overridden per step (e.g. `sc.pca(num_threads=8)`) or changed for the dataset as a whole (e.g. `sc.num_threads = 8` or `sc = sc.set_num_threads(8)`).
-
 
 `obs_columns` loads only the named metadata columns; omit it to load all of them. For efficiency, we load just the columns used later in the workflow.
 
-
 For simplicity, speed, and memory efficiency, only a single count matrix is loaded. Because brisc requires the raw counts, we load `X` from `adata.layers['UMIs']` or `adata.raw.X` if present, and `adata.X` otherwise. You can override this with the `X_key` argument to {class}`~brisc.SingleCell`.
 
-
 A quick look at what was loaded:
-
 
 ```python
 sc.peek_obs()
@@ -69,7 +54,6 @@ sc.peek_obs()
 shape: (6, 2)
 ```
 
-
 ```python
 sc.peek_var()
 ```
@@ -80,10 +64,8 @@ sc.peek_var()
 shape: (2, 2)
 ```
 
-
 :::{dropdown} Inspecting a file before loading
 {meth}`~brisc.SingleCell.ls` reports an `.h5ad` file's dimensions and structure without reading the data. This lets you decide which columns of  `obs`/`var` to load, and whether to load the count matrix from a custom location (see the `X_key` argument to {class}`~brisc.SingleCell`).
-
 
 ```python
 SingleCell.ls('Parse_10M_PBMC_cytokines.h5ad')
@@ -96,23 +78,18 @@ var: _index, n_cells
 ```
 :::
 
-
 ## Quality control
 
-
 This dataset has already been quality-controlled, but we will still run {meth}`~brisc.SingleCell.qc` as a demonstration. By default, it keeps cells with:
-
 
 - **≤5% mitochondrial reads**
 - **≥100 genes detected**
 - **non-zero *MALAT1* expression** — this nuclear lncRNA is ubiquitously expressed, so [its absence indicates empty droplets or cytoplasmic fragments](https://www.biorxiv.org/content/10.1101/2024.07.14.603469v2).
 
-
 Like the other steps in this workflow, `qc` returns a new dataset rather than changing it in place, so we assign the result back to `sc`.
 
-
 ```python
-sc = sc.qc(subset=False, allow_float=True)
+sc = sc.qc(allow_float=True, verbose=True)
 ```
 ```none
 Starting with 9,697,974 cells.
@@ -125,17 +102,13 @@ Filtering to cells with non-zero MALAT1 expression...
 Adding a Boolean column, obs['passed_QC'], indicating which cells passed QC...
 ```
 
-
 {meth}`~brisc.SingleCell.qc` expects raw integer counts and will raise an error when they are floating-point, to protect you from accidentally running QC on normalized data. However, this dataset's raw counts happen to be stored as `float32` (which is quite common), so we pass `allow_float=True` to bypass the error. This is only safe when the values are genuinely raw counts.
 
-
 By default, {meth}`~brisc.SingleCell.qc` does not actually filter out any cells; it merely adds a Boolean column (called `passed_QC` by default) to {attr}`~brisc.SingleCell.obs`, where cells that pass QC are flagged as `True`. brisc's downstream methods then look at this column (or more specifically, the column specified by their `QC_column` arguments, which also default to `passed_QC`) to skip QC-failing cells. This trick roughly halves brisc's peak memory usage, but requires special care when interacting with external pipelines that do not recognize this QC column. To remove QC-failing cells entirely, like Scanpy and Seurat do, specify `subset=True` during QC.
-
 
 ```python
 print(sc.obs)
 ```
-
 
 ```none
 shape: (9_697_974, 7)
@@ -158,16 +131,13 @@ shape: (9_697_974, 7)
 └──────────────────┴────────────────┴─────────┴───────────────────────┴───────────┴──────────┴───────────┘
 ```
 
-
 :::{dropdown} Exploring QC metrics
 To facilitate more in-depth exploration of data quality before filtering, {meth}`~brisc.SingleCell.qc_metrics` adds `num_counts`, `num_genes`, and `mito_fraction` columns to {attr}`~brisc.SingleCell.obs`. This is optional, since {meth}`~brisc.SingleCell.qc` calculates its own filters internally.
-
 
 ```python
 sc = sc.qc_metrics(allow_float=True)
 print(sc.obs.select('num_counts', 'num_genes', 'mito_fraction').describe())
 ```
-
 
 ```none
 ┌────────────┬─────────────┬─────────────┬───────────────┐
@@ -188,80 +158,62 @@ print(sc.obs.select('num_counts', 'num_genes', 'mito_fraction').describe())
 ```
 :::
 
-
 :::{dropdown} Customizing QC
 Each QC threshold is configurable:
-
 
 ```python
 sc = sc.qc(max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False, allow_float=True)
 ```
 
-
 `custom_filter` adds an extra per-cell filter on top of these: pass a Boolean polars expression or column name to force cells where the custom filter is `False` to fail QC.
 :::
 
-
 :::{dropdown} Removing doublets
 Brisc uses the fast [cxds algorithm](https://doi.org/10.1093/bioinformatics/btz698) for doublet detection. Doublet removal is off by default, and we skip it here because this dataset's doublets were already removed, and it would be invalid to perform doublet detection twice. To add doublet detection to the QC filtering, specify `remove_doublets=True`. Specify `batch_column` to perform doublet detection independently within each sequencing batch:
-
 
 ```python
 sc = sc.qc(remove_doublets=True, batch_column='sample', allow_float=True)
 ```
 
-
 Doublet detection can also be run as a standalone step, via {meth}`~brisc.SingleCell.find_doublets`. It adds `doublet` and `doublet_score` columns to {attr}`~brisc.SingleCell.obs` for you to inspect or threshold yourself. This should only be run after all other QC filters have been applied.
-
 
 ```python
 sc = sc.find_doublets(batch_column='sample')
 ```
 :::
 
-
 :::{dropdown} Skipping QC
 {meth}`~brisc.SingleCell.qc` sets `uns['QCed'] = True`. Downstream methods check this flag and raise an error if QC has not been run. If your data is already QCed, run {meth}`~brisc.SingleCell.skip_qc` to set the flag without filtering:
-
 
 ```python
 sc = sc.skip_qc()
 ```
 :::
 
-
 :::{dropdown} Duplicate cell or gene names
 {meth}`~brisc.SingleCell.qc` raises an error if any name appears more than once in {attr}`~brisc.SingleCell.obs_names` or {attr}`~brisc.SingleCell.var_names`. Deduplicate first with {meth}`~brisc.SingleCell.make_obs_names_unique` or {meth}`~brisc.SingleCell.make_var_names_unique`, which append `-1`, `-2`, … to repeated names:
-
 
 ```python
 sc = sc.make_var_names_unique()
 ```
 :::
 
-
-
-
 ## Feature selection
-
 
 {meth}`~brisc.SingleCell.hvg` selects highly variable genes using the same approach as Seurat's `FindVariableFeatures()`. It operates on raw counts and must be run before {meth}`~brisc.SingleCell.normalize`. By default, it selects the top 2,000 genes.
 
-
 When your data has multiple batches, pass `batch_column` to identify genes that are consistently variable across batches:
-
 
 ```python
 sc = sc.hvg(batch_column='donor')
 ```
 
-
 This adds `highly_variable` and `highly_variable_rank` columns to {attr}`~brisc.SingleCell.var`. {meth}`~brisc.SingleCell.pca` then uses only these genes, and the steps after it build on the resulting PCs.
-
 
 ```python
 print(sc.var.filter('highly_variable').sort('highly_variable_rank'))
 ```
+
 ```none
 shape: (2_000, 4)
 ┌─────────────────┬─────────┬─────────────────┬──────────────────────┐
@@ -283,47 +235,46 @@ shape: (2_000, 4)
 └─────────────────┴─────────┴─────────────────┴──────────────────────┘
 ```
 
-
 :::{note}
 polars supports 3 ways of referencing columns: `.filter('highly_variable')`, `.filter(pl.col.highly_variable)`, and `.filter(pl.col('highly_variable'))` are all equivalent. The last two are very flexible (e.g. `.filter(pl.col.a == pl.col.b)`, `.filter(pl.col('c') >= 0)`), and the last one is most flexible since it supports column names with spaces or other characters that would be invalid in Python variable names.
 :::
 
-
 ## Normalization
 
-
 {meth}`~brisc.SingleCell.normalize` corrects for differences in sequencing depth, then log-transforms the counts. The default method, log1pPF ([Ahlmann-Eltze and Huber 2023](https://nature.com/articles/s41592-023-01814-1)), scales each cell by its library size relative to the mean library size ("proportional fitting") before applying a `log1p` (`y = log(x + 1)`) transformation. With `method='PFlog1pPF'`, a second round of proportional fitting is applied after `log1p` ([Booeshaghi et al. 2022](https://biorxiv.org/content/10.1101/2022.05.06.490859v1.full)). With `method='logCP10k'`, it matches Seurat's `NormalizeData()`.
-
 
 ```python
 sc = sc.normalize()
 ```
 
+:::{note}
+On large datasets, pass `inplace=True` to normalize the counts in place instead of allocating a new count matrix, reducing the peak memory of this step:
+
+```python
+sc = sc.normalize(inplace=True)
+```
+
+In-place normalization requires a `float32` count matrix (as this dataset has) and raises an error for any other data type.
+:::
 
 ## PCA
 
-
 {meth}`~brisc.SingleCell.pca` computes principal components from the normalized, highly variable genes, storing them in `obsm['pca']`. The default `num_PCs` is 50.
-
 
 ```python
 sc = sc.pca()
 ```
 
-
 :::{note}
 When running single-threaded (`num_threads=1`), brisc's PCA defaults to a different order of operations than the multi-threaded path. It's roughly twice as fast and uses less memory, but the floating-point output differs slightly from the multi-threaded run. Pass `match_parallel=True` (only valid with `num_threads=1`) to get identical results to a multi-threaded run:
-
 
 ```python
 sc = sc.pca(num_threads=1, match_parallel=True)
 ```
 :::
 
-
 :::{dropdown} Integrating batches
 If your data spans several batches (different samples, donors, or runs), integrate them by adding {meth}`~brisc.SingleCell.harmonize` after PCA — it removes the batch differences from the PCs into `obsm['harmony']`. When doing this, specify `PC_key='harmony'` to all subsequent steps that require PCs, so that they use the harmonized PCs instead of the raw ones:
-
 
 ```python
 sc = sc.hvg(batch_column='donor')\
@@ -336,70 +287,52 @@ sc = sc.hvg(batch_column='donor')\
     .pacmap(PC_key='harmony')
 ```
 
-
 To integrate *separate* datasets — for example, mapping an annotated reference onto a query — see [Integration and Label Transfer](integration_and_label_transfer.md).
 :::
 
-
 ## Nearest neighbors
-
 
 brisc builds a neighbor graph in two steps:
 
-
 {meth}`~brisc.SingleCell.neighbors` finds each cell's `num_neighbors` (default 20) nearest neighbors using a fast approximate search, storing their indices in `obsm['neighbors']` and the squared Euclidean distances in `obsm['distances']`.
 
-
 {meth}`~brisc.SingleCell.shared_neighbors` then builds the shared nearest neighbor (SNN) graph, connecting two cells in proportion to how many neighbors they share, and stores it in `obsp['shared_neighbors']`.
-
 
 ```python
 sc = sc.neighbors().shared_neighbors()
 ```
 
-
 :::{note}
 If you subset your data after computing neighbors (e.g. via {meth}`~brisc.SingleCell.filter_obs`), the neighbor graph becomes invalid and must be recomputed. brisc will detect this and raise an error.
 :::
 
-
 ## Clustering
 
-
 {meth}`~brisc.SingleCell.cluster` runs Leiden clustering on the SNN graph. The `resolution` parameter controls granularity — higher values produce more clusters. You can pass multiple resolutions to evaluate them in parallel:
-
 
 ```python
 sc = sc.cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])
 ```
 
-
 Each resolution adds a column to {attr}`~brisc.SingleCell.obs`: `cluster_0` through `cluster_4` (the prefix `'cluster'` can be changed by specifying `cluster_column`).
-
 
 ## Embedding
 
-
 brisc offers three embedding methods for visualization:
-
 
 - {meth}`~brisc.SingleCell.pacmap` — [PaCMAP](https://arxiv.org/abs/2012.04456), a relative of UMAP that captures global structure better. A fast default choice.
 - {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), a newer relative of PaCMAP that further sharpens local cluster separation.
 - {meth}`~brisc.SingleCell.umap` — the standard UMAP algorithm.
 
-
 ```python
 sc = sc.pacmap()
 ```
 
-
 Embeddings are stored as 2-column NumPy arrays in `obsm` (e.g. `obsm['pacmap']`). You can visualize any of them with {meth}`~brisc.SingleCell.plot_embedding`, passing the embedding key, a column to color by, and a filename to save to (or omit the filename to show the plot interactively instead):
-
 
 ```python
 sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
 ```
-
 
 :::{image} images/pacmap.png
 :alt: PaCMAP embedding colored by cell type
@@ -407,41 +340,33 @@ sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
 :align: center
 :::
 
-
 brisc also provides {meth}`~brisc.SingleCell.plot_pacmap` as an alias for `sc.plot_embedding('pacmap', ...)`, and similarly for {meth}`~brisc.SingleCell.plot_localmap` and {meth}`~brisc.SingleCell.plot_umap`.
-
 
 :::{dropdown} Parallelizing UMAP
 UMAP's optimization runs single-threaded by default to keep the embedding reproducible. If you are okay with runs varying slightly even at a fixed `seed`, pass `hogwild=True` to parallelize UMAP with [Hogwild!](https://arxiv.org/abs/1106.5730) gradient descent:
-
 
 ```python
 sc = sc.umap(hogwild=True)
 ```
 :::
 
-
 ## Marker genes
-
 
 {meth}`~brisc.SingleCell.find_markers` finds each cell type's marker genes — those that distinguish it from all other cell types. Adapted from [Fischer and Gillis 2021](https://ncbi.nlm.nih.gov/pmc/articles/PMC8571500), it scores genes by their detection rate within the type and the fold change in detection rate against the others. It uses only whether each gene is detected, not how strongly, so raw and normalized counts give the same result.
 
-
 Here, we use the dataset's precomputed cell-type labels (the `cell_type` column) to define markers. In a real workflow, you would run {meth}`~brisc.SingleCell.find_markers` on the Leiden clusters from {meth}`~brisc.SingleCell.cluster`, and use the markers to manually annotate each cell type. Or, you might use label transfer from a reference atlas to guide the annotation of the Leiden clusters — see [Integration and Label Transfer](integration_and_label_transfer.md).
-
 
 ```python
 markers = sc.find_markers('cell_type')
 ```
 
-
 `markers` comes sorted by descending fold change, so grouping by `cell_type` and taking `head(3)` — with `maintain_order=True` to preserve that order — gives the three strongest markers per type:
-
 
 ```python
 top = markers.group_by('cell_type', maintain_order=True).head(3)
 print(top)
 ```
+
 ```none
 shape: (53, 4)
 ┌───────────────────────┬─────────────────┬────────────────┬─────────────┐
@@ -505,20 +430,15 @@ shape: (53, 4)
 └───────────────────────┴─────────────────┴────────────────┴─────────────┘
 ```
 
-
 Each row is a marker gene. `detection_rate` is the fraction of that cell type's cells in which the gene is detected; `fold_change` is how much more often it's detected in that type than elsewhere. A gene must first clear both thresholds — `detection_rate` ≥ 0.25 (`min_detection_rate`) and `fold_change` ≥ 2 (`min_fold_change`). Because the two trade off against each other, brisc then keeps only the genes on their Pareto front — those no other gene beats on both at once. Pass `pareto=False` to keep every gene that clears the thresholds instead.
-
 
 The table holds only marker genes; pass `all_genes=True` to include every gene, with a `marker` column flagging the selected ones.
 
-
 {meth}`~brisc.SingleCell.plot_markers` draws a dot plot of chosen genes across cell types, sizing each dot by detection rate and coloring it by expression (or by fold change with `color='fold_change'`):
-
 
 ```python
 sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
 ```
-
 
 :::{image} images/markers.png
 :alt: Dot plot of the top markers per cell type
@@ -526,34 +446,25 @@ sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
 :align: center
 :::
 
-
 ## Saving
-
 
 {meth}`~brisc.SingleCell.save` writes to multiple supported formats: `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz`. See [Interoperability](interoperability.md).
 
-
 It won't overwrite an existing file unless you pass `overwrite=True`.
-
 
 ```python
 sc.save('processed.h5ad', overwrite=True)
 ```
 
-
-Because we ran QC with `subset=False`, the saved file includes every cell, with `passed_QC` flagging the ones that passed. To save only those cells, run {meth}`~brisc.SingleCell.qc` with `subset=True`, or filter the dataset first:
-
+Because our QC didn't subset the data (`subset` defaults to `False`), the saved file includes every cell, with `passed_QC` flagging the ones that passed. To save only those cells, run {meth}`~brisc.SingleCell.qc` with `subset=True`, or filter the dataset first:
 
 ```python
 sc.filter_obs('passed_QC').save('processed.h5ad', overwrite=True)
 ```
 
-
 ## Pipeline summary
 
-
 Because each method returns a new dataset, the full pipeline chains together:
-
 
 ```python
 sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad', num_threads=-1)\
@@ -566,14 +477,12 @@ sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad', num_threads=-1)\
     .cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])\
     .pacmap()
 
-
 sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
 markers = sc.find_markers('cell_type')
 top = markers.group_by('cell_type', maintain_order=True).head(3)
 sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
 sc.save('Parse_10M_PBMC_cytokines_processed.h5ad', overwrite=True)
 ```
-
 
 | Step | Method | What it does |
 |---|---|---|

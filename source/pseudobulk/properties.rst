@@ -4,7 +4,7 @@ Properties
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    Pseudobulk.X

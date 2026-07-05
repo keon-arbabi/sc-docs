@@ -4,7 +4,7 @@ Manipulation
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    Pseudobulk.set_obs_names

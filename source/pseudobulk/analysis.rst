@@ -4,7 +4,7 @@ Analysis
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    Pseudobulk.qc

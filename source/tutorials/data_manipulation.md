@@ -348,4 +348,3 @@ pb = pb.map_X(lambda X: np.log1p(X))
 # transform the whole dataset
 pb = pb.pipe(my_function)
 ```
-

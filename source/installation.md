@@ -15,15 +15,15 @@ pip install brisc
 :::
 ::::
 
-conda is recommended because it also sets up the fast MKL BLAS and some of the R packages brisc uses (both covered below); with pip you must handle those yourself.
+conda is recommended because it sets up the fast MKL BLAS and some of the R packages brisc uses (both covered below); with pip you must handle those yourself.
 
 ## R packages
 
-brisc's R integration is optional. You need it only for differential expression, or to work with Seurat and SingleCellExperiment data — both reading and writing their `.rds` files and converting their in-memory objects. If you do neither, you can skip this section.
+brisc's R integration is optional — you need it only for differential expression or for working with Seurat and SingleCellExperiment objects. Skip this section if you do neither.
 
-The integration runs through [ryp](https://github.com/Wainberg/ryp), which moves data between Python and R via the R arrow package, so arrow is required whenever R is involved. Each feature then needs its own package: limma for differential expression, and Seurat or SingleCellExperiment for the corresponding data.
+It runs through [ryp](https://github.com/Wainberg/ryp), which bridges Python and R via R's arrow package, so arrow is always required. Each feature then adds one package: limma for differential expression, and Seurat or SingleCellExperiment for the corresponding objects.
 
-Installing brisc with conda (`conda install -c conda-forge brisc`) sets up R, arrow, and Seurat automatically. With pip you set them up yourself: first install R — [CRAN](https://cran.r-project.org) has per-platform instructions — then add arrow and Seurat from an R session with `install.packages(c("arrow", "Seurat"))`.
+conda handles this for you — `conda install -c conda-forge brisc` installs R, arrow, and Seurat. With pip you do it yourself: install R using [CRAN's per-platform instructions](https://cran.r-project.org), then run `install.packages(c("arrow", "Seurat"))` in an R session.
 
 For differential expression, install limma:
 

@@ -109,7 +109,7 @@ pb = SingleCell('data.h5ad')\
 de = pb\
   .qc('condition')\
   .library_size()\
-  .DE('~ condition + sex + pmi')
+  .de('~ condition + sex + pmi')
 ```
 
 </div>
@@ -143,8 +143,8 @@ tutorials/index
 :hidden:
 :maxdepth: 4
 
-api/single_cell/index
-api/pseudobulk/index
-api/de/index
+singlecell/index
+pseudobulk/index
+de/index
 
 :::

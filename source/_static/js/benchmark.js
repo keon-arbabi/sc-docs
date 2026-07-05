@@ -48,7 +48,7 @@
     const groups = data.groups;
     const entries = Object.entries(groups);
 
-    entries.forEach(([workflow, group], groupIdx) => {
+    entries.forEach(([workflow, group]) => {
       const groupEl = document.createElement('div');
       groupEl.className = 'bench-group';
       if (group.hardware === 'gpu') groupEl.classList.add('bench-group--gpu');

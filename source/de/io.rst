@@ -4,7 +4,7 @@ I/O
 .. currentmodule:: brisc
 
 .. autosummary::
-   :toctree: api/
+   :toctree: .
    :nosignatures:
 
    DE.save

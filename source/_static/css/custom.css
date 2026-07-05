@@ -32,9 +32,7 @@ p.param-header em {
     font-family: var(--pst-font-family-monospace);
     font-style: normal;
 }
-p.param-header a[href*="typedefs.html"] em {
-    color: var(--code-purple);
-}
+
 /* Inline code: single backticks in docstrings render as `cite`, double
    backticks / Markdown backticks as `code.literal`/`code.docutils`. Style
    them all as a monospace chip with a subtle background, consistently
@@ -61,15 +59,23 @@ html[data-theme="dark"] .bd-article code.literal {
     background-color: #403838;
 }
 /* Cross-referenced type aliases (linked to the typedefs page): purple. */
-.bd-article a[href*="typedefs.html"] em,
-.bd-article a[href*="typedefs.html"] .pre {
+.bd-article a[href*="typedefs.html"] em {
     color: var(--code-purple) !important;
     font-style: normal;
 }
 /* typedef links: underline on hover everywhere they appear */
-.bd-article a[href*="typedefs.html"]:hover em,
-.bd-article a[href*="typedefs.html"]:hover .pre {
+.bd-article a[href*="typedefs.html"]:hover em {
     text-decoration: underline;
+}
+/* Return-type / type cross-reference links (Returns: and Return type: fields)
+   render their type in emphasis, e.g. <a><em>SingleCell</em></a>. Style them
+   as code -- monospace, non-italic, type-colored -- to match the parameter
+   types above, instead of the bold italic prose-link default. */
+.bd-article dl.field-list a.reference em {
+    font-family: var(--pst-font-family-monospace);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--code-purple) !important;
 }
 /* Indent each parameter's description one level under its name. Targets all
    non-header children of the <li> so it works whether the description is a
@@ -77,6 +83,14 @@ html[data-theme="dark"] .bd-article code.literal {
    sub-list or extra paragraphs, which the browser reparents up to the <li>
    because the post-processed p.param-desc cannot legally contain them. */
 dl.field-list dd > ul.simple > li > *:not(.param-header) {
+    margin-left: 2em;
+}
+/* Single-parameter methods render the param as a bare <p> directly in the
+   field <dd> (no <ul>/<li>), so the rule above can't reach them. Indent the
+   description + any reparented block content the same 2em, scoped via :has()
+   to dds that actually hold a param-header (never the Returns / Return type
+   dds, whose <p> must stay flush). */
+dl.field-list dd:has(> .param-header) > *:not(.param-header) {
     margin-left: 2em;
 }
 p.param-desc {
@@ -118,6 +132,12 @@ html[data-theme] dl.py > dd > p.rubric ~ * {
    otherwise indents the field body, pushing every argument in one level). */
 html[data-theme] dl.py dl.field-list > dd {
     margin-left: 0;
+}
+/* Breathing room between each field label (Parameters: / Returns: / Return
+   type:) and its content, to avoid crowding. The field list is a single-column
+   grid (dt then dd stacked), so a margin below the <dt> pushes its <dd> down. */
+html[data-theme] dl.py dl.field-list > dt {
+    margin-bottom: 0.5rem;
 }
 
 /* Display long method names over multiple lines in navbar. */
@@ -269,26 +289,6 @@ html[data-theme="dark"] .admonition.note > .admonition-title::after {
     color: #f38d70 !important;
 }
 
-/* Tip admonition highlight — orange */
-html[data-theme="light"] .admonition.tip {
-    border-color: #e16032;
-}
-html[data-theme="light"] .admonition.tip > .admonition-title {
-    background-color: rgba(225, 96, 50, 0.15);
-}
-html[data-theme="light"] .admonition.tip > .admonition-title::after {
-    color: #e16032 !important;
-}
-html[data-theme="dark"] .admonition.tip {
-    border-color: #f38d70;
-}
-html[data-theme="dark"] .admonition.tip > .admonition-title {
-    background-color: rgba(243, 141, 112, 0.15);
-}
-html[data-theme="dark"] .admonition.tip > .admonition-title::after {
-    color: #f38d70 !important;
-}
-
 /* sphinx-design dropdowns: recolor the default blue-grey accent to theme orange */
 details.sd-dropdown summary.sd-card-header,
 details.sd-dropdown summary.sd-card-header + div.sd-summary-content {
@@ -315,25 +315,20 @@ i.theme-switch[data-mode="auto"] {
 }
 /* Theme switcher is a plain light/dark toggle, not a dropdown: hide the
    caret and the three-option menu (JS also removes the menu). */
-.theme-switch-button.dropdown-toggle::after,
 .theme-switch-button::after {
-    display: none !important;
-}
-.theme-switch-container .dropdown-menu {
     display: none !important;
 }
 
 /* Hide footer + footer content on every page */
 footer.bd-footer,
 footer.bd-footer-content,
-.bd-footer-content,
-.footer-items {
+.bd-footer-content {
     display: none !important;
 }
 
 /* =====================================================================
    Landing page (detected via .showcase-chart which is always present)
-   Unified max-width for hero, features, chart, and code carousel.
+   Unified max-width for the hero, features, chart, and code samples.
    ===================================================================== */
 :root {
     --landing-width: 960px;
@@ -360,32 +355,25 @@ html:has(.showcase-chart) .prev-next-footer {
 html:has(section#tutorials) .prev-next-area .left-prev {
     display: none !important;
 }
-/* Expand pydata's 60em article cap just enough for the 3-card carousel.
-   The hero, features, and chart stay at --landing-width via the rule
-   below; only the carousel uses the extra horizontal room. */
+/* Cap the landing article container at the shared landing width -- every
+   landing section (hero, features, chart, code samples) is itself capped to
+   --landing-width below and centered within it. */
 html:has(.showcase-chart) .bd-main .bd-content .bd-article-container,
 html:has(.showcase-chart) .bd-article-container {
-    max-width: 1120px !important;
+    max-width: var(--landing-width) !important;
     width: 100% !important;
     margin: 0 auto !important;
 }
-/* Align hero prose, h2 headings, banner, features grid, and chart at the
-   same landing width. The carousel gets its own wider cap (below) since
-   it needs room for 3 whole, equal-size cards. */
+/* Cap the hero prose, title, features grid, and chart at the landing width. */
 html:has(.showcase-chart) .bd-article p,
-html:has(.showcase-chart) .bd-article > section > section,
-html:has(.showcase-chart) .bd-article ul,
 html:has(.showcase-chart) .bd-article h1,
-html:has(.showcase-chart) .bd-article h2,
 html:has(.showcase-chart) .features-grid,
 html:has(.showcase-chart) .showcase-chart {
     max-width: var(--landing-width) !important;
     margin-left: auto !important;
     margin-right: auto !important;
 }
-html:has(.showcase-chart) .bd-article ul {
-    padding-left: 1.5em;
-}
+
 /* Headline banner -- match landing width. */
 html:has(.showcase-chart) .bd-article div[style*="text-align: center"],
 html:has(.showcase-chart) .bd-article div[style*="text-align:center"] {
@@ -401,10 +389,6 @@ html:has(.showcase-chart) .bd-article div[style*="text-align:center"] img {
 /* Spacing between landing sections */
 html:has(.showcase-chart) .showcase-chart {
     margin-top: 2.5rem !important;
-}
-html:has(.showcase-chart) .code-carousel {
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
 }
 
 /* -------- Key features: 3x2 card grid -------- */
@@ -528,99 +512,6 @@ html:has(.showcase-chart) .code-grid {
     }
 }
 
-/* -------- 3-card code carousel (legacy, unused on landing) -------- */
-.code-carousel {
-    /* Stage spans the full carousel width; arrows float absolutely on top
-       of the flanks so the side cards can spread out to the outer margins
-       without pushing the arrows off. */
-    position: relative;
-    max-width: 1080px;
-}
-html:has(.showcase-chart) .code-carousel {
-    max-width: 1080px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-.carousel-stage {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    align-items: stretch;
-    width: 100%;
-    min-width: 0;
-    /* Extra room on the bottom so the active card's translateY(+22)
-       stagger + shadow aren't sheared off. */
-    padding: 0.8rem 0 2.6rem;
-    overflow: hidden;
-}
-.carousel-card {
-    grid-area: 1 / 1;
-    /* All three cards share identical dimensions -- no scaling. The active
-       card sits forward (z-index 3 + translated down) and partially
-       obscures the two flanking cards sitting behind it. */
-    width: 100%;
-    max-width: 440px;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: #fefaf9;
-    border: 1px solid var(--pst-color-border);
-    border-radius: 0.4rem;
-    box-shadow: 0 .2rem .5rem var(--pst-color-shadow),
-                0 0 .0625rem var(--pst-color-shadow);
-    overflow: hidden;
-    transition: transform 0.45s cubic-bezier(.4,0,.2,1),
-                opacity 0.45s ease,
-                filter 0.3s ease;
-    will-change: transform, opacity, filter;
-}
-html[data-theme="dark"] .carousel-card {
-    background-color: #2c2525;
-    border-color: #5a4f4f;
-}
-.carousel-card.is-active {
-    /* Staggered forward: the active card drops down noticeably so it sits
-       in front of the two flanking cards. */
-    transform: translateX(0) translateY(22px);
-    opacity: 1;
-    z-index: 3;
-    filter: none;
-}
-/* Flanks pushed out so the OUTER EDGE of each card lands exactly at
-   ±landing-width/2 -- same left/right bounds as the hero, features grid,
-   and chart above. translateX is computed in pixels (not a flat %) so the
-   anchor to the margin holds regardless of card width. */
-.carousel-card.is-prev {
-    transform: translateX(calc(50% - (var(--landing-width) / 2))) translateY(0);
-    opacity: 1;
-    z-index: 1;
-    cursor: pointer;
-    filter: brightness(0.99);
-}
-.carousel-card.is-next {
-    transform: translateX(calc((var(--landing-width) / 2) - 50%)) translateY(0);
-    opacity: 1;
-    z-index: 1;
-    cursor: pointer;
-    filter: brightness(0.99);
-}
-html[data-theme="dark"] .carousel-card.is-prev,
-html[data-theme="dark"] .carousel-card.is-next {
-    filter: brightness(0.9);
-}
-.carousel-card:not(.is-active):hover {
-    filter: brightness(1);
-}
-/* Narrower viewports: shrink cards so the flanking pair never bleeds
-   past the page margin. */
-@media (max-width: 1100px) {
-    .carousel-card { max-width: 400px; }
-}
-@media (max-width: 1024px) {
-    .carousel-card { max-width: 360px; }
-}
-
 /* Tab header integrated into the card (same font size + color as the
    bar-group titles on the chart). The three mac-style traffic-light dots
    live at the top-right of the tab via .card-dots. */
@@ -664,20 +555,6 @@ html[data-theme="dark"] .card-tab {
 .card-dot-yellow { background-color: #febc2e; }
 .card-dot-green  { background-color: #28c840; }
 
-/* Collapse the flanking cards on narrow viewports where they'd overlap. */
-@media (max-width: 900px) {
-    .carousel-card {
-        max-width: 520px;
-        width: 100%;
-    }
-    .carousel-card.is-prev,
-    .carousel-card.is-next {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(0);
-    }
-}
-
 /* Strip the Pygments chrome so the card's own border is the only box. */
 .card-code .highlight,
 .card-code div.highlight {
@@ -698,58 +575,16 @@ html[data-theme="dark"] .card-tab {
     overflow-x: auto;
 }
 
-/* Arrow buttons: absolutely positioned so the cards can extend to the
-   carousel's outer margins while the arrows float on top. */
-.carousel-arrow {
-    position: absolute;
-    top: 50%;
-    width: 2.25rem;
-    height: 2.25rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: var(--pst-color-accent);
-    cursor: pointer;
-    padding: 0;
-    border-radius: 50%;
-    z-index: 10;
-    transition: color 0.15s ease, transform 0.12s ease,
-                background-color 0.15s ease;
-}
-.carousel-arrow-left {
-    left: 0.25rem;
-    transform: translateY(-50%);
-}
-.carousel-arrow-right {
-    right: 0.25rem;
-    transform: translateY(-50%);
-}
-.carousel-arrow:hover {
-    color: var(--pst-color-secondary);
-    transform: translateY(-50%) scale(1.08);
-}
-.carousel-arrow:active {
-    transform: translateY(-50%) scale(0.96);
-}
-.carousel-arrow svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    display: block;
-}
-
 /* Kill the gradient sidebar panel on landing since there's no sidebar */
 html:has(.showcase-chart) .bd-container__inner::before {
     display: none !important;
 }
 /* Hide the "back to top" button globally */
-#pst-back-to-top,
-button.btn.btn-primary.btn-sm.pst-back-to-top {
+#pst-back-to-top {
     display: none !important;
 }
 
-/* Chart panel -- matches the carousel + feature cards (same bg, border, shadow) */
+/* Chart panel -- matches the code + feature cards (same bg, border, shadow) */
 .showcase-chart {
     padding: 1.25rem 3rem 1.75rem;
     border-radius: 0.4rem;
@@ -883,8 +718,6 @@ footer.bd-footer {
     background-color: var(--pst-color-on-background);
 }
 
-
-
 /* Search bar background — match the navbar */
 html[data-theme="light"] .search-button-field {
     background-color: #fefaf9;
@@ -928,7 +761,21 @@ pre {
 /* Mobile: ensure nav header buttons (hamburger, logo, search, theme) are
    clickable and not hidden behind any custom layer */
 @media (max-width: 959.98px) {
-    .bd-header,
+    /* Auto-hiding header: sticky so it can overlay content, then revealed on
+       scroll-up / hidden on scroll-down by header-reveal.js (which toggles
+       .bd-header--hidden). This keeps the nav hamburger reachable from
+       anywhere on a long page, not just at the very top. If the JS never runs,
+       the header simply stays pinned — still reachable. */
+    .bd-header {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+        transition: transform 0.25s ease;
+        will-change: transform;
+    }
+    .bd-header.bd-header--hidden {
+        transform: translateY(-100%);
+    }
     .bd-header__inner,
     .bd-header .navbar-header-items__start,
     .bd-header .navbar-header-items__end {
@@ -952,33 +799,48 @@ pre {
     }
 }
 
+/* Respect reduced-motion: the auto-hiding header snaps rather than slides. */
+@media (prefers-reduced-motion: reduce) {
+    .bd-header {
+        transition: none;
+    }
+}
 
-/* center-justify the API nav items to the page:
-   use CSS grid with three columns — start | center | end —
-   where start and end are equal-width and center is auto-sized */
-/* Desktop-only: three-column grid navbar (logo | nav links | search/theme).
-   On narrow screens, pydata's default flex layout + hamburger handles it. */
+/* Header layout: use the theme's native Bootstrap navbar (a col-lg-3 brand +
+   col-lg-9 nav/search flex row). An earlier customization forced a
+   `display:grid` + `display:contents` override on top to page-center the nav,
+   but that fought the Bootstrap column classes and broke at mid widths —
+   truncating the "brisc documentation" wordmark and stacking the search box
+   and theme toggle onto a second row (visible even well above 1200px). It's
+   removed so the native, tested single-row layout takes over. The hamburger
+   still kicks in under 960px (that breakpoint is baked into Bootstrap's
+   offcanvas/modal and can't be moved from CSS).
+
+   The theme splits the header into fixed Bootstrap columns — col-lg-3 (25%)
+   for the brand and col-lg-9 (75%) for nav + search. That misallocates space:
+   the brand needs far less than 25% while nav + search need more than 75%, so
+   the search box + theme toggle get squeezed and the theme's `flex-flow:wrap`
+   on the end group drops the toggle onto a second row. Fix: size the brand to
+   its content and let the nav/search track take the rest, then center the nav
+   in that track and keep the end group on one line. */
 @media (min-width: 960px) {
-    .bd-header__inner.bd-page-width {
-        display: grid !important;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-    }
     .bd-header__inner .navbar-header-items__start {
-        grid-column: 1;
-        justify-self: start;
-    }
-    .bd-header__inner .navbar-header-items__center {
-        margin: 0 !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        max-width: none !important;
     }
     .bd-header__inner .navbar-header-items {
-        display: contents;
+        flex: 1 1 auto !important;
+        width: auto !important;
+        max-width: none !important;
+    }
+    .bd-header__inner .navbar-header-items__center {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
     .bd-header__inner .navbar-header-items__end {
-        grid-column: 3;
-        justify-self: end;
-        display: flex;
-        align-items: center;
+        flex-wrap: nowrap !important;
+        flex-shrink: 0;
     }
 }
 
@@ -1145,6 +1007,15 @@ html[data-theme] dt.sig .sig-prename .pre { color: var(--code-comment); } /* `si
 html[data-theme] dt.sig .sig-name,
 html[data-theme] dt.sig .sig-name .pre   { color: var(--code-green); } /* `SingleCell` / `__init__` */
 html[data-theme] dt.sig .sig-paren       { color: var(--code-text); }
+/* @staticmethod decorator (conf.py rewrites Sphinx's `static ` keyword into
+   this): render it on its own line above the signature, decorator-colored,
+   like Python source. */
+html[data-theme] dt.sig .staticmethod-decorator {
+    display: block;
+    font-style: normal;
+}
+html[data-theme] dt.sig .staticmethod-decorator,
+html[data-theme] dt.sig .staticmethod-decorator .pre { color: var(--code-yellow); }
 
 /* Parameter name = first .n inside an em.sig-param */
 html[data-theme] em.sig-param > .n:first-child,
@@ -1210,8 +1081,7 @@ dl.py > dt.sig.sig-object.py {
 body:not(.tutorial-page) .bd-sidebar-secondary,
 body:not(.tutorial-page) #pst-secondary-sidebar,
 body:not(.tutorial-page) #pst-secondary-sidebar-modal,
-body:not(.tutorial-page) .secondary-toggle,
-.bd-header-article .sidebar-toggle {
+body:not(.tutorial-page) .secondary-toggle {
     display: none !important;
 }
 
@@ -1252,8 +1122,7 @@ nav[aria-label="Breadcrumb"] {
 
 /* Scroll-spy: highlight the left-sidebar link matching the section
    currently visible on API pages. */
-body.api-page .bd-sidebar-primary a.current-section,
-body.api-page .bd-sidebar-primary a.current-section .caption-text {
+body.api-page .bd-sidebar-primary a.current-section {
     color: var(--pst-color-accent) !important;
     font-weight: 700;
 }
@@ -1279,31 +1148,12 @@ p:target,
 
 /* Method overview tables (autosummary) — light: remove border, zebra;
    dark: flat bg with #faf4f2 border */
-html[data-theme="light"] table.autosummary {
-    border: none;
-}
-html[data-theme="light"] table.autosummary td,
-html[data-theme="light"] table.autosummary th {
-    border: none;
-}
-html[data-theme="light"] table.autosummary tr.row-odd > td,
-html[data-theme="light"] table.autosummary tbody tr:nth-child(odd) > td {
+
+html[data-theme="light"] table.autosummary tr.row-odd > td {
     background-color: var(--pst-color-on-background);
 }
-html[data-theme="light"] table.autosummary tr.row-even > td,
-html[data-theme="light"] table.autosummary tbody tr:nth-child(even) > td {
+html[data-theme="light"] table.autosummary tr.row-even > td {
     background-color: var(--pst-color-background);
-}
-html[data-theme="dark"] table.autosummary {
-    border: 1px solid #faf4f2;
-}
-html[data-theme="dark"] table.autosummary td,
-html[data-theme="dark"] table.autosummary th {
-    border-color: #faf4f2;
-}
-html[data-theme="dark"] table.autosummary tr > td,
-html[data-theme="dark"] table.autosummary thead th {
-    background-color: #2c2525;
 }
 
 /* Content tables (e.g. tutorial summary) — match autosummary look.
@@ -1558,11 +1408,11 @@ a.api-link:hover cite {
     text-decoration: underline;
 }
 
-/* Parameter cross-reference jump targets (ids added by conf.py): offset the
-   scroll so the parameter isn't hidden under the sticky header. */
-li[id^="param-"] {
-    scroll-margin-top: calc(var(--pst-header-height, 4rem) + 1rem);
-}
+/* Parameter cross-reference jump targets (ids added by conf.py) need no
+   scroll offset of their own: the theme already sets `scroll-padding-top`
+   on <html> (header-height + 1rem), which fragment navigation honours. A
+   scroll-margin-top here would ADD to that, landing the parameter in the
+   upper-middle of the viewport instead of just below the header. */
 
 /* The landing page uses the logo as its visual title, so visually hide the
    H1 text. It stays in the DOM to supply the document title (browser tab and

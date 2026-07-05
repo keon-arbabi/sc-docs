@@ -98,7 +98,8 @@
         // non-API links in place.
         const isApi = li => {
           const a = li.querySelector('a.nav-link');
-          return !!a && a.href.includes('/api/');
+          return !!a && /\/(singlecell|pseudobulk|de)(\/|$)/.test(
+            new URL(a.href, location.href).pathname);
         };
         lis.filter(li => !isApi(li)).forEach(li => {
           const a = li.querySelector('a.nav-link');
