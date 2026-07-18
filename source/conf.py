@@ -10,6 +10,9 @@ project = "brisc"
 author = "Keon Arbabi & Michael Wainberg"
 copyright = "2026, Keon Arbabi & Michael Wainberg"
 html_title = "brisc documentation"
+# Canonical site URL — emits <link rel="canonical"> so search engines treat
+# https://brisc.run as authoritative regardless of which host served the page.
+html_baseurl = "https://brisc.run/"
 
 templates_path = ["_templates"]
 
@@ -114,6 +117,7 @@ html_js_files = [
     "js/theme-fix.js",
     "js/api-scrollspy.js",
     "js/header-reveal.js",
+    "js/details-anchor.js",
 ]
 html_show_sourcelink = False
 
@@ -532,6 +536,14 @@ _AUTOSUMMARY_QUALIFIED_RE = re.compile(
     r'(</span></code>)'
 )
 
+# The "Return type" field's <dd>, so CSS can render its whole value as a
+# monospace type expression (Sphinx leaves the operators/brackets as plain
+# text, not <em>). Group 1 is the dt + dd open up to the class list.
+_RTYPE_DD_RE = re.compile(
+    r'(<dt class="field-(?:odd|even)">Return type<span class="colon">:</span>'
+    r'</dt>\s*<dd class="field-(?:odd|even))(">)'
+)
+
 # Category basename (matches the rst filename) → Sphinx-generated heading
 # anchor on the class's index page.
 _CATEGORY_ANCHORS = {
@@ -586,6 +598,12 @@ def _semantic_highlight(app, exception=None):
         # Strip the "Class." prefix from autosummary method-table entries
         # (SingleCell.find_doublets → find_doublets); href/title stay qualified.
         text = _AUTOSUMMARY_QUALIFIED_RE.sub(r'\1\2\3', text)
+
+        # Tag the "Return type" field's <dd> so CSS can render the whole type
+        # expression as code. Sphinx wraps only the known type names in links
+        # and leaves the operators/brackets (` | tuple[ … ]`) as plain text, so
+        # the class lets us colour the plain-text tokens too, not just the <em>s.
+        text = _RTYPE_DD_RE.sub(r'\1 rtype-field\2', text)
 
         # Rewrite sidebar category links to jump to the anchored section on
         # the class index page (instead of loading a dedicated category
@@ -816,6 +834,11 @@ _BASIC_BRISC_EXCLUDE = {
     "Embedding (UMAP hogwild)",
 }
 
+# The benchmark output is split into per-rep subdirectories; each holds the same
+# set of timer CSVs, one run of every workflow. The chart shows the mean across
+# these reps.
+_BENCHMARK_REPS = ("rep1", "rep2", "rep3")
+
 def _sum_timer_csv(path, exclude=None):
     import csv
     total = 0.0
@@ -830,6 +853,18 @@ def _sum_timer_csv(path, exclude=None):
             except (ValueError, TypeError):
                 continue
     return total
+
+def _mean_timer_total(fname, exclude=None):
+    """Average a workflow's total runtime across the benchmark reps: sum each
+    rep's per-operation durations, then take the mean of the per-rep totals over
+    the reps that actually have the file. Returns None if none do (so the build
+    falls back to the cached benchmark-data.js)."""
+    totals = [
+        _sum_timer_csv(_BENCHMARK_DIR / rep / fname, exclude=exclude)
+        for rep in _BENCHMARK_REPS
+        if (_BENCHMARK_DIR / rep / fname).exists()
+    ]
+    return sum(totals) / len(totals) if totals else None
 
 def _generate_benchmark_data(app):
     import json
@@ -847,11 +882,10 @@ def _generate_benchmark_data(app):
     for label, prefix in cpu_workflows:
         bars = {}
         for lib_name, fmt, is_brisc in cpu_libs:
-            csv_path = _BENCHMARK_DIR / fmt.format(prefix=prefix)
-            if not csv_path.exists():
-                continue
             exclude = _BASIC_BRISC_EXCLUDE if (is_brisc and prefix == "basic") else None
-            bars[lib_name] = round(_sum_timer_csv(csv_path, exclude=exclude), 2)
+            mean = _mean_timer_total(fmt.format(prefix=prefix), exclude=exclude)
+            if mean is not None:
+                bars[lib_name] = round(mean, 2)
         groups[label] = {"hardware": "cpu", "bars": bars}
 
     # GPU variant of the basic workflow: brisc vs rapids-single-cell on the
@@ -862,9 +896,9 @@ def _generate_benchmark_data(app):
     ]
     gpu_bars = {}
     for lib_name, fname in gpu_files:
-        csv_path = _BENCHMARK_DIR / fname
-        if csv_path.exists():
-            gpu_bars[lib_name] = round(_sum_timer_csv(csv_path), 2)
+        mean = _mean_timer_total(fname)
+        if mean is not None:
+            gpu_bars[lib_name] = round(mean, 2)
     if gpu_bars:
         groups["Basic workflow \u00b7 CPU vs GPU"] = {
             "hardware": "gpu",
@@ -895,6 +929,35 @@ def _generate_benchmark_data(app):
         "window.BENCHMARK_DATA = " + json.dumps(payload, indent=2, ensure_ascii=False) + ";\n"
     )
 
+# Keep the Tutorials and the API classes as LINEAR, self-contained prev/next
+# sequences that do not wrap end-to-end. By default the global toctree chains
+# everything together, so the last tutorial's "next" leaks into the API (Data
+# manipulation → SingleCell) and each class index's "next" drops into its own
+# Analysis/I-O subsections while its "prev" is pulled from the previous class's
+# method stubs (or the tutorials). The Tutorials chain is otherwise correct, so
+# we only drop the last tutorial's "next"; the class indexes get an explicit
+# SingleCell → Pseudobulk → DE chain. None suppresses a link; no section wraps
+# (the first has no cross-section "prev", the last has no "next").
+_NAV_OVERRIDES = {
+    "tutorials/data_manipulation": {"next": None},
+    "singlecell/index":  {"prev": None,               "next": "pseudobulk/index"},
+    "pseudobulk/index":  {"prev": "singlecell/index", "next": "de/index"},
+    "de/index":          {"prev": "pseudobulk/index", "next": None},
+}
+
+def _fix_prev_next(app, pagename, templatename, context, doctree):
+    spec = _NAV_OVERRIDES.get(pagename)
+    if spec is None:
+        return
+    for key, doc in spec.items():
+        if doc is None:
+            context[key] = None
+        else:
+            context[key] = {"link": context["pathto"](doc),
+                            "title": app.env.titles[doc].astext()}
+    # Clear pydata's optional title overrides so our titles show.
+    context["prev_title"] = context["next_title"] = ""
+
 def setup(app):
     app.add_directive("classdescription", _ClassDescription)
     app.add_role("codelink", _codelink_role)
@@ -902,4 +965,5 @@ def setup(app):
     app.connect("autodoc-process-docstring", _md_to_rst_links)
     app.connect("autodoc-process-docstring", _drop_constructor_summary)
     app.connect("builder-inited", _generate_benchmark_data)
+    app.connect("html-page-context", _fix_prev_next)
     app.connect("build-finished", _semantic_highlight, priority=901)

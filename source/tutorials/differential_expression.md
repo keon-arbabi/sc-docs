@@ -8,9 +8,9 @@ brisc runs differential expression through **limma**, an R package that isn't in
 
 ## Loading and quality control
 
-The experiment spans several cytokines, but this analysis compares only IFN-gamma vs. PBS control, so we pass a `custom_filter` to `qc` that keeps just these cells and fails every other cytokine. As in the [basic workflow](basic_workflow.md), `qc` doesn't drop any cells — it records which ones passed in a `passed_QC` column.
+The experiment spans several cytokines, but this analysis compares only IFN-gamma vs. PBS control, so we pass a `custom_filter` to `qc` that keeps just these cells and fails every other cytokine. As in the [basic workflow](basic_workflow.md), `qc` doesn't drop any cells — it merely records which ones passed in a Boolean `passed_QC` column.
 
-`cast_obs(strict=False)` then recasts `cytokine` as a two-level Enum with `PBS` first, making PBS the reference that IFN-gamma is compared against. Every other cytokine, not in those two levels, becomes null — leaving just PBS and IFN-gamma.
+`cast_obs(strict=False)` then recasts `cytokine` as a two-level Enum with `PBS` first, making PBS the reference that IFN-gamma is compared against. Specifying `strict=False` ensures that every cytokine not in those two levels becomes null, leaving just PBS and IFN-gamma.
 
 ```python
 from brisc import SingleCell
@@ -24,6 +24,10 @@ sc = SingleCell(
     .cast_obs({'cytokine': pl.Enum(['PBS', 'IFN-gamma'])}, strict=False)
 ```
 
+:::{note}
+The [subsampled dataset](basic_workflow.md#dataset) already contains only PBS and IFN-gamma cells, so the `custom_filter` matches every cell and has no effect here. It is kept so the code matches the full-dataset run.
+:::
+
 ## Pseudobulk aggregation
 
 {meth}`~brisc.SingleCell.pseudobulk` sums each gene's raw counts across all cells from the same sample and cell type. Differential expression (DE) then runs on these per-sample gene expression profiles rather than on individual cells.
@@ -36,7 +40,7 @@ print(pb)
 ```
 ```none
 Pseudobulk dataset with 18 cell types, each with 22-24 samples (obs) and 40,352 genes (var)
-    Cell types: B Intermediate/Memory, B Naive, CD4 Memory, CD4 Naive, CD8,
+    Cell types: B Intermediate/Memory, B Naive, CD4 Memory, CD4 Naive, CD8
     Memory, CD8 Naive, CD14 Mono, CD16 Mono, HSPC, ILC, MAIT, NK, NK CD56bright,
     NKT, Plasmablast, Treg, cDC, pDC
 ```
@@ -64,26 +68,28 @@ shape: (5, 4)
 IFN-gamma samples have far fewer cells than PBS samples; the `log2(num_cells)` covariate accounts for this in the model.
 
 :::{dropdown} Saving the pseudobulk
-A pseudobulk dataset is a compact summary of the original SingleCell dataset, so saving it is a convenient way to re-run DE later without reloading the raw single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory, and {meth}`Pseudobulk(directory) <brisc.Pseudobulk.__init__>` reads it back:
+A pseudobulk dataset is a compact summary of the original SingleCell dataset, so saving it is a convenient way to re-run DE later without reloading the raw single-cell data. {meth}`~brisc.Pseudobulk.save` writes each cell type's `X`, `obs`, and `var` to a directory, and {meth}`Pseudobulk('directory') <brisc.Pseudobulk.__init__>` reads it back:
 
 ```python
-# save to a directory, then reload without the raw single-cell data
+# save the full pseudobulk to a directory
 pb.save('pseudobulk')
 
-from brisc import Pseudobulk
-pb = Pseudobulk('pseudobulk')
-
-# save only certain cell types (or pass excluded_cell_types=)
+# or save only certain cell types (you can also pass excluded_cell_types=)
 pb.save('monocytes', cell_types=['CD14 Mono', 'CD16 Mono'])
+
+# reload without the raw single-cell data
+from brisc import Pseudobulk
+pb = Pseudobulk('monocytes')
+
 ```
 :::
 
 ## Sample-level quality control
 
-{meth}`~brisc.Pseudobulk.qc` runs independently for each cell type, filtering out low-quality samples, genes, and cell types. By default it keeps:
+Pseudobulk datasets also have a {meth}`~brisc.Pseudobulk.qc` method. It runs independently for each cell type, filtering out low-quality samples, genes, and cell types. By default it keeps:
 
 - **samples with ≥10 cells of that cell type**
-- **non-outlier samples** — those whose zero-count gene total is less than 3 standard deviations above the mean
+- **non-outlier samples** where the number of genes with zero counts is less than three standard deviations above the mean
 - **genes detected in ≥80% of samples**
 - **cell types with ≥2 samples remaining** after applying the above three filters
 
@@ -118,16 +124,16 @@ pb = pb.qc(
     min_nonzero_fraction=0.9, min_samples=3)
 ```
 
-`min_cells`, `max_standard_deviations`,  `min_nonzero_fraction`, and `min_samples` are the four filters above; pass `None` to switch a filter off, or `min_nonzero_fraction=0` to drop only all-zero genes. Use `custom_filter` to adds an extra per-sample Boolean filter.
+`min_cells`, `max_standard_deviations`,  `min_nonzero_fraction`, and `min_samples` are the four filters above; pass `None` to switch a filter off, or `min_nonzero_fraction=0` to drop only all-zero genes. Use `custom_filter` to add an extra per-sample Boolean filter.
 :::
 
 ## Differential expression
 
 {meth}`~brisc.Pseudobulk.library_size` computes a TMM-normalized library size for each sample, and {meth}`~brisc.Pseudobulk.de` then fits a limma-voom model independently for each cell type. The model is written as an R formula. Each term is the name of a column in `obs`. brisc passes those columns to R's [`model.matrix`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/model.matrix.html), which turns the formula into a design matrix.
 
-How a column enters the matrix depends on its type. Numeric columns like `log2(num_cells)` go in unchanged. Categorical columns — here `cytokine` and `donor` — are split into *indicator* columns, each holding 1 for samples in its category and 0 otherwise. This is *treatment coding*: a column with N categories becomes N − 1 indicators, each named by joining the column and category with no separator, so `cytokine`'s `IFN-gamma` becomes `cytokineIFN-gamma`.
+How a column enters the matrix depends on its type. Numeric columns like `log2(num_cells)` go in unchanged. Categorical columns — here `cytokine` and `donor` — are split into multiple *indicator* columns, each holding 1 for samples in its category and 0 otherwise. Giving every category its own column is *one-hot encoding*; R uses the closely related *treatment coding*, which drops one category, so a column with N categories becomes N − 1 indicators. Each is named by joining the column and category with no separator, so `cytokine`'s `IFN-gamma` becomes `cytokineIFN-gamma`.
 
-Treatment coding leaves one category out — the *reference* — which the model folds into the intercept. For `cytokine` that's `PBS`, the first level of the Enum we built while loading, so the design has a `cytokineIFN-gamma` column but no `cytokinePBS` column. This is exactly what we want: the `cytokineIFN-gamma` coefficient measures IFN-gamma relative to PBS. `de` reports the first non-intercept coefficient by default, so the call needs nothing but the formula:
+The dropped category is the *reference*, which the model folds into the intercept. For `cytokine` that's `PBS`, the first level of the Enum we built while loading, so the design has a `cytokineIFN-gamma` column but no `cytokinePBS` column. This is exactly what we want: the `cytokineIFN-gamma` coefficient measures IFN-gamma relative to PBS. `de` reports the first non-intercept coefficient by default, so the call needs nothing but the formula:
 
 ```python
 pb = pb.library_size()
@@ -161,9 +167,26 @@ de = pb.de(
 ...
 ```
 
-In the formula, `cytokine` is the effect of interest, `donor` accounts for the paired donors, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. Because the effect of interest is categorical, `de` fits voom's mean–variance trend separately within each condition ([voomByGroup](https://pmc.ncbi.nlm.nih.gov/articles/PMC10160736/)) by default.
+In the formula, `cytokine` is the effect of interest, `donor` accounts for the fact that there are multiple donor individuals, and `log2(num_cells)` and `log2(library_size)` — recommended for every pseudobulk model — correct for the number of cells aggregated and for sequencing depth. Because the effect of interest is categorical, `de` fits voom's mean-variance trend separately within each condition (a method called [voomByGroup](https://pmc.ncbi.nlm.nih.gov/articles/PMC10160736/)) by default.
 
-`de` tests only the cell types that survived QC, so Plasmablast (dropped above) isn't among them. By default it also silently skips any surviving cell type it can't fit; pass `strict=True` to raise an error instead, or drop such cell types yourself with {meth}`~brisc.Pseudobulk.drop_cell_types`.
+`de` tests only the cell types that survived QC, so Plasmablast (dropped above) isn't among them. By default it also silently skips any surviving cell type where the differential expression model would fail to converge, e.g. due to having more covariates than samples; pass `strict=True` to raise an error instead, or drop such cell types yourself with {meth}`~brisc.Pseudobulk.drop_cell_types`.
+
+:::{dropdown} How R codes categorical and ordinal columns
+:name: de-factor-coding
+
+By default, R applies the treatment coding above ([`contr.treatment`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/contrast.html)) to String, Categorical, and Enum columns, and leaves numeric columns as-is. Two arguments change how a specific column is coded:
+
+- `ordinal_columns` — specifies columns whose levels have an order, like dose, timepoint, or severity. Instead of an indicator per category, R fits a trend across the levels ([`contr.poly`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/contrast.html)): a linear term (`column_name.L`), a quadratic term (`column_name.Q`), and so on, assuming the levels are evenly spaced. For example, a steady dose response shows up in `column_name.L`.
+- `categorical_columns` — specifies integer columns to treat as categorical (treatment-coded) instead of numeric.
+
+To change the coding globally instead, set R's `contrasts` option before calling `de` — to any of [R's contrast-coding schemes](https://stats.oarc.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/) (Helmert, sum-to-zero, and so on):
+
+```python
+from ryp import r
+r('options(contrasts = c(unordered = "contr.treatment", '
+  'ordered = "contr.helmert"))')
+```
+:::
 
 :::{dropdown} Other DE options
 - `group=False` uses a single mean-variance trend (plain voom) rather than voomByGroup.
@@ -171,15 +194,13 @@ In the formula, `cytokine` is the effect of interest, `donor` accounts for the p
 - `strict=True` errors on any cell type whose design matrix is rank-deficient or has too few samples to fit its coefficients — by default these cell types are silently skipped.
 - `return_voom_info=False` skips storing the voom weights and plot data, for lower memory and runtime when you don't need them.
 - `cell_types` and `excluded_cell_types` restrict testing to a subset of cell types.
-- `ordinal_columns` treats a column as ordered rather than categorical, polynomial-coding it ([`contr.poly`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/contrast.html)) into terms like `cytokine.L`.
+- `categorical_columns` and `ordinal_columns` change how specific columns are coded in the design matrix (see [the box above](#de-factor-coding)).
 - `formula`, `coefficient`, `contrasts`, and `group` can be dictionaries keyed by cell type, to allow different cell types to have different designs (e.g. when a covariate is present in only some cell types).
 :::
 
 ## Exploring the results
 
-The results are collected in a {class}`~brisc.DE` object. Its methods summarize them, and the full per-gene table is `de.table`.
-
-{meth}`~brisc.DE.get_num_hits` counts the significant genes (FDR < 0.05) in each cell type; cell types with no hits are omitted.
+The results are collected in a {class}`~brisc.DE` object. {meth}`~brisc.DE.get_num_hits` counts the significant genes (FDR < 0.05) in each cell type; cell types with no hits are omitted.
 
 ```python
 print(de.get_num_hits())
@@ -200,7 +221,7 @@ shape: (4, 2)
 
 B cells and monocytes respond most strongly, as expected for IFN-gamma; the other tested cell types show no hits at this significance threshold.
 
-{meth}`~brisc.DE.get_hits` returns the hits themselves; `num_top_hits` caps how many it reports per cell type. Each row is one gene in one cell type: `logFC` is the log2 fold change (the effect size), `SE` its standard error, `LCI`/`UCI` its 95% confidence interval, and `AveExpr` the gene's average expression in log CPM; `p`, `Bonferroni`, and `FDR` are the raw and corrected p-values, and `coefficient` names the tested effect.
+{meth}`~brisc.DE.get_hits` returns the hits themselves; the `num_top_hits` parameter caps how many it reports per cell type. Each row is one gene in one cell type: `logFC` is the log2 fold change (the effect size), `SE` its standard error, `LCI`/`UCI` its 95% confidence interval, and `AveExpr` the gene's average expression in log CPM; `p`, `Bonferroni`, and `FDR` are the raw and corrected p-values, and `coefficient` names the tested effect.
 
 ```python
 print(de.get_hits(num_top_hits=5))
@@ -265,10 +286,22 @@ shape: (5, 11)
 └───────────┴───────────────────┴─────────────────┴───────────┴──────────┴───────────┴───────────┴──────────┴───────────┴────────────┴──────────┘
 ```
 
+:::{dropdown} Saving the results
+A DE object can be written to a directory and read back later, so you don't have to re-run the model to revisit the results. {meth}`~brisc.DE.save` writes the table and any voom info, and {meth}`DE('directory') <brisc.DE.__init__>` reads it back:
+
+```python
+# save the results, including the voom weights and plot data
+de.save('de_results')
+
+# reload later, without re-running DE
+from brisc import DE
+de = DE('de_results')
+```
+:::
+
 :::{dropdown} Other result options
 - {meth}`~brisc.DE.plot_voom` draws the mean-variance trend that voom fits, with one curve per group when using voomByGroup.
 - `significance_column='Bonferroni'` or a lower `threshold` in `get_hits` and `plot_volcano` gives a stricter set of DE genes.
-- {meth}`~brisc.DE.save` writes the results (and voom info) to a directory; reload them later with {meth}`DE(directory) <brisc.DE.__init__>`.
 :::
 
 ## Differential expression with complex designs
@@ -277,7 +310,7 @@ The default coefficient reports one comparison — a single condition against th
 
 The interferons are a good example. The dataset has 90 cytokines, and the four type I interferons — IFN-alpha1, IFN-beta, IFN-epsilon, IFN-omega — all signal through the IFNAR receptor, while IFN-gamma (type II) signals through IFNGR. How do their responses differ? That asks for the *average* of the four type I coefficients minus the IFN-gamma coefficient — a combination no single coefficient can give, and just what `contrasts` is for.
 
-For those coefficients to exist, drop the intercept with `~ 0 + cytokine` so every interferon gets its own column. With an intercept, treatment coding leaves one level out as the reference, so it gets no column — and a contrast that names it fails with *"not the name of a column of the design matrix"*. Then name the comparison in the `contrasts` dictionary. brisc parses the expression itself, so the column names go in as written — backticked here only because the `-` in a name like `IFN-gamma` would otherwise read as subtraction:
+For those coefficients to exist, drop the intercept with `~ 0 + cytokine` so every interferon gets its own column. With an intercept, treatment coding leaves one level out as the reference, so it gets no column — and a contrast that names it would fail with *"not the name of a column of the design matrix"*. Then, specify the contrast using the `contrasts` argument. `contrasts` asks for a dictionary where the keys are the names of the contrasts (name them whatever you'd like; this only affects the name of the coefficient in the final DE object) and the values are strings containing mathematical formulas that reference columns of the design matrix. Note that unlike in R formulas, backticks are never required, even when referencing columns that would not be valid R variable names.
 
 ```python
 from brisc import SingleCell
@@ -297,13 +330,13 @@ pb = sc.pseudobulk('sample', 'cell_type')\
 
 de = pb.de(
     '~ 0 + cytokine + donor + log2(num_cells) + log2(library_size)',
-    contrasts={'type_I_vs_type_II':
-        '(`cytokineIFN-alpha1` + `cytokineIFN-beta`'
-        ' + `cytokineIFN-epsilon` + `cytokineIFN-omega`)/4'
-        ' - `cytokineIFN-gamma`'})
+    contrasts={'Type I vs II':
+        '(cytokineIFN-alpha1 + cytokineIFN-beta'
+        ' + cytokineIFN-epsilon + cytokineIFN-omega)/4'
+        ' - cytokineIFN-gamma'})
 ```
 
-The same form expresses any linear combination — one cytokine family against another, or several comparisons at once by adding more entries to the dictionary.
+The same approach can be used to express any linear combination of coefficients — one cytokine family against another, or several comparisons at once by adding more entries to the dictionary.
 
 ## Pipeline summary
 

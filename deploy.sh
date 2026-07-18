@@ -18,8 +18,9 @@ eval "$(~/miniforge3/bin/conda shell.bash hook)"
 conda activate brisc
 make clean html
 
-# Put the no-index files at the site root so the preview is never indexed.
-cp deploy/robots.txt deploy/_headers build/html/
+# Copy robots.txt (allow crawling) and _worker.js (pages.dev -> brisc.run
+# redirect, advanced-mode Pages Function) to the site root.
+cp deploy/robots.txt deploy/_worker.js build/html/
 
 # Same project name -> same https://$PROJECT.pages.dev URL, updated in place.
 npx --yes wrangler@latest pages deploy build/html \

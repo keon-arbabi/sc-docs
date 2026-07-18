@@ -67,15 +67,25 @@ html[data-theme="dark"] .bd-article code.literal {
 .bd-article a[href*="typedefs.html"]:hover em {
     text-decoration: underline;
 }
-/* Return-type / type cross-reference links (Returns: and Return type: fields)
-   render their type in emphasis, e.g. <a><em>SingleCell</em></a>. Style them
-   as code -- monospace, non-italic, type-colored -- to match the parameter
-   types above, instead of the bold italic prose-link default. */
+/* Type cross-reference links in field lists (parameter & return types) render
+   the type name in emphasis, e.g. <a><em>SingleCell</em></a>. Style them as
+   code -- monospace, non-italic, type-colored -- and let them keep the bold
+   weight of the surrounding link so linked type names stand out, matching the
+   parameter types. */
 .bd-article dl.field-list a.reference em {
     font-family: var(--pst-font-family-monospace);
     font-style: normal;
-    font-weight: 400;
     color: var(--code-purple) !important;
+}
+/* Return type value: Sphinx renders it as linked type names plus PLAIN-TEXT
+   operators/brackets (` | tuple[ … ]`), so styling only the <em>s (above)
+   would leave the operators in the grey body font. Colour the whole field
+   value as one monospace type expression, matching the parameter types.
+   (conf.py tags this <dd> with .rtype-field.) */
+.bd-article dl.field-list dd.rtype-field p {
+    font-family: var(--pst-font-family-monospace);
+    font-style: normal;
+    color: var(--code-purple);
 }
 /* Indent each parameter's description one level under its name. Targets all
    non-header children of the <li> so it works whether the description is a
@@ -184,6 +194,8 @@ html[data-theme="light"] {
     --pst-color-secondary: #c9542a;
     --pst-color-link: var(--pst-color-primary);
     --pst-color-link-hover: var(--pst-color-secondary);
+    /* links inside tables use the "higher contrast" variable; keep it orange too */
+    --pst-color-link-higher-contrast: var(--pst-color-primary);
 
     --code-red:    #e14775;
     --code-orange: #e16032;
@@ -210,6 +222,8 @@ html[data-theme="dark"] {
     --pst-color-secondary: #f7a48d;
     --pst-color-link: var(--pst-color-primary);
     --pst-color-link-hover: var(--pst-color-secondary);
+    /* links inside tables use the "higher contrast" variable; keep it orange too */
+    --pst-color-link-higher-contrast: var(--pst-color-primary);
 
     --code-red:    #f06883;
     --code-orange: #f38d70;
@@ -1395,16 +1409,23 @@ a.api-link:hover cite {
     text-decoration: underline;
 }
 
-/* Cross-reference links ({class}/{meth} roles) color their text on the inner
-   <code class="xref">, so on hover underline that element instead of the <a> —
-   like the typedef and api-link links — so the underline matches the link's
-   font color rather than the link's default color. */
-.bd-article p a:not(.headerlink):not(.api-link):has(> code.xref):hover,
-.bd-article li > p a:not(.headerlink):not(.api-link):has(> code.xref):hover {
+/* A link's hover underline must take the TEXT colour, not the <a>'s link
+   colour. Wherever the visible text sits in a coloured inline element -- a type
+   <em> (parameter/return types), an inline <code> chip (xref/meth roles or an
+   external link wrapping code), or a <cite> ref -- underline that element and
+   suppress the underline on the <a>. Links whose text sits directly in the <a>
+   keep the <a>'s own underline, which already matches. (api-link handled above;
+   it colours its inner span/cite the same way.) */
+.bd-article p a:not(.headerlink):not(.api-link):has(> em, > code, > cite):hover,
+.bd-article li > p a:not(.headerlink):not(.api-link):has(> em, > code, > cite):hover {
     text-decoration: none;
 }
-.bd-article p a:hover > code.xref,
-.bd-article li > p a:hover > code.xref {
+.bd-article p a:hover > em,
+.bd-article p a:hover > code,
+.bd-article p a:hover > cite,
+.bd-article li > p a:hover > em,
+.bd-article li > p a:hover > code,
+.bd-article li > p a:hover > cite {
     text-decoration: underline;
 }
 

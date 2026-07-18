@@ -12,7 +12,7 @@
   - Run pseudobulk differential expression between conditions with limma-voom.
 * - [Interoperability](interoperability.md)
   - Read and write the major single-cell file formats, or convert between tools in memory.
-* - [Data manipulation](data_manipulation.md)
+* - [Data Manipulation](data_manipulation.md)
   - Access and reshape datasets.
 :::
 

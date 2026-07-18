@@ -6,12 +6,22 @@ This tutorial walks through a standard single-cell analysis from start to finish
 
 We use a ~10 million cell cytokine stimulation dataset from [Parse Biosciences](https://www.parsebiosciences.com/datasets/10-million-human-pbmcs-in-a-single-experiment). Peripheral blood mononuclear cells (PBMCs) from twelve healthy donors were treated with either one of 90 different cytokines or a phosphate-buffered saline (PBS) control for 24 hours, yielding (90 + 1) × 12 = 1,092 experimental conditions.
 
-Download the data:
+Download the full single-cell object (~10M cells, 212 GB); the results shown below are for this dataset:
 
 ```python
 from subprocess import run
 run('wget -nc https://parse-wget.s3.us-west-2.amazonaws.com/10m/'
     'Parse_10M_PBMC_cytokines.h5ad',
+    shell=True)
+```
+
+Or a [subsampled version](https://huggingface.co/datasets/dashingcell/Parse_100K_PBMC_cytokines) (~100K cells, 1.5 GB) to follow along on a laptop or other memory-limited machine:
+
+```python
+from subprocess import run
+run('wget -nc https://huggingface.co/datasets/dashingcell/'
+    'Parse_100K_PBMC_cytokines/resolve/main/'
+    'Parse_100K_PBMC_cytokines.h5ad',
     shell=True)
 ```
 
@@ -32,7 +42,7 @@ sc = SingleCell(
     obs_columns=['sample', 'donor', 'cell_type', 'treatment', 'cytokine'])
 ```
 
-By default, loading uses all cores available on your machine, as detected by `os.cpu_count()`. You can change this via the `num_threads` parameter. `num_threads`also controls parallelism for every subsequent operation on the dataset. This can be overridden per step (e.g. `sc.pca(num_threads=8)`) or changed for the dataset as a whole (e.g. `sc.num_threads = 8` or `sc = sc.set_num_threads(8)`).
+By default, loading uses all cores available on your machine, as detected by `os.cpu_count()`. You can change this via the `num_threads` parameter. `num_threads` also controls parallelism for every subsequent operation on the dataset. This can be overridden per step (e.g. `sc.pca(num_threads=8)`) or changed for the dataset as a whole (e.g. `sc.num_threads = 8` or `sc = sc.set_num_threads(8)`).
 
 `obs_columns` loads only the named metadata columns; omit it to load all of them. For efficiency, we load just the columns used later in the workflow.
 
@@ -65,7 +75,7 @@ shape: (2, 2)
 ```
 
 :::{dropdown} Inspecting a file before loading
-{meth}`~brisc.SingleCell.ls` reports an `.h5ad` file's dimensions and structure without reading the data. This lets you decide which columns of  `obs`/`var` to load, and whether to load the count matrix from a custom location (see the `X_key` argument to {class}`~brisc.SingleCell`).
+{meth}`~brisc.SingleCell.ls` reports an `.h5ad` file's dimensions and structure without reading the data. This lets you decide which columns of `obs`/`var` to load, and whether to load the count matrix from a custom location (see the `X_key` argument to {class}`~brisc.SingleCell`).
 
 ```python
 SingleCell.ls('Parse_10M_PBMC_cytokines.h5ad')
@@ -169,7 +179,7 @@ sc = sc.qc(max_mito_fraction=0.10, min_genes=200, nonzero_MALAT1=False, allow_fl
 :::
 
 :::{dropdown} Removing doublets
-Brisc uses the fast [cxds algorithm](https://doi.org/10.1093/bioinformatics/btz698) for doublet detection. Doublet removal is off by default, and we skip it here because this dataset's doublets were already removed, and it would be invalid to perform doublet detection twice. To add doublet detection to the QC filtering, specify `remove_doublets=True`. Specify `batch_column` to perform doublet detection independently within each sequencing batch:
+brisc uses the fast [cxds algorithm](https://doi.org/10.1093/bioinformatics/btz698) for doublet detection. Doublet removal is off by default, and we skip it here because this dataset's doublets were already removed, and it would be invalid to perform doublet detection twice. To add doublet detection to the QC filtering, specify `remove_doublets=True`. Specify `batch_column` to perform doublet detection independently within each sequencing batch:
 
 ```python
 sc = sc.qc(remove_doublets=True, batch_column='sample', allow_float=True)
@@ -248,13 +258,11 @@ sc = sc.normalize()
 ```
 
 :::{note}
-On large datasets, pass `inplace=True` to normalize the counts in place instead of allocating a new count matrix, reducing the peak memory of this step:
+On large datasets, pass `inplace=True` to normalize the counts in place instead of allocating a new count matrix, reducing the peak memory of this step. In-place normalization requires a `float32` count matrix (as this dataset has) and raises an error for any other data type.
 
 ```python
 sc = sc.normalize(inplace=True)
 ```
-
-In-place normalization requires a `float32` count matrix (as this dataset has) and raises an error for any other data type.
 :::
 
 ## PCA
@@ -284,7 +292,7 @@ sc = sc.hvg(batch_column='donor')\
     .neighbors(PC_key='harmony')\
     .shared_neighbors()\
     .cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])\
-    .pacmap(PC_key='harmony')
+    .umap(PC_key='harmony')
 ```
 
 To integrate *separate* datasets — for example, mapping an annotated reference onto a query — see [Integration and Label Transfer](integration_and_label_transfer.md).
@@ -318,37 +326,27 @@ Each resolution adds a column to {attr}`~brisc.SingleCell.obs`: `cluster_0` thro
 
 ## Embedding
 
-brisc offers three embedding methods for visualization:
-
-- {meth}`~brisc.SingleCell.pacmap` — [PaCMAP](https://arxiv.org/abs/2012.04456), a relative of UMAP that captures global structure better. A fast default choice.
-- {meth}`~brisc.SingleCell.localmap` — [LocalMAP](https://arxiv.org/abs/2412.15426), a newer relative of PaCMAP that further sharpens local cluster separation.
-- {meth}`~brisc.SingleCell.umap` — the standard UMAP algorithm.
+To visualize the data, brisc embeds the cells in two dimensions. Most single-cell workflows use [UMAP](https://arxiv.org/abs/1802.03426):
 
 ```python
-sc = sc.pacmap()
+sc = sc.umap()
 ```
 
-Embeddings are stored as 2-column NumPy arrays in `obsm` (e.g. `obsm['pacmap']`). You can visualize any of them with {meth}`~brisc.SingleCell.plot_embedding`, passing the embedding key, a column to color by, and a filename to save to (or omit the filename to show the plot interactively instead):
+Embeddings are stored as 2-column NumPy arrays in `obsm` (here, `obsm['umap']`). {meth}`~brisc.SingleCell.plot_umap` colors the embedding by an `obs` column and saves it to a file, or shows it interactively if you omit the filename:
 
 ```python
-sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
+sc.plot_umap('cell_type', 'umap.png')
 ```
 
-:::{image} images/pacmap.png
-:alt: PaCMAP embedding colored by cell type
+:::{image} images/umap.png
+:alt: UMAP embedding colored by cell type
 :width: 70%
 :align: center
 :::
 
-brisc also provides {meth}`~brisc.SingleCell.plot_pacmap` as an alias for `sc.plot_embedding('pacmap', ...)`, and similarly for {meth}`~brisc.SingleCell.plot_localmap` and {meth}`~brisc.SingleCell.plot_umap`.
+UMAP is the slowest of brisc's embeddings, and there are two ways to go faster. To speed up UMAP itself, pass `hogwild=True`, which parallelizes its otherwise single-threaded optimization with [Hogwild!](https://arxiv.org/abs/1106.5730) gradient descent — much faster, but no longer reproducible, with runs varying slightly even at a fixed `seed`.
 
-:::{dropdown} Parallelizing UMAP
-UMAP's optimization runs single-threaded by default to keep the embedding reproducible. If you are okay with runs varying slightly even at a fixed `seed`, pass `hogwild=True` to parallelize UMAP with [Hogwild!](https://arxiv.org/abs/1106.5730) gradient descent:
-
-```python
-sc = sc.umap(hogwild=True)
-```
-:::
+Or switch to a faster method: {meth}`~brisc.SingleCell.pacmap` ([PaCMAP](https://arxiv.org/abs/2012.04456)), a relative of UMAP that also captures global structure better, or {meth}`~brisc.SingleCell.localmap` ([LocalMAP](https://arxiv.org/abs/2412.15426)), a newer relative of PaCMAP that further sharpens local cluster separation. Each has its own plotter — {meth}`~brisc.SingleCell.plot_pacmap` and {meth}`~brisc.SingleCell.plot_localmap`.
 
 ## Marker genes
 
@@ -475,9 +473,9 @@ sc = SingleCell('Parse_10M_PBMC_cytokines.h5ad', num_threads=-1)\
     .neighbors()\
     .shared_neighbors()\
     .cluster(resolution=[0.25, 0.5, 1.0, 1.5, 2.0])\
-    .pacmap()
+    .umap()
 
-sc.plot_embedding('pacmap', 'cell_type', 'pacmap.png')
+sc.plot_umap('cell_type', 'umap.png')
 markers = sc.find_markers('cell_type')
 top = markers.group_by('cell_type', maintain_order=True).head(3)
 sc.plot_markers(top['gene'], 'cell_type', 'markers.png')
@@ -494,8 +492,8 @@ sc.save('Parse_10M_PBMC_cytokines_processed.h5ad', overwrite=True)
 | Neighbors | {meth}`sc.neighbors() <brisc.SingleCell.neighbors>` | Find each cell's nearest neighbors |
 | Shared neighbors | {meth}`sc.shared_neighbors() <brisc.SingleCell.shared_neighbors>` | Build the shared nearest neighbor graph |
 | Clustering | {meth}`sc.cluster() <brisc.SingleCell.cluster>` | Cluster with Leiden at one or more resolutions |
-| Embedding | {meth}`sc.pacmap() <brisc.SingleCell.pacmap>`, {meth}`sc.localmap() <brisc.SingleCell.localmap>`, or {meth}`sc.umap() <brisc.SingleCell.umap>` | Embed in 2D for visualization (PaCMAP, LocalMAP, or UMAP) |
-| Plot embedding | {meth}`sc.plot_embedding() <brisc.SingleCell.plot_embedding>` (or {meth}`sc.plot_pacmap() <brisc.SingleCell.plot_pacmap>`, {meth}`sc.plot_localmap() <brisc.SingleCell.plot_localmap>`, {meth}`sc.plot_umap() <brisc.SingleCell.plot_umap>`) | Plot an embedding |
+| Embedding | {meth}`sc.umap() <brisc.SingleCell.umap>`, {meth}`sc.pacmap() <brisc.SingleCell.pacmap>`, or {meth}`sc.localmap() <brisc.SingleCell.localmap>` | Embed in 2D for visualization (UMAP, PaCMAP, or LocalMAP) |
+| Plot embedding | {meth}`sc.plot_umap() <brisc.SingleCell.plot_umap>`, {meth}`sc.plot_pacmap() <brisc.SingleCell.plot_pacmap>`, or {meth}`sc.plot_localmap() <brisc.SingleCell.plot_localmap>` | Plot an embedding |
 | Markers | {meth}`sc.find_markers() <brisc.SingleCell.find_markers>` | Find marker genes for each cell type |
 | Plot markers | {meth}`sc.plot_markers() <brisc.SingleCell.plot_markers>` | Draw a dot plot of marker genes |
 | Save | {meth}`sc.save() <brisc.SingleCell.save>` | Write to `.h5ad`, `.rds`, `.h5Seurat`, `.h5`, `.mtx`, or `.mtx.gz` |

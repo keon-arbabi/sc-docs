@@ -1,5 +1,7 @@
 # Interoperability
 
+This tutorial covers interoperability with the wider single-cell ecosystem: reading and writing the major on-disk formats — scverse/Scanpy `.h5ad`, Seurat `.rds`/`.h5Seurat`, Bioconductor SingleCellExperiment `.rds`, and raw 10x Genomics data — and converting between brisc, AnnData, Seurat, and SingleCellExperiment objects in memory, so you can interleave Python and R tools in a single analysis without writing intermediate files to disk.
+
 :::{note}
 Reading, writing, and converting Seurat and SingleCellExperiment data goes through R via [ryp](https://github.com/Wainberg/ryp), which needs the **Seurat** and **SingleCellExperiment** R packages. Install them before running those sections — see [Installation → R packages](../installation.md#r-packages).
 :::
@@ -8,9 +10,9 @@ Reading, writing, and converting Seurat and SingleCellExperiment data goes throu
 
 brisc can interface with files and objects from all three major single-cell ecosystems:
 
-- **scverse/Scanpy** -- AnnData `.h5ad` files and in-memory AnnData objects
-- **Seurat** -- `.rds` and `.h5Seurat` files, plus in-memory Seurat objects via the ryp Python-R bridge
-- **Bioconductor** -- SingleCellExperiment `.rds` files and in-memory SCE objects via ryp
+- **scverse/Scanpy** — AnnData `.h5ad` files and in-memory AnnData objects
+- **Seurat** — `.rds` and `.h5Seurat` files, plus in-memory Seurat objects via the ryp Python-R bridge
+- **Bioconductor** — SingleCellExperiment `.rds` files and in-memory SCE objects via ryp
 
 as well as raw 10x Genomics data (`.h5` or `.mtx`/`.mtx.gz`).
 
@@ -157,7 +159,7 @@ adata = sc_data.to_scanpy()
 :::{note}
 The count matrix is shared, not copied. Modifying `adata.X` will also modify the original SingleCell dataset. To avoid this, use `sc_data.copy().to_scanpy()`.
 
-There is no `from_scanpy()` method -- {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` serves that purpose.
+There is no `from_scanpy()` method — {meth}`SingleCell(adata) <brisc.SingleCell.__init__>` serves that purpose.
 :::
 
 ### Constructing from scratch

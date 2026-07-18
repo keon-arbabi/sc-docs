@@ -1,4 +1,6 @@
-# Data manipulation
+# Data Manipulation
+
+This tutorial is a reference for the operations brisc provides on its datasets: inspecting a dataset, accessing its pieces, subsetting by cells or genes, editing cell and gene metadata, working with the count matrix, summarizing, combining datasets, and pseudobulking.
 
 ## Inspecting
 
@@ -148,13 +150,13 @@ sc = sc.join_obs(donor_meta, on='donor')
 sc = sc.join_var(gene_meta, on='gene_id')
 ```
 
-Set or de-duplicate cell/gene names:
+Set or deduplicate cell/gene names:
 
 ```python
 # set a column as the cell names (String, Enum, Categorical, or integer)
 sc = sc.set_obs_names('sample')
 
-# de-duplicate cell/gene names (appends -1, -2, … to duplicates)
+# deduplicate cell/gene names (appends -1, -2, … to duplicates)
 sc = sc.make_obs_names_unique()
 sc = sc.make_var_names_unique()
 ```
